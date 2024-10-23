@@ -1,0 +1,328 @@
+<div class="d-flex justify-content-between align-items-center mt-1 mb-1 px-5">
+  <div class="d-flex">
+    <div class="input-group me-4 search">
+      <span class="input-group-text">
+        <mat-icon class="custom-icon mat-icon-small text-black"
+          >search</mat-icon
+        >
+      </span>
+      <input type="text" placeholder="Search here..." class="form-control" />
+      <select
+        *ngIf="isCustomer || isVendor || isLedgerGroupRoute || isSubLedgerRoute"
+        class="form-select pe-0 ps-2 me-3"
+      >
+        <option>Name</option>
+        <option>Address</option>
+        <option>Phone</option>
+        <option>Email</option>
+      </select>
+
+      <select *ngIf="isGeneralLedgerRoute" class="form-select pe-0 ps-2 me-3">
+        <option>Account Name</option>
+        <option>Accounts Code</option>
+        <option>Accounts Type</option>
+        <option>Group Name</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="d-flex me-0">
+    <div *ngIf="isCustomer" class="customer-type d-flex row align-items-center">
+      <select class="select-dropdown pe-0 ps-2 me-5">
+        <option>All Customer</option>
+        <option>Active Customer</option>
+        <option>Inactive Customer</option>
+      </select>
+    </div>
+
+    <div *ngIf="isVendor" class="customer-type d-flex row align-items-center">
+      <select class="select-dropdown pe-0 ps-2 me-5">
+        <option>All Vendor</option>
+        <option>Active Vendor</option>
+        <option>Inactive Vendor</option>
+      </select>
+    </div>
+
+    <div
+      *ngIf="isLedgerGroupRoute"
+      class="customer-type d-flex row align-items-center"
+    >
+      <select class="select-dropdown pe-0 ps-2 me-5">
+        <option>All Ledger Group</option>
+        <option>Active Ledger Group</option>
+        <option>Inactive Ledger Group</option>
+      </select>
+    </div>
+
+    <div
+      *ngIf="isSubLedgerRoute"
+      class="customer-type d-flex row align-items-center"
+    >
+      <select class="select-dropdown pe-0 ps-2 me-5">
+        <option>All Sub-Ledger</option>
+        <option>Active Sub-Ledger</option>
+        <option>Inactive Sub-Ledger</option>
+      </select>
+    </div>
+
+    <div *ngIf="isGeneralLedgerRoute" class="dropdown me-5">
+      <button
+        class="btn dropdown-toggle ps-3 pe-4"
+        type="button"
+        id="accountsDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        All Accounts
+      </button>
+
+      <ul
+        class="dropdown-menu py-1"
+        aria-labelledby="accountsDropdown"
+        style="max-height: 160px; overflow-y: auto; overflow-x: hidden"
+      >
+        <input type="text" placeholder="Search" class="search-form" />
+
+        <li>
+          <a class="dropdown-item px-1 py-2">
+            <div class="d-flex">
+              <label class="ms-2"> Active Accounts</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item px-1 py-2">
+            <div class="d-flex">
+              <label class="ms-2"> Inactive Accounts</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item px-1 py-2">
+            <div class="d-flex">
+              <label class="ms-2"> Liability Accounts</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item px-1 py-2">
+            <div class="d-flex">
+              <label class="ms-2"> Equity Accounts</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item px-1 py-2">
+            <div class="d-flex">
+              <label class="ms-2"> Direct Income Accounts</label>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="dropdown me-5">
+      <button
+        class="btn dropdown-toggle ps-3 pe-4"
+        type="button"
+        id="optionsDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Options
+      </button>
+      <ul class="dropdown-menu py-1" aria-labelledby="optionsDropdown">
+        <li class="dropdown-submenu">
+          <a class="dropdown-item p-1">
+            <div class="d-flex">
+              <mat-icon class="mat-icon-small"> import_export</mat-icon>
+              <label class="ms-2"> Sort by</label>
+            </div>
+          </a>
+          <!-- Nested Dropdown Menu -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item">Last Modified Time</a></li>
+            <li>
+              <a *ngIf="isCustomer" class="dropdown-item">Customer Name</a>
+            </li>
+            <li>
+              <a *ngIf="isVendor" class="dropdown-item">Vendor Name</a>
+            </li>
+            <li>
+              <a *ngIf="isGeneralLedgerRoute" class="dropdown-item"
+                >Account Name
+              </a>
+            </li>
+            <li>
+              <a *ngIf="isLedgerGroupRoute" class="dropdown-item"
+                >Group Name
+              </a>
+            </li>
+            <li>
+              <a *ngIf="isSubLedgerRoute" class="dropdown-item"
+                >Sub Ledger Name
+              </a>
+            </li>
+            <li>
+              <a *ngIf="isCustomer || isVendor" class="dropdown-item"
+                >Address</a
+              >
+            </li>
+            <li>
+              <a *ngIf="isGeneralLedgerRoute" class="dropdown-item"
+                >Account Type</a
+              >
+            </li>
+            <li>
+              <a *ngIf="isLedgerGroupRoute" class="dropdown-item"
+                >Parent Group</a
+              >
+            </li>
+            <li>
+              <a *ngIf="isSubLedgerRoute" class="dropdown-item"
+                >Has Main Ledger</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a class="dropdown-item p-1">
+            <div class="d-flex">
+              <mat-icon class="mat-icon-small">upload</mat-icon>
+              <label class="ms-2"> Export Customer</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-1 border-bottom border-secondary">
+            <div class="d-flex">
+              <mat-icon class="mat-icon-small">downloading</mat-icon>
+              <label class="ms-2">Import Customer</label>
+            </div>
+          </a>
+        </li>
+
+        <li>
+          <a class="dropdown-item p-1">
+            <div class="d-flex">
+              <mat-icon class="mat-icon-small">settings</mat-icon>
+              <label class="ms-2"> Preferences </label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-1">
+            <div class="d-flex">
+              <mat-icon class="mat-icon-small">autorenew</mat-icon>
+              <label class="ms-2"> Refresh List </label>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="isGeneralLedgerRoute" class="dropdown me-5">
+      <button
+        class="btn custom-btn dropdown-toggle ps-3 pe-4"
+        type="button"
+        id="createDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        + &nbsp; Add New
+      </button>
+
+      <ul class="dropdown-menu py-1" aria-labelledby="createDropdown">
+        <li>
+          <a class="dropdown-item p-2" href="/new-ledger">
+            <div class="d-flex">
+              <label class="ms-2"> Add New Ledger</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-2">
+            <div class="d-flex">
+              <label class="ms-2"> Add New Vendor</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-2">
+            <div class="d-flex">
+              <label class="ms-2"> Add New Customer</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-2">
+            <div class="d-flex">
+              <label class="ms-2"> Add New Ledger Group</label>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="isLedgerGroupRoute || isSubLedgerRoute" class="dropdown me-5">
+      <button
+        class="btn custom-btn dropdown-toggle ps-3 pe-4"
+        type="button"
+        id="addLedgerDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        + &nbsp; Add New
+      </button>
+
+      <ul class="dropdown-menu py-1" aria-labelledby="addLedgerDropdown">
+        <li>
+          <a
+            class="dropdown-item p-2"
+            *ngIf="isLedgerGroupRoute"
+            href="/new-ledger-group"
+          >
+            <div class="d-flex">
+              <label class="ms-2"> Add New Ledger Group</label>
+            </div> </a
+          ><a
+            class="dropdown-item p-2"
+            *ngIf="isSubLedgerRoute"
+            href="/new-sub-ledger"
+          >
+            <div class="d-flex">
+              <label class="ms-2"> Add New Sub Ledger</label>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item p-2" href="/new-ledger">
+            <div class="d-flex">
+              <label class="ms-2"> Add New Ledger</label>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      *ngIf="isCustomer"
+      class="d-flex align-items-center btn px-2"
+      id="create"
+      (click)="navigateToCreateCustomer()"
+    >
+      <i class="material-icons">add</i>
+      <span>Create Customer</span>
+    </button>
+
+    <button
+      *ngIf="isVendor"
+      class="d-flex align-items-center btn px-2"
+      id="create"
+      (click)="navigateToCreateVendor()"
+    >
+      <i class="material-icons">add</i>
+      <span>Create Vendor</span>
+    </button>
+  </div>
+</div>

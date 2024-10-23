@@ -1,0 +1,102 @@
+<div class="container">
+  <form [formGroup]="vendorAdditionalInfoForm">
+    <div class="row d-flex align-items-center mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="category" class="form-label">Category</label>
+      </div>
+      <div class="col-11 col-md-4">
+        <select
+          id="category"
+          class="form-select px-2 py-1"
+          formControlName="Category"
+          type="text"
+        ></select>
+      </div>
+    </div>
+
+    <div class="row mt-3 mb-2">
+      <div class="col-11 col-md-4 offset-md-2">
+        <input type="checkbox" formControlName="CustomerVendor" />Create As Both
+        Customer And Vendor
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-center mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="vendorType" class="form-label">Vendor Type</label>
+      </div>
+      <div class="col-11 col-md-4">
+        <select
+          id="vendorType"
+          class="form-select px-2 py-1"
+          formControlName="VendorType"
+          type="text"
+        ></select>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-2 mt-2">
+      <label for="credit-terms" class="form-label-header">Credit Terms</label>
+    </div>
+
+    <div class="row d-flex align-items-center mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="creditLimit" class="form-label">Credit Limit</label>
+      </div>
+      <div class="col-11 col-md-4">
+        <input
+          type="number"
+          id="creditLimit"
+          class="form-control px-2 py-1"
+          formControlName="CreditLimit"
+          placeholder="0.00"
+        />
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-center mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="creditDays" class="form-label">Credit Days</label>
+      </div>
+      <div class="col-11 col-md-4">
+        <input
+          type="number"
+          id="creditDays"
+          class="form-control px-2 py-1"
+          formControlName="CreditDays"
+          placeholder="0"
+        />
+      </div>
+    </div>
+
+    <div class="row align-items-center my-3">
+      <div class="col-11 col-md-2 offset-md-2">
+        <input type="checkbox" formControlName="ContractPrice" />Enable Contract
+        Price
+      </div>
+      <div class="col-11 col-md-4" style="margin-left: -10px">
+        <select
+          id="contractPrice"
+          class="form-control px-2 py-1"
+          formControlName="SelectContractPrice"
+          placeholder="Select Contract
+          Price"
+        ></select>
+      </div>
+    </div>
+
+    <div class="row d-flex align-items-center mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="vendorStatus" class="form-label">VendorStatus</label>
+      </div>
+      <div class="col-11 col-md-4">
+        <select
+          id="vendorStatus"
+          class="form-select px-2 py-1"
+          formControlName="VendorStatus"
+          type="text"
+        ></select>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,72 @@
+<div class="container modal-sticky shadow bg-white rounded" *ngIf="isActive">
+  <div class="py-2 row col-md-12 text-white" style="background-color: #336799;">
+    <div class="col-md-6 px-2">
+      <h4 class="mb-0">{{popupsettings.title}}</h4>
+    </div>
+    <div class="pe-1 col-md-6 d-flex justify-content-end">
+      <mat-icon (click)="close()" class="mat-icon-small" style="cursor: pointer;">cancel</mat-icon>
+    </div>
+  </div>
+  <div class="py-2 row col-md-12 text-white">
+    <div class="col-md-6">
+      <div class="row d-flex align-items-center mt-3">
+        <div class="col-11 col-md-6">
+          <select
+            id="salesman"
+            class="form-select px-2 py-1"
+            type="text"
+            [(ngModel)]="filterOption"
+          >
+          <option value="" selected>Select Filter Option</option>
+                              <ng-container *ngFor="let item of popupsettings.columns">
+                                <option *ngIf="!item.noSearch" [value]="item.key">{{
+                                  item.title
+                                }}</option>
+                              </ng-container>
+        </select>
+        </div>
+        <div class="col-12 col-md-6">
+          <input
+            type="email"
+            id="email"
+            class="form-control px-2 py-1"
+            placeholder="Enter Keyword to search"
+          />
+        </div>
+      </div>
+      <table mat-table [dataSource]="dataSource">
+    
+        <!-- Loop through displayedColumns to create dynamic headers and cells -->
+        <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.keys!">
+          <th mat-header-cell *matHeaderCellDef> {{ column.columns }} </th>
+          <ng-container *ngIf="column.keys == 'IsDefault'; else defaultCell">
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" mat-checkbox [checked]="element[column.keys]"></td>
+          </ng-container>
+          <ng-template #defaultCell>
+            <td mat-cell *matCellDef="let element"> {{ element[column.keys!] }} </td>
+          </ng-template>
+        </ng-container>
+      
+        <!-- Dynamic row definitions -->
+        <tr mat-header-row *matHeaderRowDef="columnKeys"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnKeys"></tr>
+      
+      </table>
+      <mat-paginator [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  aria-label="Select page">
+    </mat-paginator>
+    </div>
+    <div class="shadow rounded col-md-6 py-2 text-black">
+      <h3 class="m-2"><b>IMS Terms and Condition 1</b></h3>
+      <div class="border-bottom"></div>
+      <div>
+        <p class="p-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+      </div>
+      <button class="btn btn-primary">Ok</button>
+    </div>
+
+  </div>
+</div>

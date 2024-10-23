@@ -1,0 +1,61 @@
+table {
+  width: 100%;
+}
+.table-container {
+  padding: 0 3rem;
+}
+
+tr.mat-header-row{
+  height: 40px;
+}
+
+tr:nth-child(even) {
+  background-color: #f6f6f6f5;
+  padding: 0px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+  padding-bottom: 0px;
+}
+
+.mat-menu-item {
+  padding: 0px 5px;
+  height: 35px;
+}
+
+.input-group .input-group-text {
+  background-color: #f6f6f6;
+  border-radius: 4px;
+}
+
+.form-control {
+  border-left: none;
+  padding-right: 80px;
+}
+
+.mat-checkbox {
+  padding: 5px;
+}
+
+#save {
+  background-color: rgba(64, 129, 191, 1);
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+#back {
+  color: rgba(51, 103, 153, 1);
+  border: 1px solid rgba(51, 103, 153, 1);
+  font-size: 14px;
+}
+.modal-sticky {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  width: 65%;
+  height: auto;
+  z-index: 9999999;
+}

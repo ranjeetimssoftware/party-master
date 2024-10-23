@@ -1,0 +1,89 @@
+label,
+input[type="select"],
+input[type="text"],
+a {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.custom-icon {
+  font-size: 20px;
+  margin-right: -10px;
+}
+
+.input-group .input-group-text {
+  background-color: white;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.form-control {
+  border-left: none;
+  padding-right: 120px;
+}
+
+.form-control:focus,
+.form-select:focus,
+.select-dropdown:focus {
+  box-shadow: none !important;
+  border-color: #ced4da;
+  outline: none;
+}
+
+.search .form-select {
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.search-form {
+  margin: 0 5px;
+  padding: 5px;
+  border: none;
+  background-color: #ebebeb;
+  border-radius: 4px;
+}
+
+.search-form:focus {
+  outline: none;
+}
+
+.select-dropdown {
+  font-size: 14px;
+  border: none;
+  width: auto;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #4081bf;
+  color: white;
+}
+
+/* Enable the nested dropdown to open on hover */
+.dropdown-menu > li:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  right: 100%;
+  margin-right: 5px;
+}
+.custom-btn {
+  background-color: #4081bf;
+  color: white;
+  font-size: 14px;
+}
+#create {
+  background-color: rgba(64, 129, 191, 1);
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+#create:hover {
+  background-color: rgba(51, 104, 153, 0.675);
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 200;
+}

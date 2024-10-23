@@ -1,0 +1,244 @@
+<!-- Tablle for Customer and Vendor -->
+<div *ngIf="isCustomer || isVendor" class="table-container">
+  <table mat-table [dataSource]="customerVendorDataSource">
+    <ng-container matColumnDef="filter">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px; padding: 4px">
+        <mat-icon
+          [matMenuTriggerFor]="filterMenu"
+          style="transform: rotate(90deg); font-weight: 400; color: black"
+          >menu</mat-icon
+        >
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <!-- No data for this column -->
+      </td>
+    </ng-container>
+
+    <mat-menu #filterMenu="matMenu" class="customize-columns-menu">
+      <div style="padding: 10px; min-width: 230px">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center">
+          <span>Customize Columns</span>
+          <button mat-icon-button (click)="(filterMenu)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <!-- Checkbox List -->
+        <mat-checkbox *ngIf="isCustomer">Customer Name</mat-checkbox>
+        <mat-checkbox *ngIf="isVendor">Vendor Name</mat-checkbox>
+        <br />
+        <mat-checkbox>Address</mat-checkbox><br />
+        <mat-checkbox>VAT</mat-checkbox><br />
+        <mat-checkbox>Contact No</mat-checkbox><br />
+        <mat-checkbox>Email</mat-checkbox><br />
+
+        <!-- Save and Back buttons -->
+        <div class="d-flex justify-content-evenly mt-3">
+          <button class="btn btn-sm" id="save">SAVE</button>
+          <button class="btn btn-sm" id="back">BACK</button>
+        </div>
+      </div>
+    </mat-menu>
+
+    <!-- SN Column -->
+    <ng-container matColumnDef="sn">
+      <th mat-header-cell *matHeaderCellDef>SN</th>
+      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+    </ng-container>
+
+    <!-- Customer Name Column -->
+    <ng-container *ngIf="isCustomer" matColumnDef="customername">
+      <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.customername }}</td>
+    </ng-container>
+
+    <!-- Vendor Name Column -->
+    <ng-container *ngIf="isVendor" matColumnDef="vendorname">
+      <th mat-header-cell *matHeaderCellDef>Vendor Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.vendorname }}</td>
+    </ng-container>
+
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+    </ng-container>
+
+    <!-- Contact Column -->
+    <ng-container matColumnDef="contact">
+      <th mat-header-cell *matHeaderCellDef>Contact</th>
+      <td mat-cell *matCellDef="let element">{{ element.contact }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <!-- Vat No Column -->
+    <ng-container matColumnDef="vatno">
+      <th mat-header-cell *matHeaderCellDef>Vat No</th>
+      <td mat-cell *matCellDef="let element">{{ element.vatno }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        <p><mat-slide-toggle class="custom-toggle"></mat-slide-toggle></p>
+      </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          style="border: none; background-color: transparent"
+        >
+          <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        </button>
+      </td>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>View</button>
+        <button mat-menu-item>Edit</button>
+        <button mat-menu-item>Delete</button>
+        <button mat-menu-item>Mark as Inactive</button>
+      </mat-menu>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<!-- Table for chart of account -->
+<div
+  *ngIf="isGeneralLedger || isLedgerGroup || isSubLedger"
+  class="table-container"
+>
+  <table mat-table [dataSource]="chartofAccountDataSource">
+    <ng-container matColumnDef="filter">
+      <th mat-header-cell *matHeaderCellDef style="width: 50px; padding: 4px">
+        <mat-icon
+          style="transform: rotate(90deg); font-weight: 400; color: black"
+          >menu</mat-icon
+        >
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <!-- No data for this column -->
+      </td>
+    </ng-container>
+
+    <!-- SN Column -->
+    <ng-container matColumnDef="sn">
+      <th mat-header-cell *matHeaderCellDef>SN</th>
+      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+    </ng-container>
+
+    <!-- Account Name Column -->
+    <ng-container *ngIf="isGeneralLedger" matColumnDef="accountname">
+      <th mat-header-cell *matHeaderCellDef>Account Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.accountname }}</td>
+    </ng-container>
+
+    <!-- Group Name Column -->
+    <ng-container *ngIf="isLedgerGroup" matColumnDef="groupname">
+      <th mat-header-cell *matHeaderCellDef>Group Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.groupname }}</td>
+    </ng-container>
+
+    <!-- Sub-Ledger Name Column -->
+    <ng-container *ngIf="isSubLedger" matColumnDef="subledgername">
+      <th mat-header-cell *matHeaderCellDef>Sub-Ledger Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.subledgername }}</td>
+    </ng-container>
+
+    <!-- Account Code Column -->
+    <ng-container *ngIf="isGeneralLedger" matColumnDef="accountcode">
+      <th mat-header-cell *matHeaderCellDef>Account Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.accountcode }}</td>
+    </ng-container>
+
+    <!-- Account Type Column -->
+    <ng-container
+      *ngIf="isGeneralLedger || isLedgerGroup"
+      matColumnDef="accounttype"
+    >
+      <th mat-header-cell *matHeaderCellDef>Account Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.accounttype }}</td>
+    </ng-container>
+
+    <!-- Parent Group Column -->
+    <ng-container
+      *ngIf="isGeneralLedger || isLedgerGroup"
+      matColumnDef="parentgroup"
+    >
+      <th mat-header-cell *matHeaderCellDef>Parent Group</th>
+      <td mat-cell *matCellDef="let element">{{ element.parentgroup }}</td>
+    </ng-container>
+
+    <!--Main Group Column -->
+    <ng-container *ngIf="isGeneralLedger" matColumnDef="maingroup">
+      <th mat-header-cell *matHeaderCellDef>Main Group</th>
+      <td mat-cell *matCellDef="let element">{{ element.maingroup }}</td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container *ngIf="isGeneralLedger" matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    </ng-container>
+
+    <!-- Has Main Ledger Column -->
+    <ng-container *ngIf="isSubLedger" matColumnDef="hasmainledger">
+      <th mat-header-cell *matHeaderCellDef>Has Main Ledger</th>
+      <td mat-cell *matCellDef="let element">{{ element.hasmainledger }}</td>
+    </ng-container>
+
+    <!-- Main Ledger Column -->
+    <ng-container *ngIf="isSubLedger" matColumnDef="mainledger">
+      <th mat-header-cell *matHeaderCellDef>Main Ledger</th>
+      <td mat-cell *matCellDef="let element">{{ element.mainledger }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container *ngIf="isGeneralLedger" matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let element">
+        <p><mat-slide-toggle class="custom-toggle"></mat-slide-toggle></p>
+      </td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container
+      *ngIf="isGeneralLedger || isLedgerGroup || isSubLedger"
+      matColumnDef="action"
+    >
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          style="border: none; background-color: transparent"
+        >
+          <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        </button>
+      </td>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>View</button>
+        <button mat-menu-item>Edit</button>
+        <button mat-menu-item>Delete</button>
+        <button mat-menu-item>Mark as Inactive</button>
+      </mat-menu>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedChartofAccountColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedChartofAccountColumns"
+    ></tr>
+  </table>
+</div>

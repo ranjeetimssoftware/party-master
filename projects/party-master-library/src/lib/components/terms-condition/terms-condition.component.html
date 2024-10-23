@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="col-12 col-md-2">
+      <label for="creditLimit" class="form-label">Term And Condition</label>
+    </div>
+    <div class="col-11 col-md-4">
+      <input
+        type="text"
+        id="creditLimit"
+        class="form-control px-2 py-1"
+        (keydown.Enter)="onEnterTermAndCondition()"
+        placeholder="Press Enter to Select"
+      />
+    </div>
+  </div>
+</div>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- SN Column -->
+    <ng-container matColumnDef="sn">
+      <th mat-header-cell *matHeaderCellDef>SN</th>
+      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.Description }}</td>
+    </ng-container>
+  
+    <!-- Contact Column -->
+    <ng-container matColumnDef="IsDefault">
+      <th mat-header-cell *matHeaderCellDef>Is Default</th>
+      <td mat-cell *matCellDef="let element">{{ element.IsDefault }}</td>
+    </ng-container>
+  
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          style="border: none; background-color: transparent"
+        >
+          <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+        </button>
+      </td>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onViewTerms()">View</button>
+        <button mat-menu-item>Remove</button>
+      </mat-menu>
+    </ng-container>
+  
+    <!-- Header and Data Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <!-- Input Row: Place outside of the actual table rows -->
+    <tr>
+      <!-- Name Input -->
+      <td>
+        <input matInput placeholder="Address" [(ngModel)]="newRow.Description"/>
+      </td>
+      <!-- Contact Input -->
+      <td>
+        <input matInput placeholder="Contact Person" [(ngModel)]="newRow.IsDefault"/>
+      </td>
+    </tr>  
+  </table>
+  </div>
+
+  <div *ngIf="viewTerms" class="position-absolute bg-white custom-position">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header class="justify-content-between border-bottom">
+        <mat-card-title>IMS Terms And Condition 1</mat-card-title>
+        <mat-icon class="mat-icon-small" (click)="onViewTerms()">cancel</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="p-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <multiselect-generic-grid #genericMultiSelectTermsAndCondition [popupsettings]="gridPopupSettingsForTermsAndCondition"></multiselect-generic-grid>
