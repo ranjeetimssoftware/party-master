@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Sub Ledger</h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn me-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
     <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -14,7 +14,7 @@
       <div class="col-md-9">
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="subLedgerName" class="form-label me-2"
+            <label for="subLedgerName" class="form-label mr-2"
               >Sub Ledger Name<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@
 
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="panNo" class="form-label me-2">
+            <label for="panNo" class="form-label mr-2">
               PAN No
               <span class="star mx-2">*</span>
             </label>
@@ -78,15 +78,19 @@
         </div>
 
         <div class="row mt-3 mb-3">
-          <div class="col-11 col-md-4 offset-md-3">
-            <input type="checkbox" formControlName="hasMainLedger" />
+          <div class="col-12 col-md-8 offset-md-3">
+            <input
+              type="checkbox"
+              formControlName="hasMainLedger"
+              class="mr-2"
+            />
             Has Main Ledger
           </div>
         </div>
 
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="mainLedgerName" class="form-label me-2"
+            <label for="mainLedgerName" class="form-label mr-2"
               >Main Ledger Name<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@
       <div class="col-11 col-md-4">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="MenuCategory"
           type="text"
         ></select>
@@ -21,8 +21,10 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-2 my-4">
-      <label for="credit-terms" class="form-label-header">Credit Terms</label>
+    <div class="row mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="credit-terms" class="form-label-header">Credit Terms</label>
+      </div>
     </div>
 
     <div class="row d-flex align-items-center mt-3 mb-2">
@@ -57,14 +59,17 @@
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsOverseas"/>Is Overseas Customer
+        <input type="checkbox" formControlName="IsOverseas" />Is Overseas
+        Customer
       </div>
     </div>
 
-    <div class="col-12 col-md-2 my-4">
-      <label for="credit-location" class="form-label-header">
-        Customer Location
-      </label>
+    <div class="row mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="credit-location" class="form-label-header">
+          Customer Location
+        </label>
+      </div>
     </div>
 
     <div class="row d-flex align-items-center mt-3 mb-2">
@@ -74,7 +79,7 @@
       <div class="col-11 col-md-4">
         <select
           id="area"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Area"
           type="text"
         ></select>
@@ -88,7 +93,7 @@
       <div class="col-11 col-md-4">
         <select
           id="province"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Province"
           type="text"
         ></select>
@@ -102,7 +107,7 @@
       <div class="col-11 col-md-4">
         <select
           id="district"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="District"
           type="text"
         ></select>
@@ -116,7 +121,7 @@
       <div class="col-11 col-md-4">
         <select
           id="salesman"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Salesman"
           type="text"
         ></select>
@@ -125,32 +130,37 @@
 
     <div class="d-flex row align-items-center mt-3 mb-2">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="IsContractPrice"/>Enable Contract Price
+        <input type="checkbox" formControlName="IsContractPrice" />Enable
+        Contract Price
       </div>
 
       <div class="col-11 col-md-4">
         <select
           id="salesman"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="ContractPrice"
           type="text"
         >
-      <option disabled value="">Select Contract Price</option>
-    </select>
+          <option disabled value="">Select Contract Price</option>
+        </select>
       </div>
     </div>
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsCustomerMember"/>Create Customers As Member Also
+        <input type="checkbox" formControlName="IsCustomerMember" />Create
+        Customers As Member Also
       </div>
     </div>
 
-    <div class="col-12 col-md-2 my-4">
-      <label for="credit-location" class="form-label-header">
-        Membership Info
-      </label>
+    <div class="row mt-3 mb-2">
+      <div class="col-12 col-md-2">
+        <label for="credit-location" class="form-label-header">
+          Membership Info
+        </label>
+      </div>
     </div>
+
     <div class="row d-flex align-items-center mt-2 gap-2">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Gender</label>
@@ -158,105 +168,105 @@
       <div class="col-11 col-md-4">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Gender"
           type="text"
         ></select>
-      </div> 
+      </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Membership Scheme</label>
       </div>
       <div class="col-11 col-md-3">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Membership_Scheme"
           type="text"
         ></select>
-      </div>  
+      </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Date Of Birth</label>
       </div>
       <div class="col-11 col-md-4">
         <input
-        type="date"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="DOB"
-        placeholder=""
-      />
+          type="date"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="DOB"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Membership Start Date</label>
       </div>
       <div class="col-11 col-md-3">
         <input
-        type="date"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Membership_StartDate"
-        placeholder=""
-      />
+          type="date"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Membership_StartDate"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Wedding Anniversary</label>
       </div>
       <div class="col-11 col-md-4">
         <input
-        type="date"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="WorkingOrganization"
-        placeholder=""
-      />
+          type="date"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="WorkingOrganization"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Membership End Date</label>
       </div>
       <div class="col-11 col-md-3">
         <input
-        type="date"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Membership_EndDate"
-        placeholder=""
-      />
+          type="date"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Membership_EndDate"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Working Organization</label>
       </div>
       <div class="col-11 col-md-4">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="WorkingOrganization"
-        placeholder=""
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="WorkingOrganization"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Membership Barcode</label>
       </div>
       <div class="col-11 col-md-3">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Membership_Barcode"
-        placeholder=""
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Membership_Barcode"
+          placeholder=""
+        />
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Designation</label>
       </div>
       <div class="col-11 col-md-4">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="WorkingOrganization"
-        placeholder=""
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="WorkingOrganization"
+          placeholder=""
+        />
       </div>
     </div>
     <div class="row d-flex align-items-center mt-2 gap-2">
@@ -266,15 +276,14 @@
       <div class="col-11 col-md-4">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Status"
           type="text"
         >
-        <option value="1">Active</option>
-        <option value="0">Inactive</option>
-      </select>
-      </div> 
-    </div>      
-
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>
+    </div>
   </form>
 </div>

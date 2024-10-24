@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Ledger</h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn me-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
     <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -15,7 +15,7 @@
       <div class="col-md-9">
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="accountCode" class="form-label me-2"
+            <label for="accountCode" class="form-label mr-2"
               >Account Code<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@
         </div>
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="accountType" class="form-label me-2"
+            <label for="accountType" class="form-label mr-2"
               >Account Type<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@
 
             <select
               id="accountType"
-              class="form-select px-2 py-1"
+              class="form-control px-2 py-1"
               formControlName="AccountType"
               type="text"
             ></select>
@@ -96,51 +96,51 @@
               <!-- Dropdown options with (click) event to set selectedAccount -->
               <li>
                 <a
-                  class="dropdown-item p-2"
+                  class="dropdown-item p-1"
                   (click)="selectedAccount = 'Assets'"
                 >
                   <div class="d-flex">
-                    <label class="ms-2"> Assets</label>
+                    <label class="ml-2"> Assets</label>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  class="dropdown-item p-2"
+                  class="dropdown-item p-1"
                   (click)="selectedAccount = 'Liabilities'"
                 >
                   <div class="d-flex">
-                    <label class="ms-2"> Liabilities</label>
+                    <label class="ml-2"> Liabilities</label>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  class="dropdown-item p-2"
+                  class="dropdown-item p-1"
                   (click)="selectedAccount = 'Equity'"
                 >
                   <div class="d-flex">
-                    <label class="ms-2"> Equity</label>
+                    <label class="ml-2"> Equity</label>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  class="dropdown-item p-2"
+                  class="dropdown-item p-1"
                   (click)="selectedAccount = 'Direct Income'"
                 >
                   <div class="d-flex">
-                    <label class="ms-2"> Direct Income</label>
+                    <label class="ml-2"> Direct Income</label>
                   </div>
                 </a>
               </li>
               <li>
                 <a
-                  class="dropdown-item p-2"
+                  class="dropdown-item p-1"
                   (click)="selectedAccount = 'Indirect Income'"
                 >
                   <div class="d-flex">
-                    <label class="ms-2"> Indirect Income</label>
+                    <label class="ml-2"> Indirect Income</label>
                   </div>
                 </a>
               </li>
@@ -149,7 +149,7 @@
         </div>
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="accountName" class="form-label me-2"
+            <label for="accountName" class="form-label mr-2"
               >Account Name<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@
         </div>
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="parentGroup" class="form-label me-2"
+            <label for="parentGroup" class="form-label mr-2"
               >Parent Group<span class="star mx-2">*</span></label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
@@ -202,7 +202,7 @@
 
             <select
               id="parentGroup"
-              class="form-select px-2 py-1"
+              class="form-control px-2 py-1"
               formControlName="ParentGroup"
               type="text"
             ></select>
@@ -230,7 +230,7 @@
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
-                    <label class="ms-2"> Fixed Assets </label>
+                    <label class="ml-2"> Fixed Assets </label>
                     <mat-icon>chevron_right</mat-icon>
                   </div>
                 </a>
@@ -240,7 +240,7 @@
                   <div
                     class="d-flex justify-content-between align-items-center"
                   >
-                    <label class="ms-2"> Current Assets</label>
+                    <label class="ml-2"> Current Assets</label>
                     <mat-icon>chevron_right</mat-icon>
                   </div>
                 </a>
@@ -252,7 +252,7 @@
                       <div
                         class="d-flex justify-content-between align-items-center"
                       >
-                        <label class="ms-2"> Cash & Bank</label>
+                        <label class="ml-2"> Cash & Bank</label>
                         <mat-icon>chevron_right</mat-icon>
                       </div>
                     </a>
@@ -262,7 +262,7 @@
                       <div
                         class="d-flex justify-content-between align-items-center"
                       >
-                        <label class="ms-2"> Bills Receiveable</label>
+                        <label class="ml-2"> Bills Receiveable</label>
                         <mat-icon>chevron_right</mat-icon>
                       </div>
                     </a>
@@ -275,12 +275,12 @@
 
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="category" class="form-label me-2">Category</label>
+            <label for="category" class="form-label mr-2">Category</label>
           </div>
           <div class="col-11 col-md-5">
             <select
               id="category"
-              class="form-select px-2 py-1"
+              class="form-control px-2 py-1"
               formControlName="Category"
               type="text"
             >
@@ -295,7 +295,7 @@
         <!-- This form entry field displays if category -> bank a/c selected -->
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="crreditLimit" class="form-label me-2"
+            <label for="crreditLimit" class="form-label mr-2"
               >Credit Limit
             </label>
           </div>
@@ -313,7 +313,7 @@
         <!-- This form entry field displays if category -> TDS a/c selected -->
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="tds" class="form-label me-2">TDS % </label>
+            <label for="tds" class="form-label mr-2">TDS % </label>
           </div>
           <div class="col-11 col-md-5">
             <input
@@ -328,14 +328,14 @@
 
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="activityType" class="form-label me-2"
+            <label for="activityType" class="form-label mr-2"
               >Activity Type</label
             >
           </div>
           <div class="col-11 col-md-5">
             <select
               id="activityType"
-              class="form-select px-2 py-1"
+              class="form-control px-2 py-1"
               formControlName="ActivityType"
               type="text"
             ></select>
@@ -346,7 +346,7 @@
             <input
               type="checkbox"
               formControlName="HasSubLedger"
-              class="me-2"
+              class="mr-2"
             />Has Sub Ledger
           </div>
         </div>
@@ -355,13 +355,13 @@
             <input
               type="checkbox"
               formControlName="AllBranches"
-              class="me-2"
+              class="mr-2"
             />Is Applicable for all branches
           </div>
         </div>
         <div class="row d-flex align-items-center mb-2">
           <div class="col-12 col-md-3">
-            <label for="branches" class="form-label me-2">Branches</label>
+            <label for="branches" class="form-label mr-2">Branches</label>
           </div>
           <div class="col-11 col-md-5 d-flex">
             <button mat-button (click)="openDialog()" id="save" class="w-100">
@@ -433,11 +433,11 @@
       <div class="row mb-3 border-bottom pb-1">
         <div class="col-md-12 d-flex">
           <div class="col-md-6">
-            <label> <input class="me-2" type="checkbox" /> Branch Name </label>
+            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
           </div>
           <div class="col-md-6">
             <label>
-              <input class="me-2" type="checkbox" /> Branch Name 1
+              <input class="mr-2" type="checkbox" /> Branch Name 1
             </label>
           </div>
         </div>
@@ -445,11 +445,11 @@
       <div class="row mb-3 border-bottom pb-1">
         <div class="col-md-12 d-flex">
           <div class="col-md-6">
-            <label> <input class="me-2" type="checkbox" /> Branch Name </label>
+            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
           </div>
           <div class="col-md-6">
             <label>
-              <input class="me-2" type="checkbox" /> Branch Name 1
+              <input class="mr-2" type="checkbox" /> Branch Name 1
             </label>
           </div>
         </div>
@@ -457,11 +457,11 @@
       <div class="row mb-3 border-bottom pb-1">
         <div class="col-md-12 d-flex">
           <div class="col-md-6">
-            <label> <input class="me-2" type="checkbox" /> Branch Name </label>
+            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
           </div>
           <div class="col-md-6">
             <label>
-              <input class="me-2" type="checkbox" /> Branch Name 1
+              <input class="mr-2" type="checkbox" /> Branch Name 1
             </label>
           </div>
         </div>
@@ -469,11 +469,11 @@
       <div class="row mb-3 border-bottom pb-1">
         <div class="col-md-12 d-flex">
           <div class="col-md-6">
-            <label> <input class="me-2" type="checkbox" /> Branch Name </label>
+            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
           </div>
           <div class="col-md-6">
             <label>
-              <input class="me-2" type="checkbox" /> Branch Name 1
+              <input class="mr-2" type="checkbox" /> Branch Name 1
             </label>
           </div>
         </div>
@@ -481,11 +481,11 @@
       <div class="row mb-0 border-bottom pb-1">
         <div class="col-md-12 d-flex">
           <div class="col-md-6">
-            <label> <input class="me-2" type="checkbox" /> Branch Name </label>
+            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
           </div>
           <div class="col-md-6">
             <label>
-              <input class="me-2" type="checkbox" /> Branch Name 1
+              <input class="mr-2" type="checkbox" /> Branch Name 1
             </label>
           </div>
         </div>

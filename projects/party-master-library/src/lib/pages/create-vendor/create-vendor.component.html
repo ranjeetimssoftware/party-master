@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Vendor</h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn me-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
     <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -13,9 +13,12 @@
   <form [formGroup]="vendorForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-md-9">
-        <div class="row d-flex align-items-center mb-2">
+        <div
+          class="row d-flex align-items-center mb-2 input-div"
+          style="height: 40px"
+        >
           <div class="col-12 col-md-3">
-            <label for="vendorCode" class="form-label me-2">Vendor Code</label
+            <label for="vendorCode" class="form-label mr-2">Vendor Code</label
             ><svg
               xmlns="http://www.w3.org/2000/svg"
               width="17"
@@ -34,6 +37,22 @@
             </svg>
           </div>
           <div class="col-12 col-md-8">
+            <svg
+              class="cutomerCode-placeholder-icon"
+              width="22"
+              height="23"
+              viewBox="0 0 22 23"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.75 4.16699V18.8337M6.875 4.16699V16.0837M11 4.16699V16.0837M15.125 4.16699V16.0837M19.25 4.16699V18.8337M6.875 18.8337H6.88325M11 18.8337H11.0083M15.125 18.8337H15.1333"
+                stroke="#D0D0D0"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
             <input
               type="text"
               id="vendorCode"
@@ -41,13 +60,10 @@
               formControlName="VendorCode"
               placeholder="Enter Vendor Code"
             />
-            <svg class="cutomerCode-placeholder-icon" width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2.75 4.16699V18.8337M6.875 4.16699V16.0837M11 4.16699V16.0837M15.125 4.16699V16.0837M19.25 4.16699V18.8337M6.875 18.8337H6.88325M11 18.8337H11.0083M15.125 18.8337H15.1333" stroke="#D0D0D0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg> 
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
             <label for="vendorName" class="form-label"
               >Vendor Name<span class="star mx-2">*</span></label
@@ -77,13 +93,25 @@
               formControlName="VendorName"
               placeholder="Enter Your Name"
             />
-            <svg class="cutomerName-placeholder-icon" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4.5C5 3.43913 5.42143 2.42172 6.17157 1.67157C6.92172 0.921427 7.93913 0.5 9 0.5C10.0609 0.5 11.0783 0.921427 11.8284 1.67157C12.5786 2.42172 13 3.43913 13 4.5C13 5.56087 12.5786 6.57828 11.8284 7.32843C11.0783 8.07857 10.0609 8.5 9 8.5C7.93913 8.5 6.92172 8.07857 6.17157 7.32843C5.42143 6.57828 5 5.56087 5 4.5ZM5 10.5C3.67392 10.5 2.40215 11.0268 1.46447 11.9645C0.526784 12.9021 0 14.1739 0 15.5C0 16.2956 0.316071 17.0587 0.87868 17.6213C1.44129 18.1839 2.20435 18.5 3 18.5H15C15.7956 18.5 16.5587 18.1839 17.1213 17.6213C17.6839 17.0587 18 16.2956 18 15.5C18 14.1739 17.4732 12.9021 16.5355 11.9645C15.5979 11.0268 14.3261 10.5 13 10.5H5Z" fill="#D0D0D0"/>
-              </svg>
+            <svg
+              class="cutomerName-placeholder-icon"
+              width="18"
+              height="19"
+              viewBox="0 0 18 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5 4.5C5 3.43913 5.42143 2.42172 6.17157 1.67157C6.92172 0.921427 7.93913 0.5 9 0.5C10.0609 0.5 11.0783 0.921427 11.8284 1.67157C12.5786 2.42172 13 3.43913 13 4.5C13 5.56087 12.5786 6.57828 11.8284 7.32843C11.0783 8.07857 10.0609 8.5 9 8.5C7.93913 8.5 6.92172 8.07857 6.17157 7.32843C5.42143 6.57828 5 5.56087 5 4.5ZM5 10.5C3.67392 10.5 2.40215 11.0268 1.46447 11.9645C0.526784 12.9021 0 14.1739 0 15.5C0 16.2956 0.316071 17.0587 0.87868 17.6213C1.44129 18.1839 2.20435 18.5 3 18.5H15C15.7956 18.5 16.5587 18.1839 17.1213 17.6213C17.6839 17.0587 18 16.2956 18 15.5C18 14.1739 17.4732 12.9021 16.5355 11.9645C15.5979 11.0268 14.3261 10.5 13 10.5H5Z"
+                fill="#D0D0D0"
+              />
+            </svg>
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2 address-div">
           <div class="col-12 col-md-3">
             <label for="address" class="form-label">
               Address<span class="star mx-2">*</span>
@@ -109,17 +137,27 @@
             <input
               type="text"
               id="address"
-              class="form-control px-5 py-4"
+              class="form-control px-5 py-5"
               formControlName="Address"
               placeholder="Enter Your Address"
             />
-            <svg class="address-placeholder-icon" width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.99863 15.9997V10.9997H11.9986V15.9997C11.9986 16.5497 12.4486 16.9997 12.9986 16.9997H15.9986C16.5486 16.9997 16.9986 16.5497 16.9986 15.9997V8.99973H18.6986C19.1586 8.99973 19.3786 8.42973 19.0286 8.12973L10.6686 0.599727C10.2886 0.259727 9.70863 0.259727 9.32863 0.599727L0.968633 8.12973C0.628633 8.42973 0.838633 8.99973 1.29863 8.99973H2.99863V15.9997C2.99863 16.5497 3.44863 16.9997 3.99863 16.9997H6.99863C7.54863 16.9997 7.99863 16.5497 7.99863 15.9997Z" fill="#D0D0D0"/>
-              </svg>
+            <svg
+              class="address-placeholder-icon"
+              width="20"
+              height="17"
+              viewBox="0 0 20 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.99863 15.9997V10.9997H11.9986V15.9997C11.9986 16.5497 12.4486 16.9997 12.9986 16.9997H15.9986C16.5486 16.9997 16.9986 16.5497 16.9986 15.9997V8.99973H18.6986C19.1586 8.99973 19.3786 8.42973 19.0286 8.12973L10.6686 0.599727C10.2886 0.259727 9.70863 0.259727 9.32863 0.599727L0.968633 8.12973C0.628633 8.42973 0.838633 8.99973 1.29863 8.99973H2.99863V15.9997C2.99863 16.5497 3.44863 16.9997 3.99863 16.9997H6.99863C7.54863 16.9997 7.99863 16.5497 7.99863 15.9997Z"
+                fill="#D0D0D0"
+              />
+            </svg>
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
             <label for="vatNo" class="form-label">VAT No</label>
           </div>
@@ -134,7 +172,7 @@
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
             <label for="email" class="form-label">Email</label>
           </div>
@@ -146,14 +184,27 @@
               formControlName="Email"
               placeholder="Enter Your Email"
             />
-            <svg class="email-placeholder-icon" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.28949 5.40749C10.4241 5.135 13.5765 5.135 16.7111 5.40749L18.2214 5.53877C19.2267 5.62617 20.0878 6.22584 20.534 7.08361C20.591 7.19335 20.5483 7.32621 20.4431 7.39132L14.1771 11.2702C12.8333 12.1022 11.1387 12.1196 9.77802 11.3156L3.4702 7.5882C3.36829 7.52798 3.32151 7.40402 3.36744 7.29492C3.77559 6.32536 4.69322 5.63318 5.77925 5.53877L7.28949 5.40749Z" fill="#D0D0D0"/>
-              <path d="M3.3623 9.26676C3.20634 9.1746 3.00734 9.27377 2.98916 9.45402C2.73542 11.9697 2.79683 14.5091 3.17339 17.0132C3.3719 18.3333 4.44931 19.3454 5.77926 19.461L7.28949 19.5923C10.4241 19.8647 13.5765 19.8647 16.7111 19.5923L18.2214 19.461C19.5513 19.3454 20.6287 18.3333 20.8272 17.0132C21.2148 14.4361 21.2685 11.8216 20.9885 9.23415C20.9688 9.05264 20.7665 8.95529 20.6112 9.05139L14.9667 12.5456C13.1485 13.6712 10.8559 13.6948 9.01493 12.6069L3.3623 9.26676Z" fill="#D0D0D0"/>
-              </svg>
+            <svg
+              class="email-placeholder-icon"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.28949 5.40749C10.4241 5.135 13.5765 5.135 16.7111 5.40749L18.2214 5.53877C19.2267 5.62617 20.0878 6.22584 20.534 7.08361C20.591 7.19335 20.5483 7.32621 20.4431 7.39132L14.1771 11.2702C12.8333 12.1022 11.1387 12.1196 9.77802 11.3156L3.4702 7.5882C3.36829 7.52798 3.32151 7.40402 3.36744 7.29492C3.77559 6.32536 4.69322 5.63318 5.77925 5.53877L7.28949 5.40749Z"
+                fill="#D0D0D0"
+              />
+              <path
+                d="M3.3623 9.26676C3.20634 9.1746 3.00734 9.27377 2.98916 9.45402C2.73542 11.9697 2.79683 14.5091 3.17339 17.0132C3.3719 18.3333 4.44931 19.3454 5.77926 19.461L7.28949 19.5923C10.4241 19.8647 13.5765 19.8647 16.7111 19.5923L18.2214 19.461C19.5513 19.3454 20.6287 18.3333 20.8272 17.0132C21.2148 14.4361 21.2685 11.8216 20.9885 9.23415C20.9688 9.05264 20.7665 8.95529 20.6112 9.05139L14.9667 12.5456C13.1485 13.6712 10.8559 13.6948 9.01493 12.6069L3.3623 9.26676Z"
+                fill="#D0D0D0"
+              />
+            </svg>
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
             <label for="contactNumber" class="form-label">
               Contact No<span class="star mx-2">*</span>
@@ -175,17 +226,28 @@
               />
             </svg>
           </div>
-          <div class="d-flex column col-md-8 gap-3 position-relative">
+          <div class="d-flex column col-md-8 position-relative">
+            <svg
+              class="phone-placeholder-icon"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.4375 1.95312H6.5625C5.73516 1.95312 5.0625 2.62578 5.0625 3.45312V21.4531C5.0625 22.2805 5.73516 22.9531 6.5625 22.9531H17.4375C18.2648 22.9531 18.9375 22.2805 18.9375 21.4531V3.45312C18.9375 2.62578 18.2648 1.95312 17.4375 1.95312ZM12 19.8125C11.482 19.8125 11.0625 19.393 11.0625 18.875C11.0625 18.357 11.482 17.9375 12 17.9375C12.518 17.9375 12.9375 18.357 12.9375 18.875C12.9375 19.393 12.518 19.8125 12 19.8125Z"
+                fill="#D0D0D0"
+              />
+            </svg>
             <input
               type="number"
               id="Mobile"
-              class="form-control px-5 py-1"
+              class="form-control px-5 py-1 mr-3"
               formControlName="Mobile"
               placeholder="Mobile"
             />
-            <svg class="phone-placeholder-icon" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.4375 1.95312H6.5625C5.73516 1.95312 5.0625 2.62578 5.0625 3.45312V21.4531C5.0625 22.2805 5.73516 22.9531 6.5625 22.9531H17.4375C18.2648 22.9531 18.9375 22.2805 18.9375 21.4531V3.45312C18.9375 2.62578 18.2648 1.95312 17.4375 1.95312ZM12 19.8125C11.482 19.8125 11.0625 19.393 11.0625 18.875C11.0625 18.357 11.482 17.9375 12 17.9375C12.518 17.9375 12.9375 18.357 12.9375 18.875C12.9375 19.393 12.518 19.8125 12 19.8125Z" fill="#D0D0D0"/>
-              </svg>
+
             <input
               type="number"
               id="phoneNumber"
@@ -193,10 +255,23 @@
               formControlName="Phone"
               placeholder="Phone"
             />
-            <svg class="telephone-placeholder-icon" width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.567 16.6522C6.32743 14.8532 2.91742 11.5347 1.00102 7.36078L1.00024 7.35908L0.482152 6.21947C-0.22658 4.66052 0.296801 2.81767 1.71915 1.86396L3.05199 0.970262C3.48235 0.681693 4.06186 0.769661 4.3872 1.17294L6.81707 4.18489C7.17396 4.62727 7.09083 5.27778 6.63417 5.6162L5.37692 6.54792C6.55626 8.93873 8.49732 10.8798 10.8881 12.0591L11.8199 10.8019C12.1583 10.3452 12.8088 10.2621 13.2512 10.619L16.263 13.0488C16.6664 13.3742 16.7543 13.9538 16.4655 14.3842L15.5775 15.7079C14.6291 17.1214 12.8014 17.6477 11.2466 16.955L10.567 16.6522Z" fill="#D0D0D0"/>
-              <path d="M9.75082 6.50027C9.75082 6.69919 9.82984 6.88995 9.97049 7.0306C10.1111 7.17126 10.3019 7.25027 10.5008 7.25027H14.3293C14.7435 7.25027 15.0793 6.91449 15.0793 6.50027C15.0793 6.08606 14.7435 5.75027 14.3293 5.75027H12.3115L15.4705 2.59126C15.7634 2.29837 15.7634 1.8235 15.4705 1.5306C15.1776 1.23771 14.7027 1.23771 14.4098 1.5306L11.2508 4.68961V2.67185C11.2508 2.25763 10.915 1.92185 10.5008 1.92185C10.0866 1.92185 9.75082 2.25763 9.75082 2.67185V6.50027Z" fill="#D0D0D0"/>
-              </svg>
+            <svg
+              class="telephone-placeholder-icon"
+              width="17"
+              height="18"
+              viewBox="0 0 17 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.567 16.6522C6.32743 14.8532 2.91742 11.5347 1.00102 7.36078L1.00024 7.35908L0.482152 6.21947C-0.22658 4.66052 0.296801 2.81767 1.71915 1.86396L3.05199 0.970262C3.48235 0.681693 4.06186 0.769661 4.3872 1.17294L6.81707 4.18489C7.17396 4.62727 7.09083 5.27778 6.63417 5.6162L5.37692 6.54792C6.55626 8.93873 8.49732 10.8798 10.8881 12.0591L11.8199 10.8019C12.1583 10.3452 12.8088 10.2621 13.2512 10.619L16.263 13.0488C16.6664 13.3742 16.7543 13.9538 16.4655 14.3842L15.5775 15.7079C14.6291 17.1214 12.8014 17.6477 11.2466 16.955L10.567 16.6522Z"
+                fill="#D0D0D0"
+              />
+              <path
+                d="M9.75082 6.50027C9.75082 6.69919 9.82984 6.88995 9.97049 7.0306C10.1111 7.17126 10.3019 7.25027 10.5008 7.25027H14.3293C14.7435 7.25027 15.0793 6.91449 15.0793 6.50027C15.0793 6.08606 14.7435 5.75027 14.3293 5.75027H12.3115L15.4705 2.59126C15.7634 2.29837 15.7634 1.8235 15.4705 1.5306C15.1776 1.23771 14.7027 1.23771 14.4098 1.5306L11.2508 4.68961V2.67185C11.2508 2.25763 10.915 1.92185 10.5008 1.92185C10.0866 1.92185 9.75082 2.25763 9.75082 2.67185V6.50027Z"
+                fill="#D0D0D0"
+              />
+            </svg>
           </div>
         </div>
       </div>
