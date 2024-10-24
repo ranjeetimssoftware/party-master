@@ -57,9 +57,10 @@ input::placeholder {
   height: auto; /* or set a specific height */
   padding-top: 20px;
 }
-
 .cutomerCode-placeholder-icon {
-  transform: translateY(-130%) translateX(45%);
+  transform: translateY(-120%) translateX(45%);
+  position: absolute;
+  top: 95%;
 }
 .cutomerName-placeholder-icon {
   transform: translateY(-155%) translateX(45%);
