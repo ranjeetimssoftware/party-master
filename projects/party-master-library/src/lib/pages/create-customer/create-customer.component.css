@@ -59,27 +59,27 @@ input::placeholder {
 }
 
 .cutomerCode-placeholder-icon {
-  transform: translateY(-120%) translateX(45%);
+  transform: translateY(-130%) translateX(45%);
 }
 .cutomerName-placeholder-icon {
-  transform: translateY(-145%) translateX(45%);
+  transform: translateY(-155%) translateX(45%);
 }
 .address-placeholder-icon {
-  transform: translateY(-270%) translateX(45%);
+  transform: translateY(-360%) translateX(45%);
 }
 .email-placeholder-icon {
-  transform: translateY(-110%) translateX(45%);
+  transform: translateY(-120%) translateX(45%);
 }
 .phone-placeholder-icon {
   position: absolute;
   top: 100%;
-  transform: translateY(-110%) translateX(45%);
+  transform: translateY(-120%) translateX(45%);
 }
 .telephone-placeholder-icon {
   position: absolute;
   left: 52%;
   top: 90%;
-  transform: translateY(-110%) translateX(45%);
+  transform: translateY(-120%) translateX(45%);
 }
 @media (min-width: 1200px) {
   .container {
