@@ -66,7 +66,7 @@ a {
 
 .dropdown-submenu .dropdown-menu {
   top: 0;
-  right: 100%;
+  left: 100%;
   margin-right: 5px;
 }
 .custom-btn {

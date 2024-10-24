@@ -65,7 +65,7 @@ input::placeholder {
   transform: translateY(-145%) translateX(45%);
 }
 .address-placeholder-icon {
-  transform: translateY(-270%) translateX(45%);
+  transform: translateY(-350%) translateX(45%);
 }
 .email-placeholder-icon {
   transform: translateY(-110%) translateX(45%);
