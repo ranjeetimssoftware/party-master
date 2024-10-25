@@ -232,4 +232,16 @@ export class GenericTableComponent implements OnInit {
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.customerVendorDataSource.filter = filterValue.trim().toLowerCase();
+  }
+  navigateToCreateCustomer() {
+    this.router.navigate(['/new-customer']);
+  }
+
+  navigateToCreateVendor() {
+    this.router.navigate(['new-vendor']);
+  }
+
 }

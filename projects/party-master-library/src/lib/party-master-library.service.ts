@@ -24,3 +24,22 @@ export class PartyMasterLibraryService {
     return this.http.get<any[]>(this.apiUrl + '/getAllCustomer');
   }
 }
+
+export interface CustomerMasterObj{
+  customerCode:string;
+  customerName:string;
+  address:string;
+  vatNo:string;
+  email:string;
+  mobile:string;
+  phone:string;
+  additionalInfo:[];
+  contactPerson:contactPerson[];
+}
+
+export interface contactPerson{
+  name:string;
+  contact:string;
+  designation:string;
+  email:string;
+}

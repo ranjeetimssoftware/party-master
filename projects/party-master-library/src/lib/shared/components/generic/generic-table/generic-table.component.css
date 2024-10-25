@@ -36,9 +36,6 @@ tr:nth-child(even) {
   padding: 5px;
 }
 
-.btn {
-  width: 40%;
-}
 .mat-header-cell {
   font-size: 16px;
   font-weight: 500;
@@ -54,4 +51,86 @@ tr:nth-child(even) {
   color: rgba(51, 103, 153, 1);
   border: 1px solid rgba(51, 103, 153, 1);
   font-size: 14px;
+}
+.search-input {
+  border: none;
+  outline: none;
+  margin-left: 5px;
+  width: 230px;
+}
+
+.search-bar {
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+}
+
+.divider {
+  height: 24px;
+  width: 1px;
+  background-color: #e0e0e0;
+}
+
+.select-dropdown {
+  font-size: 14px;
+  border: none;
+  width: auto;
+}
+
+.form-control {
+  border: none;
+  outline: none;
+  width: 120px;
+}
+
+.form-control:focus,
+.form-select:focus,
+.select-dropdown:focus {
+  box-shadow: none !important;
+  border-color: #ced4da;
+  outline: none;
+}
+
+.dropdown-search-form {
+  margin: 0 5px;
+  padding: 5px;
+  border: none;
+  background-color: #ebebeb;
+  border-radius: 4px;
+}
+
+.dropdown-search-form:focus {
+  outline: none;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #4081bf;
+  color: white;
+}
+
+/* Enable the nested dropdown to open on hover */
+.dropdown-menu > li:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-right: 5px;
+}
+.custom-btn {
+  background-color: #4081bf;
+  color: white;
+  font-size: 14px;
+}
+#create {
+  background-color: rgba(64, 129, 191, 1);
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+#create:hover {
+  background-color: rgba(51, 104, 153, 0.675);
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
 }
