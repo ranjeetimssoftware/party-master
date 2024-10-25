@@ -1,29 +1,31 @@
 <div class="container">
   <form [formGroup]="salesTargetForm">
-    <div class="col-12 col-md-2 my-4">
-      <label for="credit-terms" class="form-label-header">Importer</label>
+    <div class="row">
+      <div class="col-12 col-md-2 my-4">
+        <label for="credit-terms" class="form-label-header">Importer</label>
+      </div>
     </div>
     <div class="row d-flex align-items-center mt-2 gap-2">
       <!-- shrawan -->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Importer Type</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Shrawan_Target"
           type="text"
         ></select>
-      </div> 
-            <!--Magh-->
+      </div>
+      <!--Magh-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Province</label>
       </div>
       <div class="col-11 col-md-3">
-      <select
+        <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Magh_Target"
           type="text"
         ></select>
@@ -32,15 +34,15 @@
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Customer Id</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Bhadra_Target"
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Bhadra_Target"
+        />
       </div>
-      
+
       <!--Falgun-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">District</label>
@@ -48,31 +50,32 @@
       <div class="col-11 col-md-3">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Falgun_Target"
           type="text"
         ></select>
-      </div> 
+      </div>
       <!--Ashwin-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Route</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Ashwin_Target" placeholder="Press Enter to Select"
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Ashwin_Target"
+          placeholder="Press Enter to Select"
+        />
       </div>
-            <!--Chaitra-->
+      <!--Chaitra-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Town</label>
       </div>
       <div class="col-11 col-md-3">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Chaitra_Target"
           type="text"
         ></select>
@@ -81,23 +84,23 @@
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Salesman</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Kartik_Target"
-        placeholder="Press Enter to Select"
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Kartik_Target"
+          placeholder="Press Enter to Select"
+        />
       </div>
-            <!--Baisakh-->
+      <!--Baisakh-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Outlet Type</label>
       </div>
       <div class="col-11 col-md-3">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Baisakh_Target"
           type="text"
         ></select>
@@ -106,23 +109,23 @@
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Channel</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Mangsir_Target"
-        placeholder="Press Enter to Select"
-      />
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Mangsir_Target"
+          placeholder="Press Enter to Select"
+        />
       </div>
-            <!--Jestha-->
+      <!--Jestha-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">DRCP (Visit Day)</label>
       </div>
       <div class="col-11 col-md-3">
         <select
           id="category"
-          class="form-select px-2 py-1"
+          class="form-control px-2 py-1"
           formControlName="Jestha_Target"
           type="text"
         ></select>
@@ -131,54 +134,54 @@
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Sub Channel</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Poush_Target"
-        placeholder="Press Enter to Select"
-      />
-      </div> 
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Poush_Target"
+          placeholder="Press Enter to Select"
+        />
+      </div>
       <!--Ashar-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Credit Limit</label>
       </div>
       <div class="col-11 col-md-3">
         <input
-        type="number"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Ashar_Target"
-        min="0"
-      />
+          type="number"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Ashar_Target"
+          min="0"
+        />
       </div>
       <!--Poush-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Sales Hierarchy</label>
       </div>
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4 mb-2">
         <input
-        type="text"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Poush_Target"
-        placeholder="Press Enter to Select"
-      />
-      </div> 
+          type="text"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Poush_Target"
+          placeholder="Press Enter to Select"
+        />
+      </div>
       <!--Ashar-->
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Credit Days</label>
       </div>
       <div class="col-11 col-md-3">
         <input
-        type="number"
-        id="DOB"
-        class="form-control px-2 py-1"
-        formControlName="Ashar_Target"
-        min="0"
-      />
+          type="number"
+          id="DOB"
+          class="form-control px-2 py-1"
+          formControlName="Ashar_Target"
+          min="0"
+        />
       </div>
     </div>
   </form>
-  </div>
+</div>
