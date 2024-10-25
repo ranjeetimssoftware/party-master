@@ -170,35 +170,28 @@ const Chart_Of_Account_Data: ChartOfAccount[] = [
   styleUrls: ['./generic-table.component.css'],
 })
 export class GenericTableComponent implements OnInit {
-  isCustomer: boolean = false;
-  isVendor: boolean = false;
-  isGeneralLedger: boolean = false;
-  isLedgerGroup: boolean = false;
-  isSubLedger: boolean = false;
 
   displayedColumns: string[] = [];
   displayedChartofAccountColumns: string[] = [];
   customerVendorDataSource = new MatTableDataSource<any>(ELEMENT_DATA);;
   chartofAccountDataSource = Chart_Of_Account_Data;
+  activeRoute?:string;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private router: Router, public partyMasterService:PartyMasterLibraryService) {}
-  ngOnInit(): void {
+  constructor(private router: Router, public partyMasterService:PartyMasterLibraryService) {
     const currentRoute = this.router.url;
-    const lastSegment = currentRoute.split('/').pop(); // Get the last segment of the URL
+    this.activeRoute = currentRoute.split('/').pop(); 
 
-    this.isCustomer = lastSegment === 'customer';
-    this.isVendor = lastSegment === 'vendor';
-    this.isGeneralLedger = lastSegment === 'general-ledger';
-    this.isLedgerGroup = lastSegment === 'ledger-group';
-    this.isSubLedger = lastSegment === 'sub-ledger';
+  }
+  ngOnInit(): void {// Get the last segment of the URL
+
 
     this.displayedColumns = [
       'filter',
       'sn',
-      ...(this.isCustomer ? ['CUSTNAME'] : []),
-      ...(this.isVendor ? ['vendorname'] : []),
+      ...(this.activeRoute == 'customer' ? ['CUSTNAME'] : []),
+      ...(this.activeRoute == 'vendor' ? ['vendorname'] : []),
       'ADDRESS',
       'MOBILENO',
       'EMAIL',
@@ -210,28 +203,33 @@ export class GenericTableComponent implements OnInit {
     this.displayedChartofAccountColumns = [
       'filter',
       'sn',
-      ...(this.isGeneralLedger ? ['accountname'] : []),
-      ...(this.isLedgerGroup ? ['groupname'] : []),
-      ...(this.isSubLedger ? ['subledgername'] : []),
-      ...(this.isGeneralLedger ? ['accountcode'] : []),
-      ...(this.isGeneralLedger || this.isLedgerGroup ? ['accounttype'] : []),
-      ...(this.isGeneralLedger || this.isLedgerGroup ? ['parentgroup'] : []),
-      ...(this.isGeneralLedger ? ['maingroup'] : []),
-      ...(this.isGeneralLedger ? ['category'] : []),
-      ...(this.isSubLedger ? ['hasmainledger'] : []),
-      ...(this.isSubLedger ? ['mainledger'] : []),
-      ...(this.isGeneralLedger ? ['status'] : []),
-      ...(this.isGeneralLedger || this.isLedgerGroup || this.isSubLedger
+      ...(this.activeRoute == 'general-ledger' ? ['accountname'] : []),
+      ...(this.activeRoute == 'ledger-group' ? ['groupname'] : []),
+      ...(this.activeRoute == 'sub-ledger' ? ['subledgername'] : []),
+      ...(this.activeRoute == 'general-ledger' ? ['accountcode'] : []),
+      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' ? ['accounttype'] : []),
+      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' ? ['parentgroup'] : []),
+      ...(this.activeRoute == 'general-ledger' ? ['maingroup'] : []),
+      ...(this.activeRoute == 'general-ledger' ? ['category'] : []),
+      ...(this.activeRoute == 'sub-ledger' ? ['hasmainledger'] : []),
+      ...(this.activeRoute == 'sub-ledger' ? ['mainledger'] : []),
+      ...(this.activeRoute == 'general-ledger' ? ['status'] : []),
+      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' || this.activeRoute == 'sub-ledger'
         ? ['action']
         : []),
     ];
-    this.partyMasterService.getCustomerList().subscribe((res:any) => {
-      this.customerVendorDataSource.data = res.result;
-    })
+    if(this.activeRoute == 'customer') this.getAllCustomers();
+
     
   }
   ngAfterViewInit() {
     this.customerVendorDataSource.paginator = this.paginator;
+  }
+
+  getAllCustomers(){
+    this.partyMasterService.getCustomerList().subscribe((res:any) => {
+      this.customerVendorDataSource.data = res.result;
+    });
   }
 
 }
