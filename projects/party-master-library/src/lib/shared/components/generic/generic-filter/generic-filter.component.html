@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mt-1 mb-1 px-5">
-  <div class="d-flex">
-    <div class="input-group mr4 search">
+  <!-- <div class="d-flex">
+    <div class="input-group mr-4 search">
       <span class="input-group-text">
         <mat-icon class="custom-icon mat-icon-small text-black"
           >search</mat-icon
@@ -9,7 +9,7 @@
       <input type="text" placeholder="Search here..." class="form-control" />
       <select
         *ngIf="isCustomer || isVendor || isLedgerGroupRoute || isSubLedgerRoute"
-        class="form-select pr-0 pl-2 mr3"
+        class="form-select pr-0 pl-2 mr-3"
       >
         <option>Name</option>
         <option>Address</option>
@@ -17,18 +17,47 @@
         <option>Email</option>
       </select>
 
-      <select *ngIf="isGeneralLedgerRoute" class="form-select pl-0 pr-2 mr3">
+      <select *ngIf="isGeneralLedgerRoute" class="form-select pl-2 mr-3">
         <option>Account Name</option>
         <option>Accounts Code</option>
         <option>Accounts Type</option>
         <option>Group Name</option>
       </select>
     </div>
+  </div> -->
+
+  <div class="d-flex align-items-center p-0 search-bar">
+    <!-- Search icon -->
+    <i class="material-icons ml-2">search</i>
+
+    <!-- Input field -->
+    <input type="text" placeholder="Search here....." class="search-input" />
+
+    <!-- Divider -->
+    <div class="mx-2 divider"></div>
+
+    <!-- Dropdown -->
+    <select
+      *ngIf="isCustomer || isVendor || isLedgerGroupRoute || isSubLedgerRoute"
+      class="form-control p-0"
+    >
+      <option value="name">Name</option>
+      <option value="address">Address</option>
+      <option value="contact">Phone</option>
+      <option value="contact">Email</option>
+    </select>
+
+    <select *ngIf="isGeneralLedgerRoute" class="form-control p-0">
+      <option>Account Name</option>
+      <option>Accounts Code</option>
+      <option>Accounts Type</option>
+      <option>Group Name</option>
+    </select>
   </div>
 
   <div class="d-flex mr-0">
     <div *ngIf="isCustomer" class="customer-type d-flex row align-items-center">
-      <select class="select-dropdown pl-0 pr-2 mr-5">
+      <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Customer</option>
         <option>Active Customer</option>
         <option>Inactive Customer</option>
@@ -36,7 +65,7 @@
     </div>
 
     <div *ngIf="isVendor" class="customer-type d-flex row align-items-center">
-      <select class="select-dropdown pl-0 pr-2 mr-5">
+      <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Vendor</option>
         <option>Active Vendor</option>
         <option>Inactive Vendor</option>
@@ -47,7 +76,7 @@
       *ngIf="isLedgerGroupRoute"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pl-0 pr-2 mr-5">
+      <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Ledger Group</option>
         <option>Active Ledger Group</option>
         <option>Inactive Ledger Group</option>
@@ -58,7 +87,7 @@
       *ngIf="isSubLedgerRoute"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pl-0 pr-2 mr-5">
+      <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Sub-Ledger</option>
         <option>Active Sub-Ledger</option>
         <option>Inactive Sub-Ledger</option>
@@ -67,7 +96,7 @@
 
     <div *ngIf="isGeneralLedgerRoute" class="dropdown mr-5">
       <button
-        class="btn dropdown-toggle pr-3 pl-4"
+        class="btn dropdown-toggle pl-3 pr-4"
         type="button"
         id="accountsDropdown"
         data-bs-toggle="dropdown"
@@ -81,40 +110,40 @@
         aria-labelledby="accountsDropdown"
         style="max-height: 160px; overflow-y: auto; overflow-x: hidden"
       >
-        <input type="text" placeholder="Search" class="search-form" />
+        <input type="text" placeholder="Search" class="dropdown-search-form" />
 
         <li>
-          <a class="dropdown-item px-1 py-2">
+          <a class="dropdown-item px-1 py-1">
             <div class="d-flex">
-              <label class="ms-2"> Active Accounts</label>
+              <label class="ml-2"> Active Accounts</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item px-1 py-2">
+          <a class="dropdown-item px-1 py-1">
             <div class="d-flex">
-              <label class="ms-2"> Inactive Accounts</label>
+              <label class="ml-2"> Inactive Accounts</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item px-1 py-2">
+          <a class="dropdown-item px-1 py-1">
             <div class="d-flex">
-              <label class="ms-2"> Liability Accounts</label>
+              <label class="ml-2"> Liability Accounts</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item px-1 py-2">
+          <a class="dropdown-item px-1 py-1">
             <div class="d-flex">
-              <label class="ms-2"> Equity Accounts</label>
+              <label class="ml-2"> Equity Accounts</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item px-1 py-2">
+          <a class="dropdown-item px-1 py-1">
             <div class="d-flex">
-              <label class="ms-2"> Direct Income Accounts</label>
+              <label class="ml-2"> Direct Income Accounts</label>
             </div>
           </a>
         </li>
@@ -123,7 +152,7 @@
 
     <div class="dropdown mr-5">
       <button
-        class="btn dropdown-toggle pr-3 pl-4"
+        class="btn dropdown-toggle pl-3 pr-4"
         type="button"
         id="optionsDropdown"
         data-bs-toggle="dropdown"
@@ -136,7 +165,7 @@
           <a class="dropdown-item p-1">
             <div class="d-flex">
               <mat-icon class="mat-icon-small"> import_export</mat-icon>
-              <label class="ms-2"> Sort by</label>
+              <label class="ml-2"> Sort by</label>
             </div>
           </a>
           <!-- Nested Dropdown Menu -->
@@ -189,7 +218,7 @@
           <a class="dropdown-item p-1">
             <div class="d-flex">
               <mat-icon class="mat-icon-small">upload</mat-icon>
-              <label class="ms-2"> Export Customer</label>
+              <label class="ml-2"> Export Customer</label>
             </div>
           </a>
         </li>
@@ -197,7 +226,7 @@
           <a class="dropdown-item p-1 border-bottom border-secondary">
             <div class="d-flex">
               <mat-icon class="mat-icon-small">downloading</mat-icon>
-              <label class="ms-2">Import Customer</label>
+              <label class="ml-2">Import Customer</label>
             </div>
           </a>
         </li>
@@ -206,7 +235,7 @@
           <a class="dropdown-item p-1">
             <div class="d-flex">
               <mat-icon class="mat-icon-small">settings</mat-icon>
-              <label class="ms-2"> Preferences </label>
+              <label class="ml-2"> Preferences </label>
             </div>
           </a>
         </li>
@@ -214,7 +243,7 @@
           <a class="dropdown-item p-1">
             <div class="d-flex">
               <mat-icon class="mat-icon-small">autorenew</mat-icon>
-              <label class="ms-2"> Refresh List </label>
+              <label class="ml-2"> Refresh List </label>
             </div>
           </a>
         </li>
@@ -223,7 +252,7 @@
 
     <div *ngIf="isGeneralLedgerRoute" class="dropdown mr-5">
       <button
-        class="btn custom-btn dropdown-toggle pr-3 pl-4"
+        class="btn custom-btn dropdown-toggle pl-3 pr-4"
         type="button"
         id="createDropdown"
         data-bs-toggle="dropdown"
@@ -234,30 +263,30 @@
 
       <ul class="dropdown-menu py-1" aria-labelledby="createDropdown">
         <li>
-          <a class="dropdown-item p-2" href="/new-ledger">
+          <a class="dropdown-item p-1" href="/new-ledger">
             <div class="d-flex">
-              <label class="ms-2"> Add New Ledger</label>
+              <label class="ml-2"> Add New Ledger</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-2">
+          <a class="dropdown-item p-1">
             <div class="d-flex">
-              <label class="ms-2"> Add New Vendor</label>
+              <label class="ml-2"> Add New Vendor</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-2">
+          <a class="dropdown-item p-1">
             <div class="d-flex">
-              <label class="ms-2"> Add New Customer</label>
+              <label class="ml-2"> Add New Customer</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-2">
+          <a class="dropdown-item p-1">
             <div class="d-flex">
-              <label class="ms-2"> Add New Ledger Group</label>
+              <label class="ml-2"> Add New Ledger Group</label>
             </div>
           </a>
         </li>
@@ -266,7 +295,7 @@
 
     <div *ngIf="isLedgerGroupRoute || isSubLedgerRoute" class="dropdown mr-5">
       <button
-        class="btn custom-btn dropdown-toggle pr-3 pl-4"
+        class="btn custom-btn dropdown-toggle pl-3 pr-4"
         type="button"
         id="addLedgerDropdown"
         data-bs-toggle="dropdown"
@@ -278,27 +307,27 @@
       <ul class="dropdown-menu py-1" aria-labelledby="addLedgerDropdown">
         <li>
           <a
-            class="dropdown-item p-2"
+            class="dropdown-item p-1"
             *ngIf="isLedgerGroupRoute"
             href="/new-ledger-group"
           >
             <div class="d-flex">
-              <label class="ms-2"> Add New Ledger Group</label>
+              <label class="ml-2"> Add New Ledger Group</label>
             </div> </a
           ><a
-            class="dropdown-item p-2"
+            class="dropdown-item p-1"
             *ngIf="isSubLedgerRoute"
             href="/new-sub-ledger"
           >
             <div class="d-flex">
-              <label class="ms-2"> Add New Sub Ledger</label>
+              <label class="ml-2"> Add New Sub Ledger</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-2" href="/new-ledger">
+          <a class="dropdown-item p-1" href="/new-ledger">
             <div class="d-flex">
-              <label class="ms-2"> Add New Ledger</label>
+              <label class="ml-2"> Add New Ledger</label>
             </div>
           </a>
         </li>
