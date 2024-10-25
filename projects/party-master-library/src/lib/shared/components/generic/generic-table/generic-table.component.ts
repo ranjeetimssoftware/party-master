@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { PartyMasterLibraryService } from '../../../../party-master-library.service';
 
 export interface CustomerVendor {
-  sn: number;
-  customername: string;
-  vendorname: string;
-  address: string;
-  contact: string;
-  email: string;
-  vatno: string;
+  sn?: number;
+  CUSTNAME?: string;
+  vendorname?: string;
+  ADDRESS?: string;
+  MOBILENO?: string;
+  EMAIL?: string;
+  PANNO?: string;
 }
 
 export interface ChartOfAccount {
@@ -25,98 +28,7 @@ export interface ChartOfAccount {
   mainledger: string;
 }
 
-const ELEMENT_DATA: CustomerVendor[] = [
-  {
-    sn: 1,
-    customername: 'John Doe John Doe',
-    vendorname: 'John Doe John Doe',
-    address: '123 Main St',
-    contact: '123-456-7890',
-    email: 'john@example.com',
-    vatno: 'VAT123',
-  },
-  {
-    sn: 2,
-    customername: 'Jane Smith',
-    vendorname: 'John Doe John Doe',
-    address: '456 Oak St',
-    contact: '987-654-3210',
-    email: 'jane@example.com',
-    vatno: 'VAT456',
-  },
-  {
-    sn: 3,
-    customername: 'Mike Johnson',
-    vendorname: 'John Doe John Doe',
-    address: '789 Pine St',
-    contact: '555-123-4567',
-    email: 'mike@example.com',
-    vatno: 'VAT789',
-  },
-  {
-    sn: 4,
-    customername: 'Emily Davis',
-    vendorname: 'John Doe John Doe',
-    address: '321 Elm St',
-    contact: '333-555-6789',
-    email: 'emily@example.com',
-    vatno: 'VAT012',
-  },
-  {
-    sn: 5,
-    customername: 'Robert Brown',
-    vendorname: 'John Doe John Doe',
-    address: '654 Cedar St',
-    contact: '222-333-4444',
-    email: 'robert@example.com',
-    vatno: 'VAT345',
-  },
-  {
-    sn: 6,
-    customername: 'Alice Williams',
-    vendorname: 'John Doe John Doe',
-    address: '888 Maple St',
-    contact: '444-555-6666',
-    email: 'alice@example.com',
-    vatno: 'VAT678',
-  },
-  {
-    sn: 7,
-    customername: 'David Wilson',
-    vendorname: 'John Doe John Doe',
-    address: '999 Birch St',
-    contact: '111-222-3333',
-    email: 'david@example.com',
-    vatno: 'VAT901',
-  },
-  {
-    sn: 8,
-    customername: 'Laura White',
-    vendorname: 'John Doe John Doe',
-    address: '222 Cherry St',
-    contact: '555-888-9999',
-    email: 'laura@example.com',
-    vatno: 'VAT234',
-  },
-  {
-    sn: 9,
-    customername: 'James Green',
-    vendorname: 'John Doe John Doe',
-    address: '333 Walnut St',
-    contact: '777-888-9990',
-    email: 'james@example.com',
-    vatno: 'VAT588',
-  },
-  {
-    sn: 10,
-    customername: 'Sara Black',
-    vendorname: 'John Doe John Doe',
-    address: '444 Maple Ave',
-    contact: '333-444-5555',
-    email: 'sara@example.com',
-    vatno: 'VAT890',
-  },
-];
+const ELEMENT_DATA: CustomerVendor[] = [];
 
 // Sample data for Chart of Accounts
 const Chart_Of_Account_Data: ChartOfAccount[] = [
@@ -266,10 +178,12 @@ export class GenericTableComponent implements OnInit {
 
   displayedColumns: string[] = [];
   displayedChartofAccountColumns: string[] = [];
-  customerVendorDataSource = ELEMENT_DATA;
+  customerVendorDataSource = new MatTableDataSource<any>(ELEMENT_DATA);;
   chartofAccountDataSource = Chart_Of_Account_Data;
 
-  constructor(private router: Router) {}
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  constructor(private router: Router, public partyMasterService:PartyMasterLibraryService) {}
   ngOnInit(): void {
     const currentRoute = this.router.url;
     const lastSegment = currentRoute.split('/').pop(); // Get the last segment of the URL
@@ -283,12 +197,12 @@ export class GenericTableComponent implements OnInit {
     this.displayedColumns = [
       'filter',
       'sn',
-      ...(this.isCustomer ? ['customername'] : []),
+      ...(this.isCustomer ? ['CUSTNAME'] : []),
       ...(this.isVendor ? ['vendorname'] : []),
-      'address',
-      'contact',
-      'email',
-      'vatno',
+      'ADDRESS',
+      'MOBILENO',
+      'EMAIL',
+      'PANNO',
       'status',
       'action',
     ];
@@ -311,5 +225,13 @@ export class GenericTableComponent implements OnInit {
         ? ['action']
         : []),
     ];
+    this.partyMasterService.getCustomerList().subscribe((res:any) => {
+      this.customerVendorDataSource.data = res.result;
+    })
+    
   }
+  ngAfterViewInit() {
+    this.customerVendorDataSource.paginator = this.paginator;
+  }
+
 }

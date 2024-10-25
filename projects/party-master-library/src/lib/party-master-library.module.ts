@@ -38,6 +38,10 @@ import { CreateVendorComponent } from './pages/create-vendor/create-vendor.compo
 import { CreateLedgerComponent } from './pages/create-ledger/create-ledger.component';
 import { CreateSubLedgerComponent } from './pages/create-sub-ledger/create-sub-ledger.component';
 import { VendorAdditionalInfoComponent } from './components/vendor-additional-info/vendor-additional-info.component';
+import { SpinnerService } from './shared/components/generic/spinner/spinner.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
+import { PartyMasterLibraryService } from './party-master-library.service';
 
 
 @NgModule({
@@ -75,7 +79,6 @@ import { VendorAdditionalInfoComponent } from './components/vendor-additional-in
     MatCheckboxModule,
     MatOptionModule,
     MatSelectModule,
-    MatButtonModule,
     MatFormFieldModule,
     MatMenuModule,
     MatIconModule,
@@ -87,8 +90,11 @@ import { VendorAdditionalInfoComponent } from './components/vendor-additional-in
     MatSelectModule,
     MatCardModule,
     MatInputModule,
-    MultiSelectGenericGridModule
+    MultiSelectGenericGridModule,
+    MatDialogModule,
+    HttpClientModule
   ],
   exports: [PartyMasterLibraryComponent],
+  providers:[SpinnerService]
 })
 export class PartyMasterLibraryModule {}

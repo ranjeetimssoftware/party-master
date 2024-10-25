@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { PartyMasterLibraryService } from '../../party-master-library.service';
+import { CustomerVendor, GenericTableComponent } from '../../shared/components/generic/generic-table/generic-table.component';
 
 @Component({
   selector: 'lib-customer',
@@ -6,8 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./customer.component.css'],
 })
 export class CustomerComponent {
+  constructor(public partyMasterService:PartyMasterLibraryService){
+  }
   showPopup = false;
   showCustomizeColumnsPopup = false;
+  customerData:CustomerVendor[]=[];
 
   togglePopup() {
     this.showPopup = !this.showPopup;

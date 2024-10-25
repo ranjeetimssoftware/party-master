@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Customer</h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="openDialog()">SAVE</button>
     <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -157,7 +157,7 @@
 
         <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
-            <label for="vatNo" class="form-label">VAT No</label>
+            <label for="vatNo" class="form-label">VAT No<span class="star mx-2">*</span></label>
           </div>
           <div class="col-12 col-md-8">
             <input

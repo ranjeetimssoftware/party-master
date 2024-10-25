@@ -11,9 +11,9 @@ export class AdditionalInfoComponent {
   additionalInfoForm: FormGroup;
   constructor(private router: Router, private fb: FormBuilder) {
     this.additionalInfoForm = this.fb.group({
-      MenuCategory: ['', Validators.required],
-      CreditLimit: [, Validators.required],
-      CreditDays: [, Validators.required],
+      MenuCategory: [''],
+      CreditLimit: [],
+      CreditDays: [],
       IsOverseas:[0],
       Area: [''],
       Province: [''],
