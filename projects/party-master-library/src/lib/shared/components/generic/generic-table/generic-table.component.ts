@@ -176,6 +176,7 @@ export class GenericTableComponent implements OnInit {
   customerVendorDataSource = new MatTableDataSource<any>(ELEMENT_DATA);;
   chartofAccountDataSource = Chart_Of_Account_Data;
   activeRoute?:string;
+  loading:boolean=false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -227,8 +228,10 @@ export class GenericTableComponent implements OnInit {
   }
 
   getAllCustomers(){
+    this.loading = true;
     this.partyMasterService.getCustomerList().subscribe((res:any) => {
       this.customerVendorDataSource.data = res.result;
+      this.loading = false;
     });
   }
 

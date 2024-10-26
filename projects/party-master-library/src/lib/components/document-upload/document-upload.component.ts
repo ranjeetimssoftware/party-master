@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -38,6 +38,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class DocumentUploadComponent implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   newRow: PeriodicElement = { sn: this.dataSource.data.length+1, Document: '',};
+  documentName: any;
+  fileToUpload!: any;
+  filesNames:any[]=[];
+  documentFileList : any[]=[];
+  @ViewChild("fileSelect") fileSelect!: ElementRef;
 
   constructor() { }
 
@@ -55,5 +60,33 @@ export class DocumentUploadComponent implements OnInit {
 
   ngAfterViewInit() {
   }
+
+  fileUpload(files: FileList) {
+    if(files && files.length>0){
+      this.fileToUpload = files.item(0);
+    }
+  }
+
+  uploadFile() {
+    const formData = new FormData();
+    formData.append("DocumentHeading", this.documentName);
+    formData.append("file", this.fileToUpload);
+    console.log("documentName ",this.documentName)
+    this.documentFileList.push(this.fileToUpload);
+    this.fileToUpload = undefined;
+    this.fileSelect.nativeElement.value = null;
+    this.filesNames.push(this.documentName);
+    // this.documentHeadingService.uploadDocument(formData).subscribe(
+    //   (res: any) => {
+    //     if (res.status == "ok") {
+    //     }
+    //     else if (res.status == "error")
+    //     {
+    //     }        
+    //   },error => {
+    //   }
+    // )
+  }
+
 
 }

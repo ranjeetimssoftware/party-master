@@ -10,8 +10,13 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="MenuCategory"
+          [(ngModel)]="additinalInfoObj.category"
           type="text"
-        ></select>
+        >
+        <option value="Retailer">Retailer</option>
+        <option value="WholeSale">WholeSale</option>
+        <option value="DirectParty">Direct Party</option>
+      </select>
       </div>
     </div>
 
@@ -21,7 +26,7 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <label for="credit-terms" class="form-label-header">Credit Terms</label>
     </div>
 
@@ -35,6 +40,7 @@
           id="creditLimit"
           class="form-control px-2 py-1"
           formControlName="CreditLimit"
+          [(ngModel)]="additinalInfoObj.crLimit"
           placeholder="0.00"
         />
       </div>
@@ -50,14 +56,15 @@
           id="creditDays"
           class="form-control px-2 py-1"
           formControlName="CreditDays"
+          [(ngModel)]="additinalInfoObj.creditDays"
           placeholder="0"
         />
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2" *ngIf="userSettings.IsOverSeas == 1">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsOverseas" />Is Overseas
+        <input type="checkbox" formControlName="IsOverseas" [(ngModel)]="additinalInfoObj.isOverSeasCustomer"/>Is Overseas
         Customer
       </div>
     </div>
@@ -73,12 +80,14 @@
         <label for="area" class="form-label">Area</label>
       </div>
       <div class="col-11 col-md-4">
-        <select
-          id="area"
+        <input
+          type="number"
+          id="Area"
           class="form-control px-2 py-1"
           formControlName="Area"
-          type="text"
-        ></select>
+          [(ngModel)]="additinalInfoObj.Area"
+          placeholder="Area"
+        />
       </div>
     </div>
 
@@ -91,8 +100,12 @@
           id="province"
           class="form-control px-2 py-1"
           formControlName="Province"
+          [(ngModel)]="additinalInfoObj.province"
           type="text"
-        ></select>
+        >
+        <option value="Madhesh">Madhesh</option>
+        <option value="Bagmati">Bagmati</option>
+      </select>
       </div>
     </div>
 
@@ -105,12 +118,17 @@
           id="district"
           class="form-control px-2 py-1"
           formControlName="District"
+          [(ngModel)]="additinalInfoObj.district"
           type="text"
-        ></select>
+        >
+        <option value="Sirha">Sirha</option>
+        <option value="Dhanusha">Dhanusha</option>
+        <option value="Kathmandu">Kathmandu</option>
+      </select>
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.SalesmanCompulsoryInPartyMaster == 1">
       <div class="col-12 col-md-2">
         <label for="salesman" class="form-label">Dealing Salesman</label>
       </div>
@@ -119,43 +137,48 @@
           id="salesman"
           class="form-control px-2 py-1"
           formControlName="Salesman"
+          [(ngModel)]="additinalInfoObj.dealingSalesman"
           type="text"
-        ></select>
+        >
+        <option value="Bimal">Bimal</option>
+        <option value="Laxman">Laxman</option>
+      </select>
       </div>
     </div>
 
-    <div class="d-flex row align-items-center mt-3 mb-2">
+    <div class="d-flex row align-items-center mt-3 mb-2" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="IsContractPrice" />Enable
+        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfoObj.enbleContractPrice"/>Enable
         Contract Price
       </div>
 
-      <div class="col-11 col-md-4">
+      <div class="col-11 col-md-4" *ngIf="additinalInfoObj.enbleContractPrice">
         <select
           id="salesman"
           class="form-control px-2 py-1"
           formControlName="ContractPrice"
+          [(ngModel)]="additinalInfoObj.ContractPrice"
           type="text"
         >
-          <option disabled value="">Select Contract Price</option>
+        <option value="">Default Contact Price</option>
         </select>
       </div>
     </div>
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsCustomerMember" />Create
+        <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="additinalInfoObj.createMember" (onChange)="onMembershipCheck()"/>Create
         Customers As Member Also
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2" *ngIf="additinalInfoObj.createMember">
       <label for="credit-location" class="form-label-header">
         Membership Info
       </label>
     </div>
 
-    <div class="row d-flex align-items-center mt-2">
+    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfoObj.createMember">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Gender</label>
       </div>
@@ -164,8 +187,12 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Gender"
+          [(ngModel)]="additinalInfoObj.membershipInfo.gender"
           type="text"
-        ></select>
+        >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Membership Scheme</label>
@@ -175,8 +202,12 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Membership_Scheme"
+          [(ngModel)]="additinalInfoObj.membershipInfo.membershipScheme"
           type="text"
-        ></select>
+        >
+        <option value="1">Scheme 1</option>
+        <option value="2">Scheme 2</option>
+      </select>
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Date Of Birth</label>
@@ -187,6 +218,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="DOB"
+          [(ngModel)]="additinalInfoObj.membershipInfo.dateOfBirth"
           placeholder=""
         />
       </div>
@@ -199,6 +231,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_StartDate"
+          [(ngModel)]="additinalInfoObj.membershipInfo.membershipStartDate"
           placeholder=""
         />
       </div>
@@ -211,6 +244,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WeddingAnniversary"
+          [(ngModel)]="additinalInfoObj.membershipInfo.weddingAniversary"
           placeholder=""
         />
       </div>
@@ -223,6 +257,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_EndDate"
+          [(ngModel)]="additinalInfoObj.membershipInfo.membsershipEndDate"
           placeholder=""
         />
       </div>
@@ -235,6 +270,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WorkingOrganization"
+          [(ngModel)]="additinalInfoObj.membershipInfo.workingOrganization"
           placeholder=""
         />
       </div>
@@ -247,6 +283,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_Barcode"
+          [(ngModel)]="additinalInfoObj.membershipInfo.membershipBarcode"
           placeholder=""
         />
       </div>
@@ -259,11 +296,12 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WorkingOrganization"
+          [(ngModel)]="additinalInfoObj.membershipInfo.designation"
           placeholder=""
         />
       </div>
     </div>
-    <div class="row d-flex align-items-center mt-2 gap-2">
+    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfoObj.createMember">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Customer Status</label>
       </div>
@@ -272,6 +310,7 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Status"
+          [(ngModel)]="additinalInfoObj.membershipInfo.customerStatus"
           type="text"
         >
           <option value="1">Active</option>

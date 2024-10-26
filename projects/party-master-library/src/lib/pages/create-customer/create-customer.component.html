@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Customer</h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn mr-2 px-4" id="save" (click)="openDialog()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
     <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -13,7 +13,7 @@
   <form [formGroup]="customerForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-md-9">
-        <div class="row d-flex align-items-center mb-2 input-div">
+        <div class="row d-flex align-items-center mb-2 input-div" *ngIf="userSettings.AUTOSUPCODE == 1 || userSettings.AUTOSUPCODE == 2">
           <div class="col-12 col-md-3">
             <label for="cusomerCode" class="form-label mr-2"
               >Customer Code</label
@@ -56,6 +56,8 @@
               id="customerCode"
               class="form-control px-5 py-1"
               formControlName="CustomerCode"
+              [(ngModel)]="partyMasterService.customermasterObj.customerCode"
+              [disabled]="userSettings.AUTOSUPCODE == 1"
               placeholder="Enter Customer Code"
             />
           </div>
@@ -89,6 +91,7 @@
               id="customerName"
               class="form-control px-5 py-1"
               formControlName="CustomerName"
+              [(ngModel)]="partyMasterService.customermasterObj.customerName"              
               placeholder="Enter Your Name"
             />
             <svg
@@ -137,6 +140,7 @@
               id="address"
               class="form-control px-5 py-5"
               formControlName="Address"
+              [(ngModel)]="partyMasterService.customermasterObj.address"              
               placeholder="Enter Your Address"
             />
             <svg
@@ -155,7 +159,7 @@
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2 input-div">
+        <div class="row d-flex align-items-center mb-2 input-div" *ngIf="userSettings.CompanyType == 'B2B'">
           <div class="col-12 col-md-3">
             <label for="vatNo" class="form-label">VAT No<span class="star mx-2">*</span></label>
           </div>
@@ -165,6 +169,7 @@
               id="vatNo"
               class="form-control px-2 py-1"
               formControlName="VATNo"
+              [(ngModel)]="partyMasterService.customermasterObj.vatNo"              
               placeholder="Enter VAT Number"
             />
           </div>
@@ -180,6 +185,7 @@
               id="email"
               class="form-control px-5 py-1"
               formControlName="Email"
+              [(ngModel)]="partyMasterService.customermasterObj.email"              
               placeholder="Enter Your Email"
             />
             <svg
@@ -230,6 +236,7 @@
               id="Mobile"
               class="form-control px-5 py-1 mr-3"
               formControlName="Mobile"
+              [(ngModel)]="partyMasterService.customermasterObj.mobile"              
               placeholder="Mobile"
             />
             <svg
@@ -251,6 +258,7 @@
               id="phoneNumber"
               class="form-control px-5 py-1"
               formControlName="Phone"
+              [(ngModel)]="partyMasterService.customermasterObj.phone"              
               placeholder="Phone"
             />
             <svg
@@ -273,7 +281,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-column justify-content-between">
+      <div class="col-md-3 d-flex flex-column justify-content-between" *ngIf="mode=='View' || mode == 'Edit'">
         <mat-card class="example-card" appearance="outlined">
           <mat-card-header>
             <mat-card-title>Balance Amount</mat-card-title>
@@ -289,25 +297,26 @@
             id="LedgerAc"
             class="mx-2"
             formControlName="LedgerAc"
-          />Create Customer's Ledger A/C
+            [(ngModel)]="partyMasterService.customermasterObj.isCustomerLedger"              
+            />Create Customer's Ledger A/C
         </div>
       </div>
     </div>
   </form>
   <mat-tab-group (selectedIndexChange)="onTabChange($event)">
-    <mat-tab label="Additional Info"> </mat-tab>
-    <mat-tab label="Contact Person"> </mat-tab>
-    <mat-tab label="Shipping Address"> </mat-tab>
-    <mat-tab label="Terms and Condition"> </mat-tab>
-    <mat-tab label="Bank Information"> </mat-tab>
-    <mat-tab label=" Document Upload"></mat-tab>
-    <mat-tab label="Sales Target"> </mat-tab>
-    <mat-tab label="DMS"> </mat-tab>
+    <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> </mat-tab>
+    <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> </mat-tab>
+    <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> </mat-tab>
+    <mat-tab label="Terms and Condition" *ngIf="userSettings.ApplyTermsAndCondition == 1"> </mat-tab>
+    <mat-tab label="Bank Information" *ngIf="userSettings.EnableOnlinePayment == 1"> </mat-tab>
+    <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1"></mat-tab>
+    <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> </mat-tab>
+    <mat-tab label="DMS" *ngIf="userSettings.ISUSEDFORDMS == 1"> </mat-tab>
   </mat-tab-group>
 
   <!-- Display respective component for each tab -->
   <div *ngIf="selectedTab === 0">
-    <lib-additional-info></lib-additional-info>
+    <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-additional-info>
   </div>
   <div *ngIf="selectedTab === 1">
     <lib-contact-person></lib-contact-person>

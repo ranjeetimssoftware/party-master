@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../party-master-library.service';
 
 @Component({
   selector: 'lib-additional-info',
@@ -9,7 +10,12 @@ import { Router } from '@angular/router';
 })
 export class AdditionalInfoComponent {
   additionalInfoForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder) {
+  additinalInfoObj = <AdditionalInfo>{};
+  userSettings:any;
+
+  @Input() additinalInfo!:AdditionalInfo;
+  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+    this.additinalInfoObj.membershipInfo = <MembershipObj>{};
     this.additionalInfoForm = this.fb.group({
       MenuCategory: [''],
       CreditLimit: [],
@@ -33,5 +39,14 @@ export class AdditionalInfoComponent {
       Membership_EndDate:[''],
       Membership_Barcode:[''],
     });
+    this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
+    this.userSettings = this.partyMasterService.userSettings;
+  }
+
+  onMembershipCheck(){
+  }
+
+  
+  ngOnInit(){
   }
 }

@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
+import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '.././../party-master-library.service';
 
 @Component({
   selector: 'lib-create-customer',
@@ -11,17 +12,26 @@ import { GenericDialogComponent } from '../../shared/components/generic/generic-
 })
 export class CreateCustomerComponent {
   customerForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder,private dialog: MatDialog) {
+  mode:string="New";
+  userSettings:any;
+
+
+  constructor(private router: Router, private fb: FormBuilder,private dialog: MatDialog, public partyMasterService:PartyMasterLibraryService) {
+    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+    this.userSettings =this.partyMasterService.userSettings;
     this.customerForm = this.fb.group({
       CustomerCode: ['', Validators.required],
       CustomerName: ['', Validators.required],
       Address: ['', Validators.required],
-      VATNo: ['', Validators.required],
+      VATNo: [''],
       Email: ['', Validators.required],
       Mobile: ['', Validators.required],
       Phone: [''],
       LedgerAc:[0]
     });
+    if(this.userSettings.CompanyType == "B2B"){
+      this.partyMasterService.customermasterObj.isCustomerLedger = 1;
+    }
   }
 
 
@@ -40,32 +50,41 @@ export class CreateCustomerComponent {
     this.selectedTab = index;
   }
 
+
   submit() {
-    if (this.customerForm.valid) {
-      console.log('Form Data', this.customerForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
-    if(this.customerForm.controls["CustomerName"].value == "" || this.customerForm.controls["CustomerName"].value == undefined || this.customerForm.controls["CustomerName"].value == null){
+    if(this.partyMasterService.customermasterObj.customerName == "" || this.partyMasterService.customermasterObj.customerName == undefined || this.partyMasterService.customermasterObj.customerName == null){
       alert("Please Enter Customer Name.");
       return;
     }
-    if(this.customerForm.controls["Address"].value == "" || this.customerForm.controls["Address"].value == undefined || this.customerForm.controls["Address"].value == null){
+    if(this.partyMasterService.customermasterObj.address == "" || this.partyMasterService.customermasterObj.address == undefined || this.partyMasterService.customermasterObj.address == null){
       alert("Please Enter Address.");
       return;
     }
-    if(this.customerForm.controls["Address"].value == "" || this.customerForm.controls["Address"].value == undefined || this.customerForm.controls["Address"].value == null){
-      alert("Please Enter Address.");
-      return;
-    }
-    if(this.customerForm.controls["VATNo"].value == "" || this.customerForm.controls["VATNo"].value == undefined || this.customerForm.controls["VATNo"].value == null){
+    if((this.partyMasterService.customermasterObj.vatNo == "" || this.partyMasterService.customermasterObj.vatNo == undefined || this.partyMasterService.customermasterObj.vatNo == null) && this.userSettings.CompanyType == "B2B"){
       alert("Please Enter VAT No.");
       return;
+    }else if(this.partyMasterService.customermasterObj.vatNo != "" && this.partyMasterService.customermasterObj.vatNo != undefined && this.partyMasterService.customermasterObj.vatNo != null && this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer == 0){
+      if(this.partyMasterService.customermasterObj.vatNo.length == 9){
+        alert("VAT no. must be of 9 digits.");
+        return;
+      }
     }
-    if(this.customerForm.controls["Mobile"].value == "" || this.customerForm.controls["Mobile"].value == undefined || this.customerForm.controls["Mobile"].value == null){
+    if(this.partyMasterService.customermasterObj.mobile == "" || this.partyMasterService.customermasterObj.mobile == undefined || this.partyMasterService.customermasterObj.mobile == null){
       alert("Please Enter Mobile No.");
       return;
     }
+    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 1 && (this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman == "" || this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman == undefined || this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman == null)){
+      alert("Please Select Salesman.");
+      return;
+    }
+    if(this.partyMasterService.customermasterObj.isCustomerLedger == 1){
+      this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
+      this.partyMasterService.customermasterObj.customerPartyAccount.parent = "PA";
+    }
+    this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe(res => {
+      console.log(res);
+    });
+
   }
 
   goBack() {
