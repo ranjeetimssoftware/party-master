@@ -375,7 +375,7 @@
     <!-- SN Column -->
     <ng-container matColumnDef="sn">
       <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+      <td mat-cell *matCellDef="let elementl let i = index">{{ i+1 }}</td>
     </ng-container>
 
     <!-- Customer Name Column -->
@@ -387,7 +387,7 @@
     <!-- Vendor Name Column -->
     <ng-container *ngIf="activeRoute == 'vendor'" matColumnDef="vendorname">
       <th mat-header-cell *matHeaderCellDef>Vendor Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.vendorname }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.CUSTNAME }}</td>
     </ng-container>
 
     <!-- Address Column -->

@@ -4,6 +4,9 @@ table {
   .table-container {
     padding: 0 3rem;
   }
+  table tr{
+    line-height: 3rem;
+  }
   
   tr.mat-header-row{
     height: 40px;

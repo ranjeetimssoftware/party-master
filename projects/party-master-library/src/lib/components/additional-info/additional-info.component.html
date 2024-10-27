@@ -30,7 +30,7 @@
       <label for="credit-terms" class="form-label-header">Credit Terms</label>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditLimit" class="form-label">Credit Limit</label>
       </div>
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditDays" class="form-label">Credit Days</label>
       </div>
@@ -81,7 +81,7 @@
       </div>
       <div class="col-11 col-md-4">
         <input
-          type="number"
+          type="text"
           id="Area"
           class="form-control px-2 py-1"
           formControlName="Area"

@@ -56,6 +56,7 @@
               class="form-control px-5 py-1"
               formControlName="VendorCode"
               placeholder="Enter Vendor Code"
+              [(ngModel)]="partyMasterService.customermasterObj.customerCode"
             />
           </div>
         </div>
@@ -89,6 +90,7 @@
               class="form-control px-5 py-1"
               formControlName="VendorName"
               placeholder="Enter Your Name"
+              [(ngModel)]="partyMasterService.customermasterObj.customerName"              
             />
             <svg
               class="cutomerName-placeholder-icon"
@@ -137,6 +139,7 @@
               class="form-control px-5 py-5"
               formControlName="Address"
               placeholder="Enter Your Address"
+              [(ngModel)]="partyMasterService.customermasterObj.address"              
             />
             <svg
               class="address-placeholder-icon"
@@ -165,6 +168,7 @@
               class="form-control px-2 py-1"
               formControlName="VATNo"
               placeholder="Enter VAT Number"
+              [(ngModel)]="partyMasterService.customermasterObj.vatNo"              
             />
           </div>
         </div>
@@ -180,6 +184,7 @@
               class="form-control px-5 py-1"
               formControlName="Email"
               placeholder="Enter Your Email"
+              [(ngModel)]="partyMasterService.customermasterObj.email"              
             />
             <svg
               class="email-placeholder-icon"
@@ -243,6 +248,7 @@
               class="form-control px-5 py-1 mr-3"
               formControlName="Mobile"
               placeholder="Mobile"
+              [(ngModel)]="partyMasterService.customermasterObj.mobile"              
             />
 
             <input
@@ -251,6 +257,7 @@
               class="form-control px-5 py-1"
               formControlName="Phone"
               placeholder="Phone"
+              [(ngModel)]="partyMasterService.customermasterObj.phone"              
             />
             <svg
               class="telephone-placeholder-icon"
@@ -272,7 +279,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-column justify-content-between">
+      <div class="col-md-3 d-flex flex-column justify-content-between" *ngIf="mode=='View' || mode == 'Edit'">
         <mat-card class="example-card" appearance="outlined">
           <mat-card-header>
             <mat-card-title>Balance Amount</mat-card-title>
@@ -285,20 +292,18 @@
       </div>
     </div>
   </form>
-  <mat-tab-group (selectedIndexChange)="onTabChange($event)">
-    <mat-tab label="Additional Info"> </mat-tab>
-    <mat-tab label="Contact Person"> </mat-tab>
-    <mat-tab label=" Document Upload"> </mat-tab>
-  </mat-tab-group>
+  <mat-tab-group>
+    <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
+    <lib-vendor-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-vendor-additional-info>
 
-  <!-- Display respective component for each tab -->
-  <div *ngIf="selectedTab === 0">
-    <lib-vendor-additional-info></lib-vendor-additional-info>
-  </div>
-  <div *ngIf="selectedTab === 1">
-    <lib-contact-person></lib-contact-person>
-  </div>
-  <div *ngIf="selectedTab === 2">
-    <lib-document-upload></lib-document-upload>
-  </div>
+    </mat-tab>
+    <mat-tab label="Contact Person"  *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
+    <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson"></lib-contact-person>
+
+    </mat-tab>
+    <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1"> 
+    <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.DOCUMENTUPLOAD"></lib-document-upload>
+
+    </mat-tab>
+  </mat-tab-group>
 </div>

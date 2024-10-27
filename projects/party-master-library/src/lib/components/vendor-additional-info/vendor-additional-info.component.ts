@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../party-master-library.service';
 
 @Component({
   selector: 'lib-vendor-additional-info',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class VendorAdditionalInfoComponent {
   vendorAdditionalInfoForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder) {
+  userSettings:any;
+  additinalInfoObj = <AdditionalInfo>{};
+  @Input() additinalInfo!:AdditionalInfo;
+  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+    this.additinalInfoObj.membershipInfo = <MembershipObj>{};
     this.vendorAdditionalInfoForm = this.fb.group({
       Category: ['', Validators.required],
       VendorType: ['', Validators.required],
@@ -20,5 +25,8 @@ export class VendorAdditionalInfoComponent {
       SelectContractPrice: ['', Validators.required],
       VendorStatus: ['', Validators.required],
     });
+    this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
+    this.userSettings = this.partyMasterService.userSettings;
+    this.additinalInfoObj.createMember = 1;
   }
 }

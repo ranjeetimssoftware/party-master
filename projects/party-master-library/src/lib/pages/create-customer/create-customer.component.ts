@@ -31,6 +31,7 @@ export class CreateCustomerComponent {
     });
     if(this.userSettings.CompanyType == "B2B"){
       this.partyMasterService.customermasterObj.isCustomerLedger = 1;
+      this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
     }
   }
 
@@ -81,8 +82,10 @@ export class CreateCustomerComponent {
       this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
       this.partyMasterService.customermasterObj.customerPartyAccount.parent = "PA";
     }
-    this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe(res => {
-      console.log(res);
+    this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
+      if(res.status == "ok"){
+        console.log("Data Saved!");
+      }
     });
 
   }

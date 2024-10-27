@@ -10,7 +10,12 @@
           class="form-control px-2 py-1"
           formControlName="Category"
           type="text"
-        ></select>
+          [(ngModel)]="additinalInfoObj.category"
+        >
+        <option value="Retailer">Retailer</option>
+        <option value="WholeSale">WholeSale</option>
+        <option value="DirectParty">Direct Party</option>
+      </select>
       </div>
     </div>
 
@@ -30,18 +35,22 @@
           id="vendorType"
           class="form-control px-2 py-1"
           formControlName="VendorType"
+          [(ngModel)]="additinalInfoObj.vendorType"
           type="text"
-        ></select>
+        >
+        <option value="VAT">VAT Registered</option>
+        <option value="PAN">PAN Registered</option>
+      </select>
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="credit-terms" class="form-label-header">Credit Terms</label>
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditLimit" class="form-label">Credit Limit</label>
       </div>
@@ -56,7 +65,7 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditDays" class="form-label">Credit Days</label>
       </div>
@@ -71,25 +80,28 @@
       </div>
     </div>
 
-    <div class="row align-items-center my-3">
+    <div class="row align-items-center my-3" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="ContractPrice" />Enable Contract
+        <input type="checkbox" formControlName="ContractPrice" [(ngModel)]="additinalInfoObj.enbleContractPrice"/>Enable Contract
         Price
       </div>
-      <div class="col-11 col-md-4" style="margin-left: -10px">
+      <div class="col-11 col-md-4" style="margin-left: -10px" *ngIf="additinalInfoObj.enbleContractPrice">
         <select
           id="contractPrice"
           class="form-control px-2 py-1"
           formControlName="SelectContractPrice"
+          [(ngModel)]="additinalInfoObj.ContractPrice"
           placeholder="Select Contract
           Price"
-        ></select>
+        >
+        <option value="">Default Contact Price</option>
+      </select>
       </div>
     </div>
 
     <div class="row d-flex align-items-center mt-3 mb-2">
       <div class="col-12 col-md-2">
-        <label for="vendorStatus" class="form-label">VendorStatus</label>
+        <label for="vendorStatus" class="form-label">Vendor Status</label>
       </div>
       <div class="col-11 col-md-4">
         <select

@@ -303,41 +303,36 @@
       </div>
     </div>
   </form>
-  <mat-tab-group (selectedIndexChange)="onTabChange($event)">
-    <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> </mat-tab>
-    <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> </mat-tab>
-    <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> </mat-tab>
-    <mat-tab label="Terms and Condition" *ngIf="userSettings.ApplyTermsAndCondition == 1"> </mat-tab>
-    <mat-tab label="Bank Information" *ngIf="userSettings.EnableOnlinePayment == 1"> </mat-tab>
-    <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1"></mat-tab>
-    <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> </mat-tab>
-    <mat-tab label="DMS" *ngIf="userSettings.ISUSEDFORDMS == 1"> </mat-tab>
+  <mat-tab-group>
+    <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
+      <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-additional-info>
+    </mat-tab>
+    <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
+      <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson"></lib-contact-person>
+
+    </mat-tab>
+    <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> 
+      <lib-shipping-address></lib-shipping-address>
+
+    </mat-tab>
+    <mat-tab label="Terms and Condition" *ngIf="userSettings.ApplyTermsAndCondition == 1">
+      <lib-terms-condition></lib-terms-condition>
+       </mat-tab>
+    <mat-tab label="Bank Information" *ngIf="userSettings.EnableOnlinePayment == 1"> 
+      <lib-bank-information></lib-bank-information>
+
+    </mat-tab>
+    <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1">
+      <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.DOCUMENTUPLOAD"></lib-document-upload>
+
+    </mat-tab>
+    <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> 
+      <lib-sales-target></lib-sales-target>
+
+    </mat-tab>
+    <mat-tab label="DMS" *ngIf="userSettings.ISUSEDFORDMS == 1">
+      <lib-dms></lib-dms>
+       </mat-tab>
   </mat-tab-group>
 
-  <!-- Display respective component for each tab -->
-  <div *ngIf="selectedTab === 0">
-    <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-additional-info>
-  </div>
-  <div *ngIf="selectedTab === 1">
-    <lib-contact-person></lib-contact-person>
-  </div>
-
-  <div *ngIf="selectedTab === 2">
-    <lib-shipping-address></lib-shipping-address>
-  </div>
-  <div *ngIf="selectedTab === 3">
-    <lib-terms-condition></lib-terms-condition>
-  </div>
-  <div *ngIf="selectedTab === 4">
-    <lib-bank-information></lib-bank-information>
-  </div>
-  <div *ngIf="selectedTab === 5">
-    <lib-document-upload></lib-document-upload>
-  </div>
-  <div *ngIf="selectedTab === 6">
-    <lib-sales-target></lib-sales-target>
-  </div>
-  <div *ngIf="selectedTab === 7">
-    <lib-dms></lib-dms>
-  </div>
 </div>

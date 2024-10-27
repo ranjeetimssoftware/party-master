@@ -9,8 +9,9 @@ import { Observable } from 'rxjs';
 export class PartyMasterLibraryService {
   userSettings:any;
   customermasterObj:CustomerMasterObj = <CustomerMasterObj>{}
-
+  
   constructor(private http: HttpClient,) { 
+    this.customermasterObj.status = 1;
   }
 
   private get apiUrl(): string {
@@ -22,8 +23,8 @@ export class PartyMasterLibraryService {
      return apiUrl
    }
 
-   getCustomerList():Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + '/getAllCustomer');
+   getCustomerList(ptype:string):Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + `/getAllCustomer?ptype=?${ptype}`);
   }
 
   saveCustomer(mode:string,dataObj:CustomerMasterObj){
@@ -34,6 +35,9 @@ export class PartyMasterLibraryService {
    getAllsettings(){
     return this.http.get<any[]>(this.apiUrl + '/getAllSetting'); 
   }
+  uploadDocument(body:any) {
+    return this.http.post(`${this.apiUrl}/FileUpload`, body);
+}
 }
 
 export interface CustomerMasterObj{
@@ -48,7 +52,8 @@ export interface CustomerMasterObj{
   isCustomerLedger:number;
   AdditionalInfo:AdditionalInfo;
   ContactPerson:contactPerson[];
-  customerPartyAccount:{type:string, parent:string}
+  customerPartyAccount:any;
+  DOCUMENTUPLOAD:any[];
 }
 
 export interface contactPerson{
@@ -70,6 +75,7 @@ export interface AdditionalInfo{
   enbleContractPrice:number,
   createMember:number,
   membershipInfo:MembershipObj;
+  vendorType:string;
 }
 
 export interface MembershipObj{

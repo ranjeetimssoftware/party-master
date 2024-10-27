@@ -64,87 +64,22 @@
               />
             </svg>
           </div>
-          <!-- <div class="col-11 col-md-5">
+          <div class="col-11 col-md-5">
 
             <select
               id="accountType"
               class="form-control px-2 py-1"
               formControlName="AccountType"
               type="text"
-            ></select>
-          </div> -->
-
-          <div class="dropdown col-11 col-md-5">
-            <button
-              class="btn dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-              type="button"
-              id="accountsDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
             >
-              <!-- Display selected value or default text -->
-              {{ selectedAccount ? selectedAccount : "Select Account Type" }}
-            </button>
-
-            <ul
-              class="dropdown-menu py-1 col-md-11"
-              aria-labelledby="accountsDropdown"
-              style="max-height: 180px; overflow-y: auto; overflow-x: hidden"
-            >
-              <input type="text" placeholder="Search" class="search-form" />
-
-              <!-- Dropdown options with (click) event to set selectedAccount -->
-              <li>
-                <a
-                  class="dropdown-item p-1"
-                  (click)="selectedAccount = 'Assets'"
-                >
-                  <div class="d-flex">
-                    <label class="ml-2"> Assets</label>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item p-1"
-                  (click)="selectedAccount = 'Liabilities'"
-                >
-                  <div class="d-flex">
-                    <label class="ml-2"> Liabilities</label>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item p-1"
-                  (click)="selectedAccount = 'Equity'"
-                >
-                  <div class="d-flex">
-                    <label class="ml-2"> Equity</label>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item p-1"
-                  (click)="selectedAccount = 'Direct Income'"
-                >
-                  <div class="d-flex">
-                    <label class="ml-2"> Direct Income</label>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item p-1"
-                  (click)="selectedAccount = 'Indirect Income'"
-                >
-                  <div class="d-flex">
-                    <label class="ml-2"> Indirect Income</label>
-                  </div>
-                </a>
-              </li>
-            </ul>
+            <option value="AT">ASSETS</option>
+            <option value="LB">LIABILITIES</option>
+            <option value="DI">DIRECT INCOME</option>
+            <option value="DE">DIRECT EXPENSES</option>
+            <option value="II">INDIRECT INCOME</option>
+            <option value="ID">INDIRECT EXPENSES</option>
+            <option value="CA">CAPITAL A/C</option>
+          </select>
           </div>
         </div>
         <div class="row d-flex align-items-center mb-2">
@@ -284,10 +219,12 @@
               formControlName="Category"
               type="text"
             >
-              <option>Cash a/c</option>
-              <option>Bank a/c</option>
-              <option>Bank Overdraft a/c</option>
-              <option>Tds a/c</option>
+              <option value="C">Cash a/c</option>
+              <option value="B">Bank a/c</option>
+              <option value="O">Others a/c</option>
+              <option value="OVERDRAFT">Bank Overdraft a/c</option>
+              <option value="TDS_RECEIVABLE">Tds Receiveable a/c</option>
+              <option value="TDS_PAYABLE">Tds Payable a/c</option>
             </select>
           </div>
         </div>
@@ -350,24 +287,22 @@
             />Has Sub Ledger
           </div>
         </div>
-        <div class="row mt-3 mb-3">
-          <div class="col-11 col-md-4 offset-md-3">
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-3">
+            <label for="branches" class="form-label mr-2">Division</label>
+          </div>
+          <div class="col-11 col-md-5 d-flex">
+            <button mat-button (click)="openDialog()" id="save" class="w-100">
+              <span>Select Division</span>
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+          <div class="col-11 col-md-4">
             <input
               type="checkbox"
               formControlName="AllBranches"
               class="mr-2"
-            />Is Applicable for all branches
-          </div>
-        </div>
-        <div class="row d-flex align-items-center mb-2">
-          <div class="col-12 col-md-3">
-            <label for="branches" class="form-label mr-2">Branches</label>
-          </div>
-          <div class="col-11 col-md-5 d-flex">
-            <button mat-button (click)="openDialog()" id="save" class="w-100">
-              <span>Select Branch</span>
-              <mat-icon>chevron_right</mat-icon>
-            </button>
+            />Is Applicable for all Divisions
           </div>
         </div>
       </div>
@@ -380,12 +315,12 @@
       <!-- SN Column -->
       <ng-container matColumnDef="sn">
         <th mat-header-cell *matHeaderCellDef>SN</th>
-        <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i+1 }}</td>
       </ng-container>
 
       <!-- Branch Column -->
       <ng-container matColumnDef="branch">
-        <th mat-header-cell *matHeaderCellDef>Branch Name</th>
+        <th mat-header-cell *matHeaderCellDef>Division Name</th>
         <td mat-cell *matCellDef="let element">{{ element.branch }}</td>
       </ng-container>
 
@@ -409,7 +344,7 @@
     <div
       class="d-flex justify-content-between align-items-center border-bottom px-4"
     >
-      <p class="popup-header">Select Branch</p>
+      <p class="popup-header">Select Division</p>
       <button class="close-button" (click)="close()">&times;</button>
     </div>
 
@@ -431,62 +366,9 @@
 
     <div class="popup-body px-4 py-2">
       <div class="row mb-3 border-bottom pb-1">
-        <div class="col-md-12 d-flex">
-          <div class="col-md-6">
-            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
-          </div>
-          <div class="col-md-6">
-            <label>
-              <input class="mr-2" type="checkbox" /> Branch Name 1
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3 border-bottom pb-1">
-        <div class="col-md-12 d-flex">
-          <div class="col-md-6">
-            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
-          </div>
-          <div class="col-md-6">
-            <label>
-              <input class="mr-2" type="checkbox" /> Branch Name 1
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3 border-bottom pb-1">
-        <div class="col-md-12 d-flex">
-          <div class="col-md-6">
-            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
-          </div>
-          <div class="col-md-6">
-            <label>
-              <input class="mr-2" type="checkbox" /> Branch Name 1
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-3 border-bottom pb-1">
-        <div class="col-md-12 d-flex">
-          <div class="col-md-6">
-            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
-          </div>
-          <div class="col-md-6">
-            <label>
-              <input class="mr-2" type="checkbox" /> Branch Name 1
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-0 border-bottom pb-1">
-        <div class="col-md-12 d-flex">
-          <div class="col-md-6">
-            <label> <input class="mr-2" type="checkbox" /> Branch Name </label>
-          </div>
-          <div class="col-md-6">
-            <label>
-              <input class="mr-2" type="checkbox" /> Branch Name 1
-            </label>
+        <div class="col-md-12 d-flex flex-wrap">
+          <div class="col-md-6 my-2" *ngFor="let check of branchDataSource">
+            <label> <input class="mr-2" type="checkbox" /> {{check.branch}}</label>
           </div>
         </div>
       </div>

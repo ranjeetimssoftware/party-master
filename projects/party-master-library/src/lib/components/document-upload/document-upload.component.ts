@@ -1,34 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { PartyMasterLibraryService } from '../../party-master-library.service';
 
-export interface PeriodicElement {
-  sn: number;
-  Document: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    sn: 1,
-    Document: 'Tax Document.pdf',
-  },
-  {
-    sn: 2,
-    Document: 'Document2.pdf',
-  },
-  {
-    sn: 3,
-    Document: 'Document3.pdf',
-  },
-  {
-    sn: 4,
-    Document: 'Document3.pdf',
-  },
-  {
-    sn: 5,
-    Document: 'Document3.pdf',
-  },
-];
 
 @Component({
   selector: 'lib-document-upload',
@@ -36,15 +10,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./document-upload.component.css']
 })
 export class DocumentUploadComponent implements OnInit {
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  newRow: PeriodicElement = { sn: this.dataSource.data.length+1, Document: '',};
   documentName: any;
   fileToUpload!: any;
   filesNames:any[]=[];
-  documentFileList : any[]=[];
+  documentUpload : any[]=[];
   @ViewChild("fileSelect") fileSelect!: ElementRef;
+  @Input() documentUploadList!:any[];
 
-  constructor() { }
+  constructor(private partyMasterService:PartyMasterLibraryService) { 
+    this.partyMasterService.customermasterObj.DOCUMENTUPLOAD = this.documentUpload;
+  }
 
   ngOnInit(): void {
     // if(this.dataSource.data[this.dataSource.data.length-1].Document != ''){
@@ -61,9 +36,11 @@ export class DocumentUploadComponent implements OnInit {
   ngAfterViewInit() {
   }
 
-  fileUpload(files: FileList) {
-    if(files && files.length>0){
-      this.fileToUpload = files.item(0);
+  fileUpload(event:Event) {
+    const input = event.target as HTMLInputElement;
+    if(input.files && input.files.length>0){
+      this.fileToUpload = input.files[0];
+      this.documentName = input.files[0].name;
     }
   }
 
@@ -71,21 +48,25 @@ export class DocumentUploadComponent implements OnInit {
     const formData = new FormData();
     formData.append("DocumentHeading", this.documentName);
     formData.append("file", this.fileToUpload);
-    console.log("documentName ",this.documentName)
-    this.documentFileList.push(this.fileToUpload);
+    formData.append("TenantId",'' );
+    this.partyMasterService.uploadDocument(formData).subscribe(
+      (res: any) => {
+        if (res.status == "ok") {
+          this.documentUpload.push(res.result);
+            this.fileToUpload = undefined;
+            this.fileSelect.nativeElement.value = null;
+            this.filesNames.push(res.result.path);
+        }
+        else if (res.status == "error")
+        {
+          console.log("error",res.status);
+        }        
+      },error => {
+        console.log("error",error.message);
+      }
+    )
     this.fileToUpload = undefined;
     this.fileSelect.nativeElement.value = null;
-    this.filesNames.push(this.documentName);
-    // this.documentHeadingService.uploadDocument(formData).subscribe(
-    //   (res: any) => {
-    //     if (res.status == "ok") {
-    //     }
-    //     else if (res.status == "error")
-    //     {
-    //     }        
-    //   },error => {
-    //   }
-    // )
   }
 
 

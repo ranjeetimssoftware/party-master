@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 
@@ -10,21 +9,6 @@ export interface ContactPersonObj {
   email: string;
 }
 
-const ELEMENT_DATA: ContactPersonObj[] = 
-[
-  {
-    name: 'John Doe John Doe',
-    contact: '123-456-7890',
-    designation: 'senior manager',
-    email: 'john@example.com'
-  },
-  {
-    name: 'Jane Smith',
-    contact: '987-654-3210',
-    designation: 'senior manager',
-    email: 'jane@example.com'
-  },
-];
 
 @Component({
   selector: 'lib-contact-person',
@@ -32,7 +16,7 @@ const ELEMENT_DATA: ContactPersonObj[] =
   styleUrls: ['./contact-person.component.css']
 })
 export class ContactPersonComponent implements OnInit {
-  dataSource = new MatTableDataSource<ContactPersonObj>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<ContactPersonObj>();
   displayedColumns: string[] = [
     'sn',
     'name',
@@ -43,8 +27,6 @@ export class ContactPersonComponent implements OnInit {
   ];
   newRow: any = { name: '', contact: '', designation: '', email: '' };
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatTable) table!: MatTable<any>;
   @Input() contactPersonArray!:ContactPersonObj[];
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
@@ -76,8 +58,6 @@ export class ContactPersonComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.table.renderRows();
   }
 
 

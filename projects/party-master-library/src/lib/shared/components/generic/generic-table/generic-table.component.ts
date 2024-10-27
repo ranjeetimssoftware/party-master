@@ -219,7 +219,8 @@ export class GenericTableComponent implements OnInit {
         ? ['action']
         : []),
     ];
-    if(this.activeRoute == 'customer') this.getAllCustomers();
+    if(this.activeRoute == 'customer') this.getAllCustomers('C');
+    if(this.activeRoute == 'vendor') this.getAllCustomers('V');
 
     
   }
@@ -227,9 +228,9 @@ export class GenericTableComponent implements OnInit {
     this.customerVendorDataSource.paginator = this.paginator;
   }
 
-  getAllCustomers(){
+  getAllCustomers(ptype:string){
     this.loading = true;
-    this.partyMasterService.getCustomerList().subscribe((res:any) => {
+    this.partyMasterService.getCustomerList(ptype).subscribe((res:any) => {
       this.customerVendorDataSource.data = res.result;
       this.loading = false;
     });
