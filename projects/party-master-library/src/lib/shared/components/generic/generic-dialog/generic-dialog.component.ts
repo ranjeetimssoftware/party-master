@@ -10,9 +10,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenericDialogComponent {
-  Title:string='';
+  DialogObj:DialogObj = <DialogObj>{};
   constructor(@Inject(MAT_DIALOG_DATA) private data:DialogObj){
-    this.Title = data.Title;
+    this.DialogObj = data;
   }
 
   
@@ -21,4 +21,5 @@ export class GenericDialogComponent {
 
 export interface DialogObj{
   Title:string;
+  Message:string;
 }

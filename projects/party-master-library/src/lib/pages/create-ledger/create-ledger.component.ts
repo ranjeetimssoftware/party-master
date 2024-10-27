@@ -34,6 +34,7 @@ const ELEMENT_DATA: Branch[] = [
   },
 ];
 
+
 @Component({
   selector: 'lib-create-ledger',
   templateUrl: './create-ledger.component.html',
@@ -44,6 +45,58 @@ export class CreateLedgerComponent {
   displayedColumns: string[] = [];
   branchDataSource = ELEMENT_DATA;
   selectedAccount: string | null = null;
+  [key: string]: any; // Add this line
+
+  menuData = [
+    {
+      name: 'Vertebrates',
+      children: [
+        {
+          name: 'Fishes',
+          children: [
+            { name: 'Baikal oilfish' },
+            { name: 'Bala shark' },
+            { name: 'Ballan wrasse' },
+            { name: 'Bamboo shark' },
+            { name: 'Banded killifish' }
+          ]
+        },
+        {
+          name: 'Amphibians',
+          children: [
+            { name: 'Sonoran desert toad' },
+            { name: 'Western toad' },
+            { name: 'Arroyo toad' },
+            { name: 'Yosemite toad' }
+          ]
+        },
+        {
+          name: 'Reptiles',
+          children: [
+            { name: 'Banded Day Gecko' },
+            { name: 'Banded Gila Monster' },
+            { name: 'Black Tree Monitor' },
+            { name: 'Blue Spiny Lizard' },
+            { name: 'Velociraptor', disabled: true }
+          ]
+        },
+        { name: 'Birds' },
+        { name: 'Mammals' }
+      ]
+    },
+    {
+      name: 'Invertebrates',
+      children: [
+        { name: 'Insects' },
+        { name: 'Molluscs' },
+        { name: 'Crustaceans' },
+        { name: 'Corals' },
+        { name: 'Arachnids' },
+        { name: 'Velvet worms' },
+        { name: 'Horseshoe crabs' }
+      ]
+    }
+  ];
 
   ledgerForm: FormGroup;
   constructor(private router: Router, private fb: FormBuilder) {
@@ -61,6 +114,10 @@ export class CreateLedgerComponent {
     });
 
     this.displayedColumns = ['sn', 'branch', 'action'];
+  }
+
+  getSubMenu(item: any): any {
+    return this[`menu_${item.name.replace(/\s+/g, '_')}`];
   }
 
   openDialog() {

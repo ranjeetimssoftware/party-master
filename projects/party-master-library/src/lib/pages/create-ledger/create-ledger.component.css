@@ -45,7 +45,7 @@ input::placeholder {
 .form-select {
   font-size: 14px;
 }
-.dropdown-menu .dropdown-item:hover {
+.dropdown-menu .dropdown-item .mat-menu:hover {
   background-color: #4081bf;
   color: white;
 }

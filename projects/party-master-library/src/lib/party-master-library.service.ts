@@ -24,7 +24,7 @@ export class PartyMasterLibraryService {
    }
 
    getCustomerList(ptype:string):Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `/getAllCustomer?ptype=?${ptype}`);
+    return this.http.get<any[]>(this.apiUrl + `/getAllCustomer?ptype=${ptype}`);
   }
 
   saveCustomer(mode:string,dataObj:CustomerMasterObj){
@@ -52,8 +52,18 @@ export interface CustomerMasterObj{
   isCustomerLedger:number;
   AdditionalInfo:AdditionalInfo;
   ContactPerson:contactPerson[];
-  customerPartyAccount:any;
+  customerPartyAccount:CustomerPartyAccountObj;
   DOCUMENTUPLOAD:any[];
+}
+
+export interface CustomerPartyAccountObj{
+  pType:string;
+  acType:string;
+  category:string;
+  mapId:string;
+  type:string; 
+  parent:string
+
 }
 
 export interface contactPerson{

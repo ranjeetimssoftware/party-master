@@ -144,67 +144,19 @@
           </div> -->
 
           <div class="dropdown col-11 col-md-5">
-            <button
-              class="btn dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-              type="button"
-              id="parentGroupDropdown"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Select Parent Group
-            </button>
-
-            <ul
-              class="dropdown-menu py-1 col-md-11"
-              aria-labelledby="parentGroupDropdown"
-            >
-              <input type="text" placeholder="Search" class="search-form" />
-
-              <li>
-                <a class="dropdown-item p-1">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <label class="ml-2"> Fixed Assets </label>
-                    <mat-icon>chevron_right</mat-icon>
-                  </div>
-                </a>
-              </li>
-              <li class="dropdown-submenu">
-                <a class="dropdown-item p-1">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <label class="ml-2"> Current Assets</label>
-                    <mat-icon>chevron_right</mat-icon>
-                  </div>
-                </a>
-                <!-- Nested Dropdown Menu -->
-                <ul class="dropdown-menu col-md-8">
-                  <input type="text" placeholder="Search" class="search-form" />
-                  <li>
-                    <a class="dropdown-item p-1">
-                      <div
-                        class="d-flex justify-content-between align-items-center"
-                      >
-                        <label class="ml-2"> Cash & Bank</label>
-                        <mat-icon>chevron_right</mat-icon>
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item p-1">
-                      <div
-                        class="d-flex justify-content-between align-items-center"
-                      >
-                        <label class="ml-2"> Bills Receiveable</label>
-                        <mat-icon>chevron_right</mat-icon>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <input
+              type="text"
+              id="Parent"
+              class="form-control px-2 py-1"
+              formControlName="ParentGroup"
+              placeholder="Select Parent Group"
+              mat-button [matMenuTriggerFor]="rootMenu"
+            />
+            <mat-menu #rootMenu="matMenu">
+              <ng-container *ngFor="let item of menuData">
+                <app-menu-item [item]="item"></app-menu-item>
+              </ng-container>
+            </mat-menu>
           </div>
         </div>
 
@@ -296,5 +248,6 @@
     </mat-tab>
   </mat-tab-group>
 </div>
+
 
 

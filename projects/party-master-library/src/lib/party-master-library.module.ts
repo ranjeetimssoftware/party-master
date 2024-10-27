@@ -43,6 +43,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { PartyMasterLibraryService } from './party-master-library.service';
 import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
+import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
+import {MatTreeModule} from '@angular/material/tree';
+import { GenericMenuComponent } from './shared/components/generic/generic-menu/generic-menu.component';
 
 
 @NgModule({
@@ -69,7 +72,9 @@ import { DivisionMappingComponent } from './components/division-mapping/division
     CreateLedgerGroupComponent,
     CreateSubLedgerComponent,
     VendorAdditionalInfoComponent,
-    DivisionMappingComponent
+    DivisionMappingComponent,
+    GenericDialogComponent,
+    GenericMenuComponent
   ],
   imports: [
     CommonModule,
@@ -94,7 +99,8 @@ import { DivisionMappingComponent } from './components/division-mapping/division
     MatInputModule,
     MultiSelectGenericGridModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTreeModule
   ],
   exports: [PartyMasterLibraryComponent],
   providers:[SpinnerService]

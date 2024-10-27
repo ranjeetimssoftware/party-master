@@ -16,7 +16,7 @@ export class CreateCustomerComponent {
   userSettings:any;
 
 
-  constructor(private router: Router, private fb: FormBuilder,private dialog: MatDialog, public partyMasterService:PartyMasterLibraryService) {
+  constructor(private router: Router, private fb: FormBuilder,public dialog: MatDialog, public partyMasterService:PartyMasterLibraryService) {
     this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.userSettings =this.partyMasterService.userSettings;
     this.customerForm = this.fb.group({
@@ -39,7 +39,8 @@ export class CreateCustomerComponent {
   openDialog() {
     this.dialog.open(GenericDialogComponent, {
       data:{
-        Title: "No data Found!"
+        Title: "Information",
+        Message: "Saved Successfully"
       }
     });
   }
@@ -84,7 +85,7 @@ export class CreateCustomerComponent {
     }
     this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
       if(res.status == "ok"){
-        console.log("Data Saved!");
+        this.openDialog();
       }
     });
 
