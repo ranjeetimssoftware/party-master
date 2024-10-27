@@ -42,6 +42,7 @@ import { SpinnerService } from './shared/components/generic/spinner/spinner.serv
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
 import { PartyMasterLibraryService } from './party-master-library.service';
+import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { PartyMasterLibraryService } from './party-master-library.service';
     CreateLedgerComponent,
     CreateLedgerGroupComponent,
     CreateSubLedgerComponent,
-    VendorAdditionalInfoComponent
+    VendorAdditionalInfoComponent,
+    DivisionMappingComponent
   ],
   imports: [
     CommonModule,
