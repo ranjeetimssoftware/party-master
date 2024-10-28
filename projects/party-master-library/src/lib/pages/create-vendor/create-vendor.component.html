@@ -298,11 +298,14 @@
 
     </mat-tab>
     <mat-tab label="Contact Person"  *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-    <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson"></lib-contact-person>
+    <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson" [mode]="mode"></lib-contact-person>
 
     </mat-tab>
+    <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
+      <lib-division-mapping></lib-division-mapping>
+      </mat-tab>
     <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1"> 
-    <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.DOCUMENTUPLOAD"></lib-document-upload>
+    <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.documentUpload"></lib-document-upload>
 
     </mat-tab>
   </mat-tab-group>

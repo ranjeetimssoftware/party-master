@@ -13,6 +13,7 @@ export class VendorAdditionalInfoComponent {
   userSettings:any;
   additinalInfoObj = <AdditionalInfo>{};
   @Input() additinalInfo!:AdditionalInfo;
+  @Input() mode!:string;
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.additinalInfoObj.membershipInfo = <MembershipObj>{};
     this.vendorAdditionalInfoForm = this.fb.group({
@@ -28,5 +29,11 @@ export class VendorAdditionalInfoComponent {
     this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
     this.userSettings = this.partyMasterService.userSettings;
     this.additinalInfoObj.createMember = 1;
+  }
+
+  ngOnInit(){
+    if(this.mode == 'view'){
+      this.vendorAdditionalInfoForm.disable();
+    }
   }
 }

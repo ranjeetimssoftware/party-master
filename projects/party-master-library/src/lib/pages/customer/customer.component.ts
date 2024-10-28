@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { CustomerVendor, GenericTableComponent } from '../../shared/components/generic/generic-table/generic-table.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-customer',
@@ -8,7 +9,7 @@ import { CustomerVendor, GenericTableComponent } from '../../shared/components/g
   styleUrls: ['./customer.component.css'],
 })
 export class CustomerComponent {
-  constructor(public partyMasterService:PartyMasterLibraryService){
+  constructor(public partyMasterService:PartyMasterLibraryService,private router: Router){
   }
   showPopup = false;
   showCustomizeColumnsPopup = false;
@@ -26,6 +27,10 @@ export class CustomerComponent {
   // Method to close the popup
   closeCustomizeColumnsPopup() {
     this.showCustomizeColumnsPopup = false;
+  }
+
+  onView(event:any){
+    this.router.navigate(["/new-customer",{acid:event, mode:'view'}])
   }
 
   // Method to handle save action

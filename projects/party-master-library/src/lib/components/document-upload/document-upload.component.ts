@@ -18,7 +18,7 @@ export class DocumentUploadComponent implements OnInit {
   @Input() documentUploadList!:any[];
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
-    this.partyMasterService.customermasterObj.DOCUMENTUPLOAD = this.documentUpload;
+    this.partyMasterService.customermasterObj.documentUpload = this.documentUpload;
   }
 
   ngOnInit(): void {
@@ -49,17 +49,19 @@ export class DocumentUploadComponent implements OnInit {
     formData.append("DocumentHeading", this.documentName);
     formData.append("file", this.fileToUpload);
     formData.append("TenantId",'' );
+    this.filesNames.push(this.documentName);
+    this.documentUpload.push({documentExtenstion :this.fileToUpload.type, documentHeading :this.documentName, acid:'', path:''});
     this.partyMasterService.uploadDocument(formData).subscribe(
       (res: any) => {
         if (res.status == "ok") {
-          this.documentUpload.push(res.result);
+          this.partyMasterService.openSuccessDialog("Uploaded Successfully.");
             this.fileToUpload = undefined;
             this.fileSelect.nativeElement.value = null;
-            this.filesNames.push(res.result.path);
         }
         else if (res.status == "error")
         {
-          console.log("error",res.status);
+          this.partyMasterService.openErrorDialog(res.status);
+
         }        
       },error => {
         console.log("error",error.message);

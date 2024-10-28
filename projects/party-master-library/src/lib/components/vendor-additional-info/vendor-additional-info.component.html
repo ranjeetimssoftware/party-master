@@ -108,8 +108,12 @@
           id="vendorStatus"
           class="form-control px-2 py-1"
           formControlName="VendorStatus"
+          [(ngModel)]="additinalInfoObj.membershipInfo.customerStatus"
           type="text"
-        ></select>
+        >
+        <option value="1">Active</option>
+          <option value="0">Inactive</option>
+      </select>
       </div>
     </div>
   </form>

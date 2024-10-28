@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'lib-generic-nested-dropdown',
@@ -8,24 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class GenericNestedDropdownComponent {
   selectedItem: string | null = null;
 
-  menuData = [
-    { label: 'Fixed Assets' },
-    {
-      label: 'Current Assets',
-      children: [
-        {
-          label: 'Cash & Bank',
-          children: [{ label: 'Cash' }, { label: 'Bank' }],
-        },
-        {
-          label: 'Bills Receiveable',
-          children: [{ label: 'Bills' }, { label: 'Receive' }],
-        },
-      ],
-    },
-  ];
+  @Input() menuData!:any;
 
-  selectItem(label: string) {
-    this.selectedItem = label;
+  @Output() onItemClick = new EventEmitter();
+
+
+  selectItem($event: any) {
+    this.selectedItem = $event.label;
+    this.onItemClick.emit($event);
   }
 }

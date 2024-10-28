@@ -14,6 +14,7 @@ export class AdditionalInfoComponent {
   userSettings:any;
 
   @Input() additinalInfo!:AdditionalInfo;
+  @Input() mode!:string;
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.additinalInfoObj.membershipInfo = <MembershipObj>{};
     this.additionalInfoForm = this.fb.group({
@@ -46,6 +47,13 @@ export class AdditionalInfoComponent {
     if(this.userSettings.EnableContractPrice == 0) this.additinalInfoObj.enbleContractPrice = 0;
   }
 
+    
+  ngOnInit(){
+    if(this.mode == 'view'){
+      this.additionalInfoForm.disable();
+    }
+  }
+
   onMembershipCheck(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
@@ -64,7 +72,5 @@ export class AdditionalInfoComponent {
     }
   }
 
-  
-  ngOnInit(){
-  }
+
 }

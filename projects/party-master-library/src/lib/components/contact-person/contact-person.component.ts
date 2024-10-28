@@ -28,18 +28,14 @@ export class ContactPersonComponent implements OnInit {
   newRow: any = { name: '', contact: '', designation: '', email: '' };
 
   @Input() contactPersonArray!:ContactPersonObj[];
+  @Input() mode!:string;
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
     this.partyMasterService.customermasterObj.ContactPerson = this.dataSource.data;        
   }
 
   ngOnInit(): void {
-    // if(this.dataSource.data.length == 0){
-    //   ELEMENT_DATA.push(this.newRow);
-    // }else if(this.dataSource.data[this.dataSource.data.length-1].name != ''){
-    //   ELEMENT_DATA.push(this.newRow);
-    //   this.dataSource.data = [...ELEMENT_DATA];
-    // }
+  
   }
 
   addNewRow():ContactPersonObj{

@@ -14,6 +14,10 @@ export class PartyMasterLibraryService {
   
   constructor(private http: HttpClient,public dialog: MatDialog,) { 
     this.customermasterObj.status = 1;
+    this.getAllsettings().subscribe((res:any) => {
+      if(res.status == "ok")
+      this.userSettings = JSON.parse(res.result);
+    })
   }
 
   private get apiUrl(): string {
@@ -51,7 +55,10 @@ export class PartyMasterLibraryService {
     return this.http.post(this.apiUrl+`/saveCustomerProfile`,data);
   }
 
-   getAllsettings(){
+  getCustomerById(ptype:string, acid:string){
+    return this.http.get<any[]>(this.apiUrl + `/getAllCustomerById?ptype=${ptype}&acid=${acid}`); 
+  }
+  getAllsettings(){
     return this.http.get<any[]>(this.apiUrl + '/getAllSetting'); 
   }
   uploadDocument(body:any) {
@@ -73,7 +80,7 @@ export interface CustomerMasterObj{
   AdditionalInfo:AdditionalInfo;
   ContactPerson:contactPerson[];
   customerPartyAccount:CustomerPartyAccountObj;
-  DOCUMENTUPLOAD:any[];
+  documentUpload:any[];
 }
 
 export interface CustomerPartyAccountObj{

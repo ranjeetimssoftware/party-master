@@ -14,14 +14,14 @@
           <li
             *ngIf="!item.children"
             class="dropdown-item"
-            (click)="selectItem(item.label)"
+            (click)="selectItem(item)"
           >
             {{ item.label }}
           </li>
           <li *ngIf="item.children" class="dropdown-submenu">
             <span
               class="dropdown-item d-flex justify-content-between align-items-center"
-              (click)="selectItem(item.label)"
+              (click)="selectItem(item)"
             >
               {{ item.label }} <mat-icon>chevron_right</mat-icon>
             </span>
@@ -30,14 +30,14 @@
                 <li
                   *ngIf="!child.children"
                   class="dropdown-item"
-                  (click)="selectItem(child.label)"
+                  (click)="selectItem(child)"
                 >
                   {{ child.label }}
                 </li>
                 <li *ngIf="child.children" class="dropdown-submenu">
                   <span
                     class="dropdown-item d-flex justify-content-between align-items-center"
-                    (click)="selectItem(child.label)"
+                    (click)="selectItem(child)"
                   >
                     {{ child.label }}<mat-icon>chevron_right</mat-icon>
                   </span>
@@ -45,7 +45,7 @@
                     <ng-container *ngFor="let subChild of child.children">
                       <li
                         class="dropdown-item"
-                        (click)="selectItem(subChild.label)"
+                        (click)="selectItem(subChild)"
                       >
                         {{ subChild.label }}
                       </li>

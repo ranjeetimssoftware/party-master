@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AdditionalInfo, PartyMasterLibraryService } from '../../party-master-library.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AdditionalInfo, CustomerMasterObj, PartyMasterLibraryService } from '../../party-master-library.service';
 
 @Component({
   selector: 'lib-create-vendor',
@@ -13,7 +13,7 @@ export class CreateVendorComponent {
   mode:string="add";
   userSettings:any;
 
-  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService,private _activatedRoute: ActivatedRoute) {
     this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.userSettings =this.partyMasterService.userSettings;
     this.vendorForm = this.fb.group({
@@ -28,6 +28,20 @@ export class CreateVendorComponent {
     if(this.userSettings.CompanyType == "B2B"){
       this.partyMasterService.customermasterObj.isCustomerLedger = 1;
       this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    }
+  }
+
+  ngOnInit(){
+    if (!!this._activatedRoute.snapshot.params['mode']) {
+      if (this._activatedRoute.snapshot.params['mode'] === 'view') {
+        this.mode = 'view';
+        this.vendorForm.disable();        
+      }
+      let acid = this._activatedRoute.snapshot.params['acid'];
+      this.partyMasterService.getCustomerById('V',acid).subscribe((res:any) => {
+        this.partyMasterService.customermasterObj = res.result;
+        this.partyMasterService.customermasterObj.AdditionalInfo = res.result.additionalInfo;
+      })
     }
   }
 
@@ -73,11 +87,15 @@ export class CreateVendorComponent {
     this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
       if(res.status == "ok"){
         this.partyMasterService.openSuccessDialog(res.result);
+        this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
+        this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+        this.router.navigate(['/vendor']);
       }else if(res.status == "error"){
         this.partyMasterService.openErrorDialog(res.result);
       }
     });
   }
+  
 
   goBack() {
     this.router.navigate(['/vendor']); // Navigate to the previous route

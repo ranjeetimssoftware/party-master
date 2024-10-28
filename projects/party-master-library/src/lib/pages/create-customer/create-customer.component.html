@@ -1,9 +1,9 @@
 <div class="my-2 d-flex justify-content-between align-items-center">
   <div class="col-md-6 px-0">
-    <h5 class="mb-0 heading">New Customer</h5>
+    <h5 class="mb-0 heading">New Customer <span>[{{mode}}]</span></h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" (click)="submit()" [disabled]="mode == 'view'">SAVE</button>
     <button class="btn px-4" id="back" mat-button (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -305,12 +305,15 @@
   </form>
   <mat-tab-group>
     <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-      <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-additional-info>
+      <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo" [mode]="mode"></lib-additional-info>
     </mat-tab>
     <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-      <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson"></lib-contact-person>
+      <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson" [mode]="mode"></lib-contact-person>
 
     </mat-tab>
+    <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
+      <lib-division-mapping></lib-division-mapping>
+      </mat-tab>
     <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> 
       <lib-shipping-address></lib-shipping-address>
 
@@ -323,7 +326,7 @@
 
     </mat-tab>
     <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1">
-      <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.DOCUMENTUPLOAD"></lib-document-upload>
+      <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.documentUpload"></lib-document-upload>
 
     </mat-tab>
     <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> 

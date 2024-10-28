@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdditionalInfo, CustomerMasterObj, PartyMasterLibraryService } from '../../party-master-library.service';
 
 export interface Branch {
   sn: number;
@@ -41,65 +42,40 @@ const ELEMENT_DATA: Branch[] = [
   styleUrls: ['./create-ledger.component.css'],
 })
 export class CreateLedgerComponent {
+  mode:string="add";
+  userSettings:any;
   isOpen: boolean = false;
   displayedColumns: string[] = [];
   branchDataSource = ELEMENT_DATA;
   selectedAccount: string | null = null;
   [key: string]: any; // Add this line
 
+ 
   menuData = [
+    { label: 'Fixed Assets' },
     {
-      name: 'Vertebrates',
+      label: 'Current Assets',
       children: [
         {
-          name: 'Fishes',
-          children: [
-            { name: 'Baikal oilfish' },
-            { name: 'Bala shark' },
-            { name: 'Ballan wrasse' },
-            { name: 'Bamboo shark' },
-            { name: 'Banded killifish' }
-          ]
+          label: 'Cash & Bank',
+          children: [{ label: 'Cash' }, { label: 'Bank' }],
         },
         {
-          name: 'Amphibians',
-          children: [
-            { name: 'Sonoran desert toad' },
-            { name: 'Western toad' },
-            { name: 'Arroyo toad' },
-            { name: 'Yosemite toad' }
-          ]
+          label: 'Bills Receiveable',
+          children: [{ label: 'Bills' }, { label: 'Receive' }],
         },
-        {
-          name: 'Reptiles',
-          children: [
-            { name: 'Banded Day Gecko' },
-            { name: 'Banded Gila Monster' },
-            { name: 'Black Tree Monitor' },
-            { name: 'Blue Spiny Lizard' },
-            { name: 'Velociraptor', disabled: true }
-          ]
-        },
-        { name: 'Birds' },
-        { name: 'Mammals' }
-      ]
+      ],
     },
-    {
-      name: 'Invertebrates',
-      children: [
-        { name: 'Insects' },
-        { name: 'Molluscs' },
-        { name: 'Crustaceans' },
-        { name: 'Corals' },
-        { name: 'Arachnids' },
-        { name: 'Velvet worms' },
-        { name: 'Horseshoe crabs' }
-      ]
-    }
   ];
 
   ledgerForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+    this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    this.partyMasterService.getAllsettings().subscribe((res:any) => {
+      if(res.status == "ok")
+      this.userSettings = JSON.parse(res.result);
+    })
     this.ledgerForm = this.fb.group({
       AccountCode: ['', Validators.required],
       AccountType: ['', Validators.required],
@@ -132,12 +108,36 @@ export class CreateLedgerComponent {
     this.isOpen = false; // Method to close the pop-up
   }
 
+  onSelectParent(event:any){
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent = event.label;
+  }
+
   submit() {
-    if (this.ledgerForm.valid) {
-      console.log('Form Data', this.ledgerForm.value);
-    } else {
-      console.log('Form is invalid');
+    if(this.partyMasterService.customermasterObj.customerCode == "" || this.partyMasterService.customermasterObj.customerCode == undefined || this.partyMasterService.customermasterObj.customerCode == null){
+      alert("Please Enter Account Code.");
+      return;
+    }if(this.partyMasterService.customermasterObj.customerName == "" || this.partyMasterService.customermasterObj.customerName == undefined || this.partyMasterService.customermasterObj.customerName == null){
+      alert("Please Enter Account Name.");
+      return;
     }
+    if(this.partyMasterService.customermasterObj.customerPartyAccount.acType == "" || this.partyMasterService.customermasterObj.customerPartyAccount.acType == undefined || this.partyMasterService.customermasterObj.customerPartyAccount.acType == null){
+      alert("Please Select Account Type.");
+      return;
+    }
+    this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
+    this.partyMasterService.customermasterObj.customerPartyAccount.pType = "";
+    this.partyMasterService.customermasterObj.customerPartyAccount.mapId = this.partyMasterService.customermasterObj.customerPartyAccount.category;
+    this.partyMasterService.customermasterObj.contactNo=this.partyMasterService.customermasterObj.phone
+    this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
+      if(res.status == "ok"){
+        this.partyMasterService.openSuccessDialog(res.result);
+        this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
+        this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+        this.router.navigate(['/general-ledger']);
+      }else if(res.status == "error"){
+        this.partyMasterService.openErrorDialog(res.result);
+      }
+    });
   }
 
   goBack() {

@@ -1,9 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
-import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '.././../party-master-library.service';
+import { AdditionalInfo, CustomerMasterObj, MembershipObj, PartyMasterLibraryService } from '.././../party-master-library.service';
 
 @Component({
   selector: 'lib-create-customer',
@@ -16,7 +16,7 @@ export class CreateCustomerComponent {
   userSettings:any;
 
 
-  constructor(private router: Router, private fb: FormBuilder,public dialog: MatDialog, public partyMasterService:PartyMasterLibraryService) {
+  constructor(private router: Router, private fb: FormBuilder,public dialog: MatDialog, public partyMasterService:PartyMasterLibraryService,private _activatedRoute: ActivatedRoute) {
     this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.userSettings =this.partyMasterService.userSettings;
     this.customerForm = this.fb.group({
@@ -32,6 +32,20 @@ export class CreateCustomerComponent {
     if(this.userSettings.CompanyType == "B2B"){
       this.partyMasterService.customermasterObj.isCustomerLedger = 1;
       this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    }
+  }
+
+  ngOnInit(){
+    if (!!this._activatedRoute.snapshot.params['mode']) {
+      if (this._activatedRoute.snapshot.params['mode'] === 'view') {
+        this.mode = 'view';
+        this.customerForm.disable();        
+      }
+      let acid = this._activatedRoute.snapshot.params['acid'];
+      this.partyMasterService.getCustomerById('C',acid).subscribe((res:any) => {
+        this.partyMasterService.customermasterObj = res.result;
+        this.partyMasterService.customermasterObj.AdditionalInfo = res.result.additionalInfo;
+      })
     }
   }
 
@@ -81,6 +95,9 @@ export class CreateCustomerComponent {
     this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
       if(res.status == "ok"){
         this.partyMasterService.openSuccessDialog(res.result);
+        this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
+        this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+        this.router.navigate(['/customer']); 
       }else if(res.status == "error"){
         this.partyMasterService.openErrorDialog(res.result);
       }

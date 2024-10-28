@@ -9,6 +9,11 @@
   color: black;
 }
 
+.dropdown-menu .dropdown-item:hover {
+  background-color: #4081bf;
+  color: white;
+}
+
 /* Color when an item is selected */
 .dropdown .dropdown-toggle.selected {
   color: #495057;
@@ -30,4 +35,8 @@
 
 .dropdown-submenu:hover > .dropdown-menu {
   display: block;
+}
+
+li{
+  margin: 4% 0;
 }

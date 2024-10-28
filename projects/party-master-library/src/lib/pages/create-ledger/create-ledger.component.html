@@ -40,6 +40,7 @@
               id="accountCode"
               class="form-control px-2 py-1"
               formControlName="AccountCode"
+              [(ngModel)]="partyMasterService.customermasterObj.customerCode"
             />
           </div>
         </div>
@@ -71,6 +72,7 @@
               class="form-control px-2 py-1"
               formControlName="AccountType"
               type="text"
+              [(ngModel)]="partyMasterService.customermasterObj.customerPartyAccount.acType"              
             >
             <option value="AT">ASSETS</option>
             <option value="LB">LIABILITIES</option>
@@ -109,6 +111,7 @@
               id="accountName"
               class="form-control px-2 py-1"
               formControlName="AccountName"
+              [(ngModel)]="partyMasterService.customermasterObj.customerName"              
             />
           </div>
         </div>
@@ -153,7 +156,7 @@
               mat-button [matMenuTriggerFor]="rootMenu"
             /> -->
             
-            <lib-generic-nested-dropdown></lib-generic-nested-dropdown>
+            <lib-generic-nested-dropdown [menuData]="menuData" (onItemClick)="onSelectParent($event)"></lib-generic-nested-dropdown>
           </div>
         </div>
 
@@ -167,6 +170,7 @@
               class="form-control px-2 py-1"
               formControlName="Category"
               type="text"
+              [(ngModel)]="partyMasterService.customermasterObj.customerPartyAccount.category"              
             >
               <option value="C">Cash a/c</option>
               <option value="B">Bank a/c</option>
@@ -179,7 +183,7 @@
         </div>
 
         <!-- This form entry field displays if category -> bank a/c selected -->
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2" *ngIf="partyMasterService.customermasterObj.customerPartyAccount.category == 'OVERDRAFT'">
           <div class="col-12 col-md-3">
             <label for="crreditLimit" class="form-label mr-2"
               >Overdraft Limit
@@ -187,17 +191,19 @@
           </div>
           <div class="col-11 col-md-5">
             <input
-              type="text"
+              type="number"
               id="crreditLimit"
               class="form-control px-2 py-1"
               formControlName="CreditLimit"
               placeholder="Enter Credit Limit"
+              min="0"
+              [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.crLimit"              
             />
           </div>
         </div>
 
         <!-- This form entry field displays if category -> TDS a/c selected -->
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2" *ngIf="partyMasterService.customermasterObj.customerPartyAccount.category == 'TDS_RECEIVABLE' || partyMasterService.customermasterObj.customerPartyAccount.category == 'TDS_PAYABLE'">
           <div class="col-12 col-md-3">
             <label for="tds" class="form-label mr-2">TDS % </label>
           </div>
@@ -224,6 +230,7 @@
               class="form-control px-2 py-1"
               formControlName="ActivityType"
               type="text"
+              [(ngModel)]="partyMasterService.customermasterObj.customerPartyAccount.type"              
             ></select>
           </div>
         </div>
@@ -240,7 +247,7 @@
     </div>
   </form>
   <mat-tab-group>
-    <mat-tab label="Division Mapping"> 
+    <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
     <lib-division-mapping></lib-division-mapping>
     </mat-tab>
   </mat-tab-group>

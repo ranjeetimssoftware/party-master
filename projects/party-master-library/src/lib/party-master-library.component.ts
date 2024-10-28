@@ -9,11 +9,7 @@ import { PartyMasterLibraryService } from './party-master-library.service';
 export class PartyMasterLibraryComponent implements OnInit {
   userSettings:any;
   constructor(private partyMaster:PartyMasterLibraryService) {
-    this.partyMaster.getAllsettings().subscribe((res:any) => {
-      if(res.status == "ok")
-      this.partyMaster.userSettings = JSON.parse(res.result);
-    this.userSettings = this.partyMaster.userSettings;
-    })
+    
   }
   ngOnInit(): void {}
 }

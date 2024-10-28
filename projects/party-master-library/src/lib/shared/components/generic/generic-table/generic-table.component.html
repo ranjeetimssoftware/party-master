@@ -375,7 +375,7 @@
     <!-- SN Column -->
     <ng-container matColumnDef="sn">
       <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let elementl let i = index">{{ i+1 }}</td>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i+1 }}</td>
     </ng-container>
 
     <!-- Customer Name Column -->
@@ -418,7 +418,7 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element">
-        <p><mat-slide-toggle class="custom-toggle"></mat-slide-toggle></p>
+        <p><mat-slide-toggle class="custom-toggle" [(ngModel)]="element.STATUS"></mat-slide-toggle></p>
       </td>
     </ng-container>
 
@@ -432,13 +432,13 @@
         >
           <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onViewClick(element.CUSTID || element.ACID)">View</button>
+          <button mat-menu-item>Edit</button>
+          <button mat-menu-item>Delete</button>
+          <button mat-menu-item>Mark as Inactive</button>
+        </mat-menu>
       </td>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>View</button>
-        <button mat-menu-item>Edit</button>
-        <button mat-menu-item>Delete</button>
-        <button mat-menu-item>Mark as Inactive</button>
-      </mat-menu>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
@@ -472,13 +472,13 @@
     <!-- SN Column -->
     <ng-container matColumnDef="sn">
       <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
+      <td mat-cell *matCellDef="let element; ;let i=index">{{ i+1}}</td>
     </ng-container>
 
     <!-- Account Name Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="accountname">
+    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="CUSTNAME">
       <th mat-header-cell *matHeaderCellDef>Account Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.accountname }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.CUSTNAME }}</td>
     </ng-container>
 
     <!-- Group Name Column -->
@@ -494,39 +494,39 @@
     </ng-container>
 
     <!-- Account Code Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="accountcode">
+    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="ACCODE">
       <th mat-header-cell *matHeaderCellDef>Account Code</th>
-      <td mat-cell *matCellDef="let element">{{ element.accountcode }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.ACCODE }}</td>
     </ng-container>
 
     <!-- Account Type Column -->
     <ng-container
       *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group'"
-      matColumnDef="accounttype"
+      matColumnDef="ACTYPE"
     >
       <th mat-header-cell *matHeaderCellDef>Account Type</th>
-      <td mat-cell *matCellDef="let element">{{ element.accounttype }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.ACTYPE }}</td>
     </ng-container>
 
     <!-- Parent Group Column -->
     <ng-container
       *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group'"
-      matColumnDef="parentgroup"
+      matColumnDef="PARENTGROUP"
     >
       <th mat-header-cell *matHeaderCellDef>Parent Group</th>
-      <td mat-cell *matCellDef="let element">{{ element.parentgroup }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.PARENTGROUP }}</td>
     </ng-container>
 
     <!--Main Group Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="maingroup">
+    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="MAINGROUP">
       <th mat-header-cell *matHeaderCellDef>Main Group</th>
-      <td mat-cell *matCellDef="let element">{{ element.maingroup }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.MAINGROUP }}</td>
     </ng-container>
 
     <!-- Category Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="category">
+    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="CATEGORY">
       <th mat-header-cell *matHeaderCellDef>Category</th>
-      <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.CATEGORY }}</td>
     </ng-container>
 
     <!-- Has Main Ledger Column -->
@@ -545,7 +545,7 @@
     <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element">
-        <p><mat-slide-toggle class="custom-toggle"></mat-slide-toggle></p>
+        <p><mat-slide-toggle class="custom-toggle" [(ngModel)]="element.STATUS"></mat-slide-toggle></p>
       </td>
     </ng-container>
 
@@ -577,5 +577,10 @@
       *matRowDef="let row; columns: displayedChartofAccountColumns"
     ></tr>
   </table>
+  <mat-paginator [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+  </mat-paginator>
 </div>
 

@@ -20,11 +20,11 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <!-- <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
         <input type="checkbox" />Create As Both Customer And Vendor
       </div>
-    </div>
+    </div> -->
 
     <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <label for="credit-terms" class="form-label-header">Credit Terms</label>
@@ -172,13 +172,13 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="additinalInfoObj.createMember">
+    <div class="row mt-3 mb-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
       <label for="credit-location" class="form-label-header">
         Membership Info
       </label>
     </div>
 
-    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfoObj.createMember">
+    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Gender</label>
       </div>
@@ -301,7 +301,7 @@
         />
       </div>
     </div>
-    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfoObj.createMember">
+    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Customer Status</label>
       </div>
