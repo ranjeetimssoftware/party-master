@@ -12,7 +12,7 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '.././.
 })
 export class CreateCustomerComponent {
   customerForm: FormGroup;
-  mode:string="New";
+  mode:string="add";
   userSettings:any;
 
 
@@ -36,14 +36,7 @@ export class CreateCustomerComponent {
   }
 
 
-  openDialog() {
-    this.dialog.open(GenericDialogComponent, {
-      data:{
-        Title: "Information",
-        Message: "Saved Successfully"
-      }
-    });
-  }
+
 
   selectedTab: number = 0;
 
@@ -82,10 +75,14 @@ export class CreateCustomerComponent {
     if(this.partyMasterService.customermasterObj.isCustomerLedger == 1){
       this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
       this.partyMasterService.customermasterObj.customerPartyAccount.parent = "PA";
+      this.partyMasterService.customermasterObj.customerPartyAccount.pType = "C";
     }
+    this.partyMasterService.customermasterObj.contactNo=this.partyMasterService.customermasterObj.phone;
     this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
       if(res.status == "ok"){
-        this.openDialog();
+        this.partyMasterService.openSuccessDialog(res.result);
+      }else if(res.status == "error"){
+        this.partyMasterService.openErrorDialog(res.result);
       }
     });
 

@@ -62,9 +62,9 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="userSettings.IsOverSeas == 1">
+    <div class="row mt-3 mb-2" *ngIf="userSettings.isOverSeas == 1">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsOverseas" [(ngModel)]="additinalInfoObj.isOverSeasCustomer"/>Is Overseas
+        <input type="checkbox" formControlName="IsOverseas" [(ngModel)]="additinalInfoObj.isOverSeasCustomer" (change)="onIsOverseasCheck($event)"/>Is Overseas
         Customer
       </div>
     </div>
@@ -167,7 +167,7 @@
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="additinalInfoObj.createMember" (onChange)="onMembershipCheck()"/>Create
+        <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="additinalInfoObj.createMember" (change)="onMembershipCheck($event)"/>Create
         Customers As Member Also
       </div>
     </div>

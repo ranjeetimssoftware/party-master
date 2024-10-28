@@ -46,6 +46,7 @@ import { DivisionMappingComponent } from './components/division-mapping/division
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
 import {MatTreeModule} from '@angular/material/tree';
 import { GenericMenuComponent } from './shared/components/generic/generic-menu/generic-menu.component';
+import { GenericNestedDropdownComponent } from './shared/components/generic/generic-nested-dropdown/generic-nested-dropdown.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { GenericMenuComponent } from './shared/components/generic/generic-menu/g
     VendorAdditionalInfoComponent,
     DivisionMappingComponent,
     GenericDialogComponent,
-    GenericMenuComponent
+    GenericMenuComponent,
+    GenericNestedDropdownComponent
   ],
   imports: [
     CommonModule,

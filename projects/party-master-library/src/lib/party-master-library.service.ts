@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from './environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,7 @@ export class PartyMasterLibraryService {
   userSettings:any;
   customermasterObj:CustomerMasterObj = <CustomerMasterObj>{}
   
-  constructor(private http: HttpClient,) { 
+  constructor(private http: HttpClient,public dialog: MatDialog,) { 
     this.customermasterObj.status = 1;
   }
 
@@ -22,6 +24,23 @@ export class PartyMasterLibraryService {
      if (!!url && url.length > 0) { apiUrl = url };
      return apiUrl
    }
+
+   openSuccessDialog(Message:string) {
+    this.dialog.open(GenericDialogComponent, {
+      data:{
+        Title: "Information",
+        Message: Message
+      }
+    });
+  }
+  openErrorDialog(Message:string) {
+    this.dialog.open(GenericDialogComponent, {
+      data:{
+        Title: "Error",
+        Message: Message
+      }
+    });
+  }
 
    getCustomerList(ptype:string):Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + `/getAllCustomer?ptype=${ptype}`);
@@ -43,6 +62,7 @@ export class PartyMasterLibraryService {
 export interface CustomerMasterObj{
   customerCode:string;
   customerName:string;
+  contactNo:string;
   address:string;
   vatNo:string;
   email:string;

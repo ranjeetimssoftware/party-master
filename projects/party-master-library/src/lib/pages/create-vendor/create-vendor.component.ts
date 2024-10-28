@@ -10,7 +10,7 @@ import { AdditionalInfo, PartyMasterLibraryService } from '../../party-master-li
 })
 export class CreateVendorComponent {
   vendorForm: FormGroup;
-  mode:string="New";
+  mode:string="add";
   userSettings:any;
 
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
@@ -67,10 +67,14 @@ export class CreateVendorComponent {
     if(this.partyMasterService.customermasterObj.isCustomerLedger == 1){
       this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
       this.partyMasterService.customermasterObj.customerPartyAccount.parent = "PA";
+      this.partyMasterService.customermasterObj.customerPartyAccount.pType = "V";
     }
+    this.partyMasterService.customermasterObj.contactNo=this.partyMasterService.customermasterObj.phone
     this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
       if(res.status == "ok"){
-        console.log("Data Saved!");
+        this.partyMasterService.openSuccessDialog(res.result);
+      }else if(res.status == "error"){
+        this.partyMasterService.openErrorDialog(res.result);
       }
     });
   }

@@ -144,19 +144,16 @@
           </div> -->
 
           <div class="dropdown col-11 col-md-5">
-            <input
+            <!-- <input
               type="text"
               id="Parent"
               class="form-control px-2 py-1"
               formControlName="ParentGroup"
               placeholder="Select Parent Group"
               mat-button [matMenuTriggerFor]="rootMenu"
-            />
-            <mat-menu #rootMenu="matMenu">
-              <ng-container *ngFor="let item of menuData">
-                <app-menu-item [item]="item"></app-menu-item>
-              </ng-container>
-            </mat-menu>
+            /> -->
+            
+            <lib-generic-nested-dropdown></lib-generic-nested-dropdown>
           </div>
         </div>
 

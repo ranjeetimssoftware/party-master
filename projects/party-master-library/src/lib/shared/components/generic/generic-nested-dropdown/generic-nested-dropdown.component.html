@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-12 mb-2">
+    <div class="dropdown dropdown-hover">
+      <button
+        class="btn w-100 dropdown-toggle d-flex justify-content-between align-items-center"
+        type="button"
+        data-toggle="dropdown"
+        [class.selected]="selectedItem"
+      >
+        {{ selectedItem || "Select Parent Group" }}
+      </button>
+      <ul class="dropdown-menu">
+        <ng-container *ngFor="let item of menuData">
+          <li
+            *ngIf="!item.children"
+            class="dropdown-item"
+            (click)="selectItem(item.label)"
+          >
+            {{ item.label }}
+          </li>
+          <li *ngIf="item.children" class="dropdown-submenu">
+            <span
+              class="dropdown-item d-flex justify-content-between align-items-center"
+              (click)="selectItem(item.label)"
+            >
+              {{ item.label }} <mat-icon>chevron_right</mat-icon>
+            </span>
+            <ul class="dropdown-menu dropdown-submenu-menu">
+              <ng-container *ngFor="let child of item.children">
+                <li
+                  *ngIf="!child.children"
+                  class="dropdown-item"
+                  (click)="selectItem(child.label)"
+                >
+                  {{ child.label }}
+                </li>
+                <li *ngIf="child.children" class="dropdown-submenu">
+                  <span
+                    class="dropdown-item d-flex justify-content-between align-items-center"
+                    (click)="selectItem(child.label)"
+                  >
+                    {{ child.label }}<mat-icon>chevron_right</mat-icon>
+                  </span>
+                  <ul class="dropdown-menu dropdown-submenu-menu">
+                    <ng-container *ngFor="let subChild of child.children">
+                      <li
+                        class="dropdown-item"
+                        (click)="selectItem(subChild.label)"
+                      >
+                        {{ subChild.label }}
+                      </li>
+                    </ng-container>
+                  </ul>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div>

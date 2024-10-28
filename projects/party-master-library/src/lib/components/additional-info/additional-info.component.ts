@@ -41,9 +41,27 @@ export class AdditionalInfoComponent {
     });
     this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
     this.userSettings = this.partyMasterService.userSettings;
+    if(this.userSettings.isOverSeas == 0) this.additinalInfoObj.isOverSeasCustomer = 0;
+    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.additinalInfoObj.dealingSalesman = "Salesman123";
+    if(this.userSettings.EnableContractPrice == 0) this.additinalInfoObj.enbleContractPrice = 0;
   }
 
-  onMembershipCheck(){
+  onMembershipCheck(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfoObj.createMember = 1;
+    }else{
+      this.additinalInfoObj.createMember = 0;
+    }
+  }
+
+  onIsOverseasCheck(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfoObj.isOverSeasCustomer = 1;
+    }else{
+      this.additinalInfoObj.isOverSeasCustomer = 0;
+    }
   }
 
   
