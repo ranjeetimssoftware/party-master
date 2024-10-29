@@ -10,6 +10,7 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
 })
 export class VendorAdditionalInfoComponent {
   vendorAdditionalInfoForm: FormGroup;
+  CategoryList:any[]=[];
   userSettings:any;
   additinalInfoObj = <AdditionalInfo>{};
   @Input() additinalInfo!:AdditionalInfo;
@@ -29,11 +30,17 @@ export class VendorAdditionalInfoComponent {
     this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
     this.userSettings = this.partyMasterService.userSettings;
     this.additinalInfoObj.createMember = 1;
+    this.getCategoryList();
   }
 
   ngOnInit(){
     if(this.mode == 'view'){
       this.vendorAdditionalInfoForm.disable();
     }
+  }
+  getCategoryList(){
+    this.partyMasterService.getcategorywiseconfiguration().subscribe((res:any) => {
+      this.CategoryList = res.result;
+    })
   }
 }

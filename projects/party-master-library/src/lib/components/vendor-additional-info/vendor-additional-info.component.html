@@ -12,9 +12,8 @@
           type="text"
           [(ngModel)]="additinalInfoObj.category"
         >
-        <option value="Retailer">Retailer</option>
-        <option value="WholeSale">WholeSale</option>
-        <option value="DirectParty">Direct Party</option>
+        <option value="">Seleect Category</option>
+        <option value="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
       </select>
       </div>
     </div>

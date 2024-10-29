@@ -14,6 +14,7 @@ export class AdditionalInfoComponent {
   userSettings:any;
   areaList:any[]=[];
   District:any[]=[];
+  FilteredDistrict:any[]=[];
   CategoryList:any[]=[];
   MemberSchemeList:any[]=[];
   ContractPriceList:any[]=[];
@@ -90,7 +91,7 @@ export class AdditionalInfoComponent {
   }
   getDistrictList(){
     this.partyMasterService.getDistrict().subscribe((res:any) => {
-      this.District = res.result;
+      this.District = this.FilteredDistrict = res.result;
     })
   }
   getCategoryList(){
@@ -100,14 +101,18 @@ export class AdditionalInfoComponent {
   }
   getMemberScheme(){
     this.partyMasterService.getMemberSchemeList().subscribe((res:any) => {
-      this.MemberSchemeList = res.result;
+      this.MemberSchemeList = res;
     })
   }
 
   getContractPriceList(){
     this.partyMasterService.getContractPriceList().subscribe((res:any) => {
-      this.ContractPriceList = res.result;
+      this.ContractPriceList = res;
     })
+  }
+
+  FilterDistrict(){
+    this.FilteredDistrict = this.District.filter(x => x.State == this.additinalInfoObj.province);
   }
 
 

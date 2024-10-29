@@ -294,7 +294,7 @@
   </form>
   <mat-tab-group>
     <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-    <lib-vendor-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo"></lib-vendor-additional-info>
+    <lib-vendor-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo" [mode]="mode"></lib-vendor-additional-info>
 
     </mat-tab>
     <mat-tab label="Contact Person"  *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 

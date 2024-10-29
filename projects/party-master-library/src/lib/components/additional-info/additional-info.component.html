@@ -103,7 +103,9 @@
           formControlName="Province"
           [(ngModel)]="additinalInfoObj.province"
           type="text"
+          (ngModelChange)="FilterDistrict()"
         >
+        <option value="">Select Province</option>
         <option value="1">Koshi</option>
         <option value="2">Madhesh</option>
         <option value="3">Bagmati</option>
@@ -127,9 +129,8 @@
           [(ngModel)]="additinalInfoObj.district"
           type="text"
         >
-        <option value="Sirha">Sirha</option>
-        <option value="Dhanusha">Dhanusha</option>
-        <option value="Kathmandu">Kathmandu</option>
+        <option value="" selected>Select District</option>
+        <option value="dis.Name" *ngFor="let dis of FilteredDistrict">{{dis.Name}}</option>
       </select>
       </div>
     </div>
@@ -166,7 +167,8 @@
           [(ngModel)]="additinalInfoObj.ContractPrice"
           type="text"
         >
-        <option value="">Default Contact Price</option>
+        <option value="" selected>Default Contact Price</option>
+        <option value="con.CMID" *ngFor="let con of ContractPriceList">{{con.PRICENAME}}</option>
         </select>
       </div>
     </div>
