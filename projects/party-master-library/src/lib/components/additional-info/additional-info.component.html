@@ -172,13 +172,13 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
+    <div class="row mt-3 mb-2" *ngIf="additinalInfoObj.createMember ">
       <label for="credit-location" class="form-label-header">
         Membership Info
       </label>
     </div>
 
-    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
+    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfoObj.createMember ">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Gender</label>
       </div>
@@ -301,7 +301,7 @@
         />
       </div>
     </div>
-    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfoObj.createMember || additinalInfoObj.membershipInfo">
+    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfoObj.createMember ">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Customer Status</label>
       </div>
