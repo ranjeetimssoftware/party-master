@@ -362,7 +362,7 @@
 <!-- Tablle for Customer and Vendor -->
 <div
   *ngIf="activeRoute == 'customer' || activeRoute == 'vendor'"
-  class="table-container"
+  class="table-container scrollable-content"
   mat-elevation-z8
 >
   <table mat-table [dataSource]="customerVendorDataSource">
@@ -514,7 +514,7 @@
     activeRoute == 'ledger-group' ||
     activeRoute == 'sub-ledger'
   "
-  class="table-container"
+  class="table-container scrollable-content"
 >
   <table mat-table [dataSource]="chartofAccountDataSource">
     <ng-container matColumnDef="filter">

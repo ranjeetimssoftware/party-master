@@ -17,11 +17,11 @@ const routes: Routes = [
   { path: 'general-ledger', component: GeneralLedgerComponent },
   { path: 'ledger-group', component: LedgerGroupComponent },
   { path: 'sub-ledger', component: SubLedgerComponent },
-  { path: 'new-customer', component: CreateCustomerComponent },
-  { path: 'new-vendor', component: CreateVendorComponent },
-  { path: 'new-ledger', component: CreateLedgerComponent },
-  { path: 'new-ledger-group', component: CreateLedgerGroupComponent },
-  { path: 'new-sub-ledger', component: CreateSubLedgerComponent },
+  { path: 'customer/new-customer', component: CreateCustomerComponent },
+  { path: 'vendor/new-vendor', component: CreateVendorComponent },
+  { path: 'general-ledger/new-ledger', component: CreateLedgerComponent },
+  { path: 'ledger-group/new-ledger-group', component: CreateLedgerGroupComponent },
+  { path: 'sub-ledger/new-sub-ledger', component: CreateSubLedgerComponent },
 ];
 
 @NgModule({
