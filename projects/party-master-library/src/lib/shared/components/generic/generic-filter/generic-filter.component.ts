@@ -28,7 +28,6 @@ export class GenericFilterComponent implements OnInit {
   navigateToCreateCustomer() {
     this.router.navigate(['/new-customer']);
   }
-
   navigateToCreateVendor() {
     this.router.navigate(['new-vendor']);
   }

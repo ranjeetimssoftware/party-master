@@ -1,18 +1,27 @@
 <div class="d-flex justify-content-between align-items-center mt-1 mb-1 px-5">
-
   <div class="d-flex align-items-center p-0 search-bar">
     <!-- Search icon -->
     <i class="material-icons ml-2">search</i>
 
     <!-- Input field -->
-    <input type="text" placeholder="Search here....." class="search-input" (keyup)="applyFilter($event)"/>
+    <input
+      type="text"
+      placeholder="Search here....."
+      class="search-input"
+      (keyup)="applyFilter($event)"
+    />
 
     <!-- Divider -->
     <div class="mx-2 divider"></div>
 
     <!-- Dropdown -->
     <select
-      *ngIf="activeRoute == 'customer' || activeRoute == 'vendor' || activeRoute == 'ledger-group' || activeRoute == 'sub-ledger'"
+      *ngIf="
+        activeRoute == 'customer' ||
+        activeRoute == 'vendor' ||
+        activeRoute == 'ledger-group' ||
+        activeRoute == 'sub-ledger'
+      "
       class="form-control p-0"
     >
       <option value="name">Name</option>
@@ -30,7 +39,10 @@
   </div>
 
   <div class="d-flex mr-0">
-    <div *ngIf="activeRoute == 'customer'" class="customer-type d-flex row align-items-center">
+    <div
+      *ngIf="activeRoute == 'customer'"
+      class="customer-type d-flex row align-items-center"
+    >
       <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Customer</option>
         <option>Active Customer</option>
@@ -38,7 +50,10 @@
       </select>
     </div>
 
-    <div *ngIf="activeRoute == 'vendor'" class="customer-type d-flex row align-items-center">
+    <div
+      *ngIf="activeRoute == 'vendor'"
+      class="customer-type d-flex row align-items-center"
+    >
       <select class="select-dropdown pr-0 pl-2 mr-5">
         <option>All Vendor</option>
         <option>Active Vendor</option>
@@ -146,10 +161,14 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item">Last Modified Time</a></li>
             <li>
-              <a *ngIf="activeRoute == 'customer'" class="dropdown-item">Customer Name</a>
+              <a *ngIf="activeRoute == 'customer'" class="dropdown-item"
+                >Customer Name</a
+              >
             </li>
             <li>
-              <a *ngIf="activeRoute == 'vendor'" class="dropdown-item">Vendor Name</a>
+              <a *ngIf="activeRoute == 'vendor'" class="dropdown-item"
+                >Vendor Name</a
+              >
             </li>
             <li>
               <a *ngIf="activeRoute == 'general-ledger'" class="dropdown-item"
@@ -167,7 +186,9 @@
               </a>
             </li>
             <li>
-              <a *ngIf="activeRoute == 'customer' || activeRoute == 'vendor'" class="dropdown-item"
+              <a
+                *ngIf="activeRoute == 'customer' || activeRoute == 'vendor'"
+                class="dropdown-item"
                 >Address</a
               >
             </li>
@@ -237,28 +258,31 @@
 
       <ul class="dropdown-menu py-1" aria-labelledby="createDropdown">
         <li>
-          <a class="dropdown-item p-1" href="/new-ledger">
+          <a
+            class="dropdown-item p-1"
+            (click)="navigateToCreateGeneralLedger()"
+          >
             <div class="d-flex">
               <label class="ml-2"> Add New Ledger</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-1">
+          <a class="dropdown-item p-1" (click)="navigateToCreateVendor()">
             <div class="d-flex">
               <label class="ml-2"> Add New Vendor</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-1">
+          <a class="dropdown-item p-1" (click)="navigateToCreateCustomer()">
             <div class="d-flex">
               <label class="ml-2"> Add New Customer</label>
             </div>
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-1">
+          <a class="dropdown-item p-1" (click)="navigateToCreateLedgerGroup()">
             <div class="d-flex">
               <label class="ml-2"> Add New Ledger Group</label>
             </div>
@@ -267,7 +291,10 @@
       </ul>
     </div>
 
-    <div *ngIf="activeRoute == 'ledger-group' || activeRoute == 'sub-ledger'" class="dropdown mr-5">
+    <div
+      *ngIf="activeRoute == 'ledger-group' || activeRoute == 'sub-ledger'"
+      class="dropdown mr-5"
+    >
       <button
         class="btn custom-btn dropdown-toggle pl-3 pr-4"
         type="button"
@@ -283,7 +310,7 @@
           <a
             class="dropdown-item p-1"
             *ngIf="activeRoute == 'ledger-group'"
-            href="/new-ledger-group"
+            (click)="navigateToCreateLedgerGroup()"
           >
             <div class="d-flex">
               <label class="ml-2"> Add New Ledger Group</label>
@@ -291,7 +318,7 @@
           ><a
             class="dropdown-item p-1"
             *ngIf="activeRoute == 'sub-ledger'"
-            href="/new-sub-ledger"
+            (click)="navigateToCreateSubLedger()"
           >
             <div class="d-flex">
               <label class="ml-2"> Add New Sub Ledger</label>
@@ -299,7 +326,10 @@
           </a>
         </li>
         <li>
-          <a class="dropdown-item p-1" href="/new-ledger">
+          <a
+            class="dropdown-item p-1"
+            (click)="navigateToCreateGeneralLedger()"
+          >
             <div class="d-flex">
               <label class="ml-2"> Add New Ledger</label>
             </div>
@@ -330,7 +360,11 @@
   </div>
 </div>
 <!-- Tablle for Customer and Vendor -->
-<div *ngIf="activeRoute == 'customer' || activeRoute == 'vendor'" class="table-container" mat-elevation-z8>
+<div
+  *ngIf="activeRoute == 'customer' || activeRoute == 'vendor'"
+  class="table-container"
+  mat-elevation-z8
+>
   <table mat-table [dataSource]="customerVendorDataSource">
     <ng-container matColumnDef="filter" sticky>
       <th mat-header-cell *matHeaderCellDef style="width: 50px; padding: 4px">
@@ -356,7 +390,9 @@
         </div>
 
         <!-- Checkbox List -->
-        <mat-checkbox *ngIf="activeRoute == 'customer'">Customer Name</mat-checkbox>
+        <mat-checkbox *ngIf="activeRoute == 'customer'"
+          >Customer Name</mat-checkbox
+        >
         <mat-checkbox *ngIf="activeRoute == 'vendor'">Vendor Name</mat-checkbox>
         <br />
         <mat-checkbox>Address</mat-checkbox><br />
@@ -375,7 +411,7 @@
     <!-- SN Column -->
     <ng-container matColumnDef="sn">
       <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element; let i = index">{{ i+1 }}</td>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
     </ng-container>
 
     <!-- Customer Name Column -->
@@ -418,7 +454,13 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element">
-        <p><mat-slide-toggle class="custom-toggle" color="primary" [(ngModel)]="element.STATUS"></mat-slide-toggle></p>
+        <p>
+          <mat-slide-toggle
+            class="custom-toggle"
+            color="primary"
+            [(ngModel)]="element.STATUS"
+          ></mat-slide-toggle>
+        </p>
       </td>
     </ng-container>
 
@@ -433,7 +475,12 @@
           <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onViewClick(element.CUSTID || element.ACID)">View</button>
+          <button
+            mat-menu-item
+            (click)="onViewClick(element.CUSTID || element.ACID)"
+          >
+            View
+          </button>
           <button mat-menu-item>Edit</button>
           <button mat-menu-item>Delete</button>
           <button mat-menu-item>Mark as Inactive</button>
@@ -444,16 +491,22 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <mat-paginator [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]"
-                aria-label="Select page">
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+  >
   </mat-paginator>
 </div>
 
 <!-- Table for chart of account -->
 <div
-  *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group' || activeRoute == 'sub-ledger'"
+  *ngIf="
+    activeRoute == 'general-ledger' ||
+    activeRoute == 'ledger-group' ||
+    activeRoute == 'sub-ledger'
+  "
   class="table-container"
 >
   <table mat-table [dataSource]="chartofAccountDataSource">
@@ -472,23 +525,32 @@
     <!-- SN Column -->
     <ng-container matColumnDef="sn">
       <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element; ;let i=index">{{ i+1}}</td>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
     </ng-container>
 
     <!-- Account Name Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="CUSTNAME">
+    <ng-container
+      *ngIf="activeRoute == 'general-ledger'"
+      matColumnDef="CUSTNAME"
+    >
       <th mat-header-cell *matHeaderCellDef>Account Name</th>
       <td mat-cell *matCellDef="let element">{{ element.CUSTNAME }}</td>
     </ng-container>
 
     <!-- Group Name Column -->
-    <ng-container *ngIf="activeRoute == 'ledger-group'" matColumnDef="groupname">
+    <ng-container
+      *ngIf="activeRoute == 'ledger-group'"
+      matColumnDef="groupname"
+    >
       <th mat-header-cell *matHeaderCellDef>Group Name</th>
       <td mat-cell *matCellDef="let element">{{ element.groupname }}</td>
     </ng-container>
 
     <!-- Sub-Ledger Name Column -->
-    <ng-container *ngIf="activeRoute == 'sub-ledger'" matColumnDef="subledgername">
+    <ng-container
+      *ngIf="activeRoute == 'sub-ledger'"
+      matColumnDef="subledgername"
+    >
       <th mat-header-cell *matHeaderCellDef>Sub-Ledger Name</th>
       <td mat-cell *matCellDef="let element">{{ element.subledgername }}</td>
     </ng-container>
@@ -518,19 +580,28 @@
     </ng-container>
 
     <!--Main Group Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="MAINGROUP">
+    <ng-container
+      *ngIf="activeRoute == 'general-ledger'"
+      matColumnDef="MAINGROUP"
+    >
       <th mat-header-cell *matHeaderCellDef>Main Group</th>
       <td mat-cell *matCellDef="let element">{{ element.MAINGROUP }}</td>
     </ng-container>
 
     <!-- Category Column -->
-    <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="CATEGORY">
+    <ng-container
+      *ngIf="activeRoute == 'general-ledger'"
+      matColumnDef="CATEGORY"
+    >
       <th mat-header-cell *matHeaderCellDef>Category</th>
       <td mat-cell *matCellDef="let element">{{ element.CATEGORY }}</td>
     </ng-container>
 
     <!-- Has Main Ledger Column -->
-    <ng-container *ngIf="activeRoute == 'sub-ledger'" matColumnDef="hasmainledger">
+    <ng-container
+      *ngIf="activeRoute == 'sub-ledger'"
+      matColumnDef="hasmainledger"
+    >
       <th mat-header-cell *matHeaderCellDef>Has Main Ledger</th>
       <td mat-cell *matCellDef="let element">{{ element.hasmainledger }}</td>
     </ng-container>
@@ -545,13 +616,23 @@
     <ng-container *ngIf="activeRoute == 'general-ledger'" matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let element">
-        <p><mat-slide-toggle class="custom-toggle" color="primary" [(ngModel)]="element.STATUS"></mat-slide-toggle></p>
+        <p>
+          <mat-slide-toggle
+            class="custom-toggle"
+            color="primary"
+            [(ngModel)]="element.STATUS"
+          ></mat-slide-toggle>
+        </p>
       </td>
     </ng-container>
 
     <!-- Action Column -->
     <ng-container
-      *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group' || activeRoute == 'sub-ledger'"
+      *ngIf="
+        activeRoute == 'general-ledger' ||
+        activeRoute == 'ledger-group' ||
+        activeRoute == 'sub-ledger'
+      "
       matColumnDef="action"
     >
       <th mat-header-cell *matHeaderCellDef>Action</th>
@@ -577,10 +658,11 @@
       *matRowDef="let row; columns: displayedChartofAccountColumns"
     ></tr>
   </table>
-  <mat-paginator [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]"
-                aria-label="Select page">
+  <mat-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+  >
   </mat-paginator>
 </div>
-

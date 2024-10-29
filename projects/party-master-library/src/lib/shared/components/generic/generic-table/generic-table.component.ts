@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -11,7 +18,7 @@ export interface CustomerVendor {
   MOBILENO?: string;
   EMAIL?: string;
   PANNO?: string;
-  STATUS:number;
+  STATUS: number;
 }
 
 export interface ChartOfAccount {
@@ -25,13 +32,13 @@ export interface ChartOfAccount {
   CATEGORY: string;
   hasmainledger: boolean;
   mainledger: string;
-  STATUS:number;
+  STATUS: number;
 }
 
 const ELEMENT_DATA: CustomerVendor[] = [];
 
 // Sample data for Chart of Accounts
-const Chart_Of_Account_Data: ChartOfAccount[] = []
+const Chart_Of_Account_Data: ChartOfAccount[] = [];
 
 @Component({
   selector: 'lib-generic-table',
@@ -39,26 +46,26 @@ const Chart_Of_Account_Data: ChartOfAccount[] = []
   styleUrls: ['./generic-table.component.css'],
 })
 export class GenericTableComponent implements OnInit {
-
   displayedColumns: string[] = [];
   displayedChartofAccountColumns: string[] = [];
   customerVendorDataSource = new MatTableDataSource<any>(ELEMENT_DATA);
   chartofAccountDataSource = new MatTableDataSource<any>(Chart_Of_Account_Data);
-  activeRoute?:string;
-  loading:boolean=false;
+  activeRoute?: string;
+  loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @Output() onItemClick = new EventEmitter();
 
-
-  constructor(private router: Router, public partyMasterService:PartyMasterLibraryService) {
+  constructor(
+    private router: Router,
+    public partyMasterService: PartyMasterLibraryService
+  ) {
     const currentRoute = this.router.url;
-    this.activeRoute = currentRoute.split('/').pop(); 
-
+    this.activeRoute = currentRoute.split('/').pop();
   }
-  ngOnInit(): void {// Get the last segment of the URL
-
+  ngOnInit(): void {
+    // Get the last segment of the URL
 
     this.displayedColumns = [
       'filter',
@@ -80,41 +87,47 @@ export class GenericTableComponent implements OnInit {
       ...(this.activeRoute == 'ledger-group' ? ['groupname'] : []),
       ...(this.activeRoute == 'sub-ledger' ? ['subledgername'] : []),
       ...(this.activeRoute == 'general-ledger' ? ['ACCODE'] : []),
-      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' ? ['ACTYPE'] : []),
-      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' ? ['PARENTGROUP'] : []),
+      ...(this.activeRoute == 'general-ledger' ||
+      this.activeRoute == 'ledger-group'
+        ? ['ACTYPE']
+        : []),
+      ...(this.activeRoute == 'general-ledger' ||
+      this.activeRoute == 'ledger-group'
+        ? ['PARENTGROUP']
+        : []),
       ...(this.activeRoute == 'general-ledger' ? ['MAINGROUP'] : []),
       ...(this.activeRoute == 'general-ledger' ? ['CATEGORY'] : []),
       ...(this.activeRoute == 'sub-ledger' ? ['hasmainledger'] : []),
       ...(this.activeRoute == 'sub-ledger' ? ['mainledger'] : []),
       ...(this.activeRoute == 'general-ledger' ? ['status'] : []),
-      ...(this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' || this.activeRoute == 'sub-ledger'
+      ...(this.activeRoute == 'general-ledger' ||
+      this.activeRoute == 'ledger-group' ||
+      this.activeRoute == 'sub-ledger'
         ? ['action']
         : []),
     ];
-    if(this.activeRoute == 'customer') this.getAllCustomers('C');
-    if(this.activeRoute == 'vendor') this.getAllCustomers('V');
-    if(this.activeRoute == 'general-ledger') this.getAllCustomers('A');
-
-    
+    if (this.activeRoute == 'customer') this.getAllCustomers('C');
+    if (this.activeRoute == 'vendor') this.getAllCustomers('V');
+    if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
   }
   ngAfterViewInit() {
-    if(this.activeRoute == "general-ledger"){
+    if (this.activeRoute == 'general-ledger') {
       this.chartofAccountDataSource.paginator = this.paginator;
-    }else{
+    } else {
       this.customerVendorDataSource.paginator = this.paginator;
     }
   }
 
-  getAllCustomers(ptype:string){
+  getAllCustomers(ptype: string) {
     this.loading = true;
-    this.partyMasterService.getCustomerList(ptype).subscribe((res:any) => {
-      if(res.status == "ok"){
-        if(this.activeRoute == "general-ledger"){
+    this.partyMasterService.getCustomerList(ptype).subscribe((res: any) => {
+      if (res.status == 'ok') {
+        if (this.activeRoute == 'general-ledger') {
           this.chartofAccountDataSource.data = res.result;
-        }else{
+        } else {
           this.customerVendorDataSource.data = res.result;
         }
-      }else if(res.status == "error"){
+      } else if (res.status == 'error') {
         this.partyMasterService.openErrorDialog(res.result);
       }
     });
@@ -122,22 +135,33 @@ export class GenericTableComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    if(this.activeRoute == "general-ledger"){
+    if (this.activeRoute == 'general-ledger') {
       this.chartofAccountDataSource.filter = filterValue.trim().toLowerCase();
-    }else{
+    } else {
       this.customerVendorDataSource.filter = filterValue.trim().toLowerCase();
     }
   }
   navigateToCreateCustomer() {
-    this.router.navigate(['/new-customer']);
+    this.router.navigate(['/new-customer', { returnUrl: this.router.url }]);
   }
 
-  onViewClick($event:any){
+  onViewClick($event: any) {
     this.onItemClick.emit($event);
   }
 
   navigateToCreateVendor() {
-    this.router.navigate(['new-vendor']);
+    this.router.navigate(['new-vendor', { returnUrl: this.router.url }]);
   }
 
+  navigateToCreateGeneralLedger() {
+    this.router.navigate(['new-ledger', { returnUrl: this.router.url }]);
+  }
+
+  navigateToCreateLedgerGroup() {
+    this.router.navigate(['new-ledger-group', { returnUrl: this.router.url }]);
+  }
+
+  navigateToCreateSubLedger() {
+    this.router.navigate(['new-sub-ledger', { returnUrl: this.router.url }]);
+  }
 }

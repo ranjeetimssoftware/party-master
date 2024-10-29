@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AdditionalInfo, CustomerMasterObj, PartyMasterLibraryService } from '../../party-master-library.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AdditionalInfo,
+  CustomerMasterObj,
+  PartyMasterLibraryService,
+} from '../../party-master-library.service';
 
 export interface Branch {
   sn: number;
@@ -35,22 +39,21 @@ const ELEMENT_DATA: Branch[] = [
   },
 ];
 
-
 @Component({
   selector: 'lib-create-ledger',
   templateUrl: './create-ledger.component.html',
   styleUrls: ['./create-ledger.component.css'],
 })
 export class CreateLedgerComponent {
-  mode:string="add";
-  userSettings:any;
+  mode: string = 'add';
+  userSettings: any;
   isOpen: boolean = false;
   displayedColumns: string[] = [];
   branchDataSource = ELEMENT_DATA;
   selectedAccount: string | null = null;
   [key: string]: any; // Add this line
+  returnUrl: string | undefined;
 
- 
   menuData = [
     { label: 'Fixed Assets' },
     {
@@ -69,13 +72,19 @@ export class CreateLedgerComponent {
   ];
 
   ledgerForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
-    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    public partyMasterService: PartyMasterLibraryService,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this.partyMasterService.customermasterObj.AdditionalInfo = <
+      AdditionalInfo
+    >{};
     this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
-    this.partyMasterService.getAllsettings().subscribe((res:any) => {
-      if(res.status == "ok")
-      this.userSettings = JSON.parse(res.result);
-    })
+    this.partyMasterService.getAllsettings().subscribe((res: any) => {
+      if (res.status == 'ok') this.userSettings = JSON.parse(res.result);
+    });
     this.ledgerForm = this.fb.group({
       AccountCode: ['', Validators.required],
       AccountType: ['', Validators.required],
@@ -90,6 +99,12 @@ export class CreateLedgerComponent {
     });
 
     this.displayedColumns = ['sn', 'branch', 'action'];
+  }
+
+  ngOnInit() {
+    if (!!this._activatedRoute.snapshot.params['returnUrl']) {
+      this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
+    }
   }
 
   getSubMenu(item: any): any {
@@ -108,39 +123,62 @@ export class CreateLedgerComponent {
     this.isOpen = false; // Method to close the pop-up
   }
 
-  onSelectParent(event:any){
-    this.partyMasterService.customermasterObj.customerPartyAccount.parent = event.label;
+  onSelectParent(event: any) {
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent =
+      event.label;
   }
 
   submit() {
-    if(this.partyMasterService.customermasterObj.customerCode == "" || this.partyMasterService.customermasterObj.customerCode == undefined || this.partyMasterService.customermasterObj.customerCode == null){
-      alert("Please Enter Account Code.");
-      return;
-    }if(this.partyMasterService.customermasterObj.customerName == "" || this.partyMasterService.customermasterObj.customerName == undefined || this.partyMasterService.customermasterObj.customerName == null){
-      alert("Please Enter Account Name.");
-      return;
-    }
-    if(this.partyMasterService.customermasterObj.customerPartyAccount.acType == "" || this.partyMasterService.customermasterObj.customerPartyAccount.acType == undefined || this.partyMasterService.customermasterObj.customerPartyAccount.acType == null){
-      alert("Please Select Account Type.");
+    if (
+      this.partyMasterService.customermasterObj.customerCode == '' ||
+      this.partyMasterService.customermasterObj.customerCode == undefined ||
+      this.partyMasterService.customermasterObj.customerCode == null
+    ) {
+      alert('Please Enter Account Code.');
       return;
     }
-    this.partyMasterService.customermasterObj.customerPartyAccount.type = "A";
-    this.partyMasterService.customermasterObj.customerPartyAccount.pType = "";
-    this.partyMasterService.customermasterObj.customerPartyAccount.mapId = this.partyMasterService.customermasterObj.customerPartyAccount.category;
-    this.partyMasterService.customermasterObj.contactNo=this.partyMasterService.customermasterObj.phone
-    this.partyMasterService.saveCustomer(this.mode, this.partyMasterService.customermasterObj).subscribe((res:any) => {
-      if(res.status == "ok"){
-        this.partyMasterService.openSuccessDialog(res.result);
-        this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
-        this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
-        this.router.navigate(['/general-ledger']);
-      }else if(res.status == "error"){
-        this.partyMasterService.openErrorDialog(res.result);
-      }
-    });
+    if (
+      this.partyMasterService.customermasterObj.customerName == '' ||
+      this.partyMasterService.customermasterObj.customerName == undefined ||
+      this.partyMasterService.customermasterObj.customerName == null
+    ) {
+      alert('Please Enter Account Name.');
+      return;
+    }
+    if (
+      this.partyMasterService.customermasterObj.customerPartyAccount.acType ==
+        '' ||
+      this.partyMasterService.customermasterObj.customerPartyAccount.acType ==
+        undefined ||
+      this.partyMasterService.customermasterObj.customerPartyAccount.acType ==
+        null
+    ) {
+      alert('Please Select Account Type.');
+      return;
+    }
+    this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
+    this.partyMasterService.customermasterObj.customerPartyAccount.pType = '';
+    this.partyMasterService.customermasterObj.customerPartyAccount.mapId =
+      this.partyMasterService.customermasterObj.customerPartyAccount.category;
+    this.partyMasterService.customermasterObj.contactNo =
+      this.partyMasterService.customermasterObj.phone;
+    this.partyMasterService
+      .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
+      .subscribe((res: any) => {
+        if (res.status == 'ok') {
+          this.partyMasterService.openSuccessDialog(res.result);
+          this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
+          this.partyMasterService.customermasterObj.AdditionalInfo = <
+            AdditionalInfo
+          >{};
+          this.router.navigate(['/general-ledger']);
+        } else if (res.status == 'error') {
+          this.partyMasterService.openErrorDialog(res.result);
+        }
+      });
   }
 
   goBack() {
-    this.router.navigate(['/general-ledger']); // Navigate to the previous route
+    this.router.navigate([this.returnUrl]); // Navigate to the previous route
   }
 }

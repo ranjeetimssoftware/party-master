@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'lib-create-ledger-group',
@@ -9,13 +9,24 @@ import { Router } from '@angular/router';
 })
 export class CreateLedgerGroupComponent {
   ledgerGroupForm: FormGroup;
+  returnUrl: string | undefined;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this.ledgerGroupForm = this.fb.group({
       AccountType: ['', Validators.required],
       ParentGroup: ['', Validators.required],
       GroupName: ['', Validators.required],
     });
+  }
+
+  ngOnInit() {
+    if (!!this._activatedRoute.snapshot.params['returnUrl']) {
+      this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
+    }
   }
 
   submit() {
@@ -27,6 +38,6 @@ export class CreateLedgerGroupComponent {
   }
 
   goBack() {
-    this.router.navigate(['/ledger-group']); // Navigate to the previous route
+    this.router.navigate([this.returnUrl]); // Navigate to the previous route
   }
 }

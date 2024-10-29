@@ -5,13 +5,12 @@
 export const environment = {
   production: false,
 
-  apiUrl: "http://localhost:8088/api/v1",
+  apiUrl: 'http://localhost:8081/api/v1',
   // appVersion: require('../../package.json').version + '-dev',
   appMode: 'lite',
   accountPort: '8068',
-  productMasterMenuMode : 'old'
-
-};;
+  productMasterMenuMode: 'old',
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'lib-create-sub-ledger',
@@ -9,14 +9,25 @@ import { Router } from '@angular/router';
 })
 export class CreateSubLedgerComponent {
   subLedgerForm: FormGroup;
+  returnUrl: string | undefined;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this.subLedgerForm = this.fb.group({
       SubLedgerName: ['', Validators.required],
       PanNo: ['', Validators.required],
       MainLedgerName: ['', Validators.required],
       hasMainLedger: ['', Validators.required],
     });
+  }
+
+  ngOnInit() {
+    if (!!this._activatedRoute.snapshot.params['returnUrl']) {
+      this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
+    }
   }
 
   submit() {
@@ -28,6 +39,6 @@ export class CreateSubLedgerComponent {
   }
 
   goBack() {
-    this.router.navigate(['/sub-ledger']); // Navigate to the previous route
+    this.router.navigate([this.returnUrl]); // Navigate to the previous route
   }
 }
