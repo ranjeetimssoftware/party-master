@@ -134,3 +134,12 @@ tr:nth-child(even) {
   font-size: 14px;
   font-weight: 200;
 }
+
+tr.mat-header-row {
+  height: 50px;
+}
+
+tr.mat-row,
+tr.mat-footer-row {
+  height: 20px;
+}
