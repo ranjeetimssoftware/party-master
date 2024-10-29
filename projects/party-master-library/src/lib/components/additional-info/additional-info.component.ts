@@ -12,6 +12,11 @@ export class AdditionalInfoComponent {
   additionalInfoForm: FormGroup;
   additinalInfoObj = <AdditionalInfo>{};
   userSettings:any;
+  areaList:any[]=[];
+  District:any[]=[];
+  CategoryList:any[]=[];
+  MemberSchemeList:any[]=[];
+  ContractPriceList:any[]=[];
 
   @Input() additinalInfo!:AdditionalInfo;
   @Input() mode!:string;
@@ -41,10 +46,16 @@ export class AdditionalInfoComponent {
       Membership_Barcode:[''],
     });
     this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
+    this.additinalInfoObj.membershipInfo.membershipScheme = 'defaultID';
     this.userSettings = this.partyMasterService.userSettings;
     if(this.userSettings.isOverSeas == 0) this.additinalInfoObj.isOverSeasCustomer = 0;
     if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.additinalInfoObj.dealingSalesman = "Salesman123";
     if(this.userSettings.EnableContractPrice == 0) this.additinalInfoObj.enbleContractPrice = 0;
+    this.getAreaList();
+    this.getDistrictList();
+    this.getCategoryList();
+    this.getMemberScheme();
+    this.getContractPriceList();
   }
 
     
@@ -70,6 +81,33 @@ export class AdditionalInfoComponent {
     }else{
       this.additinalInfoObj.isOverSeasCustomer = 0;
     }
+  }
+
+  getAreaList(){
+    this.partyMasterService.getArea().subscribe((res:any) => {
+      this.areaList = res.result;
+    })
+  }
+  getDistrictList(){
+    this.partyMasterService.getDistrict().subscribe((res:any) => {
+      this.District = res.result;
+    })
+  }
+  getCategoryList(){
+    this.partyMasterService.getcategorywiseconfiguration().subscribe((res:any) => {
+      this.CategoryList = res.result;
+    })
+  }
+  getMemberScheme(){
+    this.partyMasterService.getMemberSchemeList().subscribe((res:any) => {
+      this.MemberSchemeList = res.result;
+    })
+  }
+
+  getContractPriceList(){
+    this.partyMasterService.getContractPriceList().subscribe((res:any) => {
+      this.ContractPriceList = res.result;
+    })
   }
 
 

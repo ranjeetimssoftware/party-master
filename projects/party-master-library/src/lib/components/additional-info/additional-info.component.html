@@ -13,9 +13,8 @@
           [(ngModel)]="additinalInfoObj.category"
           type="text"
         >
-        <option value="Retailer">Retailer</option>
-        <option value="WholeSale">WholeSale</option>
-        <option value="DirectParty">Direct Party</option>
+        <option value="" selected>Select Category</option>
+        <option value="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
       </select>
       </div>
     </div>
@@ -80,14 +79,16 @@
         <label for="area" class="form-label">Area</label>
       </div>
       <div class="col-11 col-md-4">
-        <input
-          type="text"
-          id="Area"
+        <select
+          id="province"
           class="form-control px-2 py-1"
-          formControlName="Area"
+          formControlName="Province"
           [(ngModel)]="additinalInfoObj.Area"
-          placeholder="Area"
-        />
+          type="text"
+        >
+        <option value="" selected>Select Area</option>
+        <option value="area.AREAID" *ngFor="let area of areaList">{{area.AREANAME}}</option>
+      </select>
       </div>
     </div>
 
@@ -103,8 +104,13 @@
           [(ngModel)]="additinalInfoObj.province"
           type="text"
         >
-        <option value="Madhesh">Madhesh</option>
-        <option value="Bagmati">Bagmati</option>
+        <option value="1">Koshi</option>
+        <option value="2">Madhesh</option>
+        <option value="3">Bagmati</option>
+        <option value="4">Gandaki</option>
+        <option value="5">Lumbini</option>
+        <option value="6">Karnali</option>
+        <option value="7">Sudurpaschim</option>
       </select>
       </div>
     </div>
@@ -205,8 +211,7 @@
           [(ngModel)]="additinalInfoObj.membershipInfo.membershipScheme"
           type="text"
         >
-        <option value="1">Scheme 1</option>
-        <option value="2">Scheme 2</option>
+        <option value="scheme.schemeID" *ngFor="let scheme of MemberSchemeList">{{scheme.Name}}</option>
       </select>
       </div>
       <div class="col-12 col-md-2">

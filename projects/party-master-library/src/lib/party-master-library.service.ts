@@ -61,6 +61,23 @@ export class PartyMasterLibraryService {
   getAllsettings(){
     return this.http.get<any[]>(this.apiUrl + '/getAllSetting'); 
   }
+
+  getArea(){
+    return this.http.get<any[]>(this.apiUrl + '/getAreaDetail'); 
+  }
+  getDistrict(){
+    return this.http.get<any[]>(this.apiUrl + '/getDistrict'); 
+  }
+  getContractPriceList(){
+    return this.http.get<any[]>(this.apiUrl + '/getContractPriceList'); 
+  }
+  getMemberSchemeList(){
+    return this.http.get<any[]>(this.apiUrl + '/getMemberSchemeList'); 
+  }
+  getcategorywiseconfiguration(){
+    return this.http.post<any[]>(this.apiUrl + '/getcategorywiseconfiguration',{}); 
+  }
+  
   uploadDocument(body:any) {
     return this.http.post(`${this.apiUrl}/FileUpload`, body);
 }
