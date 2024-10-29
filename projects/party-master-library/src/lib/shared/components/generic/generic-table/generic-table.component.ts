@@ -142,7 +142,7 @@ export class GenericTableComponent implements OnInit {
     }
   }
   navigateToCreateCustomer() {
-    this.router.navigate(['/new-customer', { returnUrl: this.router.url }]);
+    this.router.navigate(['../new-customer', { returnUrl: this.router.url }]);
   }
 
   onViewClick($event: any) {
@@ -150,18 +150,18 @@ export class GenericTableComponent implements OnInit {
   }
 
   navigateToCreateVendor() {
-    this.router.navigate(['new-vendor', { returnUrl: this.router.url }]);
+    this.router.navigate(['../new-vendor', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateGeneralLedger() {
-    this.router.navigate(['new-ledger', { returnUrl: this.router.url }]);
+    this.router.navigate(['../new-ledger', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateLedgerGroup() {
-    this.router.navigate(['new-ledger-group', { returnUrl: this.router.url }]);
+    this.router.navigate(['../new-ledger-group', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateSubLedger() {
-    this.router.navigate(['new-sub-ledger', { returnUrl: this.router.url }]);
+    this.router.navigate(['../new-sub-ledger', { returnUrl: this.router.url }]);
   }
 }

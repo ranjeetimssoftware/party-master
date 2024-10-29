@@ -30,7 +30,7 @@ export class CustomerComponent {
   }
 
   onView(event:any){
-    this.router.navigate(["/new-customer",{acid:event, mode:'view'}])
+    this.router.navigate(["../new-customer",{acid:event, mode:'view',returnUrl: this.router.url}])
   }
 
   // Method to handle save action

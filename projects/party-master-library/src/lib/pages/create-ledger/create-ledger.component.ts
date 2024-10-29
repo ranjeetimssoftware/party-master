@@ -168,10 +168,8 @@ export class CreateLedgerComponent {
         if (res.status == 'ok') {
           this.partyMasterService.openSuccessDialog(res.result);
           this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
-          this.partyMasterService.customermasterObj.AdditionalInfo = <
-            AdditionalInfo
-          >{};
-          this.router.navigate(['/general-ledger']);
+          this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+          this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
         }

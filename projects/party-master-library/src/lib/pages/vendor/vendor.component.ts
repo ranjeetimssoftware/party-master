@@ -14,7 +14,7 @@ export class VendorComponent implements OnInit {
   }
 
   onView(event:any){
-    this.router.navigate(["/new-vendor",{acid:event, mode:'view'}])
+    this.router.navigate(["../new-vendor",{acid:event, mode:'view',returnUrl: this.router.url}])
   }
 
 }
