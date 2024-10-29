@@ -13,7 +13,7 @@
           [(ngModel)]="additinalInfoObj.category"
         >
         <option value="">Seleect Category</option>
-        <option value="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
+        <option [value]="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
       </select>
       </div>
     </div>
@@ -93,7 +93,8 @@
           placeholder="Select Contract
           Price"
         >
-        <option value="">Default Contact Price</option>
+        <option value="">Default Contract Price</option>
+        <option [value]="con.CMID" *ngFor="let con of ContractPriceList">{{con.PRICENAME}}</option>
       </select>
       </div>
     </div>

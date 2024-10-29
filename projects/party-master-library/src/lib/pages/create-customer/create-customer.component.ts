@@ -28,6 +28,7 @@ export class CreateCustomerComponent {
     public partyMasterService: PartyMasterLibraryService,
     private _activatedRoute: ActivatedRoute
   ) {
+    this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
     this.partyMasterService.customermasterObj.AdditionalInfo = <
       AdditionalInfo
     >{};
@@ -113,9 +114,9 @@ export class CreateCustomerComponent {
       }
     }
     if (
-      this.partyMasterService.customermasterObj.mobile == '' ||
-      this.partyMasterService.customermasterObj.mobile == undefined ||
-      this.partyMasterService.customermasterObj.mobile == null
+      this.partyMasterService.customermasterObj.mobileNo == '' ||
+      this.partyMasterService.customermasterObj.mobileNo == undefined ||
+      this.partyMasterService.customermasterObj.mobileNo == null
     ) {
       alert('Please Enter Mobile No.');
       return;

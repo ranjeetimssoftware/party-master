@@ -10,7 +10,6 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
 })
 export class AdditionalInfoComponent {
   additionalInfoForm: FormGroup;
-  additinalInfoObj = <AdditionalInfo>{};
   userSettings:any;
   areaList:any[]=[];
   District:any[]=[];
@@ -18,11 +17,12 @@ export class AdditionalInfoComponent {
   CategoryList:any[]=[];
   MemberSchemeList:any[]=[];
   ContractPriceList:any[]=[];
+  SalesmanList:any[]=[];
 
   @Input() additinalInfo!:AdditionalInfo;
   @Input() mode!:string;
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
-    this.additinalInfoObj.membershipInfo = <MembershipObj>{};
+    this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
     this.additionalInfoForm = this.fb.group({
       MenuCategory: [''],
       CreditLimit: [],
@@ -46,17 +46,17 @@ export class AdditionalInfoComponent {
       Membership_EndDate:[''],
       Membership_Barcode:[''],
     });
-    this.partyMasterService.customermasterObj.AdditionalInfo = this.additinalInfoObj;
-    this.additinalInfoObj.membershipInfo.membershipScheme = 'defaultID';
+    this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipScheme = 'defaultID';
     this.userSettings = this.partyMasterService.userSettings;
-    if(this.userSettings.isOverSeas == 0) this.additinalInfoObj.isOverSeasCustomer = 0;
-    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.additinalInfoObj.dealingSalesman = "Salesman123";
-    if(this.userSettings.EnableContractPrice == 0) this.additinalInfoObj.enbleContractPrice = 0;
+    if(this.userSettings.isOverSeas == 0) this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
+    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman = "Salesman123";
+    if(this.userSettings.EnableContractPrice == 0) this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 0;
     this.getAreaList();
     this.getDistrictList();
     this.getCategoryList();
     this.getMemberScheme();
     this.getContractPriceList();
+    this.getSalesmanList();
   }
 
     
@@ -69,18 +69,18 @@ export class AdditionalInfoComponent {
   onMembershipCheck(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
-      this.additinalInfoObj.createMember = 1;
+      this.partyMasterService.customermasterObj.AdditionalInfo.createMember = 1;
     }else{
-      this.additinalInfoObj.createMember = 0;
+      this.partyMasterService.customermasterObj.AdditionalInfo.createMember = 0;
     }
   }
 
   onIsOverseasCheck(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
-      this.additinalInfoObj.isOverSeasCustomer = 1;
+      this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 1;
     }else{
-      this.additinalInfoObj.isOverSeasCustomer = 0;
+      this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
     }
   }
 
@@ -110,9 +110,14 @@ export class AdditionalInfoComponent {
       this.ContractPriceList = res;
     })
   }
+  getSalesmanList(){
+    this.partyMasterService.getSalesmanList().subscribe((res:any) => {
+      this.SalesmanList = res;
+    })
+  }
 
   FilterDistrict(){
-    this.FilteredDistrict = this.District.filter(x => x.State == this.additinalInfoObj.province);
+    this.FilteredDistrict = this.District.filter(x => x.State == this.partyMasterService.customermasterObj.AdditionalInfo.province);
   }
 
 

@@ -77,6 +77,9 @@ export class PartyMasterLibraryService {
   getcategorywiseconfiguration(){
     return this.http.post<any[]>(this.apiUrl + '/getcategorywiseconfiguration',{}); 
   }
+  getSalesmanList (){
+    return this.http.get<any[]>(this.apiUrl + '/getSalesmanList '); 
+  }
   
   uploadDocument(body:any) {
     return this.http.post(`${this.apiUrl}/FileUpload`, body);
@@ -90,7 +93,7 @@ export interface CustomerMasterObj{
   address:string;
   vatNo:string;
   email:string;
-  mobile:string;
+  mobileNo:string;
   phone:string;
   status:number;
   isCustomerLedger:number;

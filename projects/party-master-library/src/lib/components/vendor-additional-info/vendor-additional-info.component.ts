@@ -11,6 +11,7 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
 export class VendorAdditionalInfoComponent {
   vendorAdditionalInfoForm: FormGroup;
   CategoryList:any[]=[];
+  ContractPriceList:any[]=[];
   userSettings:any;
   additinalInfoObj = <AdditionalInfo>{};
   @Input() additinalInfo!:AdditionalInfo;
@@ -41,6 +42,11 @@ export class VendorAdditionalInfoComponent {
   getCategoryList(){
     this.partyMasterService.getcategorywiseconfiguration().subscribe((res:any) => {
       this.CategoryList = res.result;
+    })
+  }
+  getContractPriceList(){
+    this.partyMasterService.getContractPriceList().subscribe((res:any) => {
+      this.ContractPriceList = res;
     })
   }
 }
