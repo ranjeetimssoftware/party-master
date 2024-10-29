@@ -87,7 +87,7 @@
           type="text"
         >
         <option value="" selected>Select Area</option>
-        <option value="area.AREAID" *ngFor="let area of areaList">{{area.AREANAME}}</option>
+        <option [value]="area.AREAID" *ngFor="let area of areaList">{{area.AREANAME}}</option>
       </select>
       </div>
     </div>

@@ -46,7 +46,6 @@ export class AdditionalInfoComponent {
       Membership_EndDate:[''],
       Membership_Barcode:[''],
     });
-    this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipScheme = 'defaultID';
     this.userSettings = this.partyMasterService.userSettings;
     if(this.userSettings.isOverSeas == 0) this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
     if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman = "Salesman123";
