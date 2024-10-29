@@ -136,31 +136,14 @@
               />
             </svg>
           </div>
-          <!-- <div class="col-11 col-md-5">
-
-            <select
-              id="parentGroup"
-              class="form-control px-2 py-1"
-              formControlName="ParentGroup"
-              type="text"
-            ></select>
-          </div> -->
 
           <div class="dropdown col-11 col-md-5">
-            <!-- <input
-              type="text"
-              id="Parent"
-              class="form-control px-2 py-1"
-              formControlName="ParentGroup"
-              placeholder="Select Parent Group"
-              mat-button [matMenuTriggerFor]="rootMenu"
-            /> -->
             
             <lib-generic-nested-dropdown [menuData]="menuData" (onItemClick)="onSelectParent($event)"></lib-generic-nested-dropdown>
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2" *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'AT' || partyMasterService.customermasterObj.customerPartyAccount.acType == 'LB'">
           <div class="col-12 col-md-3">
             <label for="category" class="form-label mr-2">Category</label>
           </div>
@@ -172,12 +155,12 @@
               type="text"
               [(ngModel)]="partyMasterService.customermasterObj.customerPartyAccount.category"              
             >
-              <option value="C">Cash a/c</option>
-              <option value="B">Bank a/c</option>
+              <option *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'AT'" value="C">Cash a/c</option>
+              <option *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'AT'" value="B">Bank a/c</option>
               <option value="O">Others a/c</option>
-              <option value="OVERDRAFT">Bank Overdraft a/c</option>
-              <option value="TDS_RECEIVABLE">Tds Receiveable a/c</option>
-              <option value="TDS_PAYABLE">Tds Payable a/c</option>
+              <option *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'LB'" value="OVERDRAFT">Bank Overdraft a/c</option>
+              <option *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'AT'" value="TDS_RECEIVABLE">Tds Receiveable a/c</option>
+              <option *ngIf="partyMasterService.customermasterObj.customerPartyAccount.acType == 'LB'" value="TDS_PAYABLE">Tds Payable a/c</option>
             </select>
           </div>
         </div>

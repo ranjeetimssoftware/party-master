@@ -26,7 +26,7 @@
             <td>{{doc}}</td>
             <td>
               <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
-              <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">delete outline</mat-icon>
+              <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="deleteFile(i)">delete outline</mat-icon>
             </td>
           </tr>
         </tbody>

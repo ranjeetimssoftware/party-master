@@ -19,10 +19,9 @@ export class AdditionalInfoComponent {
   ContractPriceList:any[]=[];
   SalesmanList:any[]=[];
 
-  @Input() additinalInfo!:AdditionalInfo;
+  @Input() additinalInfo:AdditionalInfo = <AdditionalInfo>{};
   @Input() mode!:string;
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
-    this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
     this.additionalInfoForm = this.fb.group({
       MenuCategory: [''],
       CreditLimit: [],
@@ -47,9 +46,8 @@ export class AdditionalInfoComponent {
       Membership_Barcode:[''],
     });
     this.userSettings = this.partyMasterService.userSettings;
-    if(this.userSettings.isOverSeas == 0) this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
-    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman = "Salesman123";
-    if(this.userSettings.EnableContractPrice == 0) this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 0;
+    if(this.userSettings.isOverSeas == 0) this.additinalInfo.isOverSeasCustomer = 0;
+    if(this.userSettings.EnableContractPrice == 0) this.additinalInfo.enbleContractPrice = 0;
     this.getAreaList();
     this.getDistrictList();
     this.getCategoryList();
@@ -68,18 +66,18 @@ export class AdditionalInfoComponent {
   onMembershipCheck(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
-      this.partyMasterService.customermasterObj.AdditionalInfo.createMember = 1;
+      this.additinalInfo.createMember = 1;
     }else{
-      this.partyMasterService.customermasterObj.AdditionalInfo.createMember = 0;
+      this.additinalInfo.createMember = 0;
     }
   }
 
   onIsOverseasCheck(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
-      this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 1;
+      this.additinalInfo.isOverSeasCustomer = 1;
     }else{
-      this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
+      this.additinalInfo.isOverSeasCustomer = 0;
     }
   }
 
@@ -116,7 +114,7 @@ export class AdditionalInfoComponent {
   }
 
   FilterDistrict(){
-    this.FilteredDistrict = this.District.filter(x => x.State == this.partyMasterService.customermasterObj.AdditionalInfo.province);
+    this.FilteredDistrict = this.District.filter(x => x.State == this.additinalInfo.province);
   }
 
 

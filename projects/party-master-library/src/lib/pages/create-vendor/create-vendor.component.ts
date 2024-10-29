@@ -24,10 +24,7 @@ export class CreateVendorComponent {
     public partyMasterService: PartyMasterLibraryService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
-    this.partyMasterService.customermasterObj.AdditionalInfo = <
-      AdditionalInfo
-    >{};
+    this.partyMasterService.reset();
     this.userSettings = this.partyMasterService.userSettings;
     this.vendorForm = this.fb.group({
       VendorCode: ['', Validators.required],
@@ -38,10 +35,6 @@ export class CreateVendorComponent {
       Mobile: ['', Validators.required],
       Phone: ['', Validators.required],
     });
-    if (this.userSettings.CompanyType == 'B2B') {
-      this.partyMasterService.customermasterObj.isCustomerLedger = 1;
-      this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
-    }
   }
 
   ngOnInit() {
@@ -58,9 +51,10 @@ export class CreateVendorComponent {
         .getCustomerById('V', acid)
         .subscribe((res: any) => {
           this.partyMasterService.customermasterObj = res.result;
-          this.partyMasterService.customermasterObj.AdditionalInfo =
-            res.result.additionalInfo;
+          this.partyMasterService.customermasterObj.AdditionalInfo = res.result.additionalInfo;
         });
+    }else{
+      this.partyMasterService.reset();
     }
   }
 
@@ -142,10 +136,7 @@ export class CreateVendorComponent {
       .subscribe((res: any) => {
         if (res.status == 'ok') {
           this.partyMasterService.openSuccessDialog(res.result);
-          this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
-          this.partyMasterService.customermasterObj.AdditionalInfo = <
-            AdditionalInfo
-          >{};
+          this.partyMasterService.reset();
           this.router.navigate(['/vendor']);
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);

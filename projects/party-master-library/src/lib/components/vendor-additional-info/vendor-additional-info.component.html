@@ -10,7 +10,7 @@
           class="form-control px-2 py-1"
           formControlName="Category"
           type="text"
-          [(ngModel)]="additinalInfoObj.category"
+          [(ngModel)]="additinalInfo.category"
         >
         <option value="">Seleect Category</option>
         <option [value]="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
@@ -34,7 +34,7 @@
           id="vendorType"
           class="form-control px-2 py-1"
           formControlName="VendorType"
-          [(ngModel)]="additinalInfoObj.vendorType"
+          [(ngModel)]="additinalInfo.vendorType"
           type="text"
         >
         <option value="VAT">VAT Registered</option>
@@ -81,15 +81,15 @@
 
     <div class="row align-items-center my-3" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="ContractPrice" [(ngModel)]="additinalInfoObj.enbleContractPrice"/>Enable Contract
+        <input type="checkbox" formControlName="ContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice"/>Enable Contract
         Price
       </div>
-      <div class="col-11 col-md-4" style="margin-left: -10px" *ngIf="additinalInfoObj.enbleContractPrice">
+      <div class="col-11 col-md-4" style="margin-left: -10px" *ngIf="additinalInfo.enbleContractPrice">
         <select
           id="contractPrice"
           class="form-control px-2 py-1"
           formControlName="SelectContractPrice"
-          [(ngModel)]="additinalInfoObj.ContractPrice"
+          [(ngModel)]="additinalInfo.ContractPrice"
           placeholder="Select Contract
           Price"
         >
@@ -108,7 +108,7 @@
           id="vendorStatus"
           class="form-control px-2 py-1"
           formControlName="VendorStatus"
-          [(ngModel)]="additinalInfoObj.membershipInfo.customerStatus"
+          [(ngModel)]="additinalInfo.membershipInfo.customerStatus"
           type="text"
         >
         <option value="1">Active</option>

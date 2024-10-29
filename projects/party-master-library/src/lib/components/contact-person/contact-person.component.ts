@@ -27,11 +27,10 @@ export class ContactPersonComponent implements OnInit {
   ];
   newRow: any = { name: '', contact: '', designation: '', email: '' };
 
-  @Input() contactPersonArray!:ContactPersonObj[];
-  @Input() mode!:string;
+  @Input() contactPersonArray:ContactPersonObj[] = [];
+  @Input() mode:string='add';
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
-    this.partyMasterService.customermasterObj.ContactPerson = this.dataSource.data;        
   }
 
   ngOnInit(): void {
@@ -44,11 +43,11 @@ export class ContactPersonComponent implements OnInit {
   }
 
   onAddContact(){
-    this.dataSource.data.push(this.newRow);
+    this.contactPersonArray.push(this.newRow);
     this.newRow = this.addNewRow();
   }
   onRemoveContact(i:number){
-    this.dataSource.data.splice(i,1);
+    this.contactPersonArray.splice(i,1);
   }
 
 

@@ -4,16 +4,21 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
+import { ContactPersonObj } from './components/contact-person/contact-person.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PartyMasterLibraryService {
   userSettings:any;
-  customermasterObj:CustomerMasterObj = <CustomerMasterObj>{}
+  customermasterObj:CustomerMasterObj = <CustomerMasterObj>{};
   
   constructor(private http: HttpClient,public dialog: MatDialog,) { 
     this.customermasterObj.status = 1;
+    this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+    this.customermasterObj.ContactPerson = [];
+    this.customermasterObj.documentUpload = [];
+    this.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
     this.getAllsettings().subscribe((res:any) => {
       if(res.status == "ok")
       this.userSettings = JSON.parse(res.result);
@@ -27,6 +32,19 @@ export class PartyMasterLibraryService {
  
      if (!!url && url.length > 0) { apiUrl = url };
      return apiUrl
+   }
+
+   reset(){
+    this.customermasterObj = <CustomerMasterObj>{};  
+    this.customermasterObj.status = 1;
+    this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+    this.customermasterObj.customerPartyAccount = <any>{};
+    this.customermasterObj.ContactPerson = [];
+    this.customermasterObj.documentUpload = [];
+    this.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
+    if (this.userSettings.CompanyType == 'B2B') {
+      this.customermasterObj.isCustomerLedger = 1;
+    }
    }
 
    openSuccessDialog(Message:string) {

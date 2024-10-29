@@ -10,7 +10,7 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="MenuCategory"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.category"
+          [(ngModel)]="additinalInfo.category"
           type="text"
         >
         <option value="" selected>Select Category</option>
@@ -39,7 +39,7 @@
           id="creditLimit"
           class="form-control px-2 py-1"
           formControlName="CreditLimit"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.crLimit"
+          [(ngModel)]="additinalInfo.crLimit"
           placeholder="0.00"
         />
       </div>
@@ -55,7 +55,7 @@
           id="creditDays"
           class="form-control px-2 py-1"
           formControlName="CreditDays"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.creditDays"
+          [(ngModel)]="additinalInfo.creditDays"
           placeholder="0"
         />
       </div>
@@ -63,7 +63,7 @@
 
     <div class="row mt-3 mb-2" *ngIf="userSettings.isOverSeas == 1">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsOverseas" [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer" (change)="onIsOverseasCheck($event)"/>Is Overseas
+        <input type="checkbox" formControlName="IsOverseas" [(ngModel)]="additinalInfo.isOverSeasCustomer" (change)="onIsOverseasCheck($event)"/>Is Overseas
         Customer
       </div>
     </div>
@@ -83,7 +83,7 @@
           id="province"
           class="form-control px-2 py-1"
           formControlName="Province"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.Area"
+          [(ngModel)]="additinalInfo.Area"
           type="text"
         >
         <option value="" selected>Select Area</option>
@@ -101,7 +101,7 @@
           id="province"
           class="form-control px-2 py-1"
           formControlName="Province"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.province"
+          [(ngModel)]="additinalInfo.province"
           type="text"
           (ngModelChange)="FilterDistrict()"
         >
@@ -126,7 +126,7 @@
           id="district"
           class="form-control px-2 py-1"
           formControlName="District"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.district"
+          [(ngModel)]="additinalInfo.district"
           type="text"
         >
         <option value="" selected>Select District</option>
@@ -144,7 +144,7 @@
           id="salesman"
           class="form-control px-2 py-1"
           formControlName="Salesman"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman"
+          [(ngModel)]="additinalInfo.dealingSalesman"
           type="text"
         >
         <option value="" selected>Select Salesman</option>
@@ -155,16 +155,16 @@
 
     <div class="d-flex row align-items-center mt-3 mb-2" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice"/>Enable
+        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice"/>Enable
         Contract Price
       </div>
 
-      <div class="col-11 col-md-4" *ngIf="partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice">
+      <div class="col-11 col-md-4" *ngIf="additinalInfo.enbleContractPrice">
         <select
           id="salesman"
           class="form-control px-2 py-1"
           formControlName="ContractPrice"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.ContractPrice"
+          [(ngModel)]="additinalInfo.ContractPrice"
           type="text"
         >
         <option value="" selected>Default Contract Price</option>
@@ -175,18 +175,18 @@
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.createMember" [checked]="partyMasterService.customermasterObj.AdditionalInfo.createMember==1" (change)="onMembershipCheck($event)"/>Create
+        <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="additinalInfo.createMember" [checked]="additinalInfo.createMember==1" (change)="onMembershipCheck($event)"/>Create
         Customers As Member Also
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="partyMasterService.customermasterObj.AdditionalInfo.createMember ">
+    <div class="row mt-3 mb-2" *ngIf="additinalInfo.createMember ">
       <label for="credit-location" class="form-label-header">
         Membership Info
       </label>
     </div>
 
-    <div class="row d-flex align-items-center mt-2" *ngIf="partyMasterService.customermasterObj.AdditionalInfo.createMember ">
+    <div class="row d-flex align-items-center mt-2" *ngIf="additinalInfo.createMember ">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Gender</label>
       </div>
@@ -195,7 +195,7 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Gender"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.gender"
+          [(ngModel)]="additinalInfo.membershipInfo.gender"
           type="text"
         >
         <option value="Male">Male</option>
@@ -210,7 +210,7 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Membership_Scheme"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipScheme"
+          [(ngModel)]="additinalInfo.membershipInfo.membershipScheme"
           type="text"
         >
         <option [value]="scheme.schemeID" *ngFor="let scheme of MemberSchemeList">{{scheme.Name}}</option>
@@ -225,7 +225,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="DOB"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth"
+          [(ngModel)]="additinalInfo.membershipInfo.dateOfBirth"
           placeholder=""
         />
       </div>
@@ -238,7 +238,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_StartDate"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate"
+          [(ngModel)]="additinalInfo.membershipInfo.membershipStartDate"
           placeholder=""
         />
       </div>
@@ -251,7 +251,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WeddingAnniversary"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary"
+          [(ngModel)]="additinalInfo.membershipInfo.weddingAniversary"
           placeholder=""
         />
       </div>
@@ -264,7 +264,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_EndDate"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate"
+          [(ngModel)]="additinalInfo.membershipInfo.membsershipEndDate"
           placeholder=""
         />
       </div>
@@ -277,7 +277,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WorkingOrganization"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.workingOrganization"
+          [(ngModel)]="additinalInfo.membershipInfo.workingOrganization"
           placeholder=""
         />
       </div>
@@ -290,7 +290,7 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="Membership_Barcode"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipBarcode"
+          [(ngModel)]="additinalInfo.membershipInfo.membershipBarcode"
           placeholder=""
         />
       </div>
@@ -303,12 +303,12 @@
           id="DOB"
           class="form-control px-2 py-1"
           formControlName="WorkingOrganization"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.designation"
+          [(ngModel)]="additinalInfo.membershipInfo.designation"
           placeholder=""
         />
       </div>
     </div>
-    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="partyMasterService.customermasterObj.AdditionalInfo.createMember ">
+    <div class="row d-flex align-items-center mt-2 gap-2" *ngIf="additinalInfo.createMember ">
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Customer Status</label>
       </div>
@@ -317,7 +317,7 @@
           id="category"
           class="form-control px-2 py-1"
           formControlName="Status"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.customerStatus"
+          [(ngModel)]="additinalInfo.membershipInfo.customerStatus"
           type="text"
         >
           <option value="1">Active</option>

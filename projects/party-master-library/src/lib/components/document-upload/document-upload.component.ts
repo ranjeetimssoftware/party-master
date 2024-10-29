@@ -13,19 +13,13 @@ export class DocumentUploadComponent implements OnInit {
   documentName: any;
   fileToUpload!: any;
   filesNames:any[]=[];
-  documentUpload : any[]=[];
   @ViewChild("fileSelect") fileSelect!: ElementRef;
-  @Input() documentUploadList!:any[];
+  @Input() documentUpload:any[] = [];
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
-    this.partyMasterService.customermasterObj.documentUpload = this.documentUpload;
   }
 
   ngOnInit(): void {
-    // if(this.dataSource.data[this.dataSource.data.length-1].Document != ''){
-    //   ELEMENT_DATA.push(this.newRow);
-    //   this.dataSource.data = [...ELEMENT_DATA];
-    // }
   }
   displayedColumns: string[] = [
     'sn',
@@ -69,6 +63,11 @@ export class DocumentUploadComponent implements OnInit {
     )
     this.fileToUpload = undefined;
     this.fileSelect.nativeElement.value = null;
+  }
+
+  deleteFile(i:number){
+    this.documentUpload.splice(i,1);
+    this.filesNames.splice(i,1);
   }
 
 

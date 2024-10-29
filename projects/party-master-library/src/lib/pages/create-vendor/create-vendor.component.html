@@ -305,7 +305,7 @@
       <lib-division-mapping></lib-division-mapping>
       </mat-tab>
     <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1"> 
-    <lib-document-upload [documentUploadList]="partyMasterService.customermasterObj.documentUpload"></lib-document-upload>
+    <lib-document-upload [documentUpload]="partyMasterService.customermasterObj.documentUpload"></lib-document-upload>
 
     </mat-tab>
   </mat-tab-group>
