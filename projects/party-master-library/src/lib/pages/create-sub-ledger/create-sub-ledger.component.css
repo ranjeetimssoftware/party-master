@@ -3,6 +3,11 @@
   font: 400 1.75rem / 2.25rem Roboto, sans-serif;
   letter-spacing: 0;
 }
+
+.scrollable-content{
+  height: 85vh;
+  overflow-y: scroll;
+}
 #save {
   background-color: rgba(64, 129, 191, 1);
   color: white;

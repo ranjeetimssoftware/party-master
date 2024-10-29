@@ -461,6 +461,20 @@
             [(ngModel)]="element.STATUS"
           ></mat-slide-toggle>
         </p>
+        <p *ngIf="element.STATUS">
+          <mat-slide-toggle
+            class="custom-toggle"
+            color="primary"
+            [(ngModel)]="element.STATUS"
+          ></mat-slide-toggle>
+        </p>
+        <p *ngIf="element.status">
+          <mat-slide-toggle
+            class="custom-toggle"
+            color="primary"
+            [(ngModel)]="element.status"
+          ></mat-slide-toggle>
+        </p>
       </td>
     </ng-container>
 
