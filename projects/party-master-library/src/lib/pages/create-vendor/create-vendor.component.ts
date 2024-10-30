@@ -39,7 +39,8 @@ export class CreateVendorComponent {
       Phone: ['', Validators.required],
     });
     if (this.userSettings.CompanyType == 'B2B') {
-      this.partyMasterService.customermasterObj.isCustomerLedger = 1;
+      this.partyMasterService.customermasterObj.isCustomerLedger = 0;
+      this.partyMasterService.customermasterObj.status = 1;
       this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
     }
   }
@@ -58,6 +59,7 @@ export class CreateVendorComponent {
         .getCustomerById('V', acid)
         .subscribe((res: any) => {
           this.partyMasterService.customermasterObj = res.result;
+          this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
         });
@@ -109,9 +111,9 @@ export class CreateVendorComponent {
       }
     }
     if (
-      this.partyMasterService.customermasterObj.mobileNo == '' ||
-      this.partyMasterService.customermasterObj.mobileNo == undefined ||
-      this.partyMasterService.customermasterObj.mobileNo == null
+      this.partyMasterService.customermasterObj.mobile == '' ||
+      this.partyMasterService.customermasterObj.mobile == undefined ||
+      this.partyMasterService.customermasterObj.mobile == null
     ) {
       alert('Please Enter Mobile No.');
       return;
@@ -128,13 +130,13 @@ export class CreateVendorComponent {
       alert('Please Select Salesman.');
       return;
     }
-    if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
-      this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
-      this.partyMasterService.customermasterObj.customerPartyAccount.parent =
-        'PA';
-      this.partyMasterService.customermasterObj.customerPartyAccount.pType =
-        'V';
-    }
+    // if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
+    // }
+    this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent =
+      'PA';
+    this.partyMasterService.customermasterObj.customerPartyAccount.pType =
+      'V';
     this.partyMasterService.customermasterObj.contactNo =
       this.partyMasterService.customermasterObj.phone;
     this.partyMasterService

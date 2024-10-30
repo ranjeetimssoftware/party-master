@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class PartyMasterLibraryService {
   userSettings:any;
   customermasterObj:CustomerMasterObj = <CustomerMasterObj>{}
   
-  constructor(private http: HttpClient,public dialog: MatDialog,) { 
+  constructor(private http: HttpClient,public dialog: MatDialog, private configService: ConfigService) { 
     this.customermasterObj.status = 1;
     this.getAllsettings().subscribe((res:any) => {
       if(res.status == "ok")
@@ -22,7 +23,7 @@ export class PartyMasterLibraryService {
 
   private get apiUrl(): string {
     // let url = this.state.getGlobalSetting("apiUrl");
-    let url = environment.apiUrl;
+    let url = this.configService.getApiUrl();
      let apiUrl = "";
  
      if (!!url && url.length > 0) { apiUrl = url };
@@ -96,7 +97,7 @@ export interface CustomerMasterObj{
   address:string;
   vatNo:string;
   email:string;
-  mobileNo:string;
+  mobile:string;
   phone:string;
   status:number;
   isCustomerLedger:number;
