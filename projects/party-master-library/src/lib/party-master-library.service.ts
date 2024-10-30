@@ -80,6 +80,9 @@ export class PartyMasterLibraryService {
   getSalesmanList (){
     return this.http.get<any[]>(this.apiUrl + '/getSalesmanList '); 
   }
+  getDivisionList (){
+    return this.http.get<any[]>(this.apiUrl + '/getDivisionList '); 
+  }
   
   uploadDocument(body:any) {
     return this.http.post(`${this.apiUrl}/FileUpload`, body);
@@ -109,7 +112,8 @@ export interface CustomerPartyAccountObj{
   category:string;
   mapId:string;
   type:string; 
-  parent:string
+  parent:string;
+  divList:any[];
 
 }
 

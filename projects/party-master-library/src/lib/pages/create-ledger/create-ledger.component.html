@@ -248,7 +248,7 @@
   </form>
   <mat-tab-group>
     <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
-    <lib-division-mapping></lib-division-mapping>
+    <lib-division-mapping [divList]="partyMasterService.customermasterObj.customerPartyAccount.divList"></lib-division-mapping>
     </mat-tab>
   </mat-tab-group>
 </div>
