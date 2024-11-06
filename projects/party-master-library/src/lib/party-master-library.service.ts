@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
-import { ContactPersonObj } from './components/contact-person/contact-person.component';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class PartyMasterLibraryService {
   userSettings:any;
   customermasterObj:CustomerMasterObj = <CustomerMasterObj>{};
   
-  constructor(private http: HttpClient,public dialog: MatDialog,) { 
+  constructor(private http: HttpClient,public dialog: MatDialog, private configService: ConfigService) { 
     this.customermasterObj.status = 1;
     this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.customermasterObj.ContactPerson = [];
@@ -27,7 +27,7 @@ export class PartyMasterLibraryService {
 
   private get apiUrl(): string {
     // let url = this.state.getGlobalSetting("apiUrl");
-    let url = environment.apiUrl;
+    let url = this.configService.getApiUrl();
      let apiUrl = "";
  
      if (!!url && url.length > 0) { apiUrl = url };
@@ -98,6 +98,9 @@ export class PartyMasterLibraryService {
   getSalesmanList (){
     return this.http.get<any[]>(this.apiUrl + '/getSalesmanList '); 
   }
+  getDivisionList (){
+    return this.http.get<any[]>(this.apiUrl + '/getDivisionList '); 
+  }
   
   uploadDocument(body:any) {
     return this.http.post(`${this.apiUrl}/FileUpload`, body);
@@ -111,7 +114,7 @@ export interface CustomerMasterObj{
   address:string;
   vatNo:string;
   email:string;
-  mobileNo:string;
+  mobile:string;
   phone:string;
   status:number;
   isCustomerLedger:number;
@@ -127,7 +130,8 @@ export interface CustomerPartyAccountObj{
   category:string;
   mapId:string;
   type:string; 
-  parent:string
+  parent:string;
+  divList:any[];
 
 }
 

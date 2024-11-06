@@ -40,6 +40,11 @@ export class CreateCustomerComponent {
       Phone: [''],
       LedgerAc: [0],
     });
+    if (this.userSettings.CompanyType == 'B2B') {
+      this.partyMasterService.customermasterObj.isCustomerLedger = 0;
+      this.partyMasterService.customermasterObj.status = 1;
+      this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    }
   }
 
   ngOnInit() {
@@ -58,6 +63,7 @@ export class CreateCustomerComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
+            this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
             if(this.partyMasterService.customermasterObj.AdditionalInfo.createMember == 1){
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate.split('T')[0]:'';
@@ -113,9 +119,9 @@ export class CreateCustomerComponent {
       }
     }
     if (
-      this.partyMasterService.customermasterObj.mobileNo == '' ||
-      this.partyMasterService.customermasterObj.mobileNo == undefined ||
-      this.partyMasterService.customermasterObj.mobileNo == null
+      this.partyMasterService.customermasterObj.mobile == '' ||
+      this.partyMasterService.customermasterObj.mobile == undefined ||
+      this.partyMasterService.customermasterObj.mobile == null
     ) {
       alert('Please Enter Mobile No.');
       return;
@@ -132,13 +138,13 @@ export class CreateCustomerComponent {
       alert('Please Select Salesman.');
       return;
     }
-    if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
-      this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
-      this.partyMasterService.customermasterObj.customerPartyAccount.parent =
-        'PA';
-      this.partyMasterService.customermasterObj.customerPartyAccount.pType =
-        'C';
-    }
+    // if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
+    // }
+    this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent =
+      'PA';
+    this.partyMasterService.customermasterObj.customerPartyAccount.pType =
+      'C';
     this.partyMasterService.customermasterObj.contactNo =
       this.partyMasterService.customermasterObj.phone;
     this.partyMasterService

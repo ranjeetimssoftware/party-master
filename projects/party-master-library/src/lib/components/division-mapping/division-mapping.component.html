@@ -19,29 +19,21 @@
   
   <!-- Branch Name Table -->
   <div class="table-container col-md-6 mt-3">
-    <table mat-table [dataSource]="branchDataSource">
-      <!-- SN Column -->
-      <ng-container matColumnDef="sn">
-        <th mat-header-cell *matHeaderCellDef>SN</th>
-        <td mat-cell *matCellDef="let element; let i = index">{{ i+1 }}</td>
-      </ng-container>
-
-      <!-- Branch Column -->
-      <ng-container matColumnDef="branch">
-        <th mat-header-cell *matHeaderCellDef>Division Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.branch }}</td>
-      </ng-container>
-
-      <!-- Action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-icon class="text-danger">delete</mat-icon>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <table>
+      <thead class="border-bottom">
+        <th>SN</th>
+        <th>Division Name</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let div of divList;let i = index">
+          <td>{{i+1}}</td>
+          <td>{{div.NAME}}</td>
+          <td>
+          <mat-icon class="text-danger" style="cursor: pointer;" (click)="removeDivision(div)">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
@@ -52,7 +44,7 @@
         class="d-flex justify-content-between align-items-center border-bottom px-4"
       >
         <p class="popup-header">Select Division</p>
-        <button class="close-button" (click)="close()">&times;</button>
+        <button class="close-button" (click)="close('close')">&times;</button>
       </div>
   
       <!-- Search Bar -->
@@ -67,15 +59,16 @@
             placeholder="Search"
             aria-label="Search"
             aria-describedby="search-icon"
+            (keyup)="applyFilter($event)"
           />
         </div>
       </div>
   
-      <div class="popup-body px-4 py-2">
+      <div class="popup-body px-4 py-2 scrollable-content">
         <div class="row mb-3 border-bottom pb-1">
           <div class="col-md-12 d-flex flex-wrap">
-            <div class="col-md-6 my-2" *ngFor="let check of branchDataSource">
-              <label> <input class="mr-2" type="checkbox" /> {{check.branch}}</label>
+            <div class="col-md-6 my-2" *ngFor="let check of filteredDivisionList">
+              <label> <input class="mr-2" type="checkbox" [(ngModel)]="check.isChecked" [checked]="check.isChecked == 1"/> {{check.NAME}}</label>
             </div>
           </div>
         </div>
@@ -85,7 +78,7 @@
           mat-button
           style="width: 85px; height: 30px"
           id="save"
-          (click)="close()"
+          (click)="close('ok')"
         >
           OK
         </button>

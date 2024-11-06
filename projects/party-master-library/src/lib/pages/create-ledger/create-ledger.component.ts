@@ -12,32 +12,8 @@ export interface Branch {
   branch: string;
 }
 
-const ELEMENT_DATA: Branch[] = [
-  {
-    sn: 1,
-    branch: 'Branch Name 1',
-  },
-  {
-    sn: 2,
-    branch: 'Branch Name 2',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-];
+
+const ELEMENT_DATA: Branch[] = [];
 
 @Component({
   selector: 'lib-create-ledger',
@@ -78,10 +54,9 @@ export class CreateLedgerComponent {
     public partyMasterService: PartyMasterLibraryService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this.partyMasterService.customermasterObj.AdditionalInfo = <
-      AdditionalInfo
-    >{};
+    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    this.partyMasterService.customermasterObj.customerPartyAccount.divList = [];
     this.partyMasterService.getAllsettings().subscribe((res: any) => {
       if (res.status == 'ok') this.userSettings = JSON.parse(res.result);
     });

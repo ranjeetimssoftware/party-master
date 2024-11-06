@@ -1,38 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PartyMasterLibraryService } from '../../party-master-library.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface Branch {
-  sn: number;
-  branch: string;
+  isChecked:boolean;
+  NAME: string;
 }
-
-const ELEMENT_DATA: Branch[] = [
-  {
-    sn: 1,
-    branch: 'Branch Name 1',
-  },
-  {
-    sn: 2,
-    branch: 'Branch Name 2',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-  {
-    sn: 3,
-    branch: 'Branch Name 3',
-  },
-];
 
 @Component({
   selector: 'lib-division-mapping',
@@ -42,12 +17,16 @@ const ELEMENT_DATA: Branch[] = [
 export class DivisionMappingComponent {
   isOpen: boolean = false;
   displayedColumns: string[] = [];
-  branchDataSource = ELEMENT_DATA;
   selectedAccount: string | null = null;
-
-  constructor(private router: Router, private fb: FormBuilder) {
-
+  filteredDivisionList:any[]=[];
+  DivisionList:any[]=[];  
+  @Input() divList!:any[];
+  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.displayedColumns = ['sn', 'branch', 'action'];
+  }
+
+  ngOnInit(){
+    this.getDivisionList();
   }
 
   openDialog() {
@@ -55,8 +34,39 @@ export class DivisionMappingComponent {
   }
 
 
-  close() {
+  close(res:string) {
+    if(res == "ok"){
+      this.divList = this.filteredDivisionList.filter(x => x.isChecked);
+    this.partyMasterService.customermasterObj.customerPartyAccount.divList = this.divList;
+    }
     this.isOpen = false; // Method to close the pop-up
+  }
+
+  removeDivision(div:any){
+    const index = this.divList.findIndex(x => x.div == div.div);
+    if(index !== -1){
+      this.divList.splice(index,1);
+      let element = this.filteredDivisionList.find(x => x.div == div.div);
+      element.isChecked = false;
+    }
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filteredDivisionList = this.DivisionList.filter(x => x.NAME.toLowerCase().includes(filterValue.trim().toLowerCase()));
+  }
+
+  getDivisionList(){
+    this.partyMasterService.getDivisionList().subscribe((res:any) =>  {
+      res.forEach((x:any) => {
+        this.DivisionList.push({div:x.INITIAL,
+           NAME:x.NAME,
+        isChecked:false
+          });
+      })
+      this.filteredDivisionList = this.DivisionList;  
+    })
   }
 
 }
