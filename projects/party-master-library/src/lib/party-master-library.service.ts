@@ -15,6 +15,7 @@ export class PartyMasterLibraryService {
   
   constructor(private http: HttpClient,public dialog: MatDialog, private configService: ConfigService) { 
     this.customermasterObj.status = 1;
+    this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.getAllsettings().subscribe((res:any) => {
       if(res.status == "ok")
       this.userSettings = JSON.parse(res.result);
@@ -83,6 +84,9 @@ export class PartyMasterLibraryService {
   }
   getDivisionList (){
     return this.http.get<any[]>(this.apiUrl + '/getDivisionList '); 
+  }
+  getParentGroupTree (){
+    return this.http.get<any[]>(this.apiUrl + '/getAccountParentTree'); 
   }
   
   uploadDocument(body:any) {

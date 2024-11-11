@@ -11,6 +11,23 @@ export class CreateLedgerGroupComponent {
   ledgerGroupForm: FormGroup;
   returnUrl: string | undefined;
 
+  menuData = [
+    { label: 'Fixed Assets' },
+    {
+      label: 'Current Assets',
+      children: [
+        {
+          label: 'Cash & Bank',
+          children: [{ label: 'Cash' }, { label: 'Bank' }],
+        },
+        {
+          label: 'Bills Receiveable',
+          children: [{ label: 'Bills' }, { label: 'Receive' }],
+        },
+      ],
+    },
+  ];
+
   constructor(
     private router: Router,
     private fb: FormBuilder,

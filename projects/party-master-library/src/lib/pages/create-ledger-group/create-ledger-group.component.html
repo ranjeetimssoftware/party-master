@@ -66,12 +66,13 @@
             </svg>
           </div>
           <div class="col-11 col-md-5">
-            <select
+            <!-- <select
               type="text"
               id="parentGroup"
               class="form-control px-2 py-1"
               formControlName="ParentGroup"
-            ></select>
+            ></select> -->
+            <lib-generic-nested-dropdown [menuData]="menuData"></lib-generic-nested-dropdown>
           </div>
         </div>
         <div class="row d-flex align-items-center mb-2">

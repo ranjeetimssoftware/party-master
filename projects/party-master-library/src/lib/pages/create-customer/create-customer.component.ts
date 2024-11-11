@@ -29,9 +29,7 @@ export class CreateCustomerComponent {
     private _activatedRoute: ActivatedRoute
   ) {
     this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
-    this.partyMasterService.customermasterObj.AdditionalInfo = <
-      AdditionalInfo
-    >{};
+    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.userSettings = this.partyMasterService.userSettings;
     this.customerForm = this.fb.group({
       CustomerCode: ['', Validators.required],

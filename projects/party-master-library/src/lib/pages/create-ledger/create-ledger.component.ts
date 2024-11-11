@@ -60,6 +60,7 @@ export class CreateLedgerComponent {
     this.partyMasterService.getAllsettings().subscribe((res: any) => {
       if (res.status == 'ok') this.userSettings = JSON.parse(res.result);
     });
+    this.getParentGroupTree();
     this.ledgerForm = this.fb.group({
       AccountCode: ['', Validators.required],
       AccountType: ['', Validators.required],
@@ -101,6 +102,12 @@ export class CreateLedgerComponent {
   onSelectParent(event: any) {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
       event.label;
+  }
+
+  getParentGroupTree(){
+    this.partyMasterService.getParentGroupTree().subscribe((res:any) => {
+      console.log("result", res);
+    })
   }
 
   submit() {
