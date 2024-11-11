@@ -60,9 +60,9 @@ export class MultiSelectGenericGridComponent {
         const columnKey = x.key || '';      // Provide default empty string if undefined
         this.displayedColumns.push({ columns: columnTitle, keys: columnKey });
       });
+      this.columnKeys = this.displayedColumns.map(c => c.keys!).filter(key => key);
+      this.isActive = true;
     }
-    this.columnKeys = this.displayedColumns.map(c => c.keys!).filter(key => key);
-    this.isActive = true;
   }
 
   close(){
