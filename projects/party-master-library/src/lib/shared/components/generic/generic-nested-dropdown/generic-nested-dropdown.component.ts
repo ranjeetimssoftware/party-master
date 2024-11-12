@@ -14,7 +14,7 @@ export class GenericNestedDropdownComponent {
 
 
   selectItem($event: any) {
-    this.selectedItem = $event.label;
+    this.selectedItem = $event.accode;
     this.onItemClick.emit($event);
   }
 }

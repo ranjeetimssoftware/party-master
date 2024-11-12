@@ -71,7 +71,7 @@
               id="accountType"
               class="form-control px-2 py-1"
               formControlName="AccountType"
-              type="text"
+              type="text" (change)="onAccountTypeChange($event)"
               [(ngModel)]="partyMasterService.customermasterObj.customerPartyAccount.acType"              
             >
             <option value="AT">ASSETS</option>
@@ -156,7 +156,7 @@
               mat-button [matMenuTriggerFor]="rootMenu"
             /> -->
             
-            <lib-generic-nested-dropdown [menuData]="menuData" (onItemClick)="onSelectParent($event)"></lib-generic-nested-dropdown>
+            <lib-generic-nested-dropdown [menuData]="ParentGroup" (onItemClick)="onSelectParent($event)"></lib-generic-nested-dropdown>
           </div>
         </div>
 

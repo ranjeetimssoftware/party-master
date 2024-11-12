@@ -59,7 +59,7 @@ export class DivisionMappingComponent {
 
   getDivisionList(){
     this.partyMasterService.getDivisionList().subscribe((res:any) =>  {
-      res.forEach((x:any) => {
+      res.result.forEach((x:any) => {
         this.DivisionList.push({div:x.INITIAL,
            NAME:x.NAME,
         isChecked:false

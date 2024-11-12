@@ -86,7 +86,7 @@ export class PartyMasterLibraryService {
     return this.http.get<any[]>(this.apiUrl + '/getDivisionList '); 
   }
   getParentGroupTree (){
-    return this.http.get<any[]>(this.apiUrl + '/getAccountParentTree'); 
+    return this.http.get<any[]>(this.apiUrl + '/getaccounttree'); 
   }
   
   uploadDocument(body:any) {
