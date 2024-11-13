@@ -148,6 +148,9 @@ export class CreateLedgerComponent {
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
         }
+      },
+      error => {
+        this.partyMasterService.openErrorDialog(error.error.detail);
       });
   }
 

@@ -57,7 +57,6 @@
               class="form-control px-5 py-1"
               formControlName="CustomerCode"
               [(ngModel)]="partyMasterService.customermasterObj.customerCode"
-              [disabled]="userSettings.AUTOSUPCODE == 1"
               placeholder="Enter Customer Code"
             />
           </div>
@@ -308,21 +307,21 @@
       <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo" [mode]="mode"></lib-additional-info>
     </mat-tab>
     <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-      <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson" [mode]="mode"></lib-contact-person>
+      <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.contactPerson" [mode]="mode"></lib-contact-person>
 
     </mat-tab>
     <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
       <lib-division-mapping></lib-division-mapping>
       </mat-tab>
     <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> 
-      <lib-shipping-address></lib-shipping-address>
+      <lib-shipping-address  [shippingAdresses]="partyMasterService.customermasterObj.shippingAdresses" [mode]="mode"></lib-shipping-address>
 
     </mat-tab>
     <mat-tab label="Terms and Condition" *ngIf="userSettings.ApplyTermsAndCondition == 1">
       <lib-terms-condition></lib-terms-condition>
        </mat-tab>
     <mat-tab label="Bank Information" *ngIf="userSettings.EnableOnlinePayment == 1"> 
-      <lib-bank-information></lib-bank-information>
+      <lib-bank-information [bankInformation]="partyMasterService.customermasterObj.bankInformation" [mode]="mode"></lib-bank-information>
 
     </mat-tab>
     <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1">
@@ -330,7 +329,7 @@
 
     </mat-tab>
     <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> 
-      <lib-sales-target></lib-sales-target>
+      <lib-sales-target [salesTarget]="partyMasterService.customermasterObj.salesTarget" [mode]="mode"></lib-sales-target>
 
     </mat-tab>
     <mat-tab label="DMS" *ngIf="userSettings.ISUSEDFORDMS == 1">

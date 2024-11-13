@@ -46,6 +46,9 @@ export class CreateVendorComponent {
   }
 
   ngOnInit() {
+    if(this.userSettings.AUTOSUPCODE == 1){
+      this.vendorForm.controls['VendorCode'].disable();      
+    }
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
@@ -61,7 +64,7 @@ export class CreateVendorComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
           this.partyMasterService.customermasterObj.AdditionalInfo =
-            res.result.additionalInfo;
+            res.result.aditionalInfo;
         });
     }
   }
@@ -151,7 +154,11 @@ export class CreateVendorComponent {
           this.router.navigate(['/vendor']);
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
+        }else if(res.status == 400){
+          this.partyMasterService.openErrorDialog(res.detail);
         }
+      }, error => {
+        this.partyMasterService.openErrorDialog(error.error.detail);
       });
   }
 

@@ -49,6 +49,9 @@ export class CreateCustomerComponent {
   }
 
   ngOnInit() {
+    if(this.userSettings.AUTOSUPCODE == 1){
+      this.customerForm.controls['CustomerCode'].disable();      
+    }
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
@@ -63,8 +66,7 @@ export class CreateCustomerComponent {
         .subscribe((res: any) => {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
-            res.result.additionalInfo;
-            this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
+            res.result.aditionalInfo;
             if(this.partyMasterService.customermasterObj.AdditionalInfo.createMember == 1){
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate.split('T')[0]:'';
@@ -158,7 +160,11 @@ export class CreateCustomerComponent {
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
+        }else if(res.status == 400){
+          this.partyMasterService.openErrorDialog(res.detail);
         }
+      },error => {
+        this.partyMasterService.openErrorDialog(error.error.detail);
       });
   }
 

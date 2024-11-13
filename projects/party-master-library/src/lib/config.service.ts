@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-  private apiUrl:string = 'http://192.168.126.241:819/publish/api/v1';
+  private apiUrl:string = 'http://192.168.126.51:8209/publish/api/v1';
 
   // Initialize with default URL or environment-based config if available
   setApiUrl(url: string): void {

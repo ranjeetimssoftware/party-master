@@ -1,76 +1,40 @@
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- SN Column -->
-    <ng-container matColumnDef="sn">
-      <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element">{{ element.sn }}</td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="BankName">
-      <th mat-header-cell *matHeaderCellDef>Bank Name</th>
-      <td mat-cell *matCellDef="let element">
-        <ng-container *ngIf="element.BankName == ''; else defaultCell">
-          <input type="text" class="form-control px-2 py-1" placeholder="Bank Name">
-        </ng-container>
-        <ng-template #defaultCell>
-          {{ element.BankName }}
-        </ng-template>
-      </td>
-    </ng-container>
-  
-    <!-- AccountNumber Column -->
-    <ng-container matColumnDef="BankCode">
-      <th mat-header-cell *matHeaderCellDef>Bank Code</th>
-      <td mat-cell *matCellDef="let element">
-        <ng-container *ngIf="element.BankCode == ''; else defaultCell">
-          <input type="text" class="form-control px-2 py-1" placeholder="Bank Code">
-        </ng-container>
-        <ng-template #defaultCell>
-          {{ element.BankCode }}
-        </ng-template>
-      </td>
-    </ng-container>
-  
-    <!-- Designation Column -->
-    <ng-container matColumnDef="AccountNumber">
-      <th mat-header-cell *matHeaderCellDef>Account Number</th>
-      <td mat-cell *matCellDef="let element">
-        <ng-container *ngIf="element.AccountNumber == ''; else defaultCell">
-          <input type="text" class="form-control px-2 py-1" placeholder="AccountNumber">
-        </ng-container>
-        <ng-template #defaultCell>
-          {{ element.AccountNumber }}
-        </ng-template>
-      </td>
-    </ng-container>
-  
-    <!-- Email Column -->
-    <ng-container matColumnDef="IsDefault">
-      <th mat-header-cell *matHeaderCellDef>Is Default</th>
-      <td mat-cell *matCellDef="let element">
-        <input type="checkbox" mat-checkbox [(ngModel)]="element.IsDefault">
-      </td>
-    </ng-container>
-  
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
-      </td>
-    </ng-container>
-  
-    <!-- Header and Data Rows -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    <!-- Input Row: Place outside of the actual table rows --> 
+  <table>
+    <thead>
+      <th style="width: 10%;">SN</th>
+      <th>Bank Name</th>
+      <th>Bank Code</th>
+      <th>Account Number</th>
+      <th>Is Default</th>
+      <th *ngIf="mode != 'view'">Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bank of bankInformation;let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{bank.bankName}}</td>
+        <td>{{bank.bankCode}}</td>
+        <td>{{bank.bankAccountNumber}}</td>
+        <td><input type="checkbox" [(ngModel)]="bank.isDefault" (checked)="bank.isDefault == 1" disabled></td>
+        <td *ngIf="bank.bankAccountNumber != '' && mode != 'view'">
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
+        </td>
+      </tr>
+      <tr *ngIf="mode != 'view'">
+        <td>{{this.dataSource.data.length+1}}</td>
+        <td>      
+          <input type="text" class="form-control px-2 py-1" placeholder="Name" [(ngModel)]="newRow.bankName">
+        </td>
+        <td>
+          <input type="text" class="form-control px-2 py-1" placeholder="Bank Code" [(ngModel)]="newRow.bankCode">
+        </td>
+        <td>
+      <input type="text" class="form-control px-2 py-1" placeholder="Account Number" [(ngModel)]="newRow.bankAccountNumber">
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="newRow.isDefault" (change)="onCheckIsDefault($event)">
+        </td>
+      </tr>
+    </tbody>
   </table>
-  <mat-icon class="mat-icon-small text-primary mt-2">add_circle_outline</mat-icon>
-    <mat-paginator [length]="100"
-                [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]"
-                aria-label="Select page">
-  </mat-paginator>
+  <mat-icon *ngIf="mode != 'view'" class="mat-icon-small text-primary mt-2" (click)="onAddContact()" style="cursor: pointer;">add_circle_outline</mat-icon>
   </div>

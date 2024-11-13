@@ -48,7 +48,6 @@ export class AdditionalInfoComponent {
     });
     this.userSettings = this.partyMasterService.userSettings;
     if(this.userSettings.isOverSeas == 0) this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
-    if(this.userSettings.SalesmanCompulsoryInPartyMaster == 0) this.partyMasterService.customermasterObj.AdditionalInfo.dealingSalesman = "Salesman123";
     if(this.userSettings.EnableContractPrice == 0) this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 0;
     this.getAreaList();
     this.getDistrictList();
@@ -100,13 +99,17 @@ export class AdditionalInfoComponent {
   }
   getMemberScheme(){
     this.partyMasterService.getMemberSchemeList().subscribe((res:any) => {
-      this.MemberSchemeList = res;
+      if(res.status == "ok"){
+        this.MemberSchemeList = res.result;
+      }
     })
   }
 
   getContractPriceList(){
     this.partyMasterService.getContractPriceList().subscribe((res:any) => {
-      this.ContractPriceList = res;
+      if(res.status == "ok"){
+        this.ContractPriceList = res;
+      }
     })
   }
   getSalesmanList(){

@@ -56,12 +56,23 @@ export class PartyMasterLibraryService {
     let data= {mode:mode, data:dataObj};
     return this.http.post(this.apiUrl+`/saveCustomerProfile`,data);
   }
+  saveNewLedgerGroup(mode:string,dataObj:any){
+    let data= {mode:mode, data:dataObj};
+    return this.http.post(this.apiUrl+`/saveNewLedgerGroup`,data);
+  }
 
   getCustomerById(ptype:string, acid:string){
     return this.http.get<any[]>(this.apiUrl + `/getAllCustomerById?ptype=${ptype}&acid=${acid}`); 
   }
+
+  getLedgerGroup(acid:string){
+    return this.http.get<any[]>(this.apiUrl + `/getLedgerGroup?acid=${acid}`); 
+  }
   getAllsettings(){
     return this.http.get<any[]>(this.apiUrl + '/getAllSetting'); 
+  }
+  getLedgerGroupList(){
+    return this.http.get<any[]>(this.apiUrl + '/getLedgerGroups'); 
   }
 
   getArea(){
@@ -77,7 +88,7 @@ export class PartyMasterLibraryService {
     return this.http.get<any[]>(this.apiUrl + '/getMemberSchemeList'); 
   }
   getcategorywiseconfiguration(){
-    return this.http.post<any[]>(this.apiUrl + '/getcategorywiseconfiguration',{}); 
+    return this.http.get<any[]>(this.apiUrl + '/getcategorywiseconfiguration'); 
   }
   getSalesmanList (){
     return this.http.get<any[]>(this.apiUrl + '/getSalesmanList '); 
@@ -106,7 +117,10 @@ export interface CustomerMasterObj{
   status:number;
   isCustomerLedger:number;
   AdditionalInfo:AdditionalInfo;
-  ContactPerson:contactPerson[];
+  contactPerson:contactPerson[];
+  shippingAdresses:ShippingAddress[];
+  bankInformation:BankInformation[];
+  salesTarget:SalesTarget;
   customerPartyAccount:CustomerPartyAccountObj;
   documentUpload:any[];
 }
@@ -128,6 +142,22 @@ export interface contactPerson{
   designation:string;
   email:string;
 }
+
+export interface ShippingAddress{
+  address:string;
+  name:string;
+  phone:string;
+  locationmap:string;
+  ACID:string;
+}
+
+export interface BankInformation{
+  acid:string;
+  bankCode:string;
+  bankName:string;
+  bankAccountNumber:string;
+  isDefault:number;
+}
 export interface AdditionalInfo{
   category: string,
   crLimit: number,
@@ -142,6 +172,23 @@ export interface AdditionalInfo{
   createMember:number,
   membershipInfo:MembershipObj;
   vendorType:string;
+}
+
+export interface SalesTarget{
+  acid:string;
+  yearlyTarget:number;
+  shrawanTarget:number;
+  bhadraTarget:number;
+  ashwinTarget:number;
+  kartikTarget:number;
+  mangsirTarget:number;
+  poushTarget:number;
+  maghTarget:number;
+  falgunTarget:number;
+  chaitraTarget:number;
+  baisakhTarget:number;
+  jesthaTarget:number;
+  asadhTarget:number;
 }
 
 export interface MembershipObj{

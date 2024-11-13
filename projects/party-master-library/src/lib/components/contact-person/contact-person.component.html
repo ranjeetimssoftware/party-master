@@ -6,7 +6,7 @@
       <th>Contact</th>
       <th>Designation</th>
       <th>Email</th>
-      <th>Action</th>
+      <th *ngIf="mode != 'view'">Action</th>
     </thead>
     <tbody>
       <tr *ngFor="let contact of contactPersonArray;let i = index;">
@@ -15,7 +15,7 @@
         <td>{{contact.contact}}</td>
         <td>{{contact.designation}}</td>
         <td>{{contact.email}}</td>
-        <td *ngIf="contact.email != ''">
+        <td *ngIf="contact.email != '' && mode != 'view'">
           <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
         </td>
       </tr>

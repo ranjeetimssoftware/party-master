@@ -1,31 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { PartyMasterLibraryService, ShippingAddress } from '../../party-master-library.service';
 
-export interface PeriodicElement {
-  sn: number;
-  Shipping_Address: string;
-  Contact_Person: string;
-  Contact:string;
-  Location: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    sn: 1,
-    Shipping_Address: 'New Road',
-    Contact_Person: 'Shreya',
-    Contact: '98675465',
-    Location: '23.89.76'
-  },
-  {
-    sn: 2,
-    Shipping_Address: 'New Road',
-    Contact_Person: 'Shreya',
-    Contact: '98675465',
-    Location: '23.89.76'
-  },
-];
 
 @Component({
   selector: 'lib-shipping-address',
@@ -33,28 +11,35 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./shipping-address.component.css']
 })
 export class ShippingAddressComponent implements OnInit {
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  newRow: PeriodicElement = { sn: this.dataSource.data.length+1, Shipping_Address: '', Contact_Person: '', Contact: '', Location: '' };
+  dataSource = new MatTableDataSource<ShippingAddress>();
+  newRow: ShippingAddress = { address: '', name: '', phone: '', locationmap: '', ACID:'' };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor() { }
+
+  @Input() shippingAdresses!:ShippingAddress[];
+  @Input() mode!:string;
+
+  constructor(private partyMasterService:PartyMasterLibraryService) { 
+    this.partyMasterService.customermasterObj.shippingAdresses = this.dataSource.data;        
+  }
 
   ngOnInit(): void {
-    if(this.dataSource.data[this.dataSource.data.length-1].Shipping_Address != ''){
-      ELEMENT_DATA.push(this.newRow);
-      this.dataSource.data = [...ELEMENT_DATA];
-    }
+  
   }
-  displayedColumns: string[] = [
-    'sn',
-    'Shipping_Address',
-    'Contact_Person',
-    'Contact',
-    'Location',
-    'action'
-  ];
 
+  addNewRow():ShippingAddress{
+    let newRow: ShippingAddress = { address: '', name: '', phone: '', locationmap: '', ACID:'' };
+    return newRow;
+  }
+
+  onAddContact(){
+    this.dataSource.data.push(this.newRow);
+    this.newRow = this.addNewRow();
+  }
+  onRemoveContact(i:number){
+    this.dataSource.data.splice(i,1);
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }

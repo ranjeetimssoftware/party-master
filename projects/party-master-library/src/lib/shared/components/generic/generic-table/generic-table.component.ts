@@ -84,17 +84,20 @@ export class GenericTableComponent implements OnInit {
       'filter',
       'sn',
       ...(this.activeRoute == 'general-ledger' ? ['CUSTNAME'] : []),
-      ...(this.activeRoute == 'ledger-group' ? ['groupname'] : []),
+      ...(this.activeRoute == 'ledger-group' ? ['acname'] : []),
       ...(this.activeRoute == 'sub-ledger' ? ['subledgername'] : []),
       ...(this.activeRoute == 'general-ledger' ? ['ACCODE'] : []),
       ...(this.activeRoute == 'general-ledger' ||
       this.activeRoute == 'ledger-group'
-        ? ['ACTYPE']
+        ? ['actype']
         : []),
-      ...(this.activeRoute == 'general-ledger' ||
-      this.activeRoute == 'ledger-group'
+      ...(this.activeRoute == 'general-ledger'
         ? ['PARENTGROUP']
         : []),
+        ...(
+          this.activeRoute == 'ledger-group'
+            ? ['parentacname']
+            : []),
       ...(this.activeRoute == 'general-ledger' ? ['MAINGROUP'] : []),
       ...(this.activeRoute == 'general-ledger' ? ['CATEGORY'] : []),
       ...(this.activeRoute == 'sub-ledger' ? ['hasmainledger'] : []),
@@ -109,9 +112,10 @@ export class GenericTableComponent implements OnInit {
     if (this.activeRoute == 'customer') this.getAllCustomers('C');
     if (this.activeRoute == 'vendor') this.getAllCustomers('V');
     if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
+    if(this.activeRoute == 'ledger-group') this.getAllLedgerGroup();
   }
   ngAfterViewInit() {
-    if (this.activeRoute == 'general-ledger') {
+    if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group') {
       this.chartofAccountDataSource.paginator = this.paginator;
     } else {
       this.customerVendorDataSource.paginator = this.paginator;
@@ -133,9 +137,15 @@ export class GenericTableComponent implements OnInit {
     });
   }
 
+  getAllLedgerGroup(){
+    this.partyMasterService.getLedgerGroupList().subscribe((res:any) => {
+      this.chartofAccountDataSource.data = res.result;
+    })
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    if (this.activeRoute == 'general-ledger') {
+    if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group') {
       this.chartofAccountDataSource.filter = filterValue.trim().toLowerCase();
     } else {
       this.customerVendorDataSource.filter = filterValue.trim().toLowerCase();
