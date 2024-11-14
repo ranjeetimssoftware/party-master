@@ -5,7 +5,7 @@ import { PartyMasterLibraryService } from './party-master-library.service';
   selector: 'lib-party-master-library',
   templateUrl: 'party-master-library.component.html',
   styleUrls: ["party-master-library.component.css"],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class PartyMasterLibraryComponent implements OnInit {
   userSettings:any;

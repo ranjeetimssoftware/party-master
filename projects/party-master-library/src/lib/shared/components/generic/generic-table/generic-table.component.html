@@ -89,12 +89,12 @@
         type="button"
         id="accountsDropdown"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
+        aria-expanded="false" (mouseenter)="openStatusDropdown()"
       >
         All Accounts
       </button>
 
-      <ul
+      <ul #StatusDropdown (mouseleave)="closeStatusDropdown()"
         class="dropdown-menu py-1"
         aria-labelledby="accountsDropdown"
         style="max-height: 160px; overflow-y: auto; overflow-x: hidden"
@@ -146,10 +146,13 @@
         id="optionsDropdown"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        (mouseenter)="openDropdown()"
       >
         Options
       </button>
-      <ul class="dropdown-menu py-1" aria-labelledby="optionsDropdown">
+      <ul class="dropdown-menu py-1" aria-labelledby="optionsDropdown" #dropdownMenu 
+        (mouseleave)="closeDropdown()"
+      >
         <li class="dropdown-submenu">
           <a class="dropdown-item p-1">
             <div class="d-flex">
@@ -251,12 +254,14 @@
         type="button"
         id="createDropdown"
         data-bs-toggle="dropdown"
-        aria-expanded="false"
+        aria-expanded="false" (mouseenter)="openMenuDropdown()"
+        
       >
         + &nbsp; Add New
       </button>
 
-      <ul class="dropdown-menu py-1" aria-labelledby="createDropdown">
+      <ul class="dropdown-menu py-1" aria-labelledby="createDropdown" #MenuDropdown
+      (mouseleave)="closeMenuDropdown()">
         <li>
           <a
             class="dropdown-item p-1"

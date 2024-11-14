@@ -5,11 +5,13 @@
         class="btn w-100 dropdown-toggle d-flex justify-content-between align-items-center"
         type="button"
         data-toggle="dropdown"
-        [class.selected]="selectedItem" [ngClass]="{'disabled':mode == 'view'}"
+        [class.selected]="selectedItem" [ngClass]="{'disabled':mode == 'view'}" (mouseenter)="openDropdown()"
+        
       >
         {{ selectedItem || "Select Parent Group" }}
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu" #dropdownMenu
+  (mouseleave)="closeDropdown()">
         <ng-container *ngFor="let item of menuData">
           <li
             *ngIf="!item.children"

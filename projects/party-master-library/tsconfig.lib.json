@@ -18,7 +18,6 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true,
     "enableIvy": true,
-    "defaultEncapsulation": "ShadowDom" 
   },
   "exclude": [
     "src/test.ts",

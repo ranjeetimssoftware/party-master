@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
@@ -56,6 +57,10 @@ export class GenericTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @Output() onItemClick = new EventEmitter();
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+  @ViewChild('MenuDropdown') MenuDropdown!: ElementRef;
+  @ViewChild('StatusDropdown') StatusDropdown!: ElementRef;
+
 
   constructor(
     private router: Router,
@@ -120,6 +125,30 @@ export class GenericTableComponent implements OnInit {
     } else {
       this.customerVendorDataSource.paginator = this.paginator;
     }
+  }
+
+
+  openDropdown() {
+    this.dropdownMenu.nativeElement.classList.add('show');
+  }
+
+  closeDropdown() {
+    this.dropdownMenu.nativeElement.classList.remove('show');
+  }
+
+  openMenuDropdown() {
+    this.MenuDropdown.nativeElement.classList.add('show');
+  }
+
+  closeMenuDropdown() {
+    this.MenuDropdown.nativeElement.classList.remove('show');
+  }
+  openStatusDropdown() {
+    this.StatusDropdown.nativeElement.classList.add('show');
+  }
+
+  closeStatusDropdown() {
+    this.StatusDropdown.nativeElement.classList.remove('show');
   }
 
   getAllCustomers(ptype: string) {

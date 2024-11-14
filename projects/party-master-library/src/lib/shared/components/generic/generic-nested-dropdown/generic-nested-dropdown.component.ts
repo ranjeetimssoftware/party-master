@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'lib-generic-nested-dropdown',
@@ -12,6 +12,16 @@ export class GenericNestedDropdownComponent {
   @Input()selectedItem!:string;
 
   @Output() onItemClick = new EventEmitter();
+
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+
+  openDropdown() {
+    this.dropdownMenu.nativeElement.classList.add('show');
+  }
+
+  closeDropdown() {
+    this.dropdownMenu.nativeElement.classList.remove('show');
+  }
 
 
   selectItem($event: any) {

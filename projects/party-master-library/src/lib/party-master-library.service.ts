@@ -36,7 +36,7 @@ export class PartyMasterLibraryService {
     this.customermasterObj.status = 1;
     this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.customermasterObj.customerPartyAccount = <any>{};
-    this.customermasterObj.ContactPerson = [];
+    this.customermasterObj.contactPerson = [];
     this.customermasterObj.documentUpload = [];
     this.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
     if (this.userSettings.CompanyType == 'B2B') {
