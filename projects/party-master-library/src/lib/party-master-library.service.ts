@@ -132,6 +132,7 @@ export interface CustomerPartyAccountObj{
   mapId:string;
   type:string; 
   parent:string;
+  termsAndConditions:any;
   divList:any[];
 
 }
@@ -163,7 +164,7 @@ export interface AdditionalInfo{
   crLimit: number,
   creditDays: string,
   isOverSeasCustomer:number,
-  Area: string,
+  area: string,
   province: string,
   district: string,
   dealingSalesman: string,

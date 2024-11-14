@@ -39,11 +39,14 @@
         <!-- Loop through displayedColumns to create dynamic headers and cells -->
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.keys!">
           <th mat-header-cell *matHeaderCellDef> {{ column.columns }} </th>
-          <ng-container *ngIf="column.keys == 'IsDefault'; else defaultCell">
-            <td mat-cell *matCellDef="let element"> <input type="checkbox" mat-checkbox [checked]="element[column.keys]"></td>
+          <ng-container *ngIf="column.keys == 'isCheck';">
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" mat-checkbox [(ngModel)]="element[column.keys]"></td>
+          </ng-container>
+          <ng-container *ngIf="column.keys == 'isDefault'; else defaultCell">
+            <td mat-cell *matCellDef="let element"> <input type="checkbox" mat-checkbox [(ngModel)]="element[column.keys]"></td>
           </ng-container>
           <ng-template #defaultCell>
-            <td mat-cell *matCellDef="let element"> {{ element[column.keys!] }} </td>
+            <td mat-cell *matCellDef="let element" (click)="onItemClick(element)"> {{ element[column.keys!] }} </td>
           </ng-template>
         </ng-container>
       
@@ -58,14 +61,14 @@
                   aria-label="Select page">
     </mat-paginator>
     </div>
-    <div class="shadow rounded col-md-6 py-2 text-black">
+    <div class="shadow rounded col-md-6 py-2 text-secondary">
       <h3 class="m-2"><b>IMS Terms and Condition 1</b></h3>
       <div class="border-bottom"></div>
       <div>
-        <p class="p-4">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p class="p-4">{{terms}}</p>
 
       </div>
-      <button class="btn btn-primary">Ok</button>
+      <button class="btn btn-primary" (click)="onItemClose()">Ok</button>
     </div>
 
   </div>

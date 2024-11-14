@@ -30,7 +30,7 @@ export class AdditionalInfoComponent {
       IsOverseas:[0],
       Area: [''],
       Province: [''],
-      District: [''],
+      district: [''],
       Salesman: [''],
       ContractPrice:[''],
       IsContractPrice:[0],

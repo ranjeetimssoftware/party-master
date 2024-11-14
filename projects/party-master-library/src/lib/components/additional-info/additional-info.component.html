@@ -79,10 +79,10 @@
       </div>
       <div class="col-11 col-md-4">
         <select
-          id="province"
+          id="Area"
           class="form-control px-2 py-1"
-          formControlName="Province"
-          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.Area"
+          formControlName="Area"
+          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.area"
           type="text"
         >
         <option [value]="area.AREAID" *ngFor="let area of areaList">{{area.AREANAME}}</option>
@@ -120,9 +120,9 @@
       </div>
       <div class="col-11 col-md-4">
         <select
-          id="District"
+          id="district"
           class="form-control px-2 py-1"
-          formControlName="District"
+          formControlName="district"
           [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.district"
           type="text"
         >

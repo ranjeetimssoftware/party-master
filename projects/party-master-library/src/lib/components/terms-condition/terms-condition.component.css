@@ -50,7 +50,7 @@ input::placeholder {
 
   .custom-position {
     z-index: 99999;
-    top: 50%;
+    top: 0;
     left: 30%;
     width: 45%; /* or any percentage you want */
   }
