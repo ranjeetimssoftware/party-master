@@ -4,7 +4,7 @@ import { PartyMasterLibraryService } from './party-master-library.service';
 @Component({
   selector: 'lib-party-master-library',
   templateUrl: 'party-master-library.component.html',
-  styles: ['party-master-library.component.css'],
+  styleUrls: ["party-master-library.component.css"],
   encapsulation: ViewEncapsulation.Emulated
 })
 export class PartyMasterLibraryComponent implements OnInit {

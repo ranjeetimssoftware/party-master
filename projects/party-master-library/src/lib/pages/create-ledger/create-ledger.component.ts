@@ -29,23 +29,9 @@ export class CreateLedgerComponent {
   selectedAccount: string | null = null;
   [key: string]: any; // Add this line
   returnUrl: string | undefined;
+  ParentGroup:any;
 
-  menuData = [
-    { label: 'Fixed Assets' },
-    {
-      label: 'Current Assets',
-      children: [
-        {
-          label: 'Cash & Bank',
-          children: [{ label: 'Cash' }, { label: 'Bank' }],
-        },
-        {
-          label: 'Bills Receiveable',
-          children: [{ label: 'Bills' }, { label: 'Receive' }],
-        },
-      ],
-    },
-  ];
+  menuData:any;
 
   ledgerForm: FormGroup;
   constructor(
@@ -60,6 +46,7 @@ export class CreateLedgerComponent {
     this.partyMasterService.getAllsettings().subscribe((res: any) => {
       if (res.status == 'ok') this.userSettings = JSON.parse(res.result);
     });
+    this.getParentGroupTree();
     this.ledgerForm = this.fb.group({
       AccountCode: ['', Validators.required],
       AccountType: ['', Validators.required],
@@ -100,7 +87,20 @@ export class CreateLedgerComponent {
 
   onSelectParent(event: any) {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
-      event.label;
+      event.accode;
+  }
+
+  getParentGroupTree(){
+    this.partyMasterService.getParentGroupTree().subscribe((res:any) => {
+      if(res.status == "ok"){
+        this.menuData = res.result;
+      }
+    })
+  }
+
+  onAccountTypeChange(event:Event){
+    const input = event.target as HTMLInputElement;
+    this.ParentGroup = this.menuData.filter((x:any) => x.actype == input.value);
   }
 
   submit() {
@@ -148,6 +148,9 @@ export class CreateLedgerComponent {
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
         }
+      },
+      error => {
+        this.partyMasterService.openErrorDialog(error.error.detail);
       });
   }
 

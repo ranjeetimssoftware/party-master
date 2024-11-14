@@ -13,7 +13,6 @@
           [(ngModel)]="additinalInfo.category"
           type="text"
         >
-        <option value="" selected>Select Category</option>
         <option [value]="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
       </select>
       </div>
@@ -80,13 +79,12 @@
       </div>
       <div class="col-11 col-md-4">
         <select
-          id="province"
+          id="Area"
           class="form-control px-2 py-1"
-          formControlName="Province"
-          [(ngModel)]="additinalInfo.Area"
+          formControlName="Area"
+          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.area"
           type="text"
         >
-        <option value="" selected>Select Area</option>
         <option [value]="area.AREAID" *ngFor="let area of areaList">{{area.AREANAME}}</option>
       </select>
       </div>
@@ -105,7 +103,6 @@
           type="text"
           (ngModelChange)="FilterDistrict()"
         >
-        <option value="">Select Province</option>
         <option value="1">Koshi</option>
         <option value="2">Madhesh</option>
         <option value="3">Bagmati</option>
@@ -125,11 +122,10 @@
         <select
           id="district"
           class="form-control px-2 py-1"
-          formControlName="District"
-          [(ngModel)]="additinalInfo.district"
+          formControlName="district"
+          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.district"
           type="text"
         >
-        <option value="" selected>Select District</option>
         <option [value]="dis.Name" *ngFor="let dis of FilteredDistrict">{{dis.Name}}</option>
       </select>
       </div>
@@ -147,7 +143,6 @@
           [(ngModel)]="additinalInfo.dealingSalesman"
           type="text"
         >
-        <option value="" selected>Select Salesman</option>
         <option [value]="salesman.SALESMANID" *ngFor="let salesman of SalesmanList">{{salesman.NAME}}</option>
       </select>
       </div>
@@ -173,7 +168,7 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2" *ngIf="userSettings.CREATE_CPROFILE_AS_MEMBER == 1">
       <div class="col-11 col-md-4 offset-md-2">
         <input type="checkbox" formControlName="IsCustomerMember" [(ngModel)]="additinalInfo.createMember" [checked]="additinalInfo.createMember==1" (change)="onMembershipCheck($event)"/>Create
         Customers As Member Also
@@ -274,7 +269,7 @@
       <div class="col-11 col-md-4 mb-1">
         <input
           type="text"
-          id="DOB"
+          id="WorkingOrganization"
           class="form-control px-2 py-1"
           formControlName="WorkingOrganization"
           [(ngModel)]="additinalInfo.membershipInfo.workingOrganization"
@@ -300,10 +295,10 @@
       <div class="col-11 col-md-4">
         <input
           type="text"
-          id="DOB"
+          id="Designation"
           class="form-control px-2 py-1"
-          formControlName="WorkingOrganization"
-          [(ngModel)]="additinalInfo.membershipInfo.designation"
+          formControlName="Designation"
+          [(ngModel)]="partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.designation"
           placeholder=""
         />
       </div>

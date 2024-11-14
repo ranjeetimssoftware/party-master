@@ -28,7 +28,8 @@ export class CreateCustomerComponent {
     public partyMasterService: PartyMasterLibraryService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this.partyMasterService.reset();
+    this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
+    this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
     this.userSettings = this.partyMasterService.userSettings;
     this.customerForm = this.fb.group({
       CustomerCode: ['', Validators.required],
@@ -48,6 +49,9 @@ export class CreateCustomerComponent {
   }
 
   ngOnInit() {
+    if(this.userSettings.AUTOSUPCODE == 1){
+      this.customerForm.controls['CustomerCode'].disable();      
+    }
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
@@ -63,12 +67,14 @@ export class CreateCustomerComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
-            this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
             if(this.partyMasterService.customermasterObj.AdditionalInfo.createMember == 1){
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary.split('T')[0]:'';
+            }
+            if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
+              this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
             }
         });
     }
@@ -145,8 +151,9 @@ export class CreateCustomerComponent {
       'PA';
     this.partyMasterService.customermasterObj.customerPartyAccount.pType =
       'C';
-    this.partyMasterService.customermasterObj.contactNo =
-      this.partyMasterService.customermasterObj.phone;
+    if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
+      this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.stringify(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
+    }
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
@@ -156,7 +163,11 @@ export class CreateCustomerComponent {
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
+        }else if(res.status == 400){
+          this.partyMasterService.openErrorDialog(res.detail);
         }
+      },error => {
+        this.partyMasterService.openErrorDialog(error.error.detail);
       });
   }
 

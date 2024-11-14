@@ -40,3 +40,8 @@
 li{
   margin: 4% 0;
 }
+
+.disabled{
+  background-color: #e9ecef;
+  opacity: 1;
+}

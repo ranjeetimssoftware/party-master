@@ -44,11 +44,11 @@ export class DocumentUploadComponent implements OnInit {
     formData.append("file", this.fileToUpload);
     formData.append("TenantId",'' );
     this.filesNames.push(this.documentName);
-    this.documentUpload.push({documentExtenstion :this.fileToUpload.type, documentHeading :this.documentName, acid:'', path:''});
     this.partyMasterService.uploadDocument(formData).subscribe(
       (res: any) => {
-        if (res.status == "ok") {
-          this.partyMasterService.openSuccessDialog("Uploaded Successfully.");
+        if (res.message) {
+          this.documentUpload.push({documentExtenstion :this.fileToUpload.type, documentFileName :this.documentName, acid:'', path:res.path});
+          this.partyMasterService.openSuccessDialog(res.message);
             this.fileToUpload = undefined;
             this.fileSelect.nativeElement.value = null;
         }
@@ -61,8 +61,8 @@ export class DocumentUploadComponent implements OnInit {
         console.log("error",error.message);
       }
     )
-    this.fileToUpload = undefined;
-    this.fileSelect.nativeElement.value = null;
+    // this.fileToUpload = undefined;
+    // this.fileSelect.nativeElement.value = null;
   }
 
   deleteFile(i:number){

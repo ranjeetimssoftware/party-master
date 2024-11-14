@@ -484,7 +484,7 @@
         <mat-menu #menu="matMenu">
           <button
             mat-menu-item
-            (click)="onViewClick(element.CUSTID || element.ACID)"
+            (click)="onViewClick(element.CUSTID || element.acid)"
           >
             View
           </button>
@@ -547,10 +547,10 @@
     <!-- Group Name Column -->
     <ng-container
       *ngIf="activeRoute == 'ledger-group'"
-      matColumnDef="groupname"
+      matColumnDef="acname"
     >
       <th mat-header-cell *matHeaderCellDef>Group Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.groupname }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.acname }}</td>
     </ng-container>
 
     <!-- Sub-Ledger Name Column -->
@@ -571,19 +571,26 @@
     <!-- Account Type Column -->
     <ng-container
       *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group'"
-      matColumnDef="ACTYPE"
+      matColumnDef="actype"
     >
       <th mat-header-cell *matHeaderCellDef>Account Type</th>
-      <td mat-cell *matCellDef="let element">{{ element.ACTYPE }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.actype }}</td>
     </ng-container>
 
     <!-- Parent Group Column -->
     <ng-container
-      *ngIf="activeRoute == 'general-ledger' || activeRoute == 'ledger-group'"
+      *ngIf="activeRoute == 'general-ledger'"
       matColumnDef="PARENTGROUP"
     >
       <th mat-header-cell *matHeaderCellDef>Parent Group</th>
       <td mat-cell *matCellDef="let element">{{ element.PARENTGROUP }}</td>
+    </ng-container>
+    <ng-container
+      *ngIf="activeRoute == 'ledger-group'"
+      matColumnDef="parentacname"
+    >
+      <th mat-header-cell *matHeaderCellDef>Parent Group</th>
+      <td mat-cell *matCellDef="let element">{{ element.parentacname }}</td>
     </ng-container>
 
     <!--Main Group Column -->
@@ -650,13 +657,13 @@
         >
           <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onViewClick(element.acid)">View</button>
+          <button mat-menu-item>Edit</button>
+          <button mat-menu-item>Delete</button>
+          <button mat-menu-item>Mark as Inactive</button>
+        </mat-menu>
       </td>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>View</button>
-        <button mat-menu-item>Edit</button>
-        <button mat-menu-item>Delete</button>
-        <button mat-menu-item>Mark as Inactive</button>
-      </mat-menu>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedChartofAccountColumns"></tr>

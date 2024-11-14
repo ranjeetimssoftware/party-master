@@ -13,7 +13,7 @@
   <form [formGroup]="vendorForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-md-9">
-        <div class="row d-flex align-items-center mb-2 input-div">
+        <div class="row d-flex align-items-center mb-2 input-div" *ngIf="userSettings.AUTOSUPCODE == 1 || userSettings.AUTOSUPCODE == 2">
           <div class="col-12 col-md-3">
             <label for="vendorCode" class="form-label mr-2">Vendor Code</label
             ><svg
@@ -298,7 +298,7 @@
 
     </mat-tab>
     <mat-tab label="Contact Person"  *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
-    <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.ContactPerson" [mode]="mode"></lib-contact-person>
+    <lib-contact-person [contactPersonArray]="partyMasterService.customermasterObj.contactPerson" [mode]="mode"></lib-contact-person>
 
     </mat-tab>
     <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 

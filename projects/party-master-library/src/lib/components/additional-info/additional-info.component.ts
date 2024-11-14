@@ -29,7 +29,7 @@ export class AdditionalInfoComponent {
       IsOverseas:[0],
       Area: [''],
       Province: [''],
-      District: [''],
+      district: [''],
       Salesman: [''],
       ContractPrice:[''],
       IsContractPrice:[0],
@@ -46,8 +46,8 @@ export class AdditionalInfoComponent {
       Membership_Barcode:[''],
     });
     this.userSettings = this.partyMasterService.userSettings;
-    if(this.userSettings.isOverSeas == 0) this.additinalInfo.isOverSeasCustomer = 0;
-    if(this.userSettings.EnableContractPrice == 0) this.additinalInfo.enbleContractPrice = 0;
+    if(this.userSettings.isOverSeas == 0) this.partyMasterService.customermasterObj.AdditionalInfo.isOverSeasCustomer = 0;
+    if(this.userSettings.EnableContractPrice == 0) this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 0;
     this.getAreaList();
     this.getDistrictList();
     this.getCategoryList();
@@ -98,13 +98,17 @@ export class AdditionalInfoComponent {
   }
   getMemberScheme(){
     this.partyMasterService.getMemberSchemeList().subscribe((res:any) => {
-      this.MemberSchemeList = res;
+      if(res.status == "ok"){
+        this.MemberSchemeList = res.result;
+      }
     })
   }
 
   getContractPriceList(){
     this.partyMasterService.getContractPriceList().subscribe((res:any) => {
-      this.ContractPriceList = res;
+      if(res.status == "ok"){
+        this.ContractPriceList = res;
+      }
     })
   }
   getSalesmanList(){

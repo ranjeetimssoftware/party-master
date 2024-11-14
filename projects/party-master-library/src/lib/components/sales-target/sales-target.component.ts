@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { PartyMasterLibraryService, SalesTarget } from '../../party-master-library.service';
 
 
 @Component({
@@ -12,8 +13,12 @@ import { Router } from '@angular/router';
 })
 export class SalesTargetComponent implements OnInit {
   salesTargetForm:FormGroup;
+  salesTargetObj:SalesTarget = <SalesTarget>{}
+  @Input() salesTarget!:SalesTarget;
+  @Input() mode!:string;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+
+  constructor(private router: Router, private fb: FormBuilder, public partyMasterService:PartyMasterLibraryService) {
     this.salesTargetForm = this.fb.group({
       Yearly_Target:[0],
       Baisakh_Target:[0],      
@@ -29,18 +34,14 @@ export class SalesTargetComponent implements OnInit {
       Falgun_Target:[0],      
       Chaitra_Target:[0],      
     });
+    this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
   }
 
   ngOnInit(): void {
+    if(this.mode == 'view'){
+      this.salesTargetForm.disable();
+    }
   }
-  displayedColumns: string[] = [
-    'sn',
-    'BankName',
-    'BankCode',
-    'AccountNumber',
-    'IsDefault',
-    'action'
-  ];
 
   ngAfterViewInit() {
   }

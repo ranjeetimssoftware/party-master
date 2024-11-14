@@ -31,6 +31,7 @@ export class ContactPersonComponent implements OnInit {
   @Input() mode:string='add';
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
+    this.partyMasterService.customermasterObj.contactPerson = this.dataSource.data;        
   }
 
   ngOnInit(): void {

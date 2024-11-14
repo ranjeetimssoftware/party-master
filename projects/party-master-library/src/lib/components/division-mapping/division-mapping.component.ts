@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { MatTableDataSource } from '@angular/material/table';
 
-export interface Branch {
+export interface Division {
   isChecked:boolean;
-  NAME: string;
+  divisionName: string;
+  div:string;
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class DivisionMappingComponent {
   displayedColumns: string[] = [];
   selectedAccount: string | null = null;
   filteredDivisionList:any[]=[];
-  DivisionList:any[]=[];  
+  DivisionList:Division[]=[];  
   @Input() divList!:any[];
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.displayedColumns = ['sn', 'branch', 'action'];
@@ -54,14 +55,14 @@ export class DivisionMappingComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredDivisionList = this.DivisionList.filter(x => x.NAME.toLowerCase().includes(filterValue.trim().toLowerCase()));
+    this.filteredDivisionList = this.DivisionList.filter(x => x.divisionName.toLowerCase().includes(filterValue.trim().toLowerCase()));
   }
 
   getDivisionList(){
     this.partyMasterService.getDivisionList().subscribe((res:any) =>  {
-      res.forEach((x:any) => {
+      res.result.forEach((x:any) => {
         this.DivisionList.push({div:x.INITIAL,
-           NAME:x.NAME,
+           divisionName:x.NAME,
         isChecked:false
           });
       })
