@@ -67,6 +67,7 @@ export class AdditionalInfoComponent {
     const input = event.target as HTMLInputElement;
     if(input.checked){
       this.additinalInfo.createMember = 1;
+      this.additinalInfo.membershipInfo = <MembershipObj>{};
     }else{
       this.additinalInfo.createMember = 0;
     }

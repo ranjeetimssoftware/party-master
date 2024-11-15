@@ -12,7 +12,6 @@
           type="text"
           [(ngModel)]="additinalInfo.category"
         >
-        <option value="">Seleect Category</option>
         <option [value]="cat.VARIANT" *ngFor="let cat of CategoryList">{{cat.VARIANTNAME}}</option>
       </select>
       </div>
@@ -34,11 +33,11 @@
           id="vendorType"
           class="form-control px-2 py-1"
           formControlName="VendorType"
-          [(ngModel)]="additinalInfo.vendorType"
+          [(ngModel)]="additinalInfo.supType"
           type="text"
         >
-        <option value="VAT">VAT Registered</option>
-        <option value="PAN">PAN Registered</option>
+        <option value="0">VAT Registered</option>
+        <option value="1">PAN Registered</option>
       </select>
       </div>
     </div>
@@ -109,8 +108,8 @@
         <select
           id="vendorStatus"
           class="form-control px-2 py-1"
-          formControlName="VendorStatus"
-          [(ngModel)]="additinalInfo.membershipInfo.customerStatus"
+          formControlName="customerStatus"
+          [(ngModel)]="additinalInfo.customerStatus"
           type="text"
         >
         <option value="1">Active</option>

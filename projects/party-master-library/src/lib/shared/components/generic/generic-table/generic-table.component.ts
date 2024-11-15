@@ -60,6 +60,7 @@ export class GenericTableComponent implements OnInit {
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   @ViewChild('MenuDropdown') MenuDropdown!: ElementRef;
   @ViewChild('StatusDropdown') StatusDropdown!: ElementRef;
+  @ViewChild('LedgerGroupMenuDropdown') LedgerGroupMenuDropdown!: ElementRef;
 
 
   constructor(
@@ -149,6 +150,14 @@ export class GenericTableComponent implements OnInit {
 
   closeStatusDropdown() {
     this.StatusDropdown.nativeElement.classList.remove('show');
+  }
+
+  openLedgerGroupMenuDropdown() {
+    this.LedgerGroupMenuDropdown.nativeElement.classList.add('show');
+  }
+
+  closeLedgerGroupMenuDropdown() {
+    this.LedgerGroupMenuDropdown.nativeElement.classList.remove('show');
   }
 
   getAllCustomers(ptype: string) {

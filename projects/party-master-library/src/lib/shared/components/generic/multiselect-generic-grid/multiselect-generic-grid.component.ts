@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ConfigService } from 'projects/party-master-library/src/lib/config.service';
+import { ConfigService } from '../../../../config.service';
 
 @Component({
   selector: 'multiselect-generic-grid',

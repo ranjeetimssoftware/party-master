@@ -6,6 +6,7 @@ import {
   CustomerMasterObj,
   PartyMasterLibraryService,
 } from '../../party-master-library.service';
+import { CustomerPartyAccountObj } from 'party-master-library';
 
 @Component({
   selector: 'lib-create-vendor',
@@ -17,6 +18,7 @@ export class CreateVendorComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
+  fileNames:string[]=[];
 
   constructor(
     private router: Router,
@@ -38,7 +40,7 @@ export class CreateVendorComponent {
     if (this.userSettings.CompanyType == 'B2B') {
       this.partyMasterService.customermasterObj.isCustomerLedger = 0;
       this.partyMasterService.customermasterObj.status = 1;
-      this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+      this.partyMasterService.customermasterObj.customerPartyAccount = <CustomerPartyAccountObj>{};
     }
   }
 
@@ -59,9 +61,13 @@ export class CreateVendorComponent {
         .getCustomerById('V', acid)
         .subscribe((res: any) => {
           this.partyMasterService.customermasterObj = res.result;
-          this.partyMasterService.customermasterObj.mobile = res.result.mobileNo;
           this.partyMasterService.customermasterObj.AdditionalInfo =
-            res.result.aditionalInfo;
+            res.result.additionalInfo;
+            if(this.partyMasterService.customermasterObj.documentUpload.length>0){
+              this.partyMasterService.customermasterObj.documentUpload.forEach((x) => {
+                this.fileNames.push(x.documentFileName);
+              })
+            }
         });
     }else{
       this.partyMasterService.reset();
@@ -139,8 +145,7 @@ export class CreateVendorComponent {
       'PA';
     this.partyMasterService.customermasterObj.customerPartyAccount.pType =
       'V';
-    this.partyMasterService.customermasterObj.contactNo =
-      this.partyMasterService.customermasterObj.phone;
+      this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.customerStatus = this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus;
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {

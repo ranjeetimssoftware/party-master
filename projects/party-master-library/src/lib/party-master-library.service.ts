@@ -185,7 +185,8 @@ export interface AdditionalInfo{
   enbleContractPrice:number,
   createMember:number,
   membershipInfo:MembershipObj;
-  vendorType:string;
+  supType:number;
+  customerStatus:string;
 }
 
 export interface SalesTarget{
@@ -211,7 +212,7 @@ export interface MembershipObj{
   weddingAniversary:string;
   workingOrganization:string
   designation:string;
-  customerStatus:number,
+  customerStatus:string,
   membershipScheme:string,
   membershipStartDate:string,
   membsershipEndDate:string,

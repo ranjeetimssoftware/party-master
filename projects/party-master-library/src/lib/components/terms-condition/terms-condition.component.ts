@@ -38,7 +38,8 @@ export class TermsAndConditionComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() termsAndConditions!:any;
+  @Input() termsAndConditions:any[] = [];
+  @Input() mode:string = 'add';
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -84,8 +85,8 @@ export class TermsAndConditionComponent implements OnInit {
   }
 
   onCloseMultiSelectTermsAndCondition(event:any){
-    this.dataSource.data = event;
-    this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = this.dataSource.data;
+    this.termsAndConditions = event;
+    this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = this.termsAndConditions;
   }
 
 }

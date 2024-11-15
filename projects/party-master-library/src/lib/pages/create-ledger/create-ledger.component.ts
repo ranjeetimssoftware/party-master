@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   AdditionalInfo,
   CustomerMasterObj,
+  CustomerPartyAccountObj,
   PartyMasterLibraryService,
 } from '../../party-master-library.service';
 
@@ -40,8 +41,9 @@ export class CreateLedgerComponent {
     public partyMasterService: PartyMasterLibraryService,
     private _activatedRoute: ActivatedRoute
   ) {
+    this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
     this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
-    this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
+    this.partyMasterService.customermasterObj.customerPartyAccount = <CustomerPartyAccountObj>{};
     this.partyMasterService.customermasterObj.customerPartyAccount.divList = [];
     this.partyMasterService.getAllsettings().subscribe((res: any) => {
       if (res.status == 'ok') this.userSettings = JSON.parse(res.result);
@@ -66,6 +68,26 @@ export class CreateLedgerComponent {
   ngOnInit() {
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
+    }
+    if (!!this._activatedRoute.snapshot.params['mode']) {
+      if (this._activatedRoute.snapshot.params['mode'] === 'view') {
+        this.mode = 'view';
+        this.ledgerForm.disable();
+      }
+      let acid = this._activatedRoute.snapshot.params['acid'];
+      this.partyMasterService
+        .getCustomerById('A',acid).subscribe((res:any) => {
+          if(res.status == "ok"){
+            this.partyMasterService.customermasterObj = res.result;
+            this.partyMasterService.customermasterObj.customerPartyAccount = res.result.customerPartyAccount;
+            this.filterParentGroup(this.ledgerGroup.ACTYPE);
+          }
+          else if(res.status == "error"){
+            this.partyMasterService.openErrorDialog(res.result);
+          }
+        },error => {
+          this.partyMasterService.openErrorDialog(error.error.detail);
+        })
     }
   }
 
@@ -100,7 +122,11 @@ export class CreateLedgerComponent {
 
   onAccountTypeChange(event:Event){
     const input = event.target as HTMLInputElement;
-    this.ParentGroup = this.menuData.filter((x:any) => x.actype == input.value);
+    this.filterParentGroup(input.value);
+  }
+
+  filterParentGroup(actype:string){
+    this.ParentGroup = this.menuData.filter((x:any) => x.actype == actype);
   }
 
   submit() {
@@ -135,8 +161,6 @@ export class CreateLedgerComponent {
     this.partyMasterService.customermasterObj.customerPartyAccount.pType = '';
     this.partyMasterService.customermasterObj.customerPartyAccount.mapId =
       this.partyMasterService.customermasterObj.customerPartyAccount.category;
-    this.partyMasterService.customermasterObj.contactNo =
-      this.partyMasterService.customermasterObj.phone;
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
@@ -144,6 +168,7 @@ export class CreateLedgerComponent {
           this.partyMasterService.openSuccessDialog(res.result);
           this.partyMasterService.customermasterObj = <CustomerMasterObj>{};
           this.partyMasterService.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+          this.partyMasterService.customermasterObj.customerPartyAccount = <CustomerPartyAccountObj>{};
           this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);

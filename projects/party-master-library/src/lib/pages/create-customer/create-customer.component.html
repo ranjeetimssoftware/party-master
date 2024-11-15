@@ -311,21 +311,21 @@
 
     </mat-tab>
     <mat-tab label="Division Mapping" *ngIf="userSettings.DIVISIONWISEACLISTING == 1"> 
-      <lib-division-mapping [divList]="partyMasterService.customermasterObj.customerPartyAccount.divList"></lib-division-mapping>
+      <lib-division-mapping [divList]="partyMasterService.customermasterObj.customerPartyAccount.divList" [mode]="mode"></lib-division-mapping>
       </mat-tab>
     <mat-tab label="Shipping Address" *ngIf="userSettings.EnableShippingAddress == 1"> 
       <lib-shipping-address  [shippingAdresses]="partyMasterService.customermasterObj.shippingAdresses" [mode]="mode"></lib-shipping-address>
 
     </mat-tab>
     <mat-tab label="Terms and Condition" *ngIf="userSettings.ApplyTermsAndCondition == 1">
-      <lib-terms-condition [termsAndConditions]="partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions"></lib-terms-condition>
+      <lib-terms-condition [termsAndConditions]="partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions" [mode]="mode"></lib-terms-condition>
        </mat-tab>
     <mat-tab label="Bank Information" *ngIf="userSettings.EnableOnlinePayment == 1"> 
       <lib-bank-information [bankInformation]="partyMasterService.customermasterObj.bankInformation" [mode]="mode"></lib-bank-information>
 
     </mat-tab>
     <mat-tab label=" Document Upload" *ngIf="userSettings.EnableDocumentUploadInParty == 1">
-      <lib-document-upload [documentUpload]="partyMasterService.customermasterObj.documentUpload"></lib-document-upload>
+      <lib-document-upload [documentUpload]="partyMasterService.customermasterObj.documentUpload" [filesNames]="fileNames" [mode]="mode"></lib-document-upload>
 
     </mat-tab>
     <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> 

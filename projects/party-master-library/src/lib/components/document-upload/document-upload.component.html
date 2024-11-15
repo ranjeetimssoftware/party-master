@@ -18,13 +18,13 @@
         <thead>
           <th style="width: 10%;">SN</th>
           <th>Document</th>
-          <th>Action</th>
+          <th *ngIf="mode != 'view'">Action</th>
         </thead>
         <tbody>
           <tr *ngFor="let doc of filesNames; let i = index;">
             <td>{{i+1}}</td>
             <td>{{doc}}</td>
-            <td>
+            <td *ngIf="mode != 'view'">
               <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
               <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="deleteFile(i)">delete outline</mat-icon>
             </td>

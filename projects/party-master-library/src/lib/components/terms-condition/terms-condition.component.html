@@ -15,47 +15,32 @@
   </div>
 </div>
 <div class="table-container">
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- SN Column -->
-    <ng-container matColumnDef="sn">
-      <th mat-header-cell *matHeaderCellDef>SN</th>
-      <td mat-cell *matCellDef="let element">{{ dataSource.data.length+1}}</td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="Description">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.Label }}</td>
-    </ng-container>
-  
-    <!-- Contact Column -->
-    <ng-container matColumnDef="IsDefault">
-      <th mat-header-cell *matHeaderCellDef>Is Default</th>
-      <td mat-cell *matCellDef="let element">{{ element.isDefault }}</td>
-    </ng-container>
-  
-    <!-- Action Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          mat-icon-button
-          style="border: none; background-color: transparent"
-        >
-          <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onViewTerms(element)">View</button>
-          <button mat-menu-item>Remove</button>
-        </mat-menu>
-      </td>
-    </ng-container>
-  
-    <!-- Header and Data Rows -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    <!-- Input Row: Place outside of the actual table rows -->
+  <table>
+    <thead>
+      <th style="width: 10%;">SN</th>
+      <th>Description</th>
+      <th>Is Default</th>
+      <th *ngIf="mode != 'view'">Action</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of termsAndConditions;let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{element.Label}}</td>
+        <td>{{element.isDefault}}</td>
+        <td *ngIf="mode != 'view'">
+          <button
+            mat-icon-button
+            style="border: none; background-color: transparent"
+          >
+            <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="onViewTerms(element)">View</button>
+            <button mat-menu-item>Remove</button>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
   </table>
   </div>
 

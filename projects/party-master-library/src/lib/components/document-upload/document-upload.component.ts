@@ -12,9 +12,10 @@ import { PartyMasterLibraryService } from '../../party-master-library.service';
 export class DocumentUploadComponent implements OnInit {
   documentName: any;
   fileToUpload!: any;
-  filesNames:any[]=[];
   @ViewChild("fileSelect") fileSelect!: ElementRef;
   @Input() documentUpload:any[] = [];
+  @Input() filesNames:any[]=[];
+  @Input() mode:string = 'add';
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
   }

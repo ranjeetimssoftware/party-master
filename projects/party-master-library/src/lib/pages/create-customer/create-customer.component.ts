@@ -20,6 +20,7 @@ export class CreateCustomerComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
+  fileNames:string[]=[];
 
   constructor(
     private router: Router,
@@ -75,6 +76,11 @@ export class CreateCustomerComponent {
             }
             if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
               this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
+            }
+            if(this.partyMasterService.customermasterObj.documentUpload.length>0){
+              this.partyMasterService.customermasterObj.documentUpload.forEach((x) => {
+                this.fileNames.push(x.documentFileName);
+              })
             }
         });
     }

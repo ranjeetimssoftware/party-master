@@ -20,8 +20,9 @@ export class DivisionMappingComponent {
   displayedColumns: string[] = [];
   selectedAccount: string | null = null;
   filteredDivisionList:any[]=[];
-  DivisionList:Division[]=[];  
+  @Input() DivisionList:Division[]=[];  
   @Input() divList!:any[];
+  @Input() mode:string = 'add';
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.displayedColumns = ['sn', 'branch', 'action'];
   }

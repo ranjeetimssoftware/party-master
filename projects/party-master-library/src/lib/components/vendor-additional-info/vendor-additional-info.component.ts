@@ -16,6 +16,7 @@ export class VendorAdditionalInfoComponent {
   @Input() additinalInfo:AdditionalInfo = <AdditionalInfo>{};
   @Input() mode!:string;
   constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+    this.additinalInfo.membershipInfo = <MembershipObj>{};
     this.vendorAdditionalInfoForm = this.fb.group({
       Category: ['', Validators.required],
       VendorType: ['', Validators.required],
@@ -24,7 +25,7 @@ export class VendorAdditionalInfoComponent {
       CreditDays: ['', Validators.required],
       ContractPrice: ['', Validators.required],
       SelectContractPrice: ['', Validators.required],
-      VendorStatus: ['', Validators.required],
+      customerStatus: ['', Validators.required],
     });
     this.userSettings = this.partyMasterService.userSettings;
     this.getCategoryList();
