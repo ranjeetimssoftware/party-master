@@ -135,7 +135,7 @@ export interface CustomerMasterObj{
   bankInformation:BankInformation[];
   salesTarget:SalesTarget;
   customerPartyAccount:CustomerPartyAccountObj;
-  documentUpload:any[];
+  documentUpload:DocumentObj[];
   parentGroup:string;
 }
 
@@ -219,4 +219,11 @@ export interface MembershipObj{
   membershipStartDate:string,
   membsershipEndDate:string,
   membershipBarcode:string,
+}
+
+export interface DocumentObj{
+  documentExtenstion:string;
+  documentFileName:string;
+  path:string;
+  acid:string;
 }

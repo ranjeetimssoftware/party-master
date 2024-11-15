@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { PartyMasterLibraryService } from '../../party-master-library.service';
+import { DocumentObj, PartyMasterLibraryService } from '../../party-master-library.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class DocumentUploadComponent implements OnInit {
   documentName: any;
   fileToUpload!: any;
   @ViewChild("fileSelect") fileSelect!: ElementRef;
-  @Input() documentUpload:any[] = [];
+  @Input() documentUpload:DocumentObj[] = [];
   @Input() filesNames:any[]=[];
   @Input() mode:string = 'add';
 
@@ -62,8 +62,7 @@ export class DocumentUploadComponent implements OnInit {
         console.log("error",error.message);
       }
     )
-    // this.fileToUpload = undefined;
-    // this.fileSelect.nativeElement.value = null;
+
   }
 
   deleteFile(i:number){
