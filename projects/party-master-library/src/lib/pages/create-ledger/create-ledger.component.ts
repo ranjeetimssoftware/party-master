@@ -80,7 +80,7 @@ export class CreateLedgerComponent {
           if(res.status == "ok"){
             this.partyMasterService.customermasterObj = res.result;
             this.partyMasterService.customermasterObj.customerPartyAccount = res.result.customerPartyAccount;
-            this.filterParentGroup(this.ledgerGroup.ACTYPE);
+            this.filterParentGroup(this.partyMasterService.customermasterObj.customerPartyAccount.acType);
           }
           else if(res.status == "error"){
             this.partyMasterService.openErrorDialog(res.result);
