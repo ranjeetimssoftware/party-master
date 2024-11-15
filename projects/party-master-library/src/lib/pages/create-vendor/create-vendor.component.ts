@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   AdditionalInfo,
   CustomerMasterObj,
+  CustomerPartyAccountObj,
   PartyMasterLibraryService,
 } from '../../party-master-library.service';
-import { CustomerPartyAccountObj } from 'party-master-library';
 
 @Component({
   selector: 'lib-create-vendor',
