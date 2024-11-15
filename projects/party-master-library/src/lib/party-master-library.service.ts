@@ -188,6 +188,7 @@ export interface AdditionalInfo{
   membershipInfo:MembershipObj;
   supType:number;
   customerStatus:string;
+  isCommon:number;
 }
 
 export interface SalesTarget{

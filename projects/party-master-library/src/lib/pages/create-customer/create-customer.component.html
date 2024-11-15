@@ -280,8 +280,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-column justify-content-between" *ngIf="mode=='View' || mode == 'Edit'">
-        <mat-card class="example-card" appearance="outlined">
+      <div class="col-md-3 d-flex flex-column justify-content-between">
+        <mat-card class="example-card" appearance="outlined"  *ngIf="mode=='View' || mode == 'Edit'">
           <mat-card-header>
             <mat-card-title>Balance Amount</mat-card-title>
             <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
@@ -290,13 +290,13 @@
             <p class="px-3"><b>Rs 25000</b></p>
           </mat-card-content>
         </mat-card>
-        <div>
+        <div *ngIf="userSettings.CompanyType == 'B2B'">
           <input
             type="checkbox"
             id="LedgerAc"
             class="mx-2"
             formControlName="LedgerAc"
-            [(ngModel)]="partyMasterService.customermasterObj.isCustomerLedger"              
+            [(ngModel)]="partyMasterService.customermasterObj.isCustomerLedger"   (change)="onCheckCreateCustomerLedger($event)"            
             />Create Customer's Ledger A/C
         </div>
       </div>

@@ -122,5 +122,14 @@ export class AdditionalInfoComponent {
     this.FilteredDistrict = this.District.filter(x => x.State == this.additinalInfo.province);
   }
 
+  onCheckCustomerAsVendor(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfo.isCommon = 1;
+    }else{
+      this.additinalInfo.isCommon = 0;
+    }
+  }
+
 
 }

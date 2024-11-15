@@ -46,4 +46,12 @@ export class VendorAdditionalInfoComponent {
       this.ContractPriceList = res;
     })
   }
+  onCheckCustomerAsVendor(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfo.isCommon = 1;
+    }else{
+      this.additinalInfo.isCommon = 0;
+    }
+  }
 }

@@ -18,11 +18,12 @@
       </div>
     </div>
 
-    <!-- <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" />Create As Both Customer And Vendor
+        <input type="checkbox" [(ngModel)]="additinalInfo.isCommon" (change)="onCheckCustomerAsVendor($event)"
+         />Create As Both Customer And Vendor
       </div>
-    </div> -->
+    </div>
 
     <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <label for="credit-terms" class="form-label-header">Credit Terms</label>

@@ -19,7 +19,7 @@
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" formControlName="CustomerVendor" />Create As Both
+        <input type="checkbox" formControlName="CustomerVendor" [(ngModel)]="additinalInfo.isCommon" (change)="onCheckCustomerAsVendor($event)"/>Create As Both
         Customer And Vendor
       </div>
     </div>

@@ -43,7 +43,7 @@ export class CreateCustomerComponent {
       LedgerAc: [0],
     });
     if (this.userSettings.CompanyType == 'B2B') {
-      this.partyMasterService.customermasterObj.isCustomerLedger = 0;
+      this.partyMasterService.customermasterObj.isCustomerLedger = 1;
       this.partyMasterService.customermasterObj.status = 1;
       this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
     }
@@ -179,5 +179,14 @@ export class CreateCustomerComponent {
 
   goBack() {
     this.router.navigate([this.returnUrl]); // Navigate to the previous route
+  }
+
+  onCheckCreateCustomerLedger(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.partyMasterService.customermasterObj.isCustomerLedger = 1;
+    }else{
+      this.partyMasterService.customermasterObj.isCustomerLedger = 0;
+    }
   }
 }
