@@ -48,7 +48,8 @@ export class DocumentUploadComponent implements OnInit {
     this.partyMasterService.uploadDocument(formData).subscribe(
       (res: any) => {
         if (res.message) {
-          this.documentUpload.push({documentExtenstion :this.fileToUpload.type, documentFileName :this.documentName, acid:'', path:res.path});
+          let el:DocumentObj = {documentExtenstion :this.fileToUpload.type, documentFileName :this.documentName, acid:'', path:res.path};
+          this.documentUpload.push(el);
           this.partyMasterService.openSuccessDialog(res.message);
             this.fileToUpload = undefined;
             this.fileSelect.nativeElement.value = null;
