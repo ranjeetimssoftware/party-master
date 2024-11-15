@@ -139,7 +139,7 @@
 
           <div class="dropdown col-11 col-md-5">
             
-            <lib-generic-nested-dropdown [menuData]="ParentGroup" (onItemClick)="onSelectParent($event)" [mode]="mode"></lib-generic-nested-dropdown>
+            <lib-generic-nested-dropdown [menuData]="ParentGroup" [selectedItem]="this.partyMasterService.customermasterObj.parentGroup" (onItemClick)="onSelectParent($event)" [mode]="mode"></lib-generic-nested-dropdown>
           </div>
         </div>
 

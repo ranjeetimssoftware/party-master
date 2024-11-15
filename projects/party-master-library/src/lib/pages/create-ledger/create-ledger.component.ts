@@ -126,7 +126,7 @@ export class CreateLedgerComponent {
   }
 
   filterParentGroup(actype:string){
-    this.ParentGroup = this.menuData.filter((x:any) => x.actype == actype);
+    this.ParentGroup = this.menuData.filter((x:any) => x.acid == actype);
   }
 
   submit() {

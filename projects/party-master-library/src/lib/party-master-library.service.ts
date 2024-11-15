@@ -136,6 +136,7 @@ export interface CustomerMasterObj{
   salesTarget:SalesTarget;
   customerPartyAccount:CustomerPartyAccountObj;
   documentUpload:any[];
+  parentGroup:string;
 }
 
 export interface CustomerPartyAccountObj{
