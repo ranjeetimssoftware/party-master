@@ -150,17 +150,17 @@
     </div>
 
     <div class="d-flex row align-items-center mt-3 mb-2" *ngIf="userSettings.EnableContractPrice == 1">
-      <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice"/>Enable
+      <div class="col-11 col-md-3 offset-md-2">
+        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice" (change)="onCheckContractPrice($event)"/>Enable
         Contract Price
       </div>
 
       <div class="col-11 col-md-4" *ngIf="additinalInfo.enbleContractPrice">
         <select
-          id="salesman"
+          id="ContractPrice"
           class="form-control px-2 py-1"
           formControlName="ContractPrice"
-          [(ngModel)]="additinalInfo.ContractPrice"
+          [(ngModel)]="additinalInfo.contractPrice"
           type="text"
         >
         <option value="" selected>Default Contract Price</option>

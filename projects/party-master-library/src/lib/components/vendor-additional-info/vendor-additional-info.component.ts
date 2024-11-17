@@ -54,4 +54,14 @@ export class VendorAdditionalInfoComponent {
       this.additinalInfo.isCommon = 0;
     }
   }
+
+  onCheckContractPrice(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfo.enbleContractPrice = 1;
+    }else{
+      this.additinalInfo.enbleContractPrice = 0;
+    }
+  }
+
 }

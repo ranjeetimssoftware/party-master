@@ -182,7 +182,7 @@ export interface AdditionalInfo{
   province: string,
   district: string,
   dealingSalesman: string,
-  ContractPrice:number,
+  contractPrice:number,
   enbleContractPrice:number,
   createMember:number,
   membershipInfo:MembershipObj;

@@ -12,9 +12,10 @@ import { DocumentObj, PartyMasterLibraryService } from '../../party-master-libra
 export class DocumentUploadComponent implements OnInit {
   documentName: any;
   fileToUpload!: any;
+  viewDoc:boolean=false;
+  doc:DocumentObj = <DocumentObj>{};
   @ViewChild("fileSelect") fileSelect!: ElementRef;
   @Input() documentUpload:DocumentObj[] = [];
-  @Input() filesNames:any[]=[];
   @Input() mode:string = 'add';
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
@@ -44,7 +45,6 @@ export class DocumentUploadComponent implements OnInit {
     formData.append("DocumentHeading", this.documentName);
     formData.append("file", this.fileToUpload);
     formData.append("TenantId",'' );
-    this.filesNames.push(this.documentName);
     this.partyMasterService.uploadDocument(formData).subscribe(
       (res: any) => {
         if (res.message) {
@@ -68,7 +68,15 @@ export class DocumentUploadComponent implements OnInit {
 
   deleteFile(i:number){
     this.documentUpload.splice(i,1);
-    this.filesNames.splice(i,1);
+  }
+
+  ToggleDoc(i:number){
+    this.viewDoc = true;
+    this.doc = this.documentUpload[i];
+  }
+
+  closeDocView(){
+    this.viewDoc = false;;
   }
 
 

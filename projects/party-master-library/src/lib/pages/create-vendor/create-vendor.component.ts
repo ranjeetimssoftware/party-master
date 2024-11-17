@@ -18,7 +18,6 @@ export class CreateVendorComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
-  fileNames:string[]=[];
 
   constructor(
     private router: Router,
@@ -63,11 +62,6 @@ export class CreateVendorComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
-            if(this.partyMasterService.customermasterObj.documentUpload.length>0){
-              this.partyMasterService.customermasterObj.documentUpload.forEach((x) => {
-                this.fileNames.push(x.documentFileName);
-              })
-            }
         });
     }else{
       this.partyMasterService.reset();

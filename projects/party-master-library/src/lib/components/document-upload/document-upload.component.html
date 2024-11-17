@@ -21,11 +21,11 @@
           <th *ngIf="mode != 'view'">Action</th>
         </thead>
         <tbody>
-          <tr *ngFor="let doc of filesNames; let i = index;">
+          <tr *ngFor="let doc of documentUpload; let i = index;">
             <td>{{i+1}}</td>
-            <td>{{doc}}</td>
+            <td>{{doc.documentFileName}}</td>
             <td *ngIf="mode != 'view'">
-              <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
+              <mat-icon class="mat-icon-small" (click)="ToggleDoc(i)">remove_red_eye </mat-icon>
               <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="deleteFile(i)">delete outline</mat-icon>
             </td>
           </tr>
@@ -34,4 +34,13 @@
       </div>
   </div>
 
+</div>
+
+<div class="row col-md-6 custom-position bg-white" *ngIf="viewDoc">
+  <div class="row mb-4">
+    <h4 class="col-md-8">{{doc.documentFileName}}</h4>
+    <mat-icon class="col-md-2 mat-icon-small" (click)="closeDocView()">cancel</mat-icon>
+  </div>
+  <div class="border-bottom border-secondary"></div>
+  <img [src]="doc.path" style="height: 2.5rem; width:2.5rem"> 
 </div>

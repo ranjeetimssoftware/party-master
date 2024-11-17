@@ -82,6 +82,15 @@ export class AdditionalInfoComponent {
     }
   }
 
+  onCheckContractPrice(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfo.enbleContractPrice = 1;
+    }else{
+      this.additinalInfo.enbleContractPrice = 0;
+    }
+  }
+
   getAreaList(){
     this.partyMasterService.getArea().subscribe((res:any) => {
       this.areaList = res.result;
@@ -114,7 +123,7 @@ export class AdditionalInfoComponent {
   }
   getSalesmanList(){
     this.partyMasterService.getSalesmanList().subscribe((res:any) => {
-      this.SalesmanList = res;
+      this.SalesmanList = res.result;
     })
   }
 

@@ -82,7 +82,7 @@
 
     <div class="row align-items-center my-3" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-2 offset-md-2">
-        <input type="checkbox" formControlName="ContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice"/>Enable Contract
+        <input type="checkbox" formControlName="ContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice" (change)="onCheckContractPrice($event)"/>Enable Contract
         Price
       </div>
       <div class="col-11 col-md-4" style="margin-left: -10px" *ngIf="additinalInfo.enbleContractPrice">
@@ -90,7 +90,7 @@
           id="contractPrice"
           class="form-control px-2 py-1"
           formControlName="SelectContractPrice"
-          [(ngModel)]="additinalInfo.ContractPrice"
+          [(ngModel)]="additinalInfo.contractPrice"
           placeholder="Select Contract
           Price"
         >
