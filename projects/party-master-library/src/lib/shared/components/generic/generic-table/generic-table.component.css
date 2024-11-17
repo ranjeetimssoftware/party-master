@@ -154,6 +154,6 @@ tr.mat-footer-row {
 }
 
 .scrollable-content{
-  height: 80%;
+  height: 70vh;
   overflow-y: scroll;
 }
