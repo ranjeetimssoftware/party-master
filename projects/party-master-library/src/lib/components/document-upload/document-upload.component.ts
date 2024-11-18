@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DocumentObj, PartyMasterLibraryService } from '../../party-master-library.service';
+import { ConfigService } from '../../config.service';
 
 
 @Component({
@@ -14,14 +15,16 @@ export class DocumentUploadComponent implements OnInit {
   fileToUpload!: any;
   viewDoc:boolean=false;
   doc:DocumentObj = <DocumentObj>{};
+  apiUrl:string = '';
   @ViewChild("fileSelect") fileSelect!: ElementRef;
   @Input() documentUpload:DocumentObj[] = [];
   @Input() mode:string = 'add';
 
-  constructor(private partyMasterService:PartyMasterLibraryService) { 
+  constructor(private partyMasterService:PartyMasterLibraryService, private configService: ConfigService) { 
   }
-
+  
   ngOnInit(): void {
+    this.apiUrl = this.configService.getApiUrl();
   }
   displayedColumns: string[] = [
     'sn',
@@ -31,6 +34,7 @@ export class DocumentUploadComponent implements OnInit {
 
   ngAfterViewInit() {
   }
+
 
   fileUpload(event:Event) {
     const input = event.target as HTMLInputElement;
@@ -48,7 +52,9 @@ export class DocumentUploadComponent implements OnInit {
     this.partyMasterService.uploadDocument(formData).subscribe(
       (res: any) => {
         if (res.message) {
-          let el:DocumentObj = {documentExtenstion :this.fileToUpload.type, documentFileName :this.documentName, acid:'', path:res.path};
+          const sanitizedPath = res.path.replace(/\\/g, '/').replace(/\/+/g, '/');
+          const finalUrl = `${sanitizedPath}`;
+          let el:DocumentObj = {documentExtenstion :this.fileToUpload.type, documentFileName :this.documentName, acid:'', path:finalUrl};
           this.documentUpload.push(el);
           this.partyMasterService.openSuccessDialog(res.message);
             this.fileToUpload = undefined;

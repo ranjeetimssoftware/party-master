@@ -40,6 +40,7 @@
             class="form-control px-2 py-1"
             formControlName="SubLedgerName"
             placeholder="Enter Sub Ledger Name"
+            [(ngModel)]="subledgerObj.SL_ACNAME"
           />
           </div>
         </div>
@@ -75,6 +76,7 @@
             class="form-control px-2 py-1"
             formControlName="PanNo"
             placeholder="Enter Pan"
+            [(ngModel)]="subledgerObj.PAN_NO"
           />
           </div>
         </div>
@@ -85,6 +87,7 @@
               type="checkbox"
               formControlName="hasMainLedger"
               class="mr-2"
+            [(ngModel)]="subledgerObj.HASMAINGROUP"
             />
             Has Main Ledger
           </div>
@@ -117,7 +120,9 @@
               id="mainLedgerName"
               class="form-control px-2 py-1"
               formControlName="MainLedgerName"
-              placeholder="Enter Main Ledger Name"
+              placeholder="Press Enter to Select Main Ledger"
+              (keydown.Enter)="onEnterMainLedgerList()"
+            [(ngModel)]="subledgerObj.MainLedgerName"
             />
           </div>
         </div>
@@ -125,3 +130,6 @@
     </div>
   </form>
 </div>
+
+<multiselect-generic-grid #genericMultiSelectLedger [popupsettings]="gridPopupSettingsForLedger" (onPopUpClose)="onSelectMainLedger($event)"></multiselect-generic-grid>
+

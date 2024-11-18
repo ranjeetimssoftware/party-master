@@ -564,7 +564,7 @@
       matColumnDef="subledgername"
     >
       <th mat-header-cell *matHeaderCellDef>Sub-Ledger Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.subledgername }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.sub_ledger_name }}</td>
     </ng-container>
 
     <!-- Account Code Column -->
@@ -622,13 +622,13 @@
       matColumnDef="hasmainledger"
     >
       <th mat-header-cell *matHeaderCellDef>Has Main Ledger</th>
-      <td mat-cell *matCellDef="let element">{{ element.hasmainledger }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.has_main_ledger }}</td>
     </ng-container>
 
     <!-- Main Ledger Column -->
     <ng-container *ngIf="activeRoute == 'sub-ledger'" matColumnDef="mainledger">
       <th mat-header-cell *matHeaderCellDef>Main Ledger</th>
-      <td mat-cell *matCellDef="let element">{{ element.mainledger }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.main_ledger }}</td>
     </ng-container>
 
     <!-- Status Column -->

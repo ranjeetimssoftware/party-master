@@ -9,6 +9,12 @@ tr.mat-header-row{
   height: 40px;
 }
 
+
+tr.mat-row,
+tr.mat-footer-row {
+  height: 20px;
+}
+
 tr:nth-child(even) {
   background-color: #f6f6f6f5;
   padding: 0px;

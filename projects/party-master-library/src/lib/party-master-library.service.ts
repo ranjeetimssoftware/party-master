@@ -88,6 +88,10 @@ export class PartyMasterLibraryService {
     return this.http.get<any[]>(this.apiUrl + '/getLedgerGroups'); 
   }
 
+  getSubLedgerList(){
+    return this.http.get<any[]>(this.apiUrl + '/getAllSubLeger'); 
+  }
+
   getArea(){
     return this.http.get<any[]>(this.apiUrl + '/getAreaDetail'); 
   }

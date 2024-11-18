@@ -10,7 +10,7 @@
         class="form-control px-2 py-1"
         (keydown.Enter)="onEnterTermAndCondition()"
         placeholder="Press Enter to Select"
-      />
+        [disabled]="mode == 'view'"/>
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
         <td>{{i+1}}</td>
         <td>{{element.Label}}</td>
         <td>{{element.isDefault}}</td>
-        <td *ngIf="mode != 'view'">
+        <td>
           <button
             mat-icon-button
             style="border: none; background-color: transparent"
@@ -36,7 +36,7 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="onViewTerms(element)">View</button>
-            <button mat-menu-item>Remove</button>
+            <button mat-menu-item *ngIf="mode != 'view'">Remove</button>
           </mat-menu>
         </td>
       </tr>

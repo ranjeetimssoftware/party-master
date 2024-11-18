@@ -119,9 +119,10 @@ export class GenericTableComponent implements OnInit {
     if (this.activeRoute == 'vendor') this.getAllCustomers('V');
     if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
     if(this.activeRoute == 'ledger-group') this.getAllLedgerGroup();
+    if(this.activeRoute == 'sub-ledger') this.getAllSubLedger();
   }
   ngAfterViewInit() {
-    if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group') {
+    if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' || this.activeRoute == 'sub-ledger') {
       this.chartofAccountDataSource.paginator = this.paginator;
     } else {
       this.customerVendorDataSource.paginator = this.paginator;
@@ -177,6 +178,12 @@ export class GenericTableComponent implements OnInit {
 
   getAllLedgerGroup(){
     this.partyMasterService.getLedgerGroupList().subscribe((res:any) => {
+      this.chartofAccountDataSource.data = res.result;
+    })
+  }
+
+  getAllSubLedger(){
+    this.partyMasterService.getSubLedgerList().subscribe((res:any) => {
       this.chartofAccountDataSource.data = res.result;
     })
   }

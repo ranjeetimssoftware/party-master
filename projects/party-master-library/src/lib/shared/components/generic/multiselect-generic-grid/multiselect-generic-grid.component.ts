@@ -91,18 +91,19 @@ export class MultiSelectGenericGridComponent {
         this.totalItems = res ? res['totalCount'] : 0;
 
 
-        this.dataSource.data = res.result ? res.result['data'] : [];
-
-        this.dataSource.data.forEach(function (item) {
-          if (item.TRNDATE != null && item.TRNDATE !== undefined) {
-            item.TRNDATE = item.TRNDATE.toString().substring(0, 10);
-          }
-          if (item.DATE != null && item.DATE !== undefined) {
-            item.DATE = item.DATE.toString().substring(0, 10);
-          }
-          item.isCheck = false;
-          item.isDefault = false;
-        });
+        this.dataSource.data = res.result ? res.result['data'] : res?res['data']:[];
+        if(this.popupsettings.title == "Terms And Conditions List"){
+          this.dataSource.data.forEach(function (item) {
+            if (item.TRNDATE != null && item.TRNDATE !== undefined) {
+              item.TRNDATE = item.TRNDATE.toString().substring(0, 10);
+            }
+            if (item.DATE != null && item.DATE !== undefined) {
+              item.DATE = item.DATE.toString().substring(0, 10);
+            }
+            item.isCheck = false;
+            item.isDefault = false;
+          });
+        }
 
       });
   }
@@ -150,6 +151,11 @@ export class MultiSelectGenericGridComponent {
   onItemClose(){
     let data = this.dataSource.data.filter(x => x.isCheck == true);
     this.onPopUpClose.emit(data);
+    this.close();
+  }
+
+  onDblClick(event:any){
+    this.onPopUpClose.emit(event);
     this.close();
   }
 }

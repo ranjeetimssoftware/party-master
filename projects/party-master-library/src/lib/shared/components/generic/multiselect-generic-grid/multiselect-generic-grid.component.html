@@ -46,7 +46,7 @@
             <td mat-cell *matCellDef="let element"> <input type="checkbox" mat-checkbox [(ngModel)]="element[column.keys]"></td>
           </ng-container>
           <ng-template #defaultCell>
-            <td mat-cell *matCellDef="let element" (click)="onItemClick(element)"> {{ element[column.keys!] }} </td>
+            <td mat-cell *matCellDef="let element" (click)="onItemClick(element)" (dblClick)="onDblClick(element)"> {{ element[column.keys!] }} </td>
           </ng-template>
         </ng-container>
       
@@ -61,7 +61,7 @@
                   aria-label="Select page">
     </mat-paginator>
     </div>
-    <div class="shadow rounded col-md-6 py-2 text-secondary">
+    <div class="shadow rounded col-md-6 py-2 text-secondary" *ngIf="popupsettings.title == 'Terms And Conditions List'">
       <h3 class="m-2"><b>IMS Terms and Condition 1</b></h3>
       <div class="border-bottom"></div>
       <div>
