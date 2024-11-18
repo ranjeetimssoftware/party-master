@@ -74,12 +74,21 @@ export class PartyMasterLibraryService {
     return this.http.post(this.apiUrl+`/saveNewLedgerGroup`,data);
   }
 
+  saveNewSubLedgerGroup(mode:string,dataObj:any){
+    let data= {mode:mode, data:dataObj};
+    return this.http.post(this.apiUrl+`/saveNewSubLedger`,data);
+  }
+
   getCustomerById(ptype:string, acid:string){
     return this.http.get<any[]>(this.apiUrl + `/getAllCustomerById?ptype=${ptype}&acid=${acid}`); 
   }
 
   getLedgerGroup(acid:string){
     return this.http.get<any[]>(this.apiUrl + `/getLedgerGroup?acid=${acid}`); 
+  }
+
+  getSubLegerById(id:string){
+    return this.http.get<any[]>(this.apiUrl + `/getSubLegerById?id=${id}`); 
   }
   getAllsettings(){
     return this.http.get<any[]>(this.apiUrl + '/getAllSetting'); 

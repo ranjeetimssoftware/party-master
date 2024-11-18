@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-sub-ledger',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubLedgerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  onView(event:any){
+    this.router.navigate([this.router.url+"/new-sub-ledger",{acid:event, mode:'view',returnUrl: this.router.url}])
   }
 
 }

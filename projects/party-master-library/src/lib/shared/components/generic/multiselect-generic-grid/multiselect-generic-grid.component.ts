@@ -20,7 +20,7 @@ export class MultiSelectGenericGridComponent {
   isActive:boolean=false;
   itemList: any[] = [];
     selectedRowIndex = 0;
-  filterValue= new FormControl();
+  filterValue:string = '';
   filterOption: string = ""; 
   pageSize: number = 10;
   pageNumber: number = 1;
@@ -36,8 +36,17 @@ export class MultiSelectGenericGridComponent {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  private paginatorInitialized = false;
+
+  ngAfterViewChecked(): void {
+    if (this.paginator && !this.paginatorInitialized) {
+      this.paginator.page.subscribe(event => {
+        this.pageNumber = event.pageIndex+1;
+        this.pageSize = event.pageSize;
+        this.getData();
+      });
+      this.paginatorInitialized = true;
+    }
   }
 
   private get apiUrl(): string {
@@ -73,7 +82,7 @@ export class MultiSelectGenericGridComponent {
       const filterIndex = this.popupsettings.defaultFilterIndex ? this.popupsettings.defaultFilterIndex : 0;
       if (this.popupsettings.columns.length <= filterIndex) { return; }
 
-      this.filterValue.setValue('');
+      this.filterValue = '';
       this.filterOption = this.popupsettings.columns[filterIndex].key??'';
     }
   }
@@ -88,7 +97,7 @@ export class MultiSelectGenericGridComponent {
     return this.http
       .get(this.requestUrl)
       .subscribe((res:any) => {
-        this.totalItems = res ? res['totalCount'] : 0;
+        this.totalItems = res.result ? res.result['totalCount'] : 0;
 
 
         this.dataSource.data = res.result ? res.result['data'] : res?res['data']:[];
@@ -117,14 +126,33 @@ export class MultiSelectGenericGridComponent {
     )
       return url;
     if (
-      this.filterValue.value == null ||
-      this.filterValue.value == undefined ||
-      this.filterValue.value == ""
+      this.filterValue == null ||
+      this.filterValue == undefined ||
+      this.filterValue == ""
     )
       return url;
-    filter.push({ Field: this.filterOption, Value: this.filterValue.value });
+    filter.push({ Field: this.filterOption, Value: this.filterValue });
     return `${url}&filters=${JSON.stringify(filter)}`;
   }
+
+  triggerSearch() {
+    if (
+      this.filterOption == null ||
+      this.filterOption === undefined ||
+      this.filterOption === ''
+    )
+      return;
+    if (
+      this.filterValue == null ||
+      this.filterValue === undefined ||
+      this.filterValue === ''
+    )
+      return;
+
+    this.refreshPage();
+    this.refresh();
+  }
+  
 
   refreshPage() {
     this.pageNumber = 1;

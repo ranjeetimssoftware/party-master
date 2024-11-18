@@ -564,7 +564,7 @@
       matColumnDef="subledgername"
     >
       <th mat-header-cell *matHeaderCellDef>Sub-Ledger Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.sub_ledger_name }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.SL_ACNAME }}</td>
     </ng-container>
 
     <!-- Account Code Column -->
@@ -622,13 +622,13 @@
       matColumnDef="hasmainledger"
     >
       <th mat-header-cell *matHeaderCellDef>Has Main Ledger</th>
-      <td mat-cell *matCellDef="let element">{{ element.has_main_ledger }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.hasMainGroup }}</td>
     </ng-container>
 
     <!-- Main Ledger Column -->
     <ng-container *ngIf="activeRoute == 'sub-ledger'" matColumnDef="mainledger">
       <th mat-header-cell *matHeaderCellDef>Main Ledger</th>
-      <td mat-cell *matCellDef="let element">{{ element.main_ledger }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.mainLedgerName }}</td>
     </ng-container>
 
     <!-- Status Column -->
@@ -663,7 +663,7 @@
           <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onViewClick(element.acid || element.ACID)">View</button>
+          <button mat-menu-item (click)="onViewClick(element.SL_ACID || element.acid || element.ACID)">View</button>
           <button mat-menu-item>Edit</button>
           <button mat-menu-item>Delete</button>
           <button mat-menu-item>Mark as Inactive</button>
