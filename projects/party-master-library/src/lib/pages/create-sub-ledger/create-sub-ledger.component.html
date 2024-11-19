@@ -76,7 +76,7 @@
             class="form-control px-2 py-1"
             formControlName="PanNo"
             placeholder="Enter Pan"
-            [(ngModel)]="subledgerObj.PAN_NO"
+            [(ngModel)]="subledgerObj.PAN_NO" (keypress)="keyPress($event)" maxlength="9"
           />
           </div>
         </div>

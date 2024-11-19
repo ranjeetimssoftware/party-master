@@ -168,7 +168,7 @@
               class="form-control px-2 py-1"
               formControlName="VATNo"
               placeholder="Enter VAT Number"
-              [(ngModel)]="partyMasterService.customermasterObj.vatNo"              
+              [(ngModel)]="partyMasterService.customermasterObj.vatNo" (keypress)="keyPress($event)" maxlength="9"            
             />
           </div>
         </div>

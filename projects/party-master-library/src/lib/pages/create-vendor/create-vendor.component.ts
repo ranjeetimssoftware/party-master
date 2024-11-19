@@ -148,4 +148,13 @@ export class CreateVendorComponent {
   goBack() {
     this.router.navigate([this.returnUrl]); // Navigate to the previous route
   }
+
+  keyPress(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode((event as KeyboardEvent).charCode);
+    if (!pattern.test(inputChar)) {
+        // invalid character, prevent input
+        event.preventDefault();
+    }
+}
 }
