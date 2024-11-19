@@ -29,6 +29,7 @@ export class VendorAdditionalInfoComponent {
     });
     this.userSettings = this.partyMasterService.userSettings;
     this.getCategoryList();
+    this.getContractPriceList();
   }
 
   ngOnInit(){
@@ -43,7 +44,7 @@ export class VendorAdditionalInfoComponent {
   }
   getContractPriceList(){
     this.partyMasterService.getContractPriceList().subscribe((res:any) => {
-      this.ContractPriceList = res;
+      this.ContractPriceList = res.result;
     })
   }
   onCheckCustomerAsVendor(event:Event){

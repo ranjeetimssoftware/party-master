@@ -73,7 +73,7 @@ export class MultiSelectGenericGridComponent {
         this.setFilterOption();
         this.refreshPage();
         this.refresh();
-      }, 100);
+      },0);
     }
   }
 

@@ -120,18 +120,6 @@ export class CreateVendorComponent {
       alert('Please Enter Mobile No.');
       return;
     }
-    if (
-      this.userSettings.SalesmanCompulsoryInPartyMaster == 1 &&
-      (this.partyMasterService.customermasterObj.AdditionalInfo
-        .dealingSalesman == '' ||
-        this.partyMasterService.customermasterObj.AdditionalInfo
-          .dealingSalesman == undefined ||
-        this.partyMasterService.customermasterObj.AdditionalInfo
-          .dealingSalesman == null)
-    ) {
-      alert('Please Select Salesman.');
-      return;
-    }
     // if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
     // }
     this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';

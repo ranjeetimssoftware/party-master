@@ -117,7 +117,7 @@ export class AdditionalInfoComponent {
   getContractPriceList(){
     this.partyMasterService.getContractPriceList().subscribe((res:any) => {
       if(res.status == "ok"){
-        this.ContractPriceList = res;
+        this.ContractPriceList = res.result;
       }
     })
   }
