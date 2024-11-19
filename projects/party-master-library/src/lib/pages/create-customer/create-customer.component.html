@@ -303,7 +303,7 @@
     </div>
   </form>
   <mat-tab-group>
-    <mat-tab label="Additional Info" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 
+    <mat-tab label="Additional Info"> 
       <lib-additional-info [additinalInfo]="partyMasterService.customermasterObj.AdditionalInfo" [mode]="mode"></lib-additional-info>
     </mat-tab>
     <mat-tab label="Contact Person" *ngIf="userSettings.AdditionalInfoCompulsoryInPartyMaster == 1"> 

@@ -134,7 +134,7 @@ export class CreateVendorComponent {
         if (res.status == 'ok') {
           this.partyMasterService.openSuccessDialog(res.result);
           this.partyMasterService.reset();
-          this.router.navigate(['/vendor']);
+          this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
           this.partyMasterService.openErrorDialog(res.result);
         }else if(res.status == 400){

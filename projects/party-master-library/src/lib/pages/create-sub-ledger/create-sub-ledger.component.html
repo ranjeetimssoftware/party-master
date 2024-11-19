@@ -95,7 +95,7 @@
           </div>
         </div>
 
-        <div class="row d-flex align-items-center mb-2">
+        <div class="row d-flex align-items-center mb-2" *ngIf="subledgerObj.HASMAINGROUP == 1">
           <div class="col-12 col-md-3">
             <label for="mainLedgerName" class="form-label mr-2"
               >Main Ledger Name<span class="star mx-2">*</span></label
