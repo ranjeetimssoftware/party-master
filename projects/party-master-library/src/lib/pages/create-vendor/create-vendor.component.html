@@ -248,7 +248,7 @@
               class="form-control px-5 py-1 mr-3"
               formControlName="Mobile"
               placeholder="Mobile"
-              [(ngModel)]="partyMasterService.customermasterObj.mobile"              
+              [(ngModel)]="partyMasterService.customermasterObj.mobile" (keypress)="keyPress($event)" maxlength="10"              
             />
 
             <input
@@ -257,7 +257,7 @@
               class="form-control px-5 py-1"
               formControlName="Phone"
               placeholder="Phone"
-              [(ngModel)]="partyMasterService.customermasterObj.phone"              
+              [(ngModel)]="partyMasterService.customermasterObj.phone" (keypress)="keyPress($event)" maxlength="9"             
             />
             <svg
               class="telephone-placeholder-icon"
