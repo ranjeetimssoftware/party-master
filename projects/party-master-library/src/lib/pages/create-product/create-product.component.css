@@ -44,7 +44,7 @@ input::placeholder {
 }
 
 .form-group{
-  margin-bottom: 0.3rem;
+  margin-bottom: 0;
 }
 .form-control:focus,
 .form-select:focus {
