@@ -47,6 +47,10 @@ import { GenericDialogComponent } from './shared/components/generic/generic-dial
 import {MatTreeModule} from '@angular/material/tree';
 import { GenericMenuComponent } from './shared/components/generic/generic-menu/generic-menu.component';
 import { GenericNestedDropdownComponent } from './shared/components/generic/generic-nested-dropdown/generic-nested-dropdown.component';
+import { ProductListComponent } from './pages/productList/productList.component';
+import { CreateProductComponent } from './pages/create-product/create-product.component';
+import { DetailInfoComponent } from './components/detail-info/detail-info.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -76,7 +80,10 @@ import { GenericNestedDropdownComponent } from './shared/components/generic/gene
     DivisionMappingComponent,
     GenericDialogComponent,
     GenericMenuComponent,
-    GenericNestedDropdownComponent
+    GenericNestedDropdownComponent,
+    ProductListComponent,
+    CreateProductComponent,
+    DetailInfoComponent
   ],
   imports: [
     CommonModule,
@@ -102,7 +109,8 @@ import { GenericNestedDropdownComponent } from './shared/components/generic/gene
     MultiSelectGenericGridModule,
     MatDialogModule,
     HttpClientModule,
-    MatTreeModule
+    MatTreeModule,
+    MatExpansionModule
   ],
   exports: [PartyMasterLibraryComponent],
   providers:[SpinnerService]

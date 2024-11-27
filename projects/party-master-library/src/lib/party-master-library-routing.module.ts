@@ -10,14 +10,18 @@ import { CreateVendorComponent } from './pages/create-vendor/create-vendor.compo
 import { CreateLedgerComponent } from './pages/create-ledger/create-ledger.component';
 import { CreateLedgerGroupComponent } from './pages/create-ledger-group/create-ledger-group.component';
 import { CreateSubLedgerComponent } from './pages/create-sub-ledger/create-sub-ledger.component';
+import { ProductListComponent } from './pages/productList/productList.component';
+import { CreateProductComponent } from './pages/create-product/create-product.component';
 
 const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
+  { path: 'product', component: ProductListComponent },
   { path: 'vendor', component: VendorComponent },
   { path: 'general-ledger', component: GeneralLedgerComponent },
   { path: 'ledger-group', component: LedgerGroupComponent },
   { path: 'sub-ledger', component: SubLedgerComponent },
   { path: 'customer/new-customer', component: CreateCustomerComponent },
+  { path: 'product/new-product', component: CreateProductComponent },
   { path: 'vendor/new-vendor', component: CreateVendorComponent },
   { path: 'general-ledger/new-ledger', component: CreateLedgerComponent },
   { path: 'ledger-group/new-ledger-group', component: CreateLedgerGroupComponent },

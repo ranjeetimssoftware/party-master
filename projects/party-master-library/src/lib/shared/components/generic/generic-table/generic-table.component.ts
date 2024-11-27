@@ -115,7 +115,7 @@ export class GenericTableComponent implements OnInit {
         ? ['action']
         : []),
     ];
-    if (this.activeRoute == 'customer') this.getAllCustomers('C');
+    if (this.activeRoute == 'customer' || this.activeRoute == 'product') this.getAllCustomers('C');
     if (this.activeRoute == 'vendor') this.getAllCustomers('V');
     if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
     if(this.activeRoute == 'ledger-group') this.getAllLedgerGroup();
@@ -198,6 +198,10 @@ export class GenericTableComponent implements OnInit {
   }
   navigateToCreateCustomer() {
     this.router.navigate([this.router.url+'/new-customer', { returnUrl: this.router.url }]);
+  }
+  
+  navigateToProductMaster(){
+    this.router.navigate([this.router.url+'/new-product', { returnUrl: this.router.url }]);
   }
 
   onViewClick($event: any) {

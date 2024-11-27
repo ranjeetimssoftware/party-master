@@ -106,7 +106,8 @@ export class CreateCustomerComponent {
     if (
       (this.partyMasterService.customermasterObj.vatNo == '' ||
         this.partyMasterService.customermasterObj.vatNo == undefined ||
-        this.partyMasterService.customermasterObj.vatNo == null) &&
+        this.partyMasterService.customermasterObj.vatNo == null) && this.partyMasterService.customermasterObj.AdditionalInfo
+        .isOverSeasCustomer == 0 &&
       this.userSettings.CompanyType == 'B2B'
     ) {
       alert('Please Enter VAT No.');

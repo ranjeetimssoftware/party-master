@@ -1,0 +1,84 @@
+table {
+    width: 100%;
+  }
+  .table-container {
+    padding: 0 3rem;
+  }
+  
+  tr.mat-header-row{
+    height: 40px;
+  }
+
+  table tr{
+    line-height: 3rem;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f6f6f6f5;
+    padding: 0px;
+  }
+  
+  .mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+    padding-bottom: 0px;
+  }
+  
+  .mat-menu-item {
+    padding: 0px 5px;
+    height: 35px;
+  }
+  
+  .mat-expansion-panel-body {
+    padding: 0;
+  }
+  .input-group .input-group-text {
+    background-color: #f6f6f6;
+    border-radius: 4px;
+  }
+  
+
+  .form-group{
+    margin-bottom: 0.3rem;
+  }
+
+label,
+input[type="select"], select,
+input[type="text"],input[type="number"] {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  height: 1.8rem;
+}
+input::placeholder {
+  color: #acacac;
+  font-size: 14px;
+  font-weight: 400 !important;
+}
+.star {
+  color: red;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+}
+.form-control,
+.form-select {
+  font-size: 14px;
+}
+
+.form-label-header {
+  font-weight: 700;
+  font-size: 16px;
+  color: #4081bf;
+  height: min-content;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1380px;
+    padding-bottom: 5%;
+  }
+}

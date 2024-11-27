@@ -1,0 +1,481 @@
+<div class="container mt-4">
+  <form action="" class="form-group">
+    <div class="row col-10">
+      <div class="col-6">
+        <div class="row form-group">
+          <div class="col-3">
+            <label for="" class="form-label">Description:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-3">
+            <label for="Category" class="form-label">Category:</label>
+          </div>
+          <div class="col-7">
+            <select name="Category" id="Category" class="form-control" aria-label="Default select example">
+              <option selected disabled>--Select Category --</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row form-group">
+          <div class="col-4">
+            <label for="" class="form-label">Short Name:</label>
+          </div>
+          <div class="col-8">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+        <div class="row form-group">
+          <div class="col-4">
+            <label for="" class="form-label">Extra Category:</label>
+          </div>
+          <div class="col-8">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+              <option selected disabled>--Select Extra Category --</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row col-10">
+      <div class="col-6">
+      <label for="purchase-infor" class="form-label-header">Purchase Info</label>
+      <div class="row form-group mt-3"></div>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">Purchase Price:</label>
+        </div>
+        <div class="col-5">
+          <input type="number" min="0" class="form-control" placeholder="">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-3">
+        </div>
+        <div class="col-7">
+          <label for="" class="form-label" style="font-weight: 900;">Landing Price: Rs 30000.00</label>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">Supplier Name:</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select Supplier Name --</option>
+          </select>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">Purchase A/C:</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">P-Return A/C:</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      </div>
+      <div class="col-6">
+        <label for="sales-infor" class="form-label-header">Sales Info</label>
+        <div class="row">
+          <div class="col-4"></div>
+            <label for="including-VAT" class="form-label-header col-4 text-center">Including VAT</label>
+            <label for="Excluding-VAT" class="form-label-header col-4 text-center">Excluding VAT</label>
+          </div>
+          <div class="row form-group">
+            <div class="col-4">
+              <label for="" class="form-label">Sales Price:</label>
+            </div>
+            <div class="col-4">
+              <input type="number" min="0" class="form-control" placeholder="">
+            </div>
+            <div class="col-4">
+              <input type="number" min="0" class="form-control" placeholder="">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-4">
+              <label for="" class="form-label">Whole Sales Price:</label>
+            </div>
+            <div class="col-4">
+              <input type="number" min="0" class="form-control" placeholder="">
+            </div>
+            <div class="col-4">
+              <input type="number" min="0" class="form-control" placeholder="">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-4">
+              <label for="" class="form-label">Label MRP:</label>
+            </div>
+            <div class="col-8">
+              <input type="text" class="form-control" placeholder="">
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-4">
+              <label for="" class="form-label">Sales A/C:</label>
+            </div>
+            <div class="col-8">
+              <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+                <option selected disabled>--Select--</option>
+              </select>
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-4">
+              <label for="" class="form-label">Sales Return A/C:</label>
+            </div>
+            <div class="col-8">
+              <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+                <option selected disabled>--Select--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12" style="padding: 0;">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="form-label-header" style="width: 10%; padding-left: 0;">
+              <mat-panel-title> Options </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="mt-4" style="width: auto;overflow-x: scroll;">
+              <div class="d-flex flex-column flex-wrap" style="height: 15vh;">
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Open Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Non Discounted
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Discontinued Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Expiry Tracked Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Discounted Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Has Batch Wise Pricing
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Has Variant Details
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Has ECS Chareable Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Recurring Billing Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Variable Weight Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Featured Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Service Charge Applicable Item
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Open Item3
+                </div>
+                <div class="form-check col-3 mb-1">
+                  <input type="checkbox" class="form-check-input mr-2">Is Open Item3
+                </div>
+                
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-6">
+        <div class="row form-group">
+          <div class="col-3">
+            <label for="" class="form-label">Item Discontinued For</label>
+          </div>
+          <div class="col-8">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+              <option selected disabled>--Select--</option>
+            </select>
+          </div>
+        </div>
+      </div>    
+    </div>
+    <div class="row">
+      <div class="col-12" style="padding: 0;">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="form-label-header" style="width: 15%; padding-left: 0;">
+              <mat-panel-title> Additional Info </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="mt-4" style="width: auto;overflow-x: scroll;">
+              <div class="d-flex flex-column flex-wrap" style="height: 20vh;">
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>  
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>   
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div> 
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>  
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>   
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div> 
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>  
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>   
+                <div class="form-group row col-4">
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-8">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>                               
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">
+      <label for="purchase-infor" class="form-label-header">Repack Info</label>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">Master Item:</label>
+        </div>
+        <div class="col-5">
+          <input type="text" min="0" class="form-control" placeholder="--Press Enter--">
+        </div>
+      </div>
+      <div class="row form-group">
+        <div class="col-3">
+          <label for="" class="form-label">Factor:</label>
+        </div>
+        <div class="col-5">
+          <input type="number" min="0" class="form-control" placeholder="">
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12" style="padding: 0;">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="form-label-header" style="width: 15%; padding-left: 0;">
+              <mat-panel-title> Item Packing Info:</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row mt-4">
+              <div class="col-6 p-0">
+                <div class="row form-group">
+                  <div class="col-3">
+                    <label for="" class="form-label">Item Weight:</label>
+                  </div>
+                  <div class="col-5">
+                    <input type="text" min="0" class="form-control" placeholder="--Press Enter--">
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-3">
+                    <label for="" class="form-label">Dimension:</label>
+                  </div>
+                  <div class="col-5 d-flex flex-row">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="Length">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="Width">
+                    <input type="number" min="0" class="form-control" placeholder="Breadth">
+                  </div>
+                  <div class="col-4">
+                    (Length X Width X Breadth)
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-3">
+                    <label for="" class="form-label">Total Quantity:</label>
+                  </div>
+                  <div class="col-5">
+                    <input type="number" min="0" class="form-control">
+                  </div>
+                  <div class="col-3">
+                    (Per Box or CLD)
+                  </div>
+                </div>                          
+
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12" style="padding: 0;">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header class="form-label-header" style="width: 15%; padding-left: 0;">
+              <mat-panel-title> Item Extra Info:</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row mt-4">
+              <div class="col-8">
+                <div class="row form-group">
+                  <div class="col-2">
+                    <label for="" class="form-label">Product Material:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="text" min="0" class="form-control">
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">Net Weight:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">Gross Weight:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-2">
+                    <label for="" class="form-label">Product Color:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="text" min="0" class="form-control">
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">CBM:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">FOB Price:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-2">
+                    <label for="" class="form-label">Product Size:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="text" min="0" class="form-control">
+                  </div>
+                  <div class="col-8 border-bottom">
+                    <label for="" class="form-label">Status Setting:</label>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <div class="col-2">
+                    <label for="" class="form-label">Product Dimension:</label>
+                  </div>
+                  <div class="col-2">
+                    <input type="text" min="0" class="form-control">
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">ILM:</label>
+                  </div>
+                  <div class="col-2">
+                    <select name="ILM" id="ILM" class="form-control" aria-label="Default select example">
+                      <option selected disabled>Active</option>
+                    </select>
+                  </div>
+                  <div class="col-2">
+                    <label for="" class="form-label">IFN:</label>
+                  </div>
+                  <div class="col-2">
+                    <select name="IFN" id="IFN" class="form-control" aria-label="Default select example">
+                      <option selected disabled>Active</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+  </form>
+</div>
