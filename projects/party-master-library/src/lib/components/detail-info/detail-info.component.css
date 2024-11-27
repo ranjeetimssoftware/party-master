@@ -37,6 +37,13 @@ table {
     background-color: #f6f6f6;
     border-radius: 4px;
   }
+
+  .in-row-form-control{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+  }
   
 
   .form-group{
