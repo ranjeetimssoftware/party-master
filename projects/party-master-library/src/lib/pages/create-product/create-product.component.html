@@ -10,62 +10,64 @@
 <div class="border-bottom mb-3"></div>
 
 <div class="container scrollable-content">
-  <form [formGroup]="ProductForm" class="form-group" style="padding: 0 3rem;">
-    <div class="row form-group">
-      <div class="col-1">
-        <label for="" class="form-label">Item Name:</label>
+  <form [formGroup]="ProductForm" class="form-group" style="padding: 0 1.5rem;">
+    <div class="row col-8">
+      <div class="row col-12 form-group">
+        <div class="col-2">
+          <label for="" class="form-label">Item Name:</label>
+        </div>
+        <div class="col-8">
+          <input type="text" class="form-control" placeholder="Enter Item Name">
+        </div>
       </div>
-      <div class="col-6">
-        <input type="text" class="form-control" placeholder="Enter Item Name">
+      <div class="row col-12 form-group">
+        <div class="col-2">
+          <label for="" class="form-label">Item Code:</label>
+        </div>
+        <div class="col-5">
+          <input type="text" class="form-control" placeholder="Enter Item Code">
+        </div>
       </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-1">
-        <label for="" class="form-label">Item Code:</label>
+      <div class="row col-12 form-group">
+        <div class="col-2">
+          <label for="" class="form-label">HS Code:</label>
+        </div>
+        <div class="col-5">
+          <input type="text" class="form-control" placeholder="Enter HS Code">
+        </div>
+        <div class="col-2 form-check ml-4">
+          <input type="checkbox" class="form-check-input mr-2">
+          <label for="" class="form-check-label">Is Vatable Item</label>
+        </div>
       </div>
-      <div class="col-4">
-        <input type="text" class="form-control" placeholder="Enter Item Code">
+      <div class="row col-12 form-group">
+        <div class="col-2">
+          <label for="" class="form-label">Item Group:</label>
+        </div>
+        <div class="col-5">
+          <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --">
+        </div>
+        <div class="col-1">
+          <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle</mat-icon>
+        </div>
       </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-1">
-        <label for="" class="form-label">HS Code:</label>
-      </div>
-      <div class="col-4">
-        <input type="text" class="form-control" placeholder="Enter HS Code">
-      </div>
-      <div class="col-2 form-check ml-4">
-        <input type="checkbox" class="form-check-input mr-2">
-        <label for="" class="form-check-label">Is Vatable Item</label>
-      </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-1">
-        <label for="" class="form-label">Item Group:</label>
-      </div>
-      <div class="col-4">
-        <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --">
-      </div>
-      <div class="col-1">
-        <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle</mat-icon>
-      </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-1">
-        <label for="" class="form-label">Stock Unit:</label>
-      </div>
-      <div class="col-4">
-        <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-          <option selected disabled>--Select Unit --</option>
-        </select>
-      </div>
-      <div class="col-1">
-        <label for="" class="form-label">Item Type:</label>
-      </div>
-      <div class="col-3">
-        <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-          <option selected disabled>--Select Item Type --</option>
-        </select>
+      <div class="row col-12 form-group">
+        <div class="col-2">
+          <label for="" class="form-label">Stock Unit:</label>
+        </div>
+        <div class="col-5">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select Unit --</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <label for="" class="form-label">Item Type:</label>
+        </div>
+        <div class="col-3">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select Item Type --</option>
+          </select>
+        </div>
       </div>
     </div>
   </form>

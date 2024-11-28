@@ -9,11 +9,21 @@ import { PartyMasterLibraryService } from '../../party-master-library.service';
   styleUrls: ['./detail-info.component.css'],
 })
 export class DetailInfoComponent implements OnInit {
+  isDiscounted:number=0;
 
   constructor(private partyMasterService:PartyMasterLibraryService) { 
   }
 
   ngOnInit(): void {
+  }
+
+  onCheckOption(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.isDiscounted = 1;
+    }else{
+      this.isDiscounted = 0;
+    }
   }
 
 
