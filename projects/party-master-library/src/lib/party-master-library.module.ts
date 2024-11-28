@@ -16,7 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { ContactPersonComponent } from './components/contact-person/contact-person.component';
 import { MatPaginatorModule} from '@angular/material/paginator';
@@ -51,6 +51,10 @@ import { ProductListComponent } from './pages/productList/productList.component'
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { DetailInfoComponent } from './components/detail-info/detail-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+
+import { AlternateUnitComponent } from './components/alternate-unit/alternate-unit.component';
+import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-mapping.component';
+import { BatchwisePriceLogComponent } from './components/batchwise-price-log/batchwise-price-log.component';
 import { InventoryControlsComponent } from './components/inventory-controls/inventory-controls.component';
 
 
@@ -86,6 +90,9 @@ import { InventoryControlsComponent } from './components/inventory-controls/inve
     ProductListComponent,
     CreateProductComponent,
     DetailInfoComponent,
+    AlternateUnitComponent,
+    BarcodeMappingComponent,
+    BatchwisePriceLogComponent,
     InventoryControlsComponent
   ],
   imports: [
@@ -113,7 +120,7 @@ import { InventoryControlsComponent } from './components/inventory-controls/inve
     MatDialogModule,
     HttpClientModule,
     MatTreeModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [PartyMasterLibraryComponent],
   providers:[SpinnerService]

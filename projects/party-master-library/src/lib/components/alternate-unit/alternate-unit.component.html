@@ -1,0 +1,60 @@
+
+<div class="col-6 m-3">
+  <label for="Alternate-info" class="form-label-header">Alternate Unit Info</label>
+</div>
+<div class="container mt-4">
+  <table class="table  table-bordered" >
+    <thead>
+      <tr>
+        <th rowspan="2" style="width:3rem;" >SN</th>
+        <th rowspan="2" >Alternate Unit</th>
+        <th rowspan="2" >Conversion Factor</th>
+        <th colspan="2" class="text-center" >Sale Price Discount (%)</th>
+        <th colspan="2" class="text-center">Sale Price</th>
+        <th colspan="2" class="text-center">Is Default</th>
+        <th rowspan="2" style="width:5rem;" >Status</th>
+      </tr>
+      <tr>
+        <th class="top-border">Retail Price</th>
+        <th class="top-border">Wholesale Price</th>
+        <th class="top-border">Retail Price</th>
+        <th class="top-border">Wholesale Price</th>
+        <th class="top-border">Retail Price</th>
+        <th class="top-border">Wholesale Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSource">
+        <td>{{ item.sn }}</td>
+        <td><input type="text" placeholder="Press Enter" ></td>
+        <td><input type="text"  ></td>
+        <td><input type="text"  ></td>
+        <td><input type="text"  ></td>
+        <td><input type="text"  ></td>
+        <td><input type="text"  ></td>
+        <td>{{ item.salePrice | currency }}</td>
+        <td>{{ item.isDefault ? 'Yes' : 'No' }}</td>
+        <td>
+          <div class="d-flex align-items-center justify-content-between">
+            <mat-slide-toggle
+              class="custom-toggle"
+              color="primary"
+              [(ngModel)]="item.isDefault"
+            ></mat-slide-toggle>
+            <button type="button" class="btn p-0  remove-Btn">
+              <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
+            </button>
+          </div>
+        </td>
+        
+       
+      </tr>
+    </tbody>
+  </table>
+  <div class="mx-1">
+    <button type="button" class="btn p-0" >
+      <mat-icon  class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle_outline</mat-icon>
+
+    </button>
+  </div>
+</div>
