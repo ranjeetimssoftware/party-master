@@ -51,6 +51,7 @@ import { ProductListComponent } from './pages/productList/productList.component'
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { DetailInfoComponent } from './components/detail-info/detail-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     GenericNestedDropdownComponent,
     ProductListComponent,
     CreateProductComponent,
-    DetailInfoComponent
+    DetailInfoComponent,
+    MultipleRetailPriceComponent
   ],
   imports: [
     CommonModule,
