@@ -285,9 +285,14 @@ export class GenericTableComponent implements OnInit {
     this.onItemClick.emit($event);
   }
 
-  navigateToCreateVendor() {
+  navigateToCreateVendorFromLedger() {
     const routePath = this.pathToNavigate() + 'vendor';
     this.router.navigate([routePath+'/new-vendor', { returnUrl: this.router.url }]);
+  }
+
+  navigateToCreateVendor() {
+    this.router.navigate([this.router.url+'/new-vendor', { returnUrl: this.router.url }]);
+
   }
 
   navigateToCreateGeneralLedger() {
