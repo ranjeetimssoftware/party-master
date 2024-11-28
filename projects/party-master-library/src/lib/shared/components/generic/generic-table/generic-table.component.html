@@ -18,9 +18,8 @@
     <select
       *ngIf="
         activeRoute == 'customer' ||
-        activeRoute == 'vendor' ||
-        activeRoute == 'ledger-group' ||
-        activeRoute == 'sub-ledger' || activeRoute == 'product'
+        activeRoute == 'vendor'
+         || activeRoute == 'product'
       "
       class="form-control p-0"
       (change)="updateSearchOption()"
@@ -39,6 +38,17 @@
       <option value="ACCODE">Accounts Code</option>
       <option value="ACTYPE">Accounts Type</option>
       <option value="PARENTGROUP">Group Name</option>
+    </select>
+    <select *ngIf="activeRoute == 'ledger-group'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="acname">Group Name</option>
+      <option value="actype">Accounts Type</option>
+      <option value="parentacname">Parent Group</option>
+    </select>
+    <select *ngIf="activeRoute == 'sub-ledger'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="SL_ACNAME">Name</option>
+      <option value="mainLedgerName">Main Ledger</option>
     </select>
   </div>
 

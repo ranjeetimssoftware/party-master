@@ -119,8 +119,14 @@ export class GenericTableComponent implements OnInit {
     if (this.activeRoute == 'customer' || this.activeRoute == 'product') this.getAllCustomers('C');
     if (this.activeRoute == 'vendor') this.getAllCustomers('V');
     if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
-    if(this.activeRoute == 'ledger-group') this.getAllLedgerGroup();
-    if(this.activeRoute == 'sub-ledger') this.getAllSubLedger();
+    if(this.activeRoute == 'ledger-group'){
+      this.SearchOption = "acname";
+      this.getAllLedgerGroup();
+    } 
+    if(this.activeRoute == 'sub-ledger'){
+      this.SearchOption = "SL_ACNAME";
+      this.getAllSubLedger();
+    } 
   }
   ngAfterViewInit() {
     if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' || this.activeRoute == 'sub-ledger') {
@@ -191,7 +197,7 @@ export class GenericTableComponent implements OnInit {
 
   search(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();;
-    if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group') {
+    if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group' || this.activeRoute === 'sub-ledger') {
       this.applyFilter(this.chartofAccountDataSource, filterValue);
     } else {
       this.applyFilter(this.customerVendorDataSource, filterValue);
