@@ -48,7 +48,7 @@ export class CreateCustomerComponent {
   }
 
   ngOnInit() {
-    if(this.userSettings.AUTOSUPCODE == 1){
+    if(this.userSettings.AUTOCUSCODE == 1){
       this.customerForm.controls['CustomerCode'].disable();      
     }
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
