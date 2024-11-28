@@ -197,7 +197,8 @@ export class GenericTableComponent implements OnInit {
     }
   }
   navigateToCreateCustomer() {
-    this.router.navigate([this.router.url+'/new-customer', { returnUrl: this.router.url }]);
+    const routePath = this.pathToNavigate() + 'customer';
+    this.router.navigate([routePath+'/new-customer', { returnUrl: this.router.url }]);
   }
   
   navigateToProductMaster(){
@@ -209,18 +210,34 @@ export class GenericTableComponent implements OnInit {
   }
 
   navigateToCreateVendor() {
-    this.router.navigate([this.router.url+'/new-vendor', { returnUrl: this.router.url }]);
+    const routePath = this.pathToNavigate() + 'vendor';
+    this.router.navigate([routePath+'/new-vendor', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateGeneralLedger() {
-    this.router.navigate([this.router.url+'/new-ledger', { returnUrl: this.router.url }]);
+    const routePath = this.pathToNavigate() + 'general-ledger';
+    this.router.navigate([routePath+'/new-ledger', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateLedgerGroup() {
-    this.router.navigate([this.router.url+'/new-ledger-group', { returnUrl: this.router.url }]);
+    const routePath = this.pathToNavigate() + 'ledger-group';
+    this.router.navigate([routePath+'/new-ledger-group', { returnUrl: this.router.url }]);
   }
 
   navigateToCreateSubLedger() {
     this.router.navigate([this.router.url+'/new-sub-ledger', { returnUrl: this.router.url }]);
+  }
+
+  pathToNavigate():string{
+    const currentUrl = this.router.url;
+    const urlSegments = currentUrl.split('/');
+
+    // Extract the last segment
+    const lastSegment = urlSegments[urlSegments.length - 1];
+
+    // Replace the last segment or add a new one
+    const newPath = `${currentUrl.replace(lastSegment, '')}`;
+    return newPath;
+
   }
 }
