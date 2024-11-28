@@ -1,0 +1,67 @@
+<div class="container mt-3">
+<div class="row container  p-0">
+  <div class="col-1 px-1">
+    <label for="Barcode" class="form-label">Barcode:</label>
+  </div>
+  <div class="col-3 px-1 ">
+    <input type="text" class="form-control" placeholder="Enter Item Name">
+  </div>
+
+  <div class="col-1 text-unit">
+    <label for="Unit" class="form-label">Unit:</label>
+  </div>
+  <div class="col-2 p-0">
+   <select class="form-control">
+    <option>
+     -- Select --
+    </option>
+   </select>
+  </div>
+  <div class="col-1">
+    <button class="btn mr-2 px-4" id="map" >Map</button>
+  </div>
+
+
+</div>
+<div class="border-bottom mb-3"></div>
+
+<div class="col-6 m-3 px-1">
+  <label for="Barcode" class="form-label-header">Barcode Info</label>
+</div>
+<div class="table-container mt-3 px-3 mx-1 ">
+  <table class="table table-bordered" >
+    <thead>
+      <tr>
+        <th  style="width:3rem;" >SN</th>
+        <th>Barcode</th>
+        <th>Unit</th>
+        <th>Discontinue</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataSource">
+        <td>{{ item.sn }}</td>
+        <td>463463463</td>
+        <td>346346346346</td>
+        <td><input type="checkbox" ></td>
+        <td><button mat-icon-button  [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"  class="menu-btn">
+          <mat-icon class="mat-icon-small">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu"  >
+          <button  mat-menu-item>
+            <span>Edit</span>
+          </button>
+          <button  mat-menu-item>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+        </td>
+     
+       
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+</div>

@@ -16,7 +16,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { ContactPersonComponent } from './components/contact-person/contact-person.component';
 import { MatPaginatorModule} from '@angular/material/paginator';
@@ -52,6 +52,10 @@ import { CreateProductComponent } from './pages/create-product/create-product.co
 import { DetailInfoComponent } from './components/detail-info/detail-info.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 
+import { AlternateUnitComponent } from './components/alternate-unit/alternate-unit.component';
+import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-mapping.component';
+import { BatchwisePriceLogComponent } from './components/batchwise-price-log/batchwise-price-log.component';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +87,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     GenericNestedDropdownComponent,
     ProductListComponent,
     CreateProductComponent,
-    DetailInfoComponent
+    DetailInfoComponent,
+    AlternateUnitComponent,
+    BarcodeMappingComponent,
+    BatchwisePriceLogComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +117,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatDialogModule,
     HttpClientModule,
     MatTreeModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   exports: [PartyMasterLibraryComponent],
   providers:[SpinnerService]
