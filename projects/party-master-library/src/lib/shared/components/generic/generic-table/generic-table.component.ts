@@ -54,6 +54,17 @@ export class GenericTableComponent implements OnInit {
   activeRoute?: string;
   loading: boolean = false;
   SearchOption:string = 'CUSTNAME';
+  AccountFilterOption:string = 'All Accounts';
+  AccountFilterAccounts:any = [
+    {value:'',Name:'All Accounts'},
+    {value:'1',Name:'Active Accounts'},
+    {value:'0',Name:'Inactive Accounts'},
+    {value:'assets',Name:'Assets Accounts'},
+    {value:'liabilit',Name:'Liability Accounts'},
+    {value:'capital',Name:'Equity Accounts'},
+    {value:'direct income',Name:'Direct Income Accounts'},
+  ]
+  filteredAccounts:any = this.AccountFilterAccounts;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -156,8 +167,17 @@ export class GenericTableComponent implements OnInit {
     this.StatusDropdown.nativeElement.classList.add('show');
   }
 
-  closeStatusDropdown() {
+  closeStatusDropdown(condition:any) {
+    if(condition == 'cancel') return;
+    else{
+      this.AccountFilterOption = condition.Name;
+      this.filterTableByParameter(condition.value);
+    }
     this.StatusDropdown.nativeElement.classList.remove('show');
+  }
+  filterSearchOption(event:Event){
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.filteredAccounts = this.AccountFilterAccounts.filter((x:any) => x.Name.toLowerCase().includes(filterValue));
   }
 
   openLedgerGroupMenuDropdown() {
@@ -196,17 +216,17 @@ export class GenericTableComponent implements OnInit {
   }
 
   search(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();;
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group' || this.activeRoute === 'sub-ledger') {
-      this.applyFilter(this.chartofAccountDataSource, filterValue);
+      this.applyFilter(this.chartofAccountDataSource, filterValue, this.SearchOption);
     } else {
-      this.applyFilter(this.customerVendorDataSource, filterValue);
+      this.applyFilter(this.customerVendorDataSource, filterValue,this.SearchOption);
     }
   }
 
-  applyFilter(dataSource: MatTableDataSource<any>, filterValue: string): void {
+  applyFilter(dataSource: MatTableDataSource<any>, filterValue: string,seacrhOption:string): void {
     dataSource.filterPredicate = (data, filter) => {
-      return data[this.SearchOption]?.toLowerCase().includes(filter);
+      return data[seacrhOption]?.toLowerCase().includes(filter);
     };
     dataSource.filter = filterValue;
   }
@@ -215,6 +235,41 @@ export class GenericTableComponent implements OnInit {
       this.chartofAccountDataSource.filter = ''; // Reset and reapply the filter
     } else {
       this.customerVendorDataSource.filter = '';
+    }
+  }
+
+  filterByOptions(event:Event){
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterTableByParameter(filterValue);
+  }
+
+  filterTableByParameter(filterValue:any){
+    if (this.activeRoute == 'general-ledger') {
+      if(filterValue == '0' || filterValue == '1' || filterValue == ''){
+        this.chartofAccountDataSource.filterPredicate = (data, filter) => {
+          const status = data['STATUS']?.toString().toLowerCase();
+          return status?.includes(filter.toLowerCase());
+        };
+      }else{
+        this.chartofAccountDataSource.filterPredicate = (data, filter) => {
+          return data['PARENTGROUP']?.toLowerCase().includes(filter);
+        };
+      }
+      this.chartofAccountDataSource.filter = filterValue.toString().toLowerCase();
+    }else if(this.activeRoute == 'ledger-group'){
+      this.chartofAccountDataSource.filterPredicate = (data, filter) => {
+        const status = data['ISACTIVE']?.toString().toLowerCase();
+        return status?.includes(filter.toLowerCase());
+      };      
+      this.chartofAccountDataSource.filter = filterValue.toString().toLowerCase();
+    }
+     else {
+      this.customerVendorDataSource.filterPredicate = (data, filter) => {
+        const status = data['STATUS']?.toString().toLowerCase();
+        return status?.includes(filter.toLowerCase());
+      };
+      
+      this.customerVendorDataSource.filter = filterValue.toString().toLowerCase();
     }
   }
   navigateToCreateCustomer() {
