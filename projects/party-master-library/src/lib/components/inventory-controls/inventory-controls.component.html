@@ -1,0 +1,88 @@
+<div class="container">
+<div class="inventory-control-info">Inventory Controls Info:</div>
+<div style="width: 100%; height: 100%; border: 1px #D0D0D0 solid"></div>
+<div class="default-parameter">Default Paramater</div>
+<div class="input-group">
+  <label for="reorderLevel">Re-Order Level:</label>
+  <input type="text" id="reorderLevel" name="reorderLevel">
+  <label for="minStockLevel">Min Stock Level:</label>
+  <input type="text" id="minStockLevel" name="minStockLevel">
+  <label for="maxStockLevel">Max Stock Level:</label>
+  <input type="text" id="maxStockLevel" name="maxStockLevel">
+</div>
+<div class="inventory-header">Inventory Control Action:</div>
+  <div class="checkbox-group">
+  <input type="checkbox" id="myCheckbox" name="option" value="1">
+  <label for="Checkbox">Do Not Issue Stock After Min Stock Level</label>
+  <input type="checkbox" id="myCheckbox" name="option" value="1">
+  <label for="Checkbox">Warn When Stock Reached Re-Order Level</label>
+  <input type="checkbox" id="myCheckbox" name="option" value="1">
+  <label for="Checkbox">Take Zero Stock As Re-Order Level</label>
+  </div>
+  <div class="inventory-header warehouse">Warehoue Inventory Control:</div>
+  <div class="other-checkbox">
+    <input type="checkbox" id="myCheckbox" name="option" value="1"  [(ngModel)]="isTableVisible">
+    <label for="Checkbox">Enable Warehouse Inventory Control Parameter</label>
+  </div>
+ 
+<table *ngIf="isTableVisible" border="1" style="margin-top: 10px; width: 60%; text-align: center;">
+  <thead>
+    <tr style="border: 2px solid #EDEDED;">
+      <th>SN</th>
+      <th>Warehouse</th>
+      <th>Reorder Level</th>
+      <th>Min Level</th>
+      <th>Max Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border: 2px solid #EDEDED;">
+      <td>1</td>
+      <td>Kalimati, Kathmandu</td>
+      <td>200</td>
+      <td>100</td>
+      <td>
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            500
+          </div>
+          <div class="remove-Btn">
+            <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
+          </div>
+        </div>
+      </td>
+      <!-- <button class="table-button"> 
+        <img src="assets/Remove icon.png" alt="" class="close-button">
+      </button> -->
+    </tr>
+    <tr style="border: 2px solid #EDEDED;">
+      <td>2</td>
+      <td>Kalimati, Kathmandu</td>
+      <td>200</td>
+      <td>100</td>
+      <td>
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            500
+          </div>
+          <div class="remove-Btn">
+            <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
+          </div>
+        </div>
+      </td>
+      <!-- <button class="table-button">
+        <img src="assets/Remove icon.png" alt="" class="close-button">
+      </button> -->
+    </tr>
+    <tr style="border: 2px solid #EDEDED;">
+      <td>3</td>
+      <td><input type="text" placeholder="Press Enter" class="press-enter"/></td>
+      <td><input type="text" placeholder="Press Enter" class="press-enter"/></td>
+      <td><input type="text" placeholder="Press Enter" class="press-enter"/></td>
+      <td><input type="text" placeholder="Press Enter" class="press-enter"/>
+    </tr>
+  </tbody>
+</table>
+<mat-icon *ngIf="isTableVisible" class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle_outline</mat-icon>
+</div>
+

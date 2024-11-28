@@ -45,7 +45,7 @@
     <div class="row col-10">
       <div class="col-6">
       <label for="purchase-infor" style="margin-left: -10px;" class="form-label-header">Purchase Info</label>
-      <div class="row form-group mt-3"></div>
+      <div class="row mt-3"></div>
       <div class="row form-group">
         <div class="col-3">
           <label for="" class="form-label">Purchase Price:</label>
@@ -151,6 +151,33 @@
           </div>
         </div>
     </div>
+    <div class="col-2 margin-card shadow rounded">
+      <mat-card class="example-card" appearance="outlined">
+        <div class="row">
+          <div class="col-2">
+            <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <rect width="21" height="21" fill="url(#pattern0_356_3622)"/>
+              <defs>
+              <pattern id="pattern0_356_3622" patternContentUnits="objectBoundingBox" width="1" height="1">
+              <use xlink:href="#image0_356_3622" transform="scale(0.0111111)"/>
+              </pattern>
+              <image id="image0_356_3622" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAACXBIWXMAAAsTAAALEwEAmpwYAAACBElEQVR4nO2cS27bMBRFOWqzhH6yFwH3EpA34F006azqCvsZNV1K4U48UkEgQAoPGlOuSCvvHOBNY+Hk+gognpkSAAAAAAAAAAAAAPyLYRhuJH20/V3Sb9sz4/nRxTfb97vd7vVFKRqG4db2T8T6uXA9FFdLJd8g2TXf3odFyX6sC2rCVQ7uqkWXTka0q4Im6esS0QdEu/YbfVgimtpwvQNEu01wEG1Ez5dIkHSU9Cnn/C6tQPm7kqbyOaETLWlKDSifE1r0OI5vUwOGYXgTWnReqTJOkfQ+tGg1qo6c8+fooo9FNi/DYJNeaqJ9ZYNoI3runUIS7f7iqA73lxqqo7XCWUft+UYU0VPqfL4RQvS44lnHuecbIUTnFc86zj3fCCFaK1bHuecbUUQf//dZBy9D9//Hhk20r2wQbUTPvVNIot1fHNXh/lJDdbTY62gmekoNYK9jZK+jSaIzex0vqzoyex1iryPipFp6P7A3Oog2oufeKSTR7i+O6nB/qaE6Wux1NBM9pZVgr8NPotnraJTozF7H9qsjs9fh05chex3RJtXS+4G90UG0r1c0F6O4TrKkX0tEc9WP21z1c9+777yxkfShWnS5WqxcMdb74b2RkfRjv9+/ShdcMIhsPy+5/DpgkeSTZN+V/uEF6b8FHyR9KXWxOMkAAAAAAAAAAAAAKQx/AEZUh2xiDZZSAAAAAElFTkSuQmCC"/>
+              </defs>
+              </svg>          
+          </div>
+          <div class="col-8">
+            <mat-card-title>Margin</mat-card-title>
+          </div>
+        </div>
+        <mat-card-content>
+          <p>Recommended Margin: 10%</p>
+          <div style="float: inline-end;">
+            <p class="px-3">% on Landing Price</p>
+            <p class="px-3">% on Sales Price</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <div class="row">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
@@ -233,60 +260,62 @@
             <div class="mt-2 px-2" style="width: auto;overflow-x: scroll;">
               <div class="d-flex flex-column flex-wrap" style="height: 15vh;">
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
+                  <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">ECS Rate:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">Item Location:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">KOT Category:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">Menu Category:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">Color Group:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
+                </div>
                 <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
+                  <div class="col-4">
+                    <label for="shelfLife" class="form-label w-100 m-0">Warranty Period:</label>
+                  </div>
+                  <div class="col-7">
                     <input type="text" class="form-control">
                   </div>
-                </div>  
-                <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>  
-                <div class="form-group row col-4">
-                  <div class="in-row-form-control">
-                    <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>  
-                                              
+                  <div class="col-1 pl-0">(Month)</div>
+                </div>
               </div>
             </div>
           </mat-expansion-panel>

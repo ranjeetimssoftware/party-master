@@ -5,19 +5,19 @@
         class="btn w-100 dropdown-toggle d-flex justify-content-between align-items-center"
         type="button"
         data-toggle="dropdown"
-        [class.selected]="selectedItem" [ngClass]="{'disabled':mode == 'view'}" (mouseenter)="openDropdown()"
+        [class.selected]="selectedItem" [ngClass]="{'disabled':mode == 'view'}" (click)="openDropdown()" (mouseleave)="closeDropdown()"
         
       >
         {{ selectedItem || "Select Parent Group" }}
       </button>
-      <ul class="dropdown-menu" #dropdownMenu
+      <ul class="dropdown-menu" #dropdownMenu (mouseenter)="openDropdown()"
   (mouseleave)="closeDropdown()">
         <ng-container *ngFor="let item of menuData">
           <li
             *ngIf="!item.children"
             class="dropdown-item"
             (click)="$event.stopPropagation()"
-            (dblclick)="selectItem(item)"
+            (dblclick)="selectItem(item);closeDropdown();"
           >
             {{ item.acname }}
           </li>
@@ -25,7 +25,7 @@
             <span
               class="dropdown-item d-flex justify-content-between align-items-center"
               (click)="$event.stopPropagation()"
-              (dblclick)="selectItem(item)"
+              (dblclick)="selectItem(item);closeDropdown();"
             >
               {{ item.acname }} <mat-icon>chevron_right</mat-icon>
             </span>
@@ -35,7 +35,7 @@
                   *ngIf="!child.children"
                   class="dropdown-item"
                   (click)="$event.stopPropagation()"
-                  (dblclick)="selectItem(child)"
+                  (dblclick)="selectItem(child);closeDropdown();"
                 >
                   {{ child.acname }}
                 </li>
@@ -43,7 +43,7 @@
                   <span
                     class="dropdown-item d-flex justify-content-between align-items-center"
                     (click)="$event.stopPropagation()"
-                    (dblclick)="selectItem(child)"
+                    (dblclick)="selectItem(child);closeDropdown();"
                   >
                     {{ child.acname }}<mat-icon>chevron_right</mat-icon>
                   </span>
@@ -52,7 +52,7 @@
                       <li
                         class="dropdown-item"
                         (click)="$event.stopPropagation()"
-                        (dblclick)="selectItem(subChild)"
+                        (dblclick)="selectItem(subChild);closeDropdown();"
                       >
                         {{ subChild.acname }}
                       </li>

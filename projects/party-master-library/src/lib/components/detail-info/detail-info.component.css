@@ -47,7 +47,7 @@ table {
   
 
   .form-group{
-    margin-bottom: 0.3rem;
+    margin-bottom: 0;
   }
 
 label,
@@ -81,6 +81,22 @@ input::placeholder {
   font-size: 16px;
   color: #4081bf;
   height: min-content;
+}
+
+.margin-card{
+  position: absolute;
+  top: 30%;
+  right: 3%;
+  font-size: 12px;
+  color: #838383;
+}
+
+.mat-card{
+  padding: 0;
+}
+
+.mat-card-header-text{
+  margin: 0;
 }
 
 @media (min-width: 1200px) {

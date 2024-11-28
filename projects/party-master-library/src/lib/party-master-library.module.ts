@@ -55,6 +55,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { AlternateUnitComponent } from './components/alternate-unit/alternate-unit.component';
 import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-mapping.component';
 import { BatchwisePriceLogComponent } from './components/batchwise-price-log/batchwise-price-log.component';
+import { InventoryControlsComponent } from './components/inventory-controls/inventory-controls.component';
+
 import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
 
 
@@ -92,6 +94,7 @@ import { MultipleRetailPriceComponent } from './components/multiple-retail-price
     AlternateUnitComponent,
     BarcodeMappingComponent,
     BatchwisePriceLogComponent,
+    InventoryControlsComponent,
     MultipleRetailPriceComponent
   ],
   imports: [

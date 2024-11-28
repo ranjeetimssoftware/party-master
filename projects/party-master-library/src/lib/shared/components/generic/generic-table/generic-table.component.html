@@ -8,7 +8,7 @@
       type="text"
       placeholder="Search here....."
       class="search-input"
-      (keyup)="applyFilter($event)"
+      (keyup)="search($event)"
     />
 
     <!-- Divider -->
@@ -18,23 +18,37 @@
     <select
       *ngIf="
         activeRoute == 'customer' ||
-        activeRoute == 'vendor' ||
-        activeRoute == 'ledger-group' ||
-        activeRoute == 'sub-ledger' || activeRoute == 'product'
+        activeRoute == 'vendor'
+         || activeRoute == 'product'
       "
       class="form-control p-0"
+      (change)="updateSearchOption()"
+      [(ngModel)]="SearchOption" 
     >
-      <option value="name">Name</option>
-      <option value="address">Address</option>
-      <option value="contact">Phone</option>
-      <option value="contact">Email</option>
+      <option value="CUSTNAME">Name</option>
+      <option value="ADDRESS">Address</option>
+      <option value="MOBILENO">Contact</option>
+      <option value="EMAIL">Email</option>
+      <option value="PANNO">VAT No</option>
     </select>
 
-    <select *ngIf="activeRoute == 'general-ledger'" class="form-control p-0">
-      <option>Account Name</option>
-      <option>Accounts Code</option>
-      <option>Accounts Type</option>
-      <option>Group Name</option>
+    <select *ngIf="activeRoute == 'general-ledger'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="CUSTNAME">Account Name</option>
+      <option value="ACCODE">Accounts Code</option>
+      <option value="ACTYPE">Accounts Type</option>
+      <option value="PARENTGROUP">Group Name</option>
+    </select>
+    <select *ngIf="activeRoute == 'ledger-group'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="acname">Group Name</option>
+      <option value="actype">Accounts Type</option>
+      <option value="parentacname">Parent Group</option>
+    </select>
+    <select *ngIf="activeRoute == 'sub-ledger'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="SL_ACNAME">Name</option>
+      <option value="mainLedgerName">Main Ledger</option>
     </select>
   </div>
 
@@ -43,10 +57,10 @@
       *ngIf="activeRoute == 'customer' || activeRoute == 'product'"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pr-0 pl-2 mr-5">
-        <option>All Customer</option>
-        <option>Active Customer</option>
-        <option>Inactive Customer</option>
+      <select class="select-dropdown pr-0 pl-2 mr-5" (change)="filterByOptions($event)">
+        <option value="">All Customer</option>
+        <option value="1">Active Customer</option>
+        <option value="0">Inactive Customer</option>
       </select>
     </div>
 
@@ -54,21 +68,21 @@
       *ngIf="activeRoute == 'vendor'"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pr-0 pl-2 mr-5">
-        <option>All Vendor</option>
-        <option>Active Vendor</option>
-        <option>Inactive Vendor</option>
-      </select>
+    <select class="select-dropdown pr-0 pl-2 mr-5" (change)="filterByOptions($event)">
+      <option value="">All Vendor</option>
+      <option value="1">Active Vendor</option>
+      <option value="0">Inactive Vendor</option>
+    </select>
     </div>
 
     <div
       *ngIf="activeRoute == 'ledger-group'"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pr-0 pl-2 mr-5">
-        <option>All Ledger Group</option>
-        <option>Active Ledger Group</option>
-        <option>Inactive Ledger Group</option>
+      <select class="select-dropdown pr-0 pl-2 mr-5" (change)="filterByOptions($event)">
+        <option value="">All Ledger Group</option>
+        <option value="1">Active Ledger Group</option>
+        <option value="0">Inactive Ledger Group</option>
       </select>
     </div>
 
@@ -76,10 +90,10 @@
       *ngIf="activeRoute == 'sub-ledger'"
       class="customer-type d-flex row align-items-center"
     >
-      <select class="select-dropdown pr-0 pl-2 mr-5">
-        <option>All Sub-Ledger</option>
-        <option>Active Sub-Ledger</option>
-        <option>Inactive Sub-Ledger</option>
+      <select class="select-dropdown pr-0 pl-2 mr-5" (change)="filterByOptions($event)">
+        <option value="">All Sub-Ledger</option>
+        <option value="1">Active Sub-Ledger</option>
+        <option value="0">Inactive Sub-Ledger</option>
       </select>
     </div>
 
@@ -89,50 +103,22 @@
         type="button"
         id="accountsDropdown"
         data-bs-toggle="dropdown"
-        aria-expanded="false" (mouseenter)="openStatusDropdown()"
+        aria-expanded="false" (mouseenter)="openStatusDropdown()" (mouseleave)="closeStatusDropdown('cancel')"
       >
-        All Accounts
+        {{AccountFilterOption}}
       </button>
 
-      <ul #StatusDropdown (mouseleave)="closeStatusDropdown()"
+      <ul #StatusDropdown (mouseleave)="closeStatusDropdown('cancel')" (mouseenter)="openStatusDropdown()"
         class="dropdown-menu py-1"
         aria-labelledby="accountsDropdown"
         style="max-height: 160px; overflow-y: auto; overflow-x: hidden"
       >
-        <input type="text" placeholder="Search" class="dropdown-search-form" />
+        <input type="text" placeholder="Search" class="dropdown-search-form" (keyup)="filterSearchOption($event)"/>
 
-        <li>
-          <a class="dropdown-item px-1 py-1">
+        <li *ngFor="let account of filteredAccounts">
+          <a class="dropdown-item px-1 py-1" (click)="closeStatusDropdown(account)">
             <div class="d-flex">
-              <label class="ml-2"> Active Accounts</label>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item px-1 py-1">
-            <div class="d-flex">
-              <label class="ml-2"> Inactive Accounts</label>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item px-1 py-1">
-            <div class="d-flex">
-              <label class="ml-2"> Liability Accounts</label>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item px-1 py-1">
-            <div class="d-flex">
-              <label class="ml-2"> Equity Accounts</label>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item px-1 py-1">
-            <div class="d-flex">
-              <label class="ml-2"> Direct Income Accounts</label>
+              <label class="ml-2"> {{account.Name}}</label>
             </div>
           </a>
         </li>
@@ -146,12 +132,12 @@
         id="optionsDropdown"
         data-bs-toggle="dropdown"
         aria-expanded="false"
-        (mouseenter)="openDropdown()"
+        (mouseenter)="openDropdown()" (mouseleave)="closeDropdown()"
       >
         Options
       </button>
       <ul class="dropdown-menu py-1" aria-labelledby="optionsDropdown" #dropdownMenu 
-        (mouseleave)="closeDropdown()"
+        (mouseleave)="closeDropdown()" (mouseenter)="openDropdown()" (click)="closeDropdown()"
       >
         <li class="dropdown-submenu">
           <a class="dropdown-item p-1">
@@ -254,14 +240,14 @@
         type="button"
         id="createDropdown"
         data-bs-toggle="dropdown"
-        aria-expanded="false" (mouseenter)="openMenuDropdown()"
+        aria-expanded="false" (mouseenter)="openMenuDropdown()" (click)="closeMenuDropdown()"
         
       >
         + &nbsp; Add New
       </button>
 
       <ul class="dropdown-menu py-1" aria-labelledby="createDropdown" #MenuDropdown
-      (mouseleave)="closeMenuDropdown()">
+      (mouseleave)="closeMenuDropdown()" (mouseenter)="openMenuDropdown()" (click)="closeMenuDropdown()">
         <li>
           <a
             class="dropdown-item p-1"

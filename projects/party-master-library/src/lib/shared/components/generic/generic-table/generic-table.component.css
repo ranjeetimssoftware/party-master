@@ -88,7 +88,6 @@ tr:nth-child(even) {
 .form-control {
   border: none;
   outline: none;
-  width: 120px;
 }
 
 .form-control:focus,
