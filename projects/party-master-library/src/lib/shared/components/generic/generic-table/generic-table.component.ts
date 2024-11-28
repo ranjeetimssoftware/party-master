@@ -53,6 +53,7 @@ export class GenericTableComponent implements OnInit {
   chartofAccountDataSource = new MatTableDataSource<any>(Chart_Of_Account_Data);
   activeRoute?: string;
   loading: boolean = false;
+  SearchOption:string = 'CUSTNAME';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -188,12 +189,26 @@ export class GenericTableComponent implements OnInit {
     })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group') {
-      this.chartofAccountDataSource.filter = filterValue.trim().toLowerCase();
+  search(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();;
+    if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group') {
+      this.applyFilter(this.chartofAccountDataSource, filterValue);
     } else {
-      this.customerVendorDataSource.filter = filterValue.trim().toLowerCase();
+      this.applyFilter(this.customerVendorDataSource, filterValue);
+    }
+  }
+
+  applyFilter(dataSource: MatTableDataSource<any>, filterValue: string): void {
+    dataSource.filterPredicate = (data, filter) => {
+      return data[this.SearchOption]?.toLowerCase().includes(filter);
+    };
+    dataSource.filter = filterValue;
+  }
+  updateSearchOption() {
+    if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group') {
+      this.chartofAccountDataSource.filter = ''; // Reset and reapply the filter
+    } else {
+      this.customerVendorDataSource.filter = '';
     }
   }
   navigateToCreateCustomer() {

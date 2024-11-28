@@ -8,7 +8,7 @@
       type="text"
       placeholder="Search here....."
       class="search-input"
-      (keyup)="applyFilter($event)"
+      (keyup)="search($event)"
     />
 
     <!-- Divider -->
@@ -23,18 +23,22 @@
         activeRoute == 'sub-ledger' || activeRoute == 'product'
       "
       class="form-control p-0"
+      (change)="updateSearchOption()"
+      [(ngModel)]="SearchOption" 
     >
-      <option value="name">Name</option>
-      <option value="address">Address</option>
-      <option value="contact">Phone</option>
-      <option value="contact">Email</option>
+      <option value="CUSTNAME">Name</option>
+      <option value="ADDRESS">Address</option>
+      <option value="MOBILENO">Contact</option>
+      <option value="EMAIL">Email</option>
+      <option value="PANNO">VAT No</option>
     </select>
 
-    <select *ngIf="activeRoute == 'general-ledger'" class="form-control p-0">
-      <option>Account Name</option>
-      <option>Accounts Code</option>
-      <option>Accounts Type</option>
-      <option>Group Name</option>
+    <select *ngIf="activeRoute == 'general-ledger'" class="form-control p-0" (change)="updateSearchOption()"
+    [(ngModel)]="SearchOption">
+      <option value="CUSTNAME">Account Name</option>
+      <option value="ACCODE">Accounts Code</option>
+      <option value="ACTYPE">Accounts Type</option>
+      <option value="PARENTGROUP">Group Name</option>
     </select>
   </div>
 
