@@ -81,7 +81,7 @@ export class CreateVendorComponent {
       this.partyMasterService.customermasterObj.customerName == undefined ||
       this.partyMasterService.customermasterObj.customerName == null
     ) {
-      alert('Please Enter Customer Name.');
+      alert('Please Enter Vendor Name.');
       return;
     }
     if (
