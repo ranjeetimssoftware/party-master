@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th{
+    padding: 6px;
+    border: 2px solid #EDEDED;
+  }
+  
+  td{
+    padding: 6px;
+    border: 2px solid #EDEDED;
+  }
+thead{
+    background-color: #FAFAFA;
+  }
+tbody tr:nth-child(odd) {
+    background-color: white;
+  }
+  /* Optional: Set background for even rows (default white) */
+  tbody tr:nth-child(even) {
+    background-color: #F4F4F4;
+  }
+.container{
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 70%;
+}

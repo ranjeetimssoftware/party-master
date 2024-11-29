@@ -1,0 +1,65 @@
+.label {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-right: 10px;
+}
+.select {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 5px;
+  width: 200px;
+}
+.dropdown-container {
+  margin-bottom: 10px;
+}
+label {
+  margin-right: 10px;
+  font-family: Arial, sans-serif;
+}
+select {
+  padding: 5px;
+  font-family: Arial, sans-serif;
+}
+body {
+  font-family: Arial, sans-serif;
+}
+.dropdown-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.dropdown-row label {
+  margin-right: 10px;
+  min-width: 100px;
+}
+.dropdown-row select {
+  padding: 5px;
+  margin-right: 20px;
+  width: 160px;
+  color: #AAAAAA;
+  border-color: #AAAAAA;
+}
+.row-one{
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 29px;
+  display: inline-flex;
+  margin-top: 20px;
+}
+.row-two{
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 29px;
+  display: inline-flex;
+  margin-top: 20px;
+}
+.row-three{
+  align-self: stretch;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 29px;
+  display: inline-flex;
+  margin-top: 20px
+}
