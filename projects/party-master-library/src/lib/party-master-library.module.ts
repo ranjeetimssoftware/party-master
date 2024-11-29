@@ -61,6 +61,7 @@ import { BodyPartListComponent } from './components/body-part-list/body-part-lis
 
 
 
+
 @NgModule({
   declarations: [
     PartyMasterLibraryComponent,
@@ -97,7 +98,7 @@ import { BodyPartListComponent } from './components/body-part-list/body-part-lis
     BatchwisePriceLogComponent,
     InventoryControlsComponent,
     ItemAttributesComponent,
-    BodyPartListComponent
+   BodyPartListComponent
   ],
   imports: [
     CommonModule,
