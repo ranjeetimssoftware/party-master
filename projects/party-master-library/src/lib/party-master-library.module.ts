@@ -56,6 +56,8 @@ import { AlternateUnitComponent } from './components/alternate-unit/alternate-un
 import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-mapping.component';
 import { BatchwisePriceLogComponent } from './components/batchwise-price-log/batchwise-price-log.component';
 import { InventoryControlsComponent } from './components/inventory-controls/inventory-controls.component';
+import { ItemAttributesComponent } from './components/item-attributes/item-attributes.component';
+import { BodyPartListComponent } from './components/body-part-list/body-part-list.component';
 
 
 
@@ -93,7 +95,9 @@ import { InventoryControlsComponent } from './components/inventory-controls/inve
     AlternateUnitComponent,
     BarcodeMappingComponent,
     BatchwisePriceLogComponent,
-    InventoryControlsComponent
+    InventoryControlsComponent,
+    ItemAttributesComponent,
+    BodyPartListComponent
   ],
   imports: [
     CommonModule,
