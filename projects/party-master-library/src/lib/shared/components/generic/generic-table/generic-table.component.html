@@ -103,12 +103,12 @@
         type="button"
         id="accountsDropdown"
         data-bs-toggle="dropdown"
-        aria-expanded="false" (mouseenter)="openStatusDropdown()" (mouseleave)="closeStatusDropdown('cancel')"
+        aria-expanded="false" (mouseenter)="openStatusDropdown()" (mouseleave)="closeStatusDropdown(null)"
       >
         {{AccountFilterOption}}
       </button>
 
-      <ul #StatusDropdown (mouseleave)="closeStatusDropdown('cancel')" (mouseenter)="openStatusDropdown()"
+      <ul #StatusDropdown (mouseleave)="closeStatusDropdown(null)" (mouseenter)="openStatusDropdown()"
         class="dropdown-menu py-1"
         aria-labelledby="accountsDropdown"
         style="max-height: 160px; overflow-y: auto; overflow-x: hidden"

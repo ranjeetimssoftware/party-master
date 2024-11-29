@@ -168,7 +168,9 @@ export class GenericTableComponent implements OnInit {
   }
 
   closeStatusDropdown(condition:any) {
-    if(condition == 'cancel') return;
+    if(condition == null) {
+      this.StatusDropdown.nativeElement.classList.remove('show');
+    }
     else{
       this.AccountFilterOption = condition.Name;
       this.filterTableByParameter(condition.value);
