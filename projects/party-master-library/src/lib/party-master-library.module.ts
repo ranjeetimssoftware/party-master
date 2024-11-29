@@ -57,6 +57,7 @@ import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-ma
 import { BatchwisePriceLogComponent } from './components/batchwise-price-log/batchwise-price-log.component';
 import { InventoryControlsComponent } from './components/inventory-controls/inventory-controls.component';
 
+import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { InventoryControlsComponent } from './components/inventory-controls/inve
     AlternateUnitComponent,
     BarcodeMappingComponent,
     BatchwisePriceLogComponent,
-    InventoryControlsComponent
+    InventoryControlsComponent,
+    MultipleRetailPriceComponent
   ],
   imports: [
     CommonModule,
