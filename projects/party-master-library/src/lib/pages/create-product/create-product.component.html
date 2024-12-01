@@ -46,7 +46,7 @@
             <label for="" class="form-label">Item Group:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --">
+            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close()">
           </div>
           <div class="col-1">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -163,4 +163,59 @@
     </mat-tab>
   </mat-tab-group>
 
+</div>
+<div *ngIf="isGroupSelectionVisible" class="item-group-modal d-flex justify-content-center align-items-center">
+  <div class="d-flex flex-column justify-content-center align-items-baseline shadow rounded" style="width: 30%; background-color: #ffff; position: relative; top: -20%; border-radius: 5%;">
+    <div class="p-2 text-white d-flex flex-row justify-content-between align-items-center" style="background-color: #336799; width: 100%;border-radius: 2%;">
+      <div class="px-2">
+        <label class="mb-0"><b>Item Group Selection</b></label>
+      </div>
+      <mat-icon (click)="close()" class="mat-icon-small" style="cursor: pointer;">cancel</mat-icon>
+    </div>
+    <div style="width: 100%; margin-top: 2%;">
+      <div class="row col-12">
+        <div class="col-4">
+          <label for="" class="form-label">Main Group:</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-12">
+        <div class="col-4">
+          <label for="" class="form-label">Sub Group (A):</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-12">
+        <div class="col-4">
+          <label for="" class="form-label">Sub Group (B):</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-12">
+        <div class="col-4">
+          <label for="" class="form-label">Sub Group (C):</label>
+        </div>
+        <div class="col-8">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <option selected disabled>--Select--</option>
+          </select>
+        </div>
+      </div>
+      <div class="row col-12 justify-content-end my-4">
+        <button class="btn" style="background-color: #336799; color: #ffff;" (click)="close()">Ok</button>
+      </div>
+    </div>
+  </div>
 </div>

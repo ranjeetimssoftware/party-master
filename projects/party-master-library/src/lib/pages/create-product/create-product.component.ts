@@ -20,6 +20,7 @@ export class CreateProductComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
+  isGroupSelectionVisible:boolean = false;
 
   constructor(
     private router: Router,
@@ -59,6 +60,10 @@ export class CreateProductComponent {
         // invalid character, prevent input
         event.preventDefault();
     }
+}
+
+close(){
+  this.isGroupSelectionVisible = !this.isGroupSelectionVisible;
 }
 
 
