@@ -44,7 +44,7 @@ export class CreateVendorComponent {
   }
 
   ngOnInit() {
-    if(this.userSettings.AUTOCUSCODE == 1){
+    if(this.userSettings.AUTOSUPCODE == 1){
       this.vendorForm.controls['VendorCode'].disable();      
     }
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
