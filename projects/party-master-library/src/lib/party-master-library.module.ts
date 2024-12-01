@@ -41,7 +41,6 @@ import { VendorAdditionalInfoComponent } from './components/vendor-additional-in
 import { SpinnerService } from './shared/components/generic/spinner/spinner.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
-import { PartyMasterLibraryService } from './party-master-library.service';
 import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
 import {MatTreeModule} from '@angular/material/tree';

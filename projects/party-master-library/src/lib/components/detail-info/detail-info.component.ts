@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 
@@ -11,19 +11,19 @@ import { PartyMasterLibraryService } from '../../party-master-library.service';
 export class DetailInfoComponent implements OnInit {
   isDiscounted:number=0;
 
-  constructor(private partyMasterService:PartyMasterLibraryService) { 
+  @ViewChild('DiscontinuedItem') DiscontinuedItem!: ElementRef;
+
+
+  constructor(private partyMasterService:PartyMasterLibraryService, private cdr: ChangeDetectorRef) { 
   }
 
   ngOnInit(): void {
   }
 
-  onCheckOption(event:Event){
+  onCheckOption(event: Event) {
     const input = event.target as HTMLInputElement;
-    if(input.checked){
-      this.isDiscounted = 1;
-    }else{
-      this.isDiscounted = 0;
-    }
+    this.isDiscounted = input.checked ? 1 : 0;
+    this.cdr.detectChanges();
   }
 
 

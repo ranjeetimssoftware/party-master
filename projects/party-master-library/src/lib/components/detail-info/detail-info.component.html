@@ -226,21 +226,14 @@
                 </div>
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2">Is Service Charge Applicable Item
-                </div>
-                <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Open Item3
-                </div>
-                <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Open Item3
-                </div>
-                
+                </div>                
               </div>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
       </div>
     </div>
-    <div class="row mt-2" *ngIf="isDiscounted == 1">
+    <ng-container class="row mt-2" *ngIf="isDiscounted">
       <div class="col-6">
         <div class="row form-group">
           <div class="col-3">
@@ -253,7 +246,7 @@
           </div>
         </div>
       </div>    
-    </div>
+    </ng-container>
     <div class="row mt-4">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
