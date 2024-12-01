@@ -160,7 +160,7 @@
 
         <div class="row d-flex align-items-center mb-2 input-div">
           <div class="col-12 col-md-3">
-            <label for="vatNo" class="form-label">VAT No<span class="star mx-2">*</span></label>
+            <label for="vatNo" class="form-label">VAT No<span class="star mx-2"  *ngIf="userSettings.CompanyType == 'B2B'" >*</span></label>
           </div>
           <div class="col-12 col-md-8">
             <input

@@ -55,7 +55,14 @@ export class VendorAdditionalInfoComponent {
       this.additinalInfo.isCommon = 0;
     }
   }
-
+  onIsOverseasCheck(event:Event){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.additinalInfo.isOverSeasCustomer = 1;
+    }else{
+      this.additinalInfo.isOverSeasCustomer = 0;
+    }
+  }
   onCheckContractPrice(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){
