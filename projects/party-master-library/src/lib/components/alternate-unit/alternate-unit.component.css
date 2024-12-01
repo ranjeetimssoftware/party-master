@@ -83,7 +83,7 @@ height: min-content;
 @media (min-width: 1200px) {
 .container {
   max-width: 85vw;
-  padding-bottom: 5%;
+  padding: 0;
   margin-left: 1vw;
 }
 }

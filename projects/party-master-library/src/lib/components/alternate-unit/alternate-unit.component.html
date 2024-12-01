@@ -1,8 +1,8 @@
 
-<div class="col-6 m-3">
+<div class="col-6 my-2">
   <label for="Alternate-info" class="form-label-header">Alternate Unit Info</label>
 </div>
-<div class="container mt-4">
+<div class="container">
   <table class="table  table-bordered" >
     <thead>
       <tr>
@@ -19,42 +19,38 @@
         <th class="top-border">Wholesale Price</th>
         <th class="top-border">Retail Price</th>
         <th class="top-border">Wholesale Price</th>
-        <th class="top-border">Retail Price</th>
-        <th class="top-border">Wholesale Price</th>
+        <th class="top-border">Purchase</th>
+        <th class="top-border">Sales</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let item of dataSource">
         <td>{{ item.sn }}</td>
         <td><input type="text" placeholder="Press Enter" ></td>
-        <td><input type="text"  ></td>
-        <td><input type="text"  ></td>
-        <td><input type="text"  ></td>
-        <td><input type="text"  ></td>
-        <td><input type="text"  ></td>
-        <td>{{ item.salePrice | currency }}</td>
-        <td>{{ item.isDefault ? 'Yes' : 'No' }}</td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td style="text-align: center;"><input type="checkbox"></td>
+        <td style="text-align: center;"><input type="checkbox"></td>
         <td>
-          <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex">
             <mat-slide-toggle
-              class="custom-toggle"
-              color="primary"
-              [(ngModel)]="item.isDefault"
-            ></mat-slide-toggle>
+            class="custom-toggle text-center" style="line-height: 10px;"
+            color="primary"
+          ></mat-slide-toggle>
             <button type="button" class="btn p-0  remove-Btn">
-              <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
             </button>
           </div>
         </td>
         
-       
+        
       </tr>
     </tbody>
   </table>
   <div class="mx-1">
-    <button type="button" class="btn p-0" >
-      <mat-icon  class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle_outline</mat-icon>
-
-    </button>
+    <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle_outline</mat-icon>
   </div>
 </div>

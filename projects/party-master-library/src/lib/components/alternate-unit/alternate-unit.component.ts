@@ -18,16 +18,7 @@ export class AlternateUnitComponent implements OnInit {
       salePrice: 50,
       isDefault: true,
       status: 'Active'
-    },
-    {
-      sn: 2,
-      alternateUnit: 'Piece',
-      conversionFactor: 20,
-      salePriceDiscount: 3,
-      salePrice: 30,
-      isDefault: false,
-      status: 'Inactive'
-    },
+    }
     // Add more data as needed
   ];
   constructor(private partyMasterService:PartyMasterLibraryService) { 

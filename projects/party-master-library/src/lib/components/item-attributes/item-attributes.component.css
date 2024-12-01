@@ -1,24 +1,5 @@
-.label {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  margin-right: 10px;
-}
-.select {
-  font-family: Arial, sans-serif;
-  font-size: 14px;
-  padding: 5px;
-  width: 200px;
-}
 .dropdown-container {
   margin-bottom: 10px;
-}
-label {
-  margin-right: 10px;
-  font-family: Arial, sans-serif;
-}
-select {
-  padding: 5px;
-  font-family: Arial, sans-serif;
 }
 body {
   font-family: Arial, sans-serif;
@@ -45,7 +26,6 @@ body {
   align-items: center;
   gap: 29px;
   display: inline-flex;
-  margin-top: 20px;
 }
 .row-two{
   align-self: stretch;
@@ -53,7 +33,6 @@ body {
   align-items: center;
   gap: 29px;
   display: inline-flex;
-  margin-top: 20px;
 }
 .row-three{
   align-self: stretch;
@@ -61,5 +40,19 @@ body {
   align-items: center;
   gap: 29px;
   display: inline-flex;
-  margin-top: 20px
+}
+label,
+input[type="select"], select,
+input[type="text"],input[type="number"] {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  height: 1.8rem;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1380px;
+    padding-bottom: 5%;
+  }
 }
