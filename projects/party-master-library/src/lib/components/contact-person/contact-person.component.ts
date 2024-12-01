@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 
@@ -29,7 +29,7 @@ export class ContactPersonComponent implements OnInit {
 
   @Input() contactPersonArray:ContactPersonObj[] = [];
   @Input() mode:string='add';
-
+  @ViewChildren('nameInput') nameInputs!: QueryList<ElementRef>;
   constructor(private partyMasterService:PartyMasterLibraryService) { 
     this.partyMasterService.customermasterObj.contactPerson = this.dataSource.data;        
   }
@@ -37,15 +37,24 @@ export class ContactPersonComponent implements OnInit {
   ngOnInit(): void {
   
   }
+  focusOn(i: any){
 
+    this.onAddContact()
+  }
   addNewRow():ContactPersonObj{
     let newRow: ContactPersonObj = { name: '', contact: '', designation: '', email: '' };
     return newRow;
   }
 
-  onAddContact(){
+  onAddContact() {
+   let i = this.contactPersonArray.length
+   console.log(this.newRow.name)
+   if (this.newRow.name && this.newRow.contact) {
     this.contactPersonArray.push(this.newRow);
-    this.newRow = this.addNewRow();
+    this.newRow = this.addNewRow(); 
+  } else {
+    alert('Name or contact is empty ');
+  }
   }
   onRemoveContact(i:number){
     this.contactPersonArray.splice(i,1);

@@ -30,6 +30,7 @@ export class CreateCustomerComponent {
   ) {
     this.partyMasterService.reset();
     this.userSettings = this.partyMasterService.userSettings;
+    console.log("User Setting", this.userSettings)
     this.customerForm = this.fb.group({
       CustomerCode: ['', Validators.required],
       CustomerName: ['', Validators.required],
@@ -119,7 +120,7 @@ export class CreateCustomerComponent {
       this.partyMasterService.customermasterObj.AdditionalInfo
         .isOverSeasCustomer == 0
     ) {
-      if (this.partyMasterService.customermasterObj.vatNo.length < 9) {
+      if (this.partyMasterService.customermasterObj.vatNo.length != 9) {
         alert('VAT no. must be of 9 digits.');
         return;
       }

@@ -107,7 +107,7 @@ export class CreateVendorComponent {
       this.partyMasterService.customermasterObj.AdditionalInfo
         .isOverSeasCustomer == 0
     ) {
-      if (this.partyMasterService.customermasterObj.vatNo.length == 9) {
+      if (this.partyMasterService.customermasterObj.vatNo.length != 9) {
         alert('VAT no. must be of 9 digits.');
         return;
       }

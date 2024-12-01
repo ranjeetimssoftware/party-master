@@ -68,13 +68,13 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2">
+    <div class="row mt-3 mb-2"  *ngIf="userSettings.EnableCustomerLocationInfo  == 1">
       <label for="credit-location" class="form-label-header">
         Customer Location
       </label>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2"  *ngIf="userSettings.EnableCustomerLocationInfo  == 1">
       <div class="col-12 col-md-2">
         <label for="area" class="form-label">Area</label>
       </div>
@@ -91,7 +91,7 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2"  *ngIf="userSettings.EnableCustomerLocationInfo  == 1" >
       <div class="col-12 col-md-2">
         <label for="province" class="form-label">Province</label>
       </div>
@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2">
+    <div class="row d-flex align-items-center mt-3 mb-2"  *ngIf="userSettings.EnableCustomerLocationInfo  == 1">
       <div class="col-12 col-md-2">
         <label for="district" class="form-label">District</label>
       </div>
