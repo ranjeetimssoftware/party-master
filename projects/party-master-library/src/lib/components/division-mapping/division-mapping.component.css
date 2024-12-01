@@ -93,9 +93,24 @@
   table {
     width: 100%;
   }
-  tr:nth-child(even) {
-    background-color: #f6f6f6f5;
-    padding: 0px;
+  table thead{
+    background-color: #EDEDED;
+  }
+
+  table thead th {
+    padding: 2%;
+    border: 2px solid #EDEDED;
+  }
+  table tbody td{
+    padding: 2%;
+    border: 2px solid #EDEDED;
+  }
+  tbody tr:nth-child(odd) {
+    background-color: white;
+  }
+  /* Optional: Set background for even rows (default white) */
+  tbody tr:nth-child(even) {
+    background-color: #F4F4F4;
   }
   
   th.mat-header-cell:first-of-type,

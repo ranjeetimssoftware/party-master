@@ -1,10 +1,12 @@
 <div class="row d-flex align-items-center my-4 col-md-8">
     <div class="col-12 col-md-3">
-      <label for="branches" class="form-label mr-2">Division</label>
+      <label *ngIf="activeRoute != 'product'" for="branches" class="form-label mr-2">Division</label>
+      <label *ngIf="activeRoute == 'product'" for="branches" class="form-label mr-2">Branch</label>
     </div>
     <div class="col-11 col-md-5 d-flex">
       <button mat-button (click)="openDialog()" id="save" class="w-100">
-        <span>Select Division</span>
+        <span *ngIf="activeRoute != 'product'">Select Division</span>
+        <span *ngIf="activeRoute == 'product'">Select Branch</span>
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
@@ -13,16 +15,19 @@
         type="checkbox"
         formControlName="AllBranches"
         class="mr-2"
-      />Is Applicable for all Divisions
+      />
+      <span *ngIf="activeRoute != 'product'">Is Applicable for all Divisions</span>
+      <span *ngIf="activeRoute == 'product'">Is Applicable for all Branches</span>
     </div>
   </div>
   
   <!-- Branch Name Table -->
   <div class="table-container col-md-6 mt-3">
     <table>
-      <thead class="border-bottom">
+      <thead>
         <th>SN</th>
-        <th>Division Name</th>
+        <th *ngIf="activeRoute != 'product'">Division Name</th>
+        <th *ngIf="activeRoute == 'product'">Branch Name</th>
         <th *ngIf="mode != 'view'">Action</th>
       </thead>
       <tbody>
@@ -43,7 +48,8 @@
       <div
         class="d-flex justify-content-between align-items-center border-bottom px-4"
       >
-        <p class="popup-header">Select Division</p>
+        <p *ngIf="activeRoute != 'product'" class="popup-header">Select Division</p>
+        <p *ngIf="activeRoute == 'product'" class="popup-header">Select Branch</p>
         <button class="close-button" (click)="close('close')">&times;</button>
       </div>
   

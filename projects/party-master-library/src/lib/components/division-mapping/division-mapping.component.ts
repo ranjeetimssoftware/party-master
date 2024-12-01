@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -21,13 +21,15 @@ export class DivisionMappingComponent {
   selectedAccount: string | null = null;
   filteredDivisionList:any[]=[];
   @Input() DivisionList:Division[]=[];  
+  activeRoute?:string;
   @Input() divList!:any[];
   @Input() mode:string = 'add';
-  constructor(private router: Router, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.displayedColumns = ['sn', 'branch', 'action'];
   }
 
   ngOnInit(){
+    this.activeRoute = this.route.snapshot.url[0].path;;
     this.getDivisionList();
   }
 
