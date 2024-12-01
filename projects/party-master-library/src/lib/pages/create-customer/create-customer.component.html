@@ -280,16 +280,18 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3 d-flex flex-column justify-content-between">
-        <mat-card class="example-card" appearance="outlined"  *ngIf="mode=='View' || mode == 'Edit'">
-          <mat-card-header>
-            <mat-card-title>Balance Amount</mat-card-title>
-            <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
-          </mat-card-header>
-          <mat-card-content>
-            <p class="px-3"><b>Rs 25000</b></p>
-          </mat-card-content>
-        </mat-card>
+      <div class="col-md-3 d-flex flex-column justify-content-end">
+        <div>
+          <mat-card class="example-card" appearance="outlined"  *ngIf="mode=='View' || mode == 'Edit'">
+            <mat-card-header>
+              <mat-card-title>Balance Amount</mat-card-title>
+              <mat-icon class="mat-icon-small">remove_red_eye </mat-icon>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="px-3"><b>Rs 25000</b></p>
+            </mat-card-content>
+          </mat-card>
+        </div>
         <div *ngIf="userSettings.CompanyType == 'B2C'">
           <input
             type="checkbox"
