@@ -28,7 +28,11 @@ tr:nth-child(even) {
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
   cursor: pointer;
-  padding-bottom: 0px;
+  padding: 5px;
+}
+
+th.mat-header-cell, td.mat-cell{
+  padding: 0 10px;
 }
 
 .mat-menu-item {

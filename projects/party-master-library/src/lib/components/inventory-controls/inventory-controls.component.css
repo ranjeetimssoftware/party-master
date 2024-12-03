@@ -70,14 +70,12 @@
   padding-top: 10px;
 }
 .press-enter{
-  color: #7A7A7A;
   font-size: 14px;
   font-weight: 400;
   word-wrap: break-word;
   text-align: center;
   border: 2px solid #EDEDED;
   width: 95%;
-  background-color: #EDEDED ;
   border-radius: 4px;
 }
 thead{

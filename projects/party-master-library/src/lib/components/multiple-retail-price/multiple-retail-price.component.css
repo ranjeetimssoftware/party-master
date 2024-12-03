@@ -24,6 +24,11 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
   background-color: #F4F4F4;
 }
+
+.remove-Btn{
+  position: relative;
+  left: 3rem;
+}
   .switch {
     display: grid;
     border-radius: 19px;
@@ -59,14 +64,12 @@ tbody tr:nth-child(even) {
     transform: translateX(20px);
   }
   .press-enter{
-    color: #7A7A7A;
     font-size: 14px;
     font-weight: 400;
     word-wrap: break-word;
     text-align: center;
     border: 2px solid #EDEDED;
     width: 95%;
-    background-color: #EDEDED ;
     border-radius: 4px;
   }
   .headers{

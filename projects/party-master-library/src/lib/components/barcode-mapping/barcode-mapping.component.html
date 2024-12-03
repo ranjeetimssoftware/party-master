@@ -4,21 +4,21 @@
     <label for="Barcode" class="form-label">Barcode:</label>
   </div>
   <div class="col-3 px-1 ">
-    <input type="text" class="form-control" placeholder="Enter Item Name">
+    <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="PBarCode.BCODE">
   </div>
 
   <div class="col-1 text-unit">
     <label for="Unit" class="form-label">Unit:</label>
   </div>
   <div class="col-2 p-0">
-   <select class="form-control">
+   <select class="form-control" [(ngModel)]="PBarCode.UNIT">
     <option>
      -- Select --
     </option>
    </select>
   </div>
   <div class="col-1">
-    <button class="btn mr-2 px-4" id="map" >Map</button>
+    <button class="btn mr-2 px-4" id="map" (click)="addBarcode()">Map</button>
   </div>
 
 
@@ -28,7 +28,7 @@
 <div class="col-6 m-3 px-1">
   <label for="Barcode" class="form-label-header">Barcode Info</label>
 </div>
-<div class="table-container mt-3 px-3 mx-1 ">
+<div class="table-container mt-1 px-3 mx-1 ">
   <table class="table table-bordered" >
     <thead>
       <tr>
@@ -40,22 +40,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of dataSource">
-        <td>{{ item.sn }}</td>
-        <td>463463463</td>
-        <td>346346346346</td>
-        <td><input type="checkbox" ></td>
-        <td><button mat-icon-button  aria-label="Example icon-button with a menu"  class="menu-btn">
-          <!-- <mat-icon class="mat-icon-small">more_vert</mat-icon> -->
-        </button>
-        <!-- <mat-menu #menu="matMenu"  >
-          <button  mat-menu-item>
-            <span>Edit</span>
-          </button>
-          <button  mat-menu-item>
-            <span>Delete</span>
-          </button>
-        </mat-menu> -->
+      <tr *ngFor="let b of this.PBarCodeCollection;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{b.BCODE}}</td>
+        <td>{{b.UNIT}}</td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="b.DISCONTINUE"></td>
+        <td>
+        <button
+        mat-icon-button
+        style="border: none; background-color: transparent"
+      >
+        <mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editBarcode(i)">Edit</button>
+        <button mat-menu-item (click)="removeBarcode(i)">Remove</button>
+      </mat-menu>
         </td>
      
        

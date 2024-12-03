@@ -29,8 +29,8 @@ export class DivisionMappingComponent {
   }
 
   ngOnInit(){
-    this.activeRoute = this.route.snapshot.url[0].path;;
-    this.getDivisionList();
+    this.activeRoute = this.route.snapshot.url[0].path;
+    if(this.activeRoute != 'product') this.getDivisionList();
   }
 
   openDialog() {

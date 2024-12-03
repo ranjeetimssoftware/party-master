@@ -1,12 +1,13 @@
 table {
-  max-width: 100%;
+
   table-layout: fixed;
+}
+
+.table-container {
+  max-width: 60vw;
 }
 .table tr:nth-child(even) {
   background-color: #FAFAFA;
-}
-.table-container {
-  padding: 0 3rem;
 }
 
 .table th{
@@ -17,7 +18,7 @@ table {
   border-left:solid 1px #97969644;
 }
 tr td{
-  padding: 8px
+  padding: 5px
 }
 .sub-header{
   min-width: 50px;
@@ -28,27 +29,37 @@ tr td{
   border-radius: 4px;
 }
 
+.remove-Btn{
+  position: relative;
+  left: 3rem;
+}
+
 
 .form-group{
   margin-bottom: 0.3rem;
 }
 
-label,
+label{
+  font-family: "Inter", sans-serif;
+font-weight: 500;
+font-size: 14px;
+height: 1.8rem;
+}
 input[type="select"], select,
 input[type="text"],input[type="number"] {
 font-family: "Inter", sans-serif;
 font-weight: 500;
 font-size: 14px;
 height: 1.8rem;
-border-radius: 3px;
-width: 90%;
-border: solid 1px gainsboro;
+}
+input[type="checkbox"] {
+  width: 18px; 
+  height: 18px;
 }
 input::placeholder {
 color: #acacac;
 font-size: 14px;
 font-weight: 400 !important;
-text-align: center;
 }
 .star {
 color: red;
@@ -71,18 +82,23 @@ font-size: 16px;
 color: #4081bf;
 height: min-content;
 }
-.remove-Btn{
-  position: relative;
-  left: 1.8rem;
-  margin-left: 1rem;
+#map {
+  background-color: #336799;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
 }
-.table .top-border{
-  border-top: solid 1px #97969644; ;
+.text-unit{
+padding-left:  1.2rem;
+}
+.menu-btn{
+  background-color: transparent ;
+  border: none;
 }
 @media (min-width: 1200px) {
 .container {
-  max-width: 85vw;
-  padding: 0;
+  max-width: 88vw;
+  padding-bottom: 5%;
   margin-left: 1vw;
 }
 }
