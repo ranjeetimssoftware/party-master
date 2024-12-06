@@ -3,7 +3,7 @@
     <h5 class="mb-0 heading">New Product <span>[{{mode}}]</span></h5>
   </div>
   <div class="pe-5 col-md-6 d-flex justify-content-end">
-    <button class="btn mr-2 px-4" id="save" [disabled]="mode == 'view'">SAVE</button>
+    <button class="btn mr-2 px-4" id="save" [disabled]="mode == 'view'" (click)="onSubmit()">SAVE</button>
     <button class="btn px-4" id="back" mat-button (click)="goBack()">BACK</button>
   </div>
 </div>
@@ -26,7 +26,7 @@
             <label for="" class="form-label">Item Code:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]=" productObj.MENUCODE">
+            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]="productObj.MENUCODE" [readonly]="userSetting.MANUALCODE == 0">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -37,7 +37,7 @@
             <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode">
           </div>
           <div class="col-2 form-check ml-4">
-            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT">
+            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)">
             <label for="" class="form-check-label">Is Vatable Item</label>
           </div>
         </div>
@@ -46,13 +46,15 @@
             <label for="" class="form-label">Item Group:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close()" [(ngModel)]=" productObj.MgroupName">
+            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close('cancel')" [(ngModel)]=" productObj.MgroupName" (keydown)="preventInput($event)">
           </div>
           <div class="col-1">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9.625 13.0625C9.48907 13.0624 9.35621 13.0221 9.24321 12.9465C9.13021 12.871 9.04214 12.7636 8.99013 12.6381C8.93812 12.5125 8.92451 12.3743 8.95101 12.241C8.97751 12.1076 9.04294 11.9852 9.13902 11.889L15.9255 5.10254C15.5743 4.91184 15.1809 4.81213 14.7812 4.8125H4.46875C3.83078 4.81318 3.21914 5.06692 2.76803 5.51803C2.31692 5.96914 2.06318 6.58078 2.0625 7.21875V17.5313C2.06318 18.1692 2.31692 18.7809 2.76803 19.232C3.21914 19.6831 3.83078 19.9368 4.46875 19.9375H14.7812C15.4192 19.9368 16.0309 19.6831 16.482 19.232C16.9331 18.7809 17.1868 18.1692 17.1875 17.5313V7.21875C17.1879 6.8191 17.0882 6.42571 16.8975 6.07449L10.111 12.861C10.0473 12.925 9.97155 12.9757 9.88814 13.0103C9.80473 13.0449 9.7153 13.0626 9.625 13.0625Z" fill="black"/>
-              <path d="M19.25 2.0625H14.4375C14.2552 2.0625 14.0803 2.13493 13.9514 2.26386C13.8224 2.3928 13.75 2.56766 13.75 2.75C13.75 2.93234 13.8224 3.1072 13.9514 3.23614C14.0803 3.36507 14.2552 3.4375 14.4375 3.4375H17.5901L15.9255 5.10254C16.3366 5.32583 16.6742 5.66342 16.8975 6.07449L18.5625 4.40988V7.5625C18.5625 7.74484 18.6349 7.9197 18.7639 8.04864C18.8928 8.17757 19.0677 8.25 19.25 8.25C19.4323 8.25 19.6072 8.17757 19.7361 8.04864C19.8651 7.9197 19.9375 7.74484 19.9375 7.5625V2.75C19.9375 2.56766 19.8651 2.3928 19.7361 2.26386C19.6072 2.13493 19.4323 2.0625 19.25 2.0625Z" fill="black"/>
-              </svg>              
+            <button (click)="close('cancel')" style="border: none;">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.625 13.0625C9.48907 13.0624 9.35621 13.0221 9.24321 12.9465C9.13021 12.871 9.04214 12.7636 8.99013 12.6381C8.93812 12.5125 8.92451 12.3743 8.95101 12.241C8.97751 12.1076 9.04294 11.9852 9.13902 11.889L15.9255 5.10254C15.5743 4.91184 15.1809 4.81213 14.7812 4.8125H4.46875C3.83078 4.81318 3.21914 5.06692 2.76803 5.51803C2.31692 5.96914 2.06318 6.58078 2.0625 7.21875V17.5313C2.06318 18.1692 2.31692 18.7809 2.76803 19.232C3.21914 19.6831 3.83078 19.9368 4.46875 19.9375H14.7812C15.4192 19.9368 16.0309 19.6831 16.482 19.232C16.9331 18.7809 17.1868 18.1692 17.1875 17.5313V7.21875C17.1879 6.8191 17.0882 6.42571 16.8975 6.07449L10.111 12.861C10.0473 12.925 9.97155 12.9757 9.88814 13.0103C9.80473 13.0449 9.7153 13.0626 9.625 13.0625Z" fill="black"/>
+                <path d="M19.25 2.0625H14.4375C14.2552 2.0625 14.0803 2.13493 13.9514 2.26386C13.8224 2.3928 13.75 2.56766 13.75 2.75C13.75 2.93234 13.8224 3.1072 13.9514 3.23614C14.0803 3.36507 14.2552 3.4375 14.4375 3.4375H17.5901L15.9255 5.10254C16.3366 5.32583 16.6742 5.66342 16.8975 6.07449L18.5625 4.40988V7.5625C18.5625 7.74484 18.6349 7.9197 18.7639 8.04864C18.8928 8.17757 19.0677 8.25 19.25 8.25C19.4323 8.25 19.6072 8.17757 19.7361 8.04864C19.8651 7.9197 19.9375 7.74484 19.9375 7.5625V2.75C19.9375 2.56766 19.8651 2.3928 19.7361 2.26386C19.6072 2.13493 19.4323 2.0625 19.25 2.0625Z" fill="black"/>
+                </svg>           
+            </button>
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -76,7 +78,7 @@
       </div>
       <div class="col-4">
         <div class="row">
-          <div class="col-4 shadow rounded mr-4" style="height: 35%;">
+          <div class="col-4 shadow rounded mr-4" style="height: 35%;" *ngIf="userSetting.ShowStockInProductMaster == 1">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
                 <div class="col-3 p-0">
@@ -100,7 +102,7 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="col-4 shadow rounded" style="height: 35%;">
+          <div class="col-4 shadow rounded" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
                 <div class="col-3 p-0">
@@ -141,7 +143,7 @@
       <lib-inventory-controls></lib-inventory-controls>
     </mat-tab>
     <mat-tab label="Barcode Mapping"> 
-      <lib-barcode-mapping></lib-barcode-mapping>
+      <lib-barcode-mapping [PBarCodeCollection]="PBarCodeCollection"></lib-barcode-mapping>
     </mat-tab>
     <mat-tab label="Branch Mapping">
       <lib-division-mapping></lib-division-mapping>
@@ -173,7 +175,7 @@
       <div class="px-2">
         <label class="mb-0"><b>Item Group Selection</b></label>
       </div>
-      <mat-icon (click)="close()" class="mat-icon-small" style="cursor: pointer;">cancel</mat-icon>
+      <mat-icon (click)="close('cancel')" class="mat-icon-small" style="cursor: pointer;">cancel</mat-icon>
     </div>
     <div style="width: 100%; margin-top: 2%;">
       <div class="row col-12">
@@ -181,45 +183,58 @@
           <label for="" class="form-label">Main Group:</label>
         </div>
         <div class="col-8">
-          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="MajorGroup" (change)="filterSubGroup()">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="groupSelectObj.MGROUP"
+          [ngModelOptions]="{standalone: true}" (change)="getSubGroupA($event)">
             <option selected>--Select--</option>
-            <option [value]="group.menucode" *ngFor="let group of GroupTree">{{group.name}}</option>
+            <option *ngFor="let main of mainGroupList;let i=index" [value]="main.MCODE">
+              {{main?.DESCA}}</option>
           </select>
         </div>
       </div>
-      <div class="row col-12">
+      <div class="row col-12" [hidden]="disabledSubgroupA">
         <div class="col-4">
           <label for="" class="form-label">Sub Group (A):</label>
         </div>
         <div class="col-8">
-          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="groupSelectObj.SUBGROUP_A"
+          [ngModelOptions]="{standalone:true}" [disabled]="disabledSubgroupA"
+          (change)="getSubGroupB($event)">
             <option selected disabled>--Select--</option>
-            <option [value]="sub.menucode" *ngFor="let sub of SubGroupTree">{{sub.name}}</option>
+            <option *ngFor="let sub of subGroupAList;let i=index" [value]="sub.MCODE">
+              {{sub?.DESCA}}</option>
           </select>
         </div>
       </div>
-      <div class="row col-12">
+      <div class="row col-12" [hidden]="disabledSubgroupB">
         <div class="col-4">
           <label for="" class="form-label">Sub Group (B):</label>
         </div>
         <div class="col-8">
-          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="groupSelectObj.SUBGROUP_B"
+          [ngModelOptions]="{standalone:true}" [disabled]="disabledSubgroupB"
+          (change)="getSubGroupC($event)">
             <option selected disabled>--Select--</option>
+            <option *ngFor="let sub of subGroupBList; let i=index" [value]="sub.MCODE">
+              {{sub?.DESCA}}</option>
           </select>
         </div>
       </div>
-      <div class="row col-12">
+      <div class="row col-12" [hidden]="disabledSubgroupC">
         <div class="col-4">
           <label for="" class="form-label">Sub Group (C):</label>
         </div>
         <div class="col-8">
-          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="groupSelectObj.SUBGROUP_C"
+          [ngModelOptions]="{standalone:true}" [disabled]="disabledSubgroupC"
+          (change)="selectedSubGroupC($event)">
             <option selected disabled>--Select--</option>
+            <option *ngFor="let sub of subGroupCList; let i = index" [value]="sub.MCODE">
+              {{sub?.DESCA}}</option>
           </select>
         </div>
       </div>
       <div class="row col-12 justify-content-end my-4">
-        <button class="btn" style="background-color: #336799; color: #ffff;" (click)="close()">Ok</button>
+        <button class="btn" style="background-color: #336799; color: #ffff;" (click)="close('ok')">Ok</button>
       </div>
     </div>
   </div>

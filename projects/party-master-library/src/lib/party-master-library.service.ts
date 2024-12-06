@@ -46,6 +46,7 @@ export class PartyMasterLibraryService {
 
    openSuccessDialog(Message:string) {
     this.dialog.open(GenericDialogComponent, {
+      minWidth:'25rem',
       data:{
         Title: "Information",
         Message: Message
@@ -54,6 +55,7 @@ export class PartyMasterLibraryService {
   }
   openErrorDialog(Message:string) {
     this.dialog.open(GenericDialogComponent, {
+      minWidth:'25rem',
       data:{
         Title: "Error",
         Message: Message

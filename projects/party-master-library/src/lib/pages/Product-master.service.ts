@@ -5,6 +5,8 @@ import { Brand, Model, MultiStockLevel, Product, ProductGroup, TBarcode } from "
 import { Observable, of, Subject } from "rxjs";
 import { first, map } from 'rxjs/operators';
 import { ConfigService } from "../config.service";
+import { MatDialog } from "@angular/material/dialog";
+import { GenericDialogComponent } from "../shared/components/generic/generic-dialog/generic-dialog.component";
 
 @Injectable({
     providedIn: 'root',
@@ -24,7 +26,6 @@ export class ProductMasterService {
   treeID:any;
   sortProduct:any;
   sortProductGrp:any;
-  groupSelectObj: ProductGroup = <ProductGroup>{};
   selectedGroupMenucode!: string;
   userProfile: any = <any>{};
   activepathurl: any;
@@ -33,7 +34,7 @@ export class ProductMasterService {
 
   
   constructor(private http: HttpClient,
-    public arouter: ActivatedRoute,private configService: ConfigService
+    public arouter: ActivatedRoute,private configService: ConfigService, public dialog: MatDialog,
     )
     {
       let settings:any = localStorage.getItem('setting');
@@ -48,6 +49,25 @@ export class ProductMasterService {
        if (!!url && url.length > 0) { apiUrl = url };
        return apiUrl
      }
+
+     openSuccessDialog(Message:string) {
+      this.dialog.open(GenericDialogComponent, {
+        minWidth:'25rem',
+        data:{
+          Title: "Information",
+          Message: Message
+        }
+      });
+    }
+    openErrorDialog(Message:string) {
+      this.dialog.open(GenericDialogComponent, {
+        minWidth:'25rem',
+        data:{
+          Title: "Error",
+          Message: Message
+        }
+      });
+    }
   getParentWiseProduct(BrandName: string) {
     return this.http.get(this.apiUrl + '/getParentWiseProduct/' + BrandName);
   }
@@ -133,6 +153,63 @@ export class ProductMasterService {
     return this.http
       .get<any[]>(this.apiUrl + '/getLocationList')
 
+  }
+
+  public saveProduct(
+    mode: string,
+    prodObj: any,
+    RGLIST?: any[],
+    AlternateUnits?: any[],
+    PBarCodeCollection?: any[],
+    BrandModelList?: any[],
+    PMultipleRetailPrice?: any[],
+    menuItemYields?: any[]
+  ) {
+    let res = { status: 'error', result: '' };
+    let returnSubject: Subject<any> = new Subject();
+    let hd: Headers = new Headers({ 'Content-Type': 'application/json' });
+
+    let bodyData = {
+      mode: mode,
+      data: {
+        product: prodObj,
+        rglist: RGLIST,
+        alternateunits: AlternateUnits,
+        bcodeList: PBarCodeCollection,
+        bmList: BrandModelList,
+        multipleretailpriceList: PMultipleRetailPrice,
+        menuItemYields: menuItemYields
+      }
+    };
+    let data = JSON.stringify(bodyData, undefined, 2);
+    this.http
+      .post(
+        this.apiUrl + '/saveProductMaster',
+        bodyData
+
+      )
+      .subscribe(
+        data => {
+          let retData:any = data;
+          if (retData['status'] === 'ok') {
+            res.status = 'ok';
+            res.result = retData['result'];
+            returnSubject.next(res);
+            returnSubject.unsubscribe();
+          } else {
+            res.status = 'error1';
+            res.result = retData['result'];
+            returnSubject.next(res);
+            returnSubject.unsubscribe();
+          }
+        },
+        error => {
+          (res.status = 'error2'), (res.result = error);
+          returnSubject.next(res);
+          returnSubject.unsubscribe();
+        }
+      );
+    return returnSubject;
   }
 
   getProduct(mcode: string) {
@@ -468,7 +545,7 @@ export class ProductMasterService {
     });
     return returnSubject;
   }
-  nullToZeroConverter(value:any) {
+  nullToZeroConverter(value:any):number {
     if (
       value === undefined ||
       value == null ||

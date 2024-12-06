@@ -44,7 +44,7 @@
         <td>{{i+1}}</td>
         <td>{{b.BCODE}}</td>
         <td>{{b.UNIT}}</td>
-        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="b.DISCONTINUE"></td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="b.DISCONTINUE" [checked]="b.DISCONTINUE == 1" (change)="discontinueBC($event,i)"></td>
         <td>
         <button
         mat-icon-button

@@ -140,7 +140,7 @@ export interface Product {
   STATUS: number;
   PRODUCTID: string;
   MRP: number;
-  HSNCode: number;
+  HSNCode: string;
   GST: number;
   TaxCategory: number;
   GWEIGHT: string;
