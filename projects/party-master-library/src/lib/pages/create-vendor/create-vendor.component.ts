@@ -32,7 +32,7 @@ export class CreateVendorComponent {
       VendorName: ['', Validators.required],
       Address: ['', Validators.required],
       VATNo: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required,Validators.email]],
       Mobile: ['', Validators.required],
       Phone: ['', Validators.required],
     });
@@ -76,6 +76,11 @@ export class CreateVendorComponent {
   }
 
   submit() {
+    if(!this.vendorForm.get('Email')?.valid){
+      alert('Please enter a valid email address');
+      return;
+    }
+
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||
       this.partyMasterService.customermasterObj.customerName == undefined ||
