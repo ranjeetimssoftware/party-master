@@ -32,10 +32,14 @@ export class CustomerComponent {
   onView(event:any){
     this.router.navigate([this.router.url+"/new-customer",{acid:event, mode:'view',returnUrl: this.router.url}])
   }
+  onEdit(event:any){
+    this.router.navigate([this.router.url+"/new-customer",{acid:event, mode:'edit',returnUrl: this.router.url}])
+  }
 
   // Method to handle save action
   saveChanges() {
     console.log('Popup Save clicked!');
     this.closeCustomizeColumnsPopup(); // Close the popup after saving
   }
+
 }
