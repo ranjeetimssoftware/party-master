@@ -15,20 +15,38 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of dataSource">
-        <td>{{ item.sn }}</td>
-        <td><input type="text" placeholder="Press Enter" ></td>
-        <td><input type="text" placeholder="Press Enter" ></td>
-        <td><input type="text" placeholder="Press Enter" ></td>
-        <td><input type="text" placeholder="Press Enter" ></td>
+      <tr *ngFor="let Item of ItemWisePriceList; let i = index"  >
+        <td>{{i+1}}</td>
+        <td>{{Item.BATCH}}</td>
+        <td>{{Item.LANDINGCOST}}</td>
+        <td>{{Item.MRP}}</td>
+        <td>{{Item.SELLRATEBEFORETAX}}</td>
         <td>
           <div class="d-flex align-items-center justify-content-between">
             <div>
-              <input type="text" placeholder="Press Enter" >
+              {{Item.W_SELLRATEBEFORETAX}}              
             </div>
             <div class="remove-Btn">
               <button type="button" class="btn p-0 ">
-                <!-- <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" >cancel</mat-icon> -->
+                <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="removeBatchWisePrice(i)">cancel</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ItemWisePriceList.length+1}}</td>
+        <td><input type="text" placeholder="Press Enter" [(ngModel)]="ItemWisePrice.BATCH"></td>
+        <td><input type="number" min="0" placeholder="0" [(ngModel)]="ItemWisePrice.LANDINGCOST"></td>
+        <td><input type="number" min="0" placeholder="0" [(ngModel)]="ItemWisePrice.MRP"></td>
+        <td><input type="number" min="0" placeholder="0" [(ngModel)]="ItemWisePrice.SELLRATEBEFORETAX"></td>
+        <td>
+          <div class="d-flex align-items-center justify-content-between">
+            <div>
+              <input type="number" min="0" placeholder="0" [(ngModel)]="ItemWisePrice.W_SELLRATEBEFORETAX">
+            </div>
+            <div class="remove-Btn">
+              <button type="button" class="btn p-0 ">
               </button>
             </div>
           </div>
@@ -39,7 +57,7 @@
   </table>
   <div class="mx-1">
     <button type="button" class="btn p-0 " >
-      <!-- <mat-icon  class="mat-icon-small text-primary mt-2"  style="cursor: pointer;">add_circle_outline</mat-icon> -->
+      <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;" (click)="addBatchWisePrice()">add_circle_outline</mat-icon>
     </button>
   </div>
 </div>

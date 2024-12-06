@@ -9,6 +9,8 @@ import {
   MembershipObj,
   PartyMasterLibraryService,
 } from '../../party-master-library.service';
+import { ProductMasterService } from '../Product-master.service';
+import { Product, ProductType } from '../ProductItem';
 
 @Component({
   selector: 'lib-create-product',
@@ -21,15 +23,23 @@ export class CreateProductComponent {
   userSettings: any;
   returnUrl: string | undefined;
   isGroupSelectionVisible:boolean = false;
+  GroupTree:any;
+  SubGroupTree:any;
+  MajorGroup!:string;
+  SubGroupA?:string;
+  SubGroupB?:string;
+  productObj: Product = <Product>{};
+  Units: any[] = [];
+  PTypeList: ProductType[] = [];
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public partyMasterService: PartyMasterLibraryService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    public productMasterService: ProductMasterService
   ) {
-    this.userSettings = this.partyMasterService.userSettings;
+    this.userSettings = this.productMasterService.userSetting;
     this.ProductForm = this.fb.group({
       CustomerCode: ['', Validators.required],
     });
@@ -39,6 +49,8 @@ export class CreateProductComponent {
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
+    this.getAllMajorGroup();
+    this.getAllUnits();
   }
 
   selectedTab: number = 0;
@@ -64,6 +76,40 @@ export class CreateProductComponent {
 
 close(){
   this.isGroupSelectionVisible = !this.isGroupSelectionVisible;
+}
+
+getAllMajorGroup(){
+  this.productMasterService.getProductGroupTree().subscribe((res:any) => {
+    this.GroupTree = res;
+  })
+}
+
+filterSubGroup(){
+  this.SubGroupTree = this.GroupTree.find((x:any) => x.menucode == this.MajorGroup)?.children;
+  // this.SubGroupTree = this.setChildren(this.GroupTree,this.MajorGroup);
+}
+
+setChildren(data:any,parentId:string){
+  let subGroupArray = data.children.filter((x:any) => x.parentId == parentId);
+  return subGroupArray;
+}
+
+getAllUnits(){
+  this.productMasterService.getUnits().subscribe((res) => {
+    this.Units = res;
+    this.productMasterService.getPTypeList().subscribe(
+      (res: any) => {
+        if (res) {
+          this.PTypeList = res;
+        } else {
+          this.PTypeList = [];
+        }
+      },
+      (error) => {
+        this.PTypeList = [];
+      }
+    );
+  });
 }
 
 

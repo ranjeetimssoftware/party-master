@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
+import { MultiStockLevel, Product } from '../../pages/ProductItem';
 
 
 @Component({
@@ -10,12 +10,24 @@ import { PartyMasterLibraryService } from '../../party-master-library.service';
 })
 export class InventoryControlsComponent implements OnInit {
 
+  @Input() productObj: Product = <Product>{};
+  MSLevel: MultiStockLevel = <MultiStockLevel>{};
   isTableVisible = false;
   constructor(private partyMasterService:PartyMasterLibraryService) { 
+    this.productObj.MultiStockLevels = [];
   }
   
 
   ngOnInit(): void {
+  }
+
+  addMultiStockLevel(){
+    this.productObj.MultiStockLevels.push(this.MSLevel);
+    this.MSLevel = <MultiStockLevel>{};
+  }
+  
+  removeMultiStockLevel(i:number){
+    this.productObj.MultiStockLevels.splice(i,1);
   }
 
 

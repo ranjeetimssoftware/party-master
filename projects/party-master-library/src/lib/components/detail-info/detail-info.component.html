@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <form action="" class="form-group">
+  <div action="" class="form-group">
     <div class="row pl-3">
       <div class="row col-10">
         <div class="col-6">
@@ -8,7 +8,7 @@
               <label for="" class="form-label">Description:</label>
             </div>
             <div class="col-8">
-              <input type="text" class="form-control" placeholder="">
+              <input type="text" class="form-control" placeholder="Enter Product Description"  [(ngModel)]="productObj.DESCB">
             </div>
           </div>
           <div class="row form-group">
@@ -16,8 +16,8 @@
               <label for="Category" class="form-label">Category:</label>
             </div>
             <div class="col-7">
-              <select name="Category" id="Category" class="form-control" aria-label="Default select example">
-                <option selected disabled>--Select Category --</option>
+              <select name="Category" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.MCAT">
+                <option *ngFor="let i of MCatList" [ngValue]="i.MENUCAT">{{i.MENUCAT}}</option>
               </select>
             </div>
           </div>
@@ -28,7 +28,7 @@
               <label for="" class="form-label">Short Name:</label>
             </div>
             <div class="col-8">
-              <input type="text" class="form-control" placeholder="">
+              <input type="text" class="form-control" placeholder="Enter Short Name" [(ngModel)]="productObj.Description">
             </div>
           </div>
           <div class="row form-group">
@@ -36,8 +36,8 @@
               <label for="" class="form-label">Extra Category:</label>
             </div>
             <div class="col-8">
-              <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-                <option selected disabled>--Select Extra Category --</option>
+              <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.MCAT1">
+                <option *ngFor="let i of MCat1List" [ngValue]="i.MENUCAT">{{i.MENUCAT}}</option>
               </select>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <label for="" class="form-label">Purchase Price:</label>
           </div>
           <div class="col-5">
-            <input type="number" min="0" class="form-control" placeholder="">
+            <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [(ngModel)]="productObj.PRATE_A">
           </div>
         </div>
         <div class="row form-group">
@@ -69,9 +69,7 @@
             <label for="" class="form-label">Supplier Name:</label>
           </div>
           <div class="col-8">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-              <option selected disabled>--Select Supplier Name --</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Press Enter to select" [(ngModel)]="productObj.supplierName" (keydown.Enter)="onEnterSupplierCommand()">
           </div>
         </div>
         <div class="row form-group">
@@ -79,9 +77,9 @@
             <label for="" class="form-label">Purchase A/C:</label>
           </div>
           <div class="col-8">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-              <option selected disabled>--Select--</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+            (keydown.Tab)="PurchaseAccountEnterClicked()"
+            (keydown.enter)="PurchaseAccountEnterClicked()" [(ngModel)]="productObj.PAC_ACNAME">
           </div>
         </div>
         <div class="row form-group">
@@ -89,9 +87,9 @@
             <label for="" class="form-label">P-Return A/C:</label>
           </div>
           <div class="col-8">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-              <option selected disabled>--Select--</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+            (keydown.Tab)="PurchaseReturnAccountEnterClicked()"
+            (keydown.enter)="PurchaseReturnAccountEnterClicked()" [(ngModel)]="productObj.PRAC_ACNAME">
           </div>
         </div>
         </div>
@@ -107,10 +105,10 @@
                 <label for="" class="form-label">Sales Price:</label>
               </div>
               <div class="col-4">
-                <input type="number" min="0" class="form-control" placeholder="">
+                <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_A">
               </div>
               <div class="col-4">
-                <input type="number" min="0" class="form-control" placeholder="">
+                <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_A">
               </div>
             </div>
             <div class="row form-group">
@@ -118,10 +116,10 @@
                 <label for="" class="form-label">Whole Sales Price:</label>
               </div>
               <div class="col-4">
-                <input type="number" min="0" class="form-control" placeholder="">
+                <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_B">
               </div>
               <div class="col-4">
-                <input type="number" min="0" class="form-control" placeholder="">
+                <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_B">
               </div>
             </div>
             <div class="row form-group">
@@ -129,7 +127,7 @@
                 <label for="" class="form-label">Label MRP:</label>
               </div>
               <div class="col-8">
-                <input type="text" class="form-control" placeholder="">
+                <input type="text" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.LabeledMRP">
               </div>
             </div>
             <div class="row form-group">
@@ -137,9 +135,9 @@
                 <label for="" class="form-label">Sales A/C:</label>
               </div>
               <div class="col-8">
-                <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-                  <option selected disabled>--Select--</option>
-                </select>
+                <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+                (keydown.Tab)="SalesAccountEnterClicked()"
+                (keydown.enter)="SalesAccountEnterClicked()" [(ngModel)]="productObj.SAC_ACNAME">
               </div>
             </div>
             <div class="row form-group">
@@ -147,9 +145,9 @@
                 <label for="" class="form-label">Sales Return A/C:</label>
               </div>
               <div class="col-8">
-                <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-                  <option selected disabled>--Select--</option>
-                </select>
+                <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+                (keydown.Tab)="SalesReturnAccountEnterClicked()"
+                (keydown.enter)="SalesReturnAccountEnterClicked()" [(ngModel)]="productObj.SRAC_ACNAME">
               </div>
             </div>
           </div>
@@ -192,16 +190,16 @@
             <div class="mt-2 px-2" style="width: auto;overflow-x: scroll;">
               <div class="d-flex flex-column flex-wrap" style="height: 12vh;">
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Open Item
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISUNKNOWN">Is Open Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Non Discounted
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.REQEXPDATE">Is Expiry Tracked Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2"  [(ngModel)]="isDiscounted" (change)="onCheckOption($event)">Is Discontinued Item
+                  <input type="checkbox" class="form-check-input mr-2"  [(ngModel)]="productObj.discontinueCheckbox"  (change)="onCheckOption($event)">Set As Discontinued Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Expiry Tracked Item
+                  <input type="checkbox" class="form-check-input mr-2">Is Non Discountable Item
                 </div>
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2">Is Discounted Item
@@ -210,13 +208,13 @@
                   <input type="checkbox" class="form-check-input mr-2">Has Batch Wise Pricing
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Has Variant Details
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASECSCHARGE">Is ECS Chargeable Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Has ECS Chareable Item
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASVARIANT">Has Variant Details
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Recurring Billing Item
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISRECURRING">Is Recurring Billing Item
                 </div>
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2">Is Variable Weight Item
@@ -225,7 +223,8 @@
                   <input type="checkbox" class="form-check-input mr-2">Is Featured Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Service Charge Applicable Item
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASCOMMISSIONCHARGE"
+                  [checked]="productObj.HASCOMMISSIONCHARGE==1">Is Comission Applicable Item
                 </div>                
               </div>
             </div>
@@ -233,15 +232,18 @@
         </mat-accordion>
       </div>
     </div>
-    <ng-container class="row mt-2" *ngIf="isDiscounted">
+    <ng-container class="row mt-2" *ngIf="productObj.discontinueCheckbox">
       <div class="col-6">
         <div class="row form-group">
           <div class="col-3">
             <label for="" class="form-label">Item Discontinued For</label>
           </div>
           <div class="col-8">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.DISCONTINUE">
               <option selected disabled>--Select--</option>
+              <option value=2>DISCONTINUE SALES </option>
+              <option value=3>DISCONTINUE PURCHASE </option>
+              <option value=1>DISCONTINUE BOTH </option>
             </select>
           </div>
         </div>
@@ -255,13 +257,13 @@
               <mat-panel-title> Additional Info </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="mt-2 px-2" style="width: auto;overflow-x: scroll;">
-              <div class="d-flex flex-column flex-wrap" style="height: 15vh;">
+              <div class="d-flex flex-column flex-wrap" style="height: 17vh;">
                 <div class="form-group row col-4">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <input type="number" min="0" class="form-control" [(ngModel)]="productObj.SHELFLIFE">
                   </div>
                 </div>
                 <div class="form-group row col-4">
@@ -269,7 +271,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">ECS Rate:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <input type="number" class="form-control" [(ngModel)]="productObj.ECSRATE">
                   </div>
                 </div>
                 <div class="form-group row col-4">
@@ -277,15 +279,19 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Item Location:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <mat-select multiple [(ngModel)]="productObj.Location" class="form-control" >
+                      <mat-option *ngFor="let location of LocationList" [value]="location.NAME">{{location.NAME}}</mat-option>
+                    </mat-select>
                   </div>
                 </div>
                 <div class="form-group row col-4">
                   <div class="col-4">
-                    <label for="shelfLife" class="form-label w-100 m-0">KOT Category:</label>
+                    <label for="kotCat" class="form-label w-100 m-0">KOT Category:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.ISBARITEM">
+                      <option *ngFor="let i of KOTcatList" [ngValue]="i.ID">{{i.NAME}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group row col-4">
@@ -293,7 +299,11 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Menu Category:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <select name="menuCat" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.MCAT1">
+                      <option selected disabled>--Select--</option>
+                      <option value="BEVERAGE">BEVERAGE</option>
+                      <option value="FOOD">FOOD</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group row col-4">
@@ -301,7 +311,9 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Color Group:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.COLOR">
+                      <option *ngFor="let color of colorGroupList" [ngValue]="color.Id">{{color.GroupName}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group row col-4">
@@ -309,7 +321,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Warranty Period:</label>
                   </div>
                   <div class="col-7">
-                    <input type="text" class="form-control">
+                    <input type="number" class="form-control" min="0" [(ngModel)]="productObj.WARRANTY">
                   </div>
                   <div class="col-1 pl-0">(Month)</div>
                 </div>
@@ -333,7 +345,7 @@
                     <label for="" class="form-label">Master Item:</label>
                   </div>
                   <div class="col-5">
-                    <input type="text" min="0" class="form-control" placeholder="--Press Enter--">
+                    <input type="text" class="form-control" placeholder="--Press Enter to select item--" [(ngModel)]="productObj.SUPITEMNAME" (keydown.Enter)="onEnterMasterItemList()">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -341,7 +353,7 @@
                     <label for="" class="form-label">Factor:</label>
                   </div>
                   <div class="col-5">
-                    <input type="number" min="0" class="form-control">
+                    <input type="number" min="0" class="form-control" [(ngModel)]="productObj.CONFACTOR">
                   </div>
                 </div>                          
 
@@ -365,7 +377,7 @@
                     <label for="" class="form-label">Item Weight:</label>
                   </div>
                   <div class="col-5">
-                    <input type="text" min="0" class="form-control" placeholder="--Press Enter--">
+                    <input type="number" min="0" class="form-control" placeholder="Enter Weight" [(ngModel)]="productObj.GWEIGHT">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -373,9 +385,9 @@
                     <label for="" class="form-label">Dimension:</label>
                   </div>
                   <div class="col-5 d-flex flex-row">
-                    <input type="number" min="0" class="form-control mr-1" placeholder="Length">
-                    <input type="number" min="0" class="form-control mr-1" placeholder="Width">
-                    <input type="number" min="0" class="form-control" placeholder="Breadth">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="L" [(ngModel)]="productObj.LENGTH">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="W" [(ngModel)]="productObj.WIDTH">
+                    <input type="number" min="0" class="form-control" placeholder="B" [(ngModel)]="productObj.BREADTH">
                   </div>
                   <div class="col-4" style="white-space: nowrap;">
                     (Length X Width X Breadth)
@@ -386,7 +398,7 @@
                     <label for="" class="form-label">Total Quantity:</label>
                   </div>
                   <div class="col-5">
-                    <input type="number" min="0" class="form-control">
+                    <input type="number" min="0" class="form-control" [(ngModel)]="productObj.CBM">
                   </div>
                   <div class="col-3" style="white-space: nowrap;">
                     (Per Box or CLD)
@@ -477,5 +489,11 @@
         </mat-accordion>
       </div>
     </div>
-  </form>
+  </div>
 </div>
+<multiselect-generic-grid #genericGridSupplierPopup [popupsettings]="gridPopupSettingsForSupplier" (onPopUpClose)="dblClickPopupParty($event)"></multiselect-generic-grid>
+<multiselect-generic-grid #genericGridAccountLedger_Sales [popupsettings]="gridPopupSettingsForAccountLedgerList_Sales" (onPopUpClose)="dblClickSalesAccountSelect($event)"></multiselect-generic-grid>
+<multiselect-generic-grid #genericGridAccountLedger_SalesReturn [popupsettings]="gridPopupSettingsForAccountLedgerList_SalesReturn" (onPopUpClose)="dblClickSalesReturnAccountSelect($event)"></multiselect-generic-grid>
+<multiselect-generic-grid #genericGridAccountLedger_Purchase [popupsettings]="gridPopupSettingsForAccountLedgerList_Purchase" (onPopUpClose)="dblClickPurchaseAccountSelect($event)"></multiselect-generic-grid>
+<multiselect-generic-grid #genericGridAccountLedger_PurchaseReturn [popupsettings]="gridPopupSettingsForAccountLedgerList_PurchaseReturn" (onPopUpClose)="dblClickPurchaseReturnAccountSelect($event)"></multiselect-generic-grid>
+<multiselect-generic-grid #genericMultiSelectItem [popupsettings]="gridPopupSettingsForItem" (onPopUpClose)="onSelectItem($event)"></multiselect-generic-grid>

@@ -24,33 +24,52 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of dataSource">
-        <td>{{ item.sn }}</td>
-        <td><input type="text" placeholder="Press Enter" ></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
-        <td style="text-align: center;"><input type="checkbox"></td>
-        <td style="text-align: center;"><input type="checkbox"></td>
+      <tr *ngFor="let item of AlternateUnits; let i = index;">
+        <td>{{i+1}}</td>
+        <td>{{item.ALTUNIT}}</td>
+        <td>{{item.CONFACTOR}}</td>
+        <td>{{item.SRATE_DISCOUNT}}</td>
+        <td>{{item.WSRATE_DISCOUNT}}</td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULT"></td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULTPRATE"></td>
         <td>
           <div class="d-flex">
-            <mat-slide-toggle
+            <mat-slide-toggle [(ngModel)]="item.ISDISCONTINUE"
             class="custom-toggle text-center" style="line-height: 10px;"
             color="primary"
           ></mat-slide-toggle>
             <button type="button" class="btn p-0  remove-Btn">
-          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;">cancel</mat-icon>
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="removeAltUnit(i)">cancel</mat-icon>
             </button>
           </div>
-        </td>
-        
-        
+        </td>      
+      </tr>
+      <tr>
+        <td>{{AlternateUnits.length+1}}</td>
+        <td><input type="text" placeholder="Press Enter" [(ngModel)]="CurAltUnit.ALTUNIT" ></td>
+        <td><input type="number" min="0" [(ngModel)]="CurAltUnit.CONFACTOR"></td>
+        <td><input type="text" [(ngModel)]="CurAltUnit.SRATE_DISCOUNT"></td>
+        <td><input type="text" [(ngModel)]="CurAltUnit.WSRATE_DISCOUNT"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="CurAltUnit.ISDEFAULT"></td>
+        <td style="text-align: center;"><input type="checkbox" [(ngModel)]="CurAltUnit.ISDEFAULTPRATE"></td>
+        <td>
+          <div class="d-flex">
+            <mat-slide-toggle [(ngModel)]="CurAltUnit.ISDISCONTINUE"
+            class="custom-toggle text-center" style="line-height: 10px;"
+            color="primary"
+          ></mat-slide-toggle>
+            <button type="button" class="btn p-0  remove-Btn">
+            </button>
+          </div>
+        </td>      
       </tr>
     </tbody>
   </table>
   <div class="mx-1">
-    <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;">add_circle_outline</mat-icon>
+    <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer;" (click)="addAltUnit()">add_circle_outline</mat-icon>
   </div>
 </div>

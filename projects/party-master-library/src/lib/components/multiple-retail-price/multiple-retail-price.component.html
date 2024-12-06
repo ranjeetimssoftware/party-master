@@ -18,35 +18,33 @@
       </tr>
     </thead>
     <tbody>
-        <tr style="border: 2px solid #EDEDED;">
-        <td>1</td>
-        <td>3000.00</td>
-        <td>3000.00</td>
-        <td>3000.00</td>
-        <td>Nov 11, 2024</td>
+      <tr style="border: 2px solid #EDEDED;" *ngFor="let b of this.PMultipleRetailPrice;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{b.RATE }}</td>
+        <td>{{b.INRATE }}</td>
+        <td>{{b.DIVISION }}</td>
+        <td>{{b.EXPDATE}}</td>
         <td>
-            <mat-slide-toggle></mat-slide-toggle>
-        </td>
-      </tr>
-      <tr style="border: 2px solid #EDEDED;">
-        <td>2</td>
-        <td>3000.00</td>
-        <td>3000.00</td>
-        <td>3000.00</td>
-        <td>Nov 11, 2024</td>
-        <td>
-            <mat-slide-toggle></mat-slide-toggle>
+          <div class="d-flex">
+            <mat-slide-toggle [(ngModel)]="b.ISACTIVE"
+            class="custom-toggle text-center" style="line-height: 10px;"
+            color="primary"
+          ></mat-slide-toggle>
+            <button type="button" class="btn p-0  remove-Btn">
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="removeMSLevel(i)">cancel</mat-icon>
+            </button>
+          </div>
         </td>
       </tr>
        <tr style="border: 2px solid #EDEDED;">
-        <td>3</td>
-        <td><input type="text" placeholder="Press Enter" class="press-enter"></td>
-        <td><input type="text" placeholder="Press Enter" class="press-enter"></td>
-        <td><input type="text" placeholder="Press Enter" class="press-enter"></td>
-        <td><input type="text" placeholder="Press Enter" class="press-enter"></td>
+        <td>{{PMultipleRetailPrice.length+1}}</td>
+        <td><input type="number" min="0" placeholder="0" class="press-enter"  [(ngModel)]="MultipeRetailObj.INRATE"></td>
+        <td><input type="number" min="0" placeholder="0" class="press-enter" [(ngModel)]="MultipeRetailObj.RATE"></td>
+        <td><input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MultipeRetailObj.DIVISION"></td>
+        <td><input type="date" placeholder="dd/mm/yyyy" class="press-enter" [(ngModel)]="MultipeRetailObj.EXPDATE"></td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer; margin-left: 35px;">add_circle_outline</mat-icon>
+  <mat-icon class="mat-icon-small text-primary mt-2" style="cursor: pointer; margin-left: 35px;" (click)="addMRP()">add_circle_outline</mat-icon>
 

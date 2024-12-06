@@ -40,7 +40,7 @@ import { CreateSubLedgerComponent } from './pages/create-sub-ledger/create-sub-l
 import { VendorAdditionalInfoComponent } from './components/vendor-additional-info/vendor-additional-info.component';
 import { SpinnerService } from './shared/components/generic/spinner/spinner.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
 import {MatTreeModule} from '@angular/material/tree';
@@ -60,6 +60,8 @@ import { BodyPartListComponent } from './components/body-part-list/body-part-lis
 
 
 import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
+import { JwtInterceptor } from './jwt.interceptor';
+import { AlternateItemComponent } from './components/alternate-item/alternate-item.component';
 
 
 @NgModule({
@@ -99,7 +101,8 @@ import { MultipleRetailPriceComponent } from './components/multiple-retail-price
     InventoryControlsComponent,
     ItemAttributesComponent,
    BodyPartListComponent,
-    MultipleRetailPriceComponent
+    MultipleRetailPriceComponent,
+    AlternateItemComponent
   ],
   imports: [
     CommonModule,
@@ -129,6 +132,9 @@ import { MultipleRetailPriceComponent } from './components/multiple-retail-price
     MatExpansionModule,
   ],
   exports: [PartyMasterLibraryComponent],
-  providers:[SpinnerService]
+  providers:[
+    SpinnerService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ]
 })
 export class PartyMasterLibraryModule {}

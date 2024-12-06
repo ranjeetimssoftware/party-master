@@ -10,7 +10,7 @@
 <div class="border-bottom mb-3"></div>
 
 <div class="container scrollable-content">
-  <form [formGroup]="ProductForm" class="form-group" style="padding: 0 1.5rem;">
+  <div class="form-group" style="padding: 0 1.5rem;">
     <div class="row">
       <div class="col-8">
         <div class="row col-12 form-group">
@@ -18,7 +18,7 @@
             <label for="" class="form-label">Item Name:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Enter Item Name">
+            <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="productObj.DESCA">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -26,7 +26,7 @@
             <label for="" class="form-label">Item Code:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter Item Code">
+            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]=" productObj.MENUCODE">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -34,10 +34,10 @@
             <label for="" class="form-label">HS Code:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter HS Code">
+            <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode">
           </div>
           <div class="col-2 form-check ml-4">
-            <input type="checkbox" class="form-check-input mr-2">
+            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT">
             <label for="" class="form-check-label">Is Vatable Item</label>
           </div>
         </div>
@@ -46,7 +46,7 @@
             <label for="" class="form-label">Item Group:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close()">
+            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close()" [(ngModel)]=" productObj.MgroupName">
           </div>
           <div class="col-1">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,16 +60,16 @@
             <label for="" class="form-label">Stock Unit:</label>
           </div>
           <div class="col-5">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-              <option selected disabled>--Select Unit --</option>
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.BASEUNIT">
+              <option *ngFor="let i of Units" [ngValue]="i.UNITS">{{i.UNITS}}</option>
             </select>
           </div>
           <div class="col-2">
             <label for="" class="form-label">Item Type:</label>
           </div>
           <div class="col-3">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-              <option selected disabled>--Select Item Type --</option>
+            <select name="ptype" id="ptype" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.PTYPE">
+              <option *ngFor="let i of PTypeList" [ngValue]="i.PTYPEID">{{i.PTYPENAME}}</option>
             </select>
           </div>
         </div>
@@ -115,7 +115,7 @@
                     </svg>                                             
                 </div>
                 <div class="col-8">
-                  <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Stock Qty</mat-card-title>
+                  <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Transit Stock</mat-card-title>
                   <span><b>50 pc</b></span>
                 </div>
               </div>
@@ -126,10 +126,10 @@
         </div>
       </div>
     </div>
-  </form>
+  </div>
   <mat-tab-group>
     <mat-tab label="Detail Info"> 
-      <lib-detail-info></lib-detail-info>
+      <lib-detail-info [productObj]="productObj"></lib-detail-info>
     </mat-tab>
     <mat-tab label="Item Attributes"> 
       <lib-item-attributes></lib-item-attributes>
@@ -148,6 +148,9 @@
     </mat-tab>
     <mat-tab label="Multiple Retail Pricing"> 
       <lib-multiple-retail-price></lib-multiple-retail-price>
+    </mat-tab>
+    <mat-tab label="Alternate Item"> 
+      <lib-alternate-item></lib-alternate-item>
     </mat-tab>
     <mat-tab label="Batchwise Price Log"> 
       <lib-batchwise-price-log></lib-batchwise-price-log>
@@ -178,8 +181,9 @@
           <label for="" class="form-label">Main Group:</label>
         </div>
         <div class="col-8">
-          <select name="unit" id="unit" class="form-control" aria-label="Default select example">
-            <option selected disabled>--Select--</option>
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="MajorGroup" (change)="filterSubGroup()">
+            <option selected>--Select--</option>
+            <option [value]="group.menucode" *ngFor="let group of GroupTree">{{group.name}}</option>
           </select>
         </div>
       </div>
@@ -190,6 +194,7 @@
         <div class="col-8">
           <select name="unit" id="unit" class="form-control" aria-label="Default select example">
             <option selected disabled>--Select--</option>
+            <option [value]="sub.menucode" *ngFor="let sub of SubGroupTree">{{sub.name}}</option>
           </select>
         </div>
       </div>

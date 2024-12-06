@@ -97,7 +97,7 @@ export class MultiSelectGenericGridComponent {
     return this.http
       .get(this.requestUrl)
       .subscribe((res:any) => {
-        this.totalItems = res.result ? res.result['totalCount'] : 0;
+        this.totalItems = res.result ? res.result['totalCount'] : res?res['totalCount'] : 0;
 
 
         this.dataSource.data = res.result ? res.result['data'] : res?res['data']:[];
