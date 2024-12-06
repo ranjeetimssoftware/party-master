@@ -223,6 +223,7 @@
           formControlName="DOB"
           [(ngModel)]="additinalInfo.membershipInfo.dateOfBirth"
           placeholder=""
+          [max]="currentDate"
         />
       </div>
       <div class="col-12 col-md-2">

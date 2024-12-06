@@ -9,6 +9,7 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
   styleUrls: ['./additional-info.component.css'],
 })
 export class AdditionalInfoComponent {
+  currentDate: string ='';
   isEndDateInvalid: boolean =false;
   additionalInfoForm: FormGroup;
   userSettings:any;
@@ -62,6 +63,8 @@ export class AdditionalInfoComponent {
     if(this.mode == 'view'){
       this.additionalInfoForm.disable();
     }
+    const today = new Date();
+    this.currentDate= today.toISOString().split('T')[0];
     
   }
 
