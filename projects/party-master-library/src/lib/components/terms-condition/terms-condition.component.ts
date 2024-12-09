@@ -74,6 +74,12 @@ export class TermsAndConditionComponent implements OnInit {
     }
     this.genericMultiSelectTermsAndCondition.show();
   }
+  onRemove(index: number): void {
+    if (confirm('Are you sure you want to remove this item?')) {
+      this.termsAndConditions.splice(index, 1);
+    }
+  }
+
 
   onViewTerms(terms:any){
     this.termsAndCondition.description = terms.TermsAndConditions;
