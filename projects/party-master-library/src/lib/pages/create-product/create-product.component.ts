@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
 import { ProductMasterService } from '../Product-master.service';
-import { prodObj, Product, ProductGroup, ProductType, RateDiscount, TBarcode } from '../ProductItem';
+import { ItemExtraInfo, prodObj, Product, ProductGroup, ProductType, RateDiscount, TBarcode } from '../ProductItem';
 import * as uuid from 'uuid'
 import { DetailInfoComponent } from '../../components/detail-info/detail-info.component';
 
@@ -74,6 +74,7 @@ export class CreateProductComponent {
       let self = this;
       this.productObj.ItemRateDiscount = <RateDiscount>{};
       this.productObj.MultiStockLevels = [];
+      this.productObj.ItemExtraInfo = <ItemExtraInfo>{};
     }
     this.getAllMajorGroup();
     this.getAllUnits();
@@ -444,6 +445,14 @@ onSubmit(){
     this.productMasterService.openSuccessDialog("Please Select Stock Unit.");
     return;
   }
+  if(this.productObj.discontinueCheckbox && (this.productObj.DISCONTINUE == null || this.productObj.DISCONTINUE == undefined)){  
+    this.productMasterService.openSuccessDialog("Please Select Item Discontinued for.");
+    return;
+  }
+  if(this.productObj.HASECSCHARGE == 1 && (this.productObj.ECSRATE == null || this.productObj.ECSRATE == undefined || this.productObj.ECSRATE == 0)){  
+    this.productMasterService.openSuccessDialog("Please Enter ECS Rate.");
+    return;
+  }
   if(this.userSetting.EnableProductWiseAccMapping == 1){
     if(this.productObj.SAC_ACNAME == "" || this.productObj.SAC_ACNAME == null || this.productObj.SAC_ACNAME == undefined){  
       this.productMasterService.openSuccessDialog("Please Select Sales Account.");
@@ -473,8 +482,112 @@ onSubmit(){
     this.AddBCode();
    }
   console.log("Product Object", this.productObj);
-  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],[],[]).subscribe((res:any) => {
-    console.log("res",res);
+  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],[],[]).subscribe((data:any) => {
+    if (data.status === 'ok') {
+      this.productObj = <Product>{};
+      this.productObj.MENUCODE = '';
+      this.productObj.MCODE = '';
+      this.productObj.BRAND = '';
+      this.productObj.DESCA = '';
+      this.productObj.Description = '';
+      this.productObj.BRANDCODE = '';
+      this.productObj.GWEIGHT = '';
+      this.productObj.LENGTH = null;
+      this.productObj.WIDTH = null;
+      this.productObj.BREADTH = null;
+      this.productObj.SHELFLIFE = 0;
+      this.productObj.MRP = 0;
+      this.productObj.DESCB = '';
+      this.productObj.PTYPE = 0;
+      this.productObj.BASEUNIT = '';
+      this.productObj.SUPCODE = null;
+      this.productObj.SUPITEMCODE = '';
+      this.productObj.PRATE_A = 0;
+      this.productObj.DISMODE = '';
+      this.productObj.IN_RATE_A = 0;
+      this.productObj.IN_RATE_B = 0;
+      this.productObj.IN_RATE_C = 0;
+      this.productObj.RATE_A = 0;
+      this.productObj.RATE_B = 0;
+      this.productObj.RATE_C = 0;
+      this.productObj.ISUNKNOWN = 0;
+      this.productObj.ISAMOUNTWISEBILL = 0;
+      this.productObj.REQEXPDATE = 0;
+      this.productObj.IsQtyUnknown = 0;
+      this.productObj.HASSERVICECHARGE = 0;
+      this.productObj.HASECSCHARGE = 0;
+      this.productObj.Description = '';
+      this.productObj.supplierName = '';
+      this.productObj. SHELFLIFE = 0;
+      this.productObj.guid =  uuid.v4();
+
+      this.PBarCodeCollection = [];
+      this.selectedGroupInfo.MENUCODE = '';
+      this.productObj.MultiStockLevels=[];
+      
+
+      if(this.userSetting.EnableProductWiseAccMapping == 0){
+        this.productMasterService.getSalesInfo().subscribe((data) => {
+
+          const arrayData = Object.values(data);
+
+          let salesAc = arrayData.filter(x => x.ACID == this.userSetting.SalesAc);
+          this.productObj.SAC_ACNAME = salesAc[0].ACNAME;
+
+          let salesReturnAc = arrayData.filter(x => x.ACID == this.userSetting.SalesReturnAc);
+          this.productObj.SRAC_ACNAME = salesReturnAc[0].ACNAME;
+
+          let purchaseAc = arrayData.filter(x => x.ACID == this.userSetting.PurchaseAc);
+          this.productObj.PAC_ACNAME = purchaseAc[0].ACNAME;
+
+          let purchaseReturnAc = arrayData.filter(x => x.ACID == this.userSetting.PurchaseReturnAc);
+          this.productObj.PRAC_ACNAME = purchaseReturnAc[0].ACNAME;
+        })
+      }
+      this.productMasterService.openSuccessDialog("Data Saved Successfully!");
+
+        setTimeout(() => {
+          if(confirm("Do you want to continue adding products to this group ?")){
+            this.mode ='add';
+            this.generateUniqueKey(this.userSetting.AUTOCODEMODE == 1 ? this.selectedGroupInfo.MCODE : this.selectedGroupInfo.MGROUP , this.userSetting.AUTOCODEMODE == 1 ? this.selectedGroupInfo.MCODE  : this.selectedGroupInfo.MGROUP, this.userSetting.AUTOCODEMODE == 1 ? '' : this.selectedGroupInfo.MCAT);
+            this.productObj.RATE_A = 0
+            this.productObj.RATE_B = 0;
+            this.productObj.RATE_C = 0;
+            this.productObj.PRATE_A = 0;
+            this.productObj.IN_RATE_A = 0;
+            this.productObj.IN_PRATE_A = 0;
+            this.productObj.IN_RATE_B = 0;
+            this.productObj.IN_RATE_C = 0;
+            this.productObj.VAT= this.userSetting.EnablePanBill == 0? 1 : 0;;
+            this.productObj.discontinueCheckbox = false;
+            this.productObj.DISMODE = 'Discountable'; 
+            this.productObj.PRATE_A = 0;
+            this.productObj.IN_RATE_A = 0;
+            this.productObj.SHELFLIFE = 0;
+            this.productObj.MgroupName = this.selectedGroupInfo.DESCA;
+            this.productObj.MCAT = this.selectedGroupInfo.MCAT;
+            this.productObj.ItemCostCenter = this.selectedGroupInfo.ItemCostCenter;
+            this.productObj.MARGIN = this.selectedGroupInfo.MARGIN;
+            this.productObj.MGROUP = this.selectedGroupInfo.MGROUP;
+            this.productObj.PARENT = this.selectedGroupInfo.MCODE;
+            this.productObj.guid = uuid.v4();
+            this.productMasterService.pObj = <any>{}
+            this.productMasterService.getPTypeList().subscribe((res: any) => {
+              if (res) {
+                  this.productObj.PTYPE = res[0].PTYPEID;
+              }
+            });
+          }else{
+            this.productMasterService.getProductInfo('PRG99999999').subscribe(result=>{
+              this.selectedGroupInfo = result.result[0];
+
+            })
+  
+
+          }
+        }, 1000);
+      
+    }
   })
 }
 

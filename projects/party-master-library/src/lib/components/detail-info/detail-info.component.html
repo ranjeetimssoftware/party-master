@@ -54,7 +54,7 @@
             <label for="" class="form-label">Purchase Price:</label>
           </div>
           <div class="col-5">
-            <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [(ngModel)]="productObj.PRATE_A" (change)="RecalculateNonVATAmount_Ex_Prate_A()" >
+            <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [(ngModel)]="productObj.PRATE_A" (keyup)="RecalculateNonVATAmount_Ex_Prate_A()" >
           </div>
         </div>
         <div class="row form-group">
@@ -176,10 +176,11 @@
             </div>
           </div>
           <mat-card-content>
-            <p>Recommended Margin: 10%</p>
+            <p class="my-0">Recommended Margin: {{productObj.MARGIN}}%</p>
+            <p class="my-0">Actual Margin:</p>
             <div style="float: inline-end;">
-              <p class="px-3">% on Landing Price</p>
-              <p class="px-3">% on Sales Price</p>
+              <p class="px-3">{{productMasterService.pObj?.RecMarginOnPRate | number : '1.0-2'}}% on Landing Price</p>
+              <p class="px-3">{{productMasterService.pObj?.RecMarginOnRate | number : '1.0-2'}}% on Sales Price</p>
             </div>
           </mat-card-content>
         </mat-card>
@@ -446,15 +447,15 @@
                     <label for="" class="form-label">Product Material:</label>
                   </div>
                   <div class="col-2">
-                    <input type="text" min="0" class="form-control">
+                    <input type="text" class="form-control" [(ngModel)]="productObj.ItemExtraInfo.ProductMaterial">
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">Net Weight:</label>
-                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                    <input type="number" min="0" class="form-control" placeholder="Kg" [(ngModel)]="productObj.ItemExtraInfo.ProductNetWeight">
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">Gross Weight:</label>
-                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                    <input type="number" class="form-control" placeholder="Kg" [(ngModel)]="productObj.ItemExtraInfo.ProductGrossWeight">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -462,15 +463,15 @@
                     <label for="" class="form-label">Product Color:</label>
                   </div>
                   <div class="col-2">
-                    <input type="text" min="0" class="form-control">
+                    <input type="text" min="0" class="form-control" [(ngModel)]="productObj.ItemExtraInfo.ProductColor">
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">CBM:</label>
-                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                    <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.ItemExtraInfo.ProductCBM">
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">FOB Price:</label>
-                    <input type="number" min="0" class="form-control" placeholder="Kg">
+                    <input type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.ItemExtraInfo.ProductFOBPrice">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -478,7 +479,7 @@
                     <label for="" class="form-label">Product Size:</label>
                   </div>
                   <div class="col-2">
-                    <input type="text" min="0" class="form-control">
+                    <input type="text" min="0" class="form-control" [(ngModel)]="productObj.ItemExtraInfo.ProductSize">
                   </div>
                   <div class="col-6 border-bottom">
                     <label for="" class="form-label">Status Setting:</label>
@@ -489,17 +490,17 @@
                     <label for="" class="form-label">Product Dimension:</label>
                   </div>
                   <div class="col-2">
-                    <input type="text" min="0" class="form-control">
+                    <input type="text" min="0" class="form-control" [(ngModel)]="productObj.ItemExtraInfo.ProductDimension">
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">ILM:</label>
-                    <select name="ILM" id="ILM" class="form-control" aria-label="Default select example">
+                    <select name="ILM" id="ILM" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.ItemExtraInfo.ProductILM">
                       <option selected disabled>Active</option>
                     </select>
                   </div>
                   <div class="col-3 in-row-form-control">
                     <label for="" class="form-label w-100 m-0">IFN:</label>
-                    <select name="IFN" id="IFN" class="form-control" aria-label="Default select example">
+                    <select name="IFN" id="IFN" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.ItemExtraInfo.ProductIFN">
                       <option selected disabled>Active</option>
                     </select>
                   </div>

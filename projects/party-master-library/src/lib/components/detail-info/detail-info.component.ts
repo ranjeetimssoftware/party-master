@@ -39,7 +39,7 @@ export class DetailInfoComponent implements OnInit {
   colorGroupList: any[] = [];
 
 
-  constructor(private cdr: ChangeDetectorRef, private productMasterService:ProductMasterService) { 
+  constructor(private cdr: ChangeDetectorRef, public productMasterService:ProductMasterService) { 
     this.userSetting = this.productMasterService.userSetting;
   }
 
@@ -333,6 +333,12 @@ export class DetailInfoComponent implements OnInit {
   RecalculateVATAmount() {
     if (this.productObj.VAT == 1) {
       if (
+        this.productObj.IN_PRATE_A &&
+        this.productObj.IN_PRATE_A != 0
+      ) {
+        this.onChangeEx_PRate_A();
+      }
+      if (
         this.productObj.IN_RATE_A ||
         this.productObj.IN_RATE_A == 0 ||
         this.productObj.IN_RATE_A == null
@@ -341,10 +347,8 @@ export class DetailInfoComponent implements OnInit {
           this.productObj.IN_RATE_A /
           this.productMasterService.nullToZeroConverter(this.userSetting.VatConRate)
         ).toFixed(5);
-        // this.productObj.RATE_A = Number(
-        //   Number(IN_Rate_A).toFixed(2)
-        // );
         this.productObj.RATE_A = Number(IN_Rate_A);
+        this.onChangeEx_Rate_A();
       }
       if (
         this.productObj.IN_RATE_B ||
@@ -355,9 +359,6 @@ export class DetailInfoComponent implements OnInit {
           this.productObj.IN_RATE_B /
           this.productMasterService.nullToZeroConverter(this.userSetting.VatConRate)
         ).toFixed(5);
-        // this.productObj.RATE_B = Number(
-        //   Number(IN_Rate_B).toFixed(2)
-        // );
         this.productObj.RATE_B = Number(IN_Rate_B);
       }
       if (
@@ -371,12 +372,12 @@ export class DetailInfoComponent implements OnInit {
           this.productObj.IN_RATE_C /
           this.productMasterService.nullToZeroConverter(this.userSetting.VatConRate)
         ).toFixed(5);
-        // this.productObj.RATE_C = Number(
-        //   Number(IN_Rate_C).toFixed(2)
-        // );
         this.productObj.RATE_C = Number(IN_Rate_C);
       }
     } else {
+      if (this.productObj.IN_PRATE_A) {
+        this.onChangeEx_PRate_A();
+      }
       if (
         this.productObj.IN_RATE_A ||
         this.productObj.IN_RATE_A == 0 ||
@@ -384,6 +385,7 @@ export class DetailInfoComponent implements OnInit {
       ) {
         this.productObj.RATE_A =
           this.productObj.IN_RATE_A;
+        this.onChangeEx_Rate_A();
       }
       if (
         this.productObj.IN_RATE_B ||
@@ -407,15 +409,12 @@ export class DetailInfoComponent implements OnInit {
             this.productObj.PRATE_A
           ) * this.productMasterService.nullToZeroConverter(this.userSetting.VatConRate)
         ).toFixed(5));
-        // this.productObj.IN_PRATE_A = Number(
-        //   Number(IN_PRATE_A).toFixed(2)
-        // );
         this.productObj.IN_PRATE_A = Number(IN_PRATE_A);
+        this.onChangeEx_PRate_A();
       }
     } else {
       this.productObj.PRATE_A = this.productObj.PRATE_A;
     }
-    this.productObj.CRATE=this.productObj.PRATE_A
   }
 
 
@@ -432,6 +431,7 @@ export class DetailInfoComponent implements OnInit {
             this.productObj.RATE_A
           ) * this.productMasterService.nullToZeroConverter(this.userSetting.VatConRate);
         this.productObj.IN_RATE_A = Number(Rate_A);
+        this.onChangeEx_Rate_A();
       }
     } else {
       if (
@@ -441,6 +441,7 @@ export class DetailInfoComponent implements OnInit {
       ) {
         this.productObj.IN_RATE_A =
           this.productObj.RATE_A;
+        this.onChangeEx_PRate_A();
       }
     }
   }
@@ -466,8 +467,42 @@ export class DetailInfoComponent implements OnInit {
       ) {
         this.productObj.IN_RATE_B =
           this.productObj.RATE_B;
+        this.onChangeEx_PRate_A();
       }
     }
+  }
+
+  onChangeEx_PRate_A() {
+    this.productMasterService.pObj.PurchasePriceWithoutVAT = this.productObj.PRATE_A;
+    this.CalculateMargin();
+  }
+
+  onChangeEx_Rate_A() {
+    this.productMasterService.pObj.SalesPriceWithoutVAT = this.productObj.RATE_A;
+    this.CalculateMargin();
+  }
+  CalculateMargin() {
+    if (
+      this.productMasterService.nullToZeroConverter(
+        this.productMasterService.pObj.PurchasePriceWithoutVAT
+      ) == 0 ||
+      this.productMasterService.nullToZeroConverter(
+        this.productMasterService.pObj.SalesPriceWithoutVAT
+      ) == 0
+    )
+      return;
+    this.productMasterService.pObj.RecMarginOnPRate = Number(
+      ((this.productMasterService.pObj.SalesPriceWithoutVAT -
+        this.productMasterService.pObj.PurchasePriceWithoutVAT) *
+        100) /
+        this.productMasterService.pObj.PurchasePriceWithoutVAT
+    ).toFixed(5);
+    this.productMasterService.pObj.RecMarginOnRate = Number(
+      ((this.productMasterService.pObj.SalesPriceWithoutVAT -
+        this.productMasterService.pObj.PurchasePriceWithoutVAT) *
+        100) /
+        this.productMasterService.pObj.SalesPriceWithoutVAT
+    ).toFixed(5);
   }
 
   preventInput($event:any) {

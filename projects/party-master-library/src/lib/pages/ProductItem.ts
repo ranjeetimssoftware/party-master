@@ -39,9 +39,9 @@ export interface Item {
 
 export interface Product {
   NATURETYPE: number;
-  LENGTH:Number;
-  WIDTH: Number;
-  BREADTH: Number;
+  LENGTH:number | null;
+  WIDTH: number | null;
+  BREADTH: number | null;
   AlternateUnits: AlternateUnit[];
   AltUnit: UnitAndQty;
   Par: Product;
@@ -116,7 +116,7 @@ export interface Product {
   Description: string;
   MODES: string;
   PATH: string;
-  SUPCODE: string;
+  SUPCODE: string| null;
   supplierName:string;
   LATESTBILL: string;
   MCAT: string;
@@ -196,6 +196,20 @@ export interface Product {
   REFITEMNAME: string;
   REFMCODE: string;
   ISBARITEM:string;
+  ItemExtraInfo:ItemExtraInfo;
+}
+
+export interface ItemExtraInfo {
+  ProductMaterial:string;
+  ProductColor:string;
+  ProductSize:string;
+  ProductDimension:string;
+  ProductNetWeight:number;
+  ProductGrossWeight:number;
+  ProductCBM:number;
+  ProductFOBPrice:number;
+  ProductILM:number;
+  ProductIFN:number;
 }
 
 export interface AltSellingPrice{
