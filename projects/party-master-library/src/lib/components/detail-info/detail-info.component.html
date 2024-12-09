@@ -57,7 +57,7 @@
             <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [(ngModel)]="productObj.PRATE_A" (keyup)="RecalculateNonVATAmount_Ex_Prate_A()" >
           </div>
         </div>
-        <div class="row form-group">
+        <div class="row form-group" *ngIf="mode != 'add'">
           <div class="col-3">
           </div>
           <div class="col-7">
