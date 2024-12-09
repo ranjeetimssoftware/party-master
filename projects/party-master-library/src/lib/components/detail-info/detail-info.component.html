@@ -204,32 +204,36 @@
                   <input type="checkbox" class="form-check-input mr-2"  [(ngModel)]="productObj.discontinueCheckbox"  (change)="onCheckOption($event,productObj,'discontinueCheckbox')">Set As Discontinued Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Non Discountable Item
+                  <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Non-Discountable')" [checked]="productObj.DISMODE == 'Non-Discountable'">Is Non Discountable Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Discounted Item
+                  <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableItemWiseBatch == 1 && userSetting.EnableBatch != 0">
                   <input type="checkbox" class="form-check-input mr-2">Has Batch Wise Pricing
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.ENABLE_ECS != 0">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASECSCHARGE" (change)="onCheckOption($event,productObj,'HASECSCHARGE')">Is ECS Chargeable Item
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableVariantCategory == 1">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASVARIANT" (change)="onCheckOption($event,productObj,'HASVARIANT')">Has Variant Details
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableRecurringItem == 1">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISRECURRING" (change)="onCheckOption($event,productObj,'ISRECURRING')">Is Recurring Billing Item
                 </div>
-                <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Variable Weight Item
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableVariableWightItem == 1">
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.IsQtyUnknown" (change)="onCheckOption($event,productObj,'IsQtyUnknown')">Is Variable Weight Item
                 </div>
-                <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2">Is Featured Item
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.ItemWiseDisplaySettingInBilling == 1">
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.BillingDisplay" (change)="onCheckOption($event,productObj,'BillingDisplay')">Is Featured Item
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableCommissionCalculation != 0">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASCOMMISSIONCHARGE" (change)="onCheckOption($event,productObj,'HASCOMMISSIONCHARGE')"
                   [checked]="productObj.HASCOMMISSIONCHARGE==1">Is Comission Applicable Item
+                </div>
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableAmountWiseBill == 1">
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISAMOUNTWISEBILL" (change)="onCheckOption($event,productObj,'ISAMOUNTWISEBILL')"
+                  [checked]="productObj.ISAMOUNTWISEBILL==1">Allow Billing By Amount
                 </div>                
               </div>
             </div>
@@ -254,6 +258,18 @@
         </div>
       </div>    
     </ng-container>
+    <ng-container class="row mt-2" *ngIf="productObj.HASECSCHARGE">
+      <div class="col-6">
+        <div class="row form-group">
+          <div class="col-3">
+            <label for="" class="form-label">ECS Rate</label>
+          </div>
+          <div class="col-8">    
+            <input type="number" min="0" class="form-control" [(ngModel)]="productObj.ECSRATE">
+          </div>
+        </div>
+      </div>    
+    </ng-container>
     <div class="row mt-4">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
@@ -271,15 +287,15 @@
                     <input type="number" min="0" class="form-control" [(ngModel)]="productObj.SHELFLIFE">
                   </div>
                 </div>
-                <div class="form-group row col-4">
+                <!-- <div class="form-group row col-4">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">ECS Rate:</label>
                   </div>
                   <div class="col-7">
                     <input type="number" class="form-control" [(ngModel)]="productObj.ECSRATE">
                   </div>
-                </div>
-                <div class="form-group row col-4">
+                </div> -->
+                <div class="form-group row col-4" *ngIf="userSetting.EnableItemWiseLocationMapping == 1">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Item Location:</label>
                   </div>
@@ -289,7 +305,7 @@
                     </mat-select>
                   </div>
                 </div>
-                <div class="form-group row col-4">
+                <div class="form-group row col-4" *ngIf="userSetting.EnableServiceCharge == 1">
                   <div class="col-4">
                     <label for="kotCat" class="form-label w-100 m-0">KOT Category:</label>
                   </div>
@@ -299,7 +315,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row col-4">
+                <div class="form-group row col-4" *ngIf="userSetting.EnableServiceCharge == 1">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Menu Category:</label>
                   </div>
@@ -311,7 +327,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row col-4">
+                <div class="form-group row col-4" *ngIf="userSetting.ENABLE_COLOR_GROUP_MAPPING == 1">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Color Group:</label>
                   </div>
@@ -321,7 +337,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row col-4">
+                <div class="form-group row col-4" *ngIf="userSetting.ENABLEWARRANTYPERIOD == 1">
                   <div class="col-4">
                     <label for="shelfLife" class="form-label w-100 m-0">Warranty Period:</label>
                   </div>
@@ -336,7 +352,7 @@
         </mat-accordion>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4" *ngIf="userSetting.EnableItemRepacking == 1">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
           <mat-expansion-panel>
@@ -368,7 +384,7 @@
         </mat-accordion>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4" *ngIf="userSetting.EnableItemPackingInfo == 1">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
           <mat-expansion-panel>
@@ -416,7 +432,7 @@
         </mat-accordion>
       </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-4" *ngIf="userSetting.EnableItemExtraInfo == 1">
       <div class="col-12" style="padding: 0;">
         <mat-accordion>
           <mat-expansion-panel>

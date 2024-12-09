@@ -48,6 +48,11 @@ export class DetailInfoComponent implements OnInit {
       if(this.userSetting.AutoCheckInExpiryDateInput == 1){
         this.productObj.REQEXPDATE = 1;
       }
+    this.productObj.PRATE_A = 0;
+    this.productObj.IN_RATE_A = 0;
+    this.productObj.discontinueCheckbox = false;
+    this.productObj.DISMODE = 'Discountable';
+    this.productObj.BillingDisplay = 0;
     }
     this.getCategoryList();
     if(this.userSetting.EnableProductWiseAccMapping == 0) this.getSalesDetail();
@@ -61,9 +66,23 @@ export class DetailInfoComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input) {
       targetObj[targetKey] = input.checked ? 1 : 0;
+      if(targetKey == "HASECSCHARGE" && input.checked){
+        this.productObj.ECSRATE = this.userSetting.ECSRATE;
+      }else if(targetKey == "HASECSCHARGE" && !input.checked){
+        this.productObj.ECSRATE = 0;
+      }
       this.cdr.detectChanges();
     } else {
       alert("Invalid input element");
+    }
+  }
+
+  onCheckDiscountItemOption(event:Event,value:string){
+    const input = event.target as HTMLInputElement;
+    if(input.checked){
+      this.productObj.DISMODE = value;
+    }else{
+      this.productObj.DISMODE = 'Discountable';
     }
   }
 
