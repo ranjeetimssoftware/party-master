@@ -16,7 +16,7 @@ export class SalesTargetComponent implements OnInit {
   salesTargetObj:SalesTarget = <SalesTarget>{}
   @Input() salesTarget!:SalesTarget;
   @Input() mode!:string;
-
+  
 
   constructor(private router: Router, private fb: FormBuilder, public partyMasterService:PartyMasterLibraryService) {
     this.salesTargetForm = this.fb.group({
@@ -34,7 +34,22 @@ export class SalesTargetComponent implements OnInit {
       Falgun_Target:[0],      
       Chaitra_Target:[0],      
     });
-    this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
+    this.partyMasterService.customermasterObj.salesTarget = {
+      acid: '',
+  yearlyTarget: 0,
+  shrawanTarget: 0,
+  bhadraTarget: 0,
+  ashwinTarget: 0,
+  kartikTarget: 0,
+  mangsirTarget: 0,
+  poushTarget: 0,
+  maghTarget: 0,
+  falgunTarget: 0,
+  chaitraTarget: 0,
+  baisakhTarget: 0,
+  jesthaTarget: 0,
+  asadhTarget: 0, 
+    };
   }
 
   ngOnInit(): void {

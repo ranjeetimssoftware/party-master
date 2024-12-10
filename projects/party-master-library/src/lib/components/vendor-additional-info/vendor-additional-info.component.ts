@@ -9,6 +9,7 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
   styleUrls: ['./vendor-additional-info.component.css'],
 })
 export class VendorAdditionalInfoComponent {
+  additionalInfo: any;
   vendorAdditionalInfoForm: FormGroup;
   CategoryList:any[]=[];
   ContractPriceList:any[]=[];
@@ -21,7 +22,7 @@ export class VendorAdditionalInfoComponent {
       Category: ['', Validators.required],
       VendorType: ['', Validators.required],
       CustomerVendor: ['', Validators.required],
-      CreditLimit: ['', Validators.required],
+      CreditLimit: ['', [Validators.required, Validators.pattern('^\\d+(\\.\\d{1,2})?$')]],
       CreditDays: ['', Validators.required],
       ContractPrice: ['', Validators.required],
       SelectContractPrice: ['', Validators.required],
@@ -33,6 +34,10 @@ export class VendorAdditionalInfoComponent {
   }
 
   ngOnInit(){
+    this.additionalInfo= this.partyMasterService.customermasterObj.AdditionalInfo;
+    if(this.additionalInfo.customerStatus === undefined){
+      this.additinalInfo.customerStatus = '1';
+    }
     if(this.mode == 'view'){
       this.vendorAdditionalInfoForm.disable();
     }
