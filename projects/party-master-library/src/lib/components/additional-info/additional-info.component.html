@@ -223,6 +223,7 @@
           formControlName="DOB"
           [(ngModel)]="additinalInfo.membershipInfo.dateOfBirth"
           placeholder=""
+          [max]="currentDate"
         />
       </div>
       <div class="col-12 col-md-2">
@@ -261,8 +262,13 @@
           class="form-control px-2 py-1"
           formControlName="Membership_EndDate"
           [(ngModel)]="additinalInfo.membershipInfo.membsershipEndDate"
+          (change)="validateEndDate()"
+          (ngModelChange)="clearEndDateError()"
           placeholder=""
         />
+        <div *ngIf="isEndDateInvalid" class="text-danger">
+          End Date must be later than start date
+        </div>
       </div>
       <div class="col-12 col-md-2">
         <label for="category" class="form-label">Working Organization</label>

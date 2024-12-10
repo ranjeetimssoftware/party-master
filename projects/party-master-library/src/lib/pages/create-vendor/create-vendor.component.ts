@@ -32,9 +32,10 @@ export class CreateVendorComponent {
       VendorName: ['', Validators.required],
       Address: ['', Validators.required],
       VATNo: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required,Validators.email]],
       Mobile: ['', Validators.required],
       Phone: ['', Validators.required],
+      
     });
     if (this.userSettings.CompanyType == 'B2B') {
       this.partyMasterService.customermasterObj.isCustomerLedger = 0;
@@ -119,6 +120,13 @@ export class CreateVendorComponent {
     ) {
       alert('Please Enter Mobile No.');
       return;
+    }
+    if(!this.vendorForm.get('Email')?.valid){
+      alert('Please enter a valid email address');
+      return;
+    }
+    if (!this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus) {
+      this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus = 'active';
     }
     // if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
     // }
