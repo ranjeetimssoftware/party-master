@@ -9,6 +9,8 @@ import { AdditionalInfo, MembershipObj, PartyMasterLibraryService } from '../../
   styleUrls: ['./additional-info.component.css'],
 })
 export class AdditionalInfoComponent {
+  currentDate: string ='';
+  isEndDateInvalid: boolean =false;
   additionalInfoForm: FormGroup;
   userSettings:any;
   areaList:any[]=[];
@@ -61,6 +63,9 @@ export class AdditionalInfoComponent {
     if(this.mode == 'view'){
       this.additionalInfoForm.disable();
     }
+    const today = new Date();
+    this.currentDate= today.toISOString().split('T')[0];
+    
   }
 
   onMembershipCheck(event:Event){
@@ -140,5 +145,23 @@ export class AdditionalInfoComponent {
     }
   }
 
+  validateEndDate(){
+    const startDate = new Date(this.additinalInfo.membershipInfo.membershipStartDate);
+    const endDate = new Date(this.additinalInfo.membershipInfo.membsershipEndDate);
+
+    if(startDate && endDate && startDate>endDate){
+      this.isEndDateInvalid = true;
+      this.additionalInfoForm.controls['Membership_EndDate'].setErrors({'invalidDate':true});
+
+    }else{
+      this.isEndDateInvalid = false;
+      this.additionalInfoForm.controls['Membership_EndDate'].setErrors(null);
+    }
+  }
+
+  clearEndDateError(){
+    this.isEndDateInvalid = false;
+    this.additionalInfoForm.controls['Membership_EndDate'].setErrors(null);
+  }
 
 }

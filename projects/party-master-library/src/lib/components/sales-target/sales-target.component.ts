@@ -46,4 +46,18 @@ export class SalesTargetComponent implements OnInit {
   ngAfterViewInit() {
   }
 
+  onInputChange(event: any){
+    let value = event.target.value;
+    if(value ===''){
+      event.target.value='';
+      return;
+    }
+    value= Math.min(Math.max(Number(value),0),100);
+
+    if(value.toString().length>3){
+      value = value.toString().slice(0,3);
+    }
+   event.target.value =value;
+  }
+
 }
