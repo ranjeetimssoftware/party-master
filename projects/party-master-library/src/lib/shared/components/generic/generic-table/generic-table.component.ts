@@ -69,6 +69,7 @@ export class GenericTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @Output() onItemClick = new EventEmitter();
+  @Output() onAnotherClick = new EventEmitter();
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   @ViewChild('MenuDropdown') MenuDropdown!: ElementRef;
   @ViewChild('StatusDropdown') StatusDropdown!: ElementRef;
@@ -287,6 +288,89 @@ export class GenericTableComponent implements OnInit {
     this.onItemClick.emit($event);
   }
 
+  onEditClick($event: any){
+    this.onAnotherClick.emit($event);
+  }
+  
+  onDeleteClick(event: any){
+      // this.onOtherClick.emit($event);
+      // const input =  event.target as HTMLInputElement;
+      let acid = event;
+      let ptype: 'C' | 'V' | 'A' = 'C';
+      if (this.activeRoute === 'vendor') {
+        ptype = 'V';
+      } else if (this.activeRoute === 'general-ledger') {
+        ptype = 'A';
+      }
+      else if(this.activeRoute === 'customer') {
+        ptype = 'C';
+      }
+      this.partyMasterService.onDeleteItem(acid,ptype).subscribe(
+        (response) => {
+          alert('Item deleted successfully.');
+          this.refreshData(ptype);
+         },
+        (error) => {
+          console.error('Error deleting item:', error);
+          alert('Failed to delete the item. Please try again.');
+        }
+      );
+      
+    }
+    refreshData(ptype: 'C' | 'V' | 'A') {
+      switch (ptype) {
+        case 'C':
+          this.getAllCustomers('C');
+          break;
+        case 'V':
+          this.getAllCustomers('V');
+          break;
+        case 'A':
+          this.getAllCustomers('A');
+          break;
+        default:
+          console.warn('refreshData: Unexpected ptype:', ptype);
+      }
+    }
+    
+    onToggleStatus(event: any){
+      let acid = event;
+      let ptype: 'C' | 'V' | 'A' = 'C';
+      if (this.activeRoute === 'vendor') {
+        ptype = 'V';
+      } else if (this.activeRoute === 'general-ledger') {
+        ptype = 'A';
+      }
+      else if(this.activeRoute === 'customer') {
+        ptype = 'C';
+      }
+      this.partyMasterService.onToggleStatus(acid,ptype).subscribe(
+        (response) => {
+          alert('Item toggled successfully.');
+          this.toggleRefresh(ptype);
+         },
+        (error) => {
+          console.error('Error toggle item:', error);
+          alert('Failed to toggle the item. Please try again.');
+        }
+      );
+    }
+    toggleRefresh(ptype: 'C' | 'V' | 'A') {
+      switch (ptype) {
+        case 'C':
+          this.getAllCustomers('C');
+          break;
+        case 'V':
+          this.getAllCustomers('V');
+          break;
+        case 'A':
+          this.getAllCustomers('A');
+          break;
+        default:
+          console.warn('refreshData: Unexpected ptype:', ptype);
+      }
+    }
+  
   navigateToCreateVendorFromLedger() {
     const routePath = this.pathToNavigate() + 'vendor';
     this.router.navigate([routePath+'/new-vendor', { returnUrl: this.router.url }]);
