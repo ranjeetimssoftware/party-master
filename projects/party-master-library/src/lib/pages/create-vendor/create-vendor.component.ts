@@ -55,7 +55,11 @@ export class CreateVendorComponent {
     if (!!this._activatedRoute.snapshot.params['mode']) {
       if (this._activatedRoute.snapshot.params['mode'] === 'view') {
         this.mode = 'view';
+        console.log("edit being hit",this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus);
         this.vendorForm.disable();
+      }
+      if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
+        this.mode = 'edit';
       }
       let acid = this._activatedRoute.snapshot.params['acid'];
       this.partyMasterService
@@ -78,6 +82,8 @@ export class CreateVendorComponent {
   }
 
   submit() {
+    
+    
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||
       this.partyMasterService.customermasterObj.customerName == undefined ||
@@ -102,7 +108,21 @@ export class CreateVendorComponent {
     ) {
       alert('Please Enter VAT No.');
       return;
-    } else if (
+    } 
+    if (this.userSettings.CompanyType == 'B2B' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+      alert('VAT no. must be of 9 digits.');
+      console.log("is being used 9 digits");
+      return;
+   }
+    else if (
+      this.partyMasterService.customermasterObj.vatNo &&
+      (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
+        /[a-zA-Z]/.test(this.partyMasterService.customermasterObj.vatNo))
+    ) {
+      alert('VAT No. must be numeric and contain no alphabets.');
+      return;
+    }
+    else if (
       this.partyMasterService.customermasterObj.vatNo != '' &&
       this.partyMasterService.customermasterObj.vatNo != undefined &&
       this.partyMasterService.customermasterObj.vatNo != null &&

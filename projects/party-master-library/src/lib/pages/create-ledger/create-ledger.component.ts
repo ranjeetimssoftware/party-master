@@ -74,6 +74,9 @@ export class CreateLedgerComponent {
         this.mode = 'view';
         this.ledgerForm.disable();
       }
+      if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
+        this.mode = 'edit';
+      }
       let acid = this._activatedRoute.snapshot.params['acid'];
       this.partyMasterService
         .getCustomerById('A',acid).subscribe((res:any) => {
@@ -110,6 +113,7 @@ export class CreateLedgerComponent {
   onSelectParent(event: any) {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
       event.accode;
+
   }
 
   getParentGroupTree(){
@@ -158,7 +162,7 @@ export class CreateLedgerComponent {
       return;
     }
     this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
-    this.partyMasterService.customermasterObj.customerPartyAccount.pType = '';
+    this.partyMasterService.customermasterObj.customerPartyAccount.pType = 'A';
     this.partyMasterService.customermasterObj.customerPartyAccount.mapId =
       this.partyMasterService.customermasterObj.customerPartyAccount.category;
     this.partyMasterService

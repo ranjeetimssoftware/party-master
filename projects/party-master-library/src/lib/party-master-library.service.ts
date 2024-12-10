@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from './environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
@@ -46,6 +46,7 @@ export class PartyMasterLibraryService {
 
    openSuccessDialog(Message:string) {
     this.dialog.open(GenericDialogComponent, {
+      minWidth:'25rem',
       data:{
         Title: "Information",
         Message: Message
@@ -54,6 +55,7 @@ export class PartyMasterLibraryService {
   }
   openErrorDialog(Message:string) {
     this.dialog.open(GenericDialogComponent, {
+      minWidth:'25rem',
       data:{
         Title: "Error",
         Message: Message
@@ -128,6 +130,14 @@ export class PartyMasterLibraryService {
   
   uploadDocument(body:any) {
     return this.http.post(`${this.apiUrl}/FileUpload`, body);
+}
+onDeleteItem(acid: string,ptype:string){
+  const params = new HttpParams().set('acid', acid);
+    return this.http.post<any[]>(this.apiUrl + `/deleteCustomer/${ptype}`,null,{params});
+}
+onToggleStatus(acid: string,ptype:string){
+  const params = new HttpParams().set('acid', acid);
+  return this.http.post<any[]>(this.apiUrl + `/toggleCustomerStatus/${ptype}`,null,{params});
 }
 }
 

@@ -61,6 +61,9 @@ export class CreateCustomerComponent {
         this.mode = 'view';
         this.customerForm.disable();
       }
+      if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
+        this.mode = 'edit';
+      }
       let acid = this._activatedRoute.snapshot.params['acid'];
       this.partyMasterService
         .getCustomerById('C', acid)
@@ -106,23 +109,36 @@ export class CreateCustomerComponent {
       return;
     }
     if (
-      (this.partyMasterService.customermasterObj.vatNo == '' ||
+      this.userSettings.CompanyType == 'B2B'&& this.partyMasterService.customermasterObj.vatNo == '' ||
         this.partyMasterService.customermasterObj.vatNo == undefined ||
-        this.partyMasterService.customermasterObj.vatNo == null) && this.partyMasterService.customermasterObj.AdditionalInfo
-        .isOverSeasCustomer == 0 &&
-      this.userSettings.CompanyType == 'B2B'
-    ) {
+        this.partyMasterService.customermasterObj.vatNo == null && this.partyMasterService.customermasterObj.AdditionalInfo
+        .isOverSeasCustomer == 0)
+     {
       alert('Please Enter VAT No.');
       return;
-    } else if (
+    }
+    if (this.userSettings.CompanyType == 'B2B' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+      alert('VAT no. must be of 9 digits.');
+      console.log("is being used 9 digits");
+      return;
+   }
+    if (
+      this.partyMasterService.customermasterObj.vatNo &&
+      (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
+        /[a-zA-Z]/.test(this.partyMasterService.customermasterObj.vatNo))
+    ) {
+      alert('VAT No. must be numeric and contain no alphabets.');
+      return;
+    } if (
       this.partyMasterService.customermasterObj.vatNo != '' &&
       this.partyMasterService.customermasterObj.vatNo != undefined &&
       this.partyMasterService.customermasterObj.vatNo != null &&
       this.partyMasterService.customermasterObj.AdditionalInfo
         .isOverSeasCustomer == 0
     ) {
-      if (this.partyMasterService.customermasterObj.vatNo.length != 9) {
+      if (this.userSettings.CompanyType == 'B2B' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
         alert('VAT no. must be of 9 digits.');
+        console.log("is being used 9 digits");
         return;
       }
     }
