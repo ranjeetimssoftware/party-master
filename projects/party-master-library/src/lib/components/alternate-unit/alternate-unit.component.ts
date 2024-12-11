@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { AlternateUnit, Product } from '../../pages/ProductItem';
+import { ProductMasterService } from '../../pages/Product-master.service';
 
 
 @Component({
@@ -10,10 +11,12 @@ import { AlternateUnit, Product } from '../../pages/ProductItem';
   styleUrls: ['./alternate-unit.component.css'],
 })
 export class AlternateUnitComponent implements OnInit {
+  userSetting:any;
   @Input() productObj: Product = <Product>{};
   public CurAltUnit: AlternateUnit = <AlternateUnit>{};
   @Input() AlternateUnits: AlternateUnit[] = [];
-  constructor() { 
+  constructor(public productMasterService:ProductMasterService) { 
+    this.userSetting = this.productMasterService.userSetting;
   }
 
   ngOnInit(): void {

@@ -37,7 +37,7 @@
             <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode">
           </div>
           <div class="col-2 form-check ml-4">
-            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)">
+            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)" [disabled]="userSetting.EnableNonTaxableSales == 0">
             <label for="" class="form-check-label">Is Vatable Item</label>
           </div>
         </div>
@@ -95,14 +95,14 @@
                 </div>
                 <div class="col-8">
                   <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Stock Qty</mat-card-title>
-                  <span><b>50 pc</b></span>
+                  <span style="white-space: nowrap;"><b>50 pc</b></span>
                 </div>
               </div>
               <mat-card-content>
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="col-4 shadow rounded" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
+          <div class="col-5 shadow rounded" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
                 <div class="col-3 p-0">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-8">
                   <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Transit Stock</mat-card-title>
-                  <span><b>50 pc</b></span>
+                  <span style="white-space: nowrap;"><b>50 pc</b></span>
                 </div>
               </div>
               <mat-card-content>
@@ -133,37 +133,37 @@
     <mat-tab label="Detail Info"> 
       <lib-detail-info [productObj]="productObj"></lib-detail-info>
     </mat-tab>
-    <mat-tab label="Item Attributes"> 
+    <mat-tab label="Item Attributes" *ngIf="userSetting.EnableItemAttributes == 1"> 
       <lib-item-attributes></lib-item-attributes>
     </mat-tab>
-    <mat-tab label="Alternate Unit"> 
+    <mat-tab label="Alternate Unit" *ngIf="userSetting.EnableAlternateUnit == 1"> 
       <lib-alternate-unit></lib-alternate-unit>
     </mat-tab>
-    <mat-tab label="Inventory Controls"> 
+    <mat-tab label="Inventory Controls" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
       <lib-inventory-controls></lib-inventory-controls>
     </mat-tab>
-    <mat-tab label="Barcode Mapping"> 
+    <mat-tab label="Barcode Mapping" *ngIf="userSetting.BarcodeBaseBilling == 1"> 
       <lib-barcode-mapping [PBarCodeCollection]="PBarCodeCollection"></lib-barcode-mapping>
     </mat-tab>
-    <mat-tab label="Branch Mapping">
+    <mat-tab label="Branch Mapping" *ngIf="userSetting.divisionWiseItemFilter == 1">
       <lib-division-mapping></lib-division-mapping>
     </mat-tab>
-    <mat-tab label="Multiple Retail Pricing"> 
+    <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 1"> 
       <lib-multiple-retail-price></lib-multiple-retail-price>
     </mat-tab>
-    <mat-tab label="Alternate Item"> 
+    <mat-tab label="Alternate Item" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
       <lib-alternate-item></lib-alternate-item>
     </mat-tab>
-    <mat-tab label="Batchwise Price Log"> 
+    <mat-tab label="Batchwise Price Log" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0"> 
       <lib-batchwise-price-log></lib-batchwise-price-log>
     </mat-tab>
-    <mat-tab label="Multi Currency Pricing"> 
+    <mat-tab label="Multi Currency Pricing" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
       <lib-detail-info></lib-detail-info>
     </mat-tab>
-    <mat-tab label="Body Part List">
+    <mat-tab label="Body Part List" *ngIf="userSetting.EnableItemBodyPartsInfo == 1">
       <lib-body-part-list></lib-body-part-list>
     </mat-tab>
-    <mat-tab label="Item Image"> 
+    <mat-tab label="Item Image" *ngIf="userSetting.EnableItemImageInfo == 1"> 
       <lib-document-upload></lib-document-upload>
     </mat-tab>
   </mat-tab-group>

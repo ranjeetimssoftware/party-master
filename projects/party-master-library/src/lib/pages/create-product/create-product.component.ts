@@ -70,7 +70,7 @@ export class CreateProductComponent {
       this.productObj.VOLUME = '';
       this.productObj.SETTING = 'no';
       this.productObj.STATUS = 1;
-      this.productObj.VAT = this.productMasterService.userSetting.EnablePanBill == 0? 1 : 0;
+      this.productObj.VAT = 1;
       let self = this;
       this.productObj.ItemRateDiscount = <RateDiscount>{};
       this.productObj.MultiStockLevels = [];
@@ -558,7 +558,7 @@ onSubmit(){
             this.productObj.IN_PRATE_A = 0;
             this.productObj.IN_RATE_B = 0;
             this.productObj.IN_RATE_C = 0;
-            this.productObj.VAT= this.userSetting.EnablePanBill == 0? 1 : 0;;
+            this.productObj.VAT= 1;
             this.productObj.discontinueCheckbox = false;
             this.productObj.DISMODE = 'Discountable'; 
             this.productObj.PRATE_A = 0;

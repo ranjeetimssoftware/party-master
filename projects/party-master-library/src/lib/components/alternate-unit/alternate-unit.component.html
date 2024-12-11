@@ -9,16 +9,16 @@
         <th rowspan="2" style="width:3rem;" >SN</th>
         <th rowspan="2" >Alternate Unit</th>
         <th rowspan="2" >Conversion Factor</th>
-        <th colspan="2" class="text-center" >Sale Price Discount (%)</th>
-        <th colspan="2" class="text-center">Sale Price</th>
+        <th colspan="2" class="text-center" *ngIf="userSetting.EnableDiscountInAltUnit == 1">Sale Price Discount (%)</th>
+        <th colspan="2" class="text-center"  *ngIf="userSetting.EnableDiscountInAltUnit == 0">Sale Price</th>
         <th colspan="2" class="text-center">Is Default</th>
         <th rowspan="2" style="width:5rem;" >Status</th>
       </tr>
       <tr>
-        <th class="top-border">Retail Price</th>
-        <th class="top-border">Wholesale Price</th>
-        <th class="top-border">Retail Price</th>
-        <th class="top-border">Wholesale Price</th>
+        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 1">Retail Price</th>
+        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 1 && userSetting.EnableWSalesRate == 1">Wholesale Price</th>
+        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 0">Retail Price</th>
+        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 0 && userSetting.EnableWSalesRate == 1">Wholesale Price</th>
         <th class="top-border">Purchase</th>
         <th class="top-border">Sales</th>
       </tr>

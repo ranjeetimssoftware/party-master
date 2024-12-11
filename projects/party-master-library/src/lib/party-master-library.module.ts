@@ -39,7 +39,7 @@ import { CreateLedgerComponent } from './pages/create-ledger/create-ledger.compo
 import { CreateSubLedgerComponent } from './pages/create-sub-ledger/create-sub-ledger.component';
 import { VendorAdditionalInfoComponent } from './components/vendor-additional-info/vendor-additional-info.component';
 import { SpinnerService } from './shared/components/generic/spinner/spinner.service';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
@@ -131,8 +131,8 @@ import { AlternateItemComponent } from './components/alternate-item/alternate-it
     MatTreeModule,
     MatExpansionModule,
   ],
-  exports: [PartyMasterLibraryComponent],
-  providers:[
+  exports: [PartyMasterLibraryComponent, MatDialogModule],
+  providers: [
     SpinnerService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ]

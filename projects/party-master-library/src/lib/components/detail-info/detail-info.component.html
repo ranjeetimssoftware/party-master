@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div action="" class="form-group">
-    <div class="row pl-3">
+    <div class="row">
       <div class="row col-10">
         <div class="col-6">
           <div class="row form-group">
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="row pl-3">
+    <div class="row">
       <div class="row col-10">
         <div class="col-6">
         <label for="purchase-infor" style="margin-left: -7px;" class="form-label-header">Purchase Info</label>
@@ -98,7 +98,7 @@
           <div class="row">
             <div class="col-4"></div>
               <label for="including-VAT" class="form-label-header col-4 text-center">Including VAT</label>
-              <label for="Excluding-VAT" class="form-label-header col-4 text-center">Excluding VAT</label>
+              <label for="Excluding-VAT" class="form-label-header col-3 text-center p-0">Excluding VAT</label>
             </div>
             <div class="row form-group">
               <div class="col-4">
@@ -179,7 +179,7 @@
             <p class="my-0">Recommended Margin: {{productObj.MARGIN}}%</p>
             <p class="my-0">Actual Margin:</p>
             <div style="float: inline-end;">
-              <p class="px-3">{{productMasterService.pObj?.RecMarginOnPRate | number : '1.0-2'}}% on Landing Price</p>
+              <p class="px-3 my-0">{{productMasterService.pObj?.RecMarginOnPRate | number : '1.0-2'}}% on Landing Price</p>
               <p class="px-3">{{productMasterService.pObj?.RecMarginOnRate | number : '1.0-2'}}% on Sales Price</p>
             </div>
           </mat-card-content>
@@ -210,8 +210,8 @@
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
-                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableItemWiseBatch == 1 && userSetting.EnableBatch != 0">
-                  <input type="checkbox" class="form-check-input mr-2">Has Batch Wise Pricing
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0">
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')">Has Batch Wise Pricing
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.ENABLE_ECS != 0">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASECSCHARGE" (change)="onCheckOption($event,productObj,'HASECSCHARGE')">Is ECS Chargeable Item
@@ -245,7 +245,7 @@
     <ng-container class="row mt-2" *ngIf="productObj.discontinueCheckbox">
       <div class="col-6">
         <div class="row form-group">
-          <div class="col-3">
+          <div class="col-4">
             <label for="" class="form-label">Item Discontinued For</label>
           </div>
           <div class="col-8">

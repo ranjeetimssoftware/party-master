@@ -9,7 +9,7 @@ import { PartyMasterLibraryService } from './party-master-library.service';
 })
 export class PartyMasterLibraryComponent implements OnInit {
   userSettings:any;
-  constructor(private partyMaster:PartyMasterLibraryService) {
+  constructor() {
     
   }
   ngOnInit(): void {}
