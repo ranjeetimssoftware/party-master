@@ -150,6 +150,11 @@ export class CreateCustomerComponent {
       alert('Please Enter Mobile No.');
       return;
     }
+    const isValid = this.salesTargetComponent.validateAndSubmit();
+    if(!isValid){
+      return;
+    }
+     
     if (
       this.userSettings.SalesmanCompulsoryInPartyMaster == 1 &&
       (this.partyMasterService.customermasterObj.AdditionalInfo
