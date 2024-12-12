@@ -94,6 +94,11 @@ export class CreateLedgerComponent {
     }
   }
 
+  hasSubLedger(event: Event): void{
+    const isChecked =(event.target as HTMLInputElement).checked;
+    this.partyMasterService.customermasterObj.hasSubLedger =isChecked ? 1 : 0;
+  }
+
   getSubMenu(item: any): any {
     return this[`menu_${item.name.replace(/\s+/g, '_')}`];
   }
