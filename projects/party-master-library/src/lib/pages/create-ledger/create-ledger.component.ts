@@ -84,6 +84,8 @@ export class CreateLedgerComponent {
             this.partyMasterService.customermasterObj = res.result;
             this.partyMasterService.customermasterObj.customerPartyAccount = res.result.customerPartyAccount;
             this.filterParentGroup(this.partyMasterService.customermasterObj.customerPartyAccount.acType);
+            const hasSubLedgerValue = this.partyMasterService.customermasterObj.hasSubLedger || 0;
+            this.ledgerForm.patchValue({ HasSubLedger: hasSubLedgerValue === 1 });
           }
           else if(res.status == "error"){
             this.partyMasterService.openErrorDialog(res.result);
