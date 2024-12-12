@@ -29,8 +29,8 @@ export class CreateVendorComponent {
     this.userSettings = this.partyMasterService.userSettings;
     this.vendorForm = this.fb.group({
       VendorCode: ['', Validators.required],
-      VendorName: ['', Validators.required],
-      Address: ['', Validators.required],
+      VendorName: ['', [Validators.required, Validators.maxLength(50)]],
+      Address: ['', [Validators.required, Validators.maxLength(50)]],
       VATNo: ['', Validators.required],
       Email: ['', [Validators.required,Validators.email]],
       Mobile: ['', Validators.required],
@@ -81,8 +81,12 @@ export class CreateVendorComponent {
   }
 
   submit() {
-    
-    
+    if (this.vendorForm.get('VendorName')?.invalid) {
+      alert('Customer Name limit is upto 250 characters');
+    }
+    if (this.vendorForm.get('Address')?.invalid) {
+      alert('Address limit is upto 100 characters');
+    }
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||
       this.partyMasterService.customermasterObj.customerName == undefined ||
