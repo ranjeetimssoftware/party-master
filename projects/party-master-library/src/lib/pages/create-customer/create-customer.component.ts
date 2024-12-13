@@ -33,8 +33,8 @@ export class CreateCustomerComponent {
     console.log("User Setting", this.userSettings)
     this.customerForm = this.fb.group({
       CustomerCode: ['', Validators.required],
-      CustomerName: ['', Validators.required],
-      Address: ['', Validators.required],
+      CustomerName: ['', [Validators.required, Validators.maxLength(50)]],
+      Address: ['', [Validators.required, Validators.maxLength(50)]],
       VATNo: [''],
       Email: ['', Validators.required],
       Mobile: ['', Validators.required],
@@ -46,6 +46,8 @@ export class CreateCustomerComponent {
       this.partyMasterService.customermasterObj.status = 1;
       this.partyMasterService.customermasterObj.customerPartyAccount = <any>{};
     }
+  
+    
   }
 
   ngOnInit() {
@@ -91,6 +93,12 @@ export class CreateCustomerComponent {
   }
 
   submit() {
+    if (this.customerForm.get('CustomerName')?.invalid) {
+      alert('Customer Name limit is upto 50 characters');
+    }
+    if (this.customerForm.get('Address')?.invalid) {
+      alert('Address limit is upto 50 characters');
+    }
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||
       this.partyMasterService.customermasterObj.customerName == undefined ||
