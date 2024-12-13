@@ -161,7 +161,6 @@ export class CreateCustomerComponent {
     if(this.partyMasterService.userSettings.ENABLESALES_TARGET == 1){
     const isValid = this.salesTargetComponent.validateAndSubmit();
     if(!isValid){
-      console.log("isisis");
       return;
     }
   }
