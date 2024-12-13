@@ -158,9 +158,10 @@ export class CreateCustomerComponent {
       alert('Please Enter Mobile No.');
       return;
     }
-    if(this.partyMasterService.userSettings.ENABLESALES_TAREGT == 1){
+    if(this.partyMasterService.userSettings.ENABLESALES_TARGET == 1){
     const isValid = this.salesTargetComponent.validateAndSubmit();
     if(!isValid){
+      console.log("isisis");
       return;
     }
   }
