@@ -330,7 +330,7 @@
       <lib-document-upload [documentUpload]="partyMasterService.customermasterObj.documentUpload" [mode]="mode"></lib-document-upload>
 
     </mat-tab>
-    <mat-tab label="Sales Target" *ngif="userSettings.ENABLESALES_TARGET == 1"> 
+    <mat-tab label="Sales Target" *ngIf="userSettings.ENABLESALES_TARGET == 1"> 
       <lib-sales-target [salesTarget]="partyMasterService.customermasterObj.salesTarget" [mode]="mode"></lib-sales-target>
 
     </mat-tab>
