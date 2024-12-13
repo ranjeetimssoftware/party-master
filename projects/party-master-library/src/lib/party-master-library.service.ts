@@ -35,6 +35,7 @@ export class PartyMasterLibraryService {
     this.customermasterObj = <CustomerMasterObj>{};  
     this.customermasterObj.status = 1;
     this.customermasterObj.AdditionalInfo = <AdditionalInfo>{};
+    this.customermasterObj.salesTarget = <SalesTarget>{};
     this.customermasterObj.customerPartyAccount = <any>{};
     this.customermasterObj.contactPerson = [];
     this.customermasterObj.documentUpload = [];
@@ -235,15 +236,15 @@ export interface SalesTarget{
 
 export interface MembershipObj{
   gender:string;
-  dateOfBirth:string;
-  weddingAniversary:string;
-  workingOrganization:string
-  designation:string;
-  customerStatus:string,
-  membershipScheme:string,
-  membershipStartDate:string,
-  membsershipEndDate:string,
-  membershipBarcode:string,
+  dateOfBirth:string | null;
+  weddingAniversary:string| null;
+  workingOrganization:string| null;
+  designation:string| null;
+  customerStatus:string| null,
+  membershipScheme:string| null,
+  membershipStartDate:string | null,
+  membsershipEndDate:string| null,
+  membershipBarcode:string| null,
 }
 
 export interface DocumentObj{

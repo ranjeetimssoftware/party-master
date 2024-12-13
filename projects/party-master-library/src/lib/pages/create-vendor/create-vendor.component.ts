@@ -157,8 +157,8 @@ export class CreateVendorComponent {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
       'PA';
     this.partyMasterService.customermasterObj.customerPartyAccount.pType = 'V';
-    this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.customerStatus =
-      this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus;
+    // this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.customerStatus =
+    //   this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus;
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe(
