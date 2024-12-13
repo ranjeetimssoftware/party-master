@@ -161,6 +161,7 @@ export interface CustomerMasterObj{
   customerPartyAccount:CustomerPartyAccountObj;
   documentUpload:DocumentObj[];
   parentGroup:string;
+  additionalInfo:any;
 }
 
 export interface CustomerPartyAccountObj{

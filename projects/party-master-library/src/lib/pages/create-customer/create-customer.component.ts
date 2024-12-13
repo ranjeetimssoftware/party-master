@@ -73,6 +73,8 @@ export class CreateCustomerComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
+            delete(this.partyMasterService.customermasterObj.additionalInfo);
+
             if(this.partyMasterService.customermasterObj.AdditionalInfo.createMember == 1){
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membershipStartDate.split('T')[0]:'';
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.membsershipEndDate.split('T')[0]:'';
@@ -84,6 +86,7 @@ export class CreateCustomerComponent {
             }
         });
     }
+    
   }
 
   selectedTab: number = 0;
