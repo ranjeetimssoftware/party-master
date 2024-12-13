@@ -149,6 +149,7 @@ export interface CustomerMasterObj{
   vatNo:string;
   email:string;
   mobile:string;
+  hasSubLedger:number;
   phone:string;
   status:number;
   isCustomerLedger:number;

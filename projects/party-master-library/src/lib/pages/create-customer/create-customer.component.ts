@@ -1,8 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
+import { SalesTargetComponent } from '../../components/sales-target/sales-target.component';
 import {
   AdditionalInfo,
   CustomerMasterObj,
@@ -20,7 +21,7 @@ export class CreateCustomerComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
-
+  @ViewChild(SalesTargetComponent) salesTargetComponent!: SalesTargetComponent;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -157,6 +158,11 @@ export class CreateCustomerComponent {
       alert('Please Enter Mobile No.');
       return;
     }
+    const isValid = this.salesTargetComponent.validateAndSubmit();
+    if(!isValid){
+      return;
+    }
+     
     if (
       this.userSettings.SalesmanCompulsoryInPartyMaster == 1 &&
       (this.partyMasterService.customermasterObj.AdditionalInfo

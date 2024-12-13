@@ -56,6 +56,14 @@ export class CreateSubLedgerComponent {
     }
   }
 
+  onKeyDown(event: KeyboardEvent){
+    if(event.key !== "Enter"){
+      event.preventDefault();
+    }else{
+      this.onEnterMainLedgerList();
+    }
+  }
+
   onEnterMainLedgerList(){
     this.gridPopupSettingsForLedger = {
       title: "Ledger List",

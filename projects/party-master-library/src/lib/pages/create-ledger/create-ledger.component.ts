@@ -84,6 +84,8 @@ export class CreateLedgerComponent {
             this.partyMasterService.customermasterObj = res.result;
             this.partyMasterService.customermasterObj.customerPartyAccount = res.result.customerPartyAccount;
             this.filterParentGroup(this.partyMasterService.customermasterObj.customerPartyAccount.acType);
+            const hasSubLedgerValue = this.partyMasterService.customermasterObj.hasSubLedger || 0;
+            this.ledgerForm.patchValue({ HasSubLedger: hasSubLedgerValue === 1 });
           }
           else if(res.status == "error"){
             this.partyMasterService.openErrorDialog(res.result);
@@ -92,6 +94,11 @@ export class CreateLedgerComponent {
           this.partyMasterService.openErrorDialog(error.error.detail);
         })
     }
+  }
+
+  hasSubLedger(event: Event): void{
+    const isChecked =(event.target as HTMLInputElement).checked;
+    this.partyMasterService.customermasterObj.hasSubLedger =isChecked ? 1 : 0;
   }
 
   getSubMenu(item: any): any {
