@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
 import { SalesTargetComponent } from '../../components/sales-target/sales-target.component';
+import { AdditionalInfoComponent } from '../../components/additional-info/additional-info.component';
 import {
   AdditionalInfo,
   CustomerMasterObj,
@@ -21,6 +22,7 @@ export class CreateCustomerComponent {
   mode: string = 'add';
   userSettings: any;
   returnUrl: string | undefined;
+  @ViewChild(AdditionalInfoComponent) additionalInfoComponent!: AdditionalInfoComponent;
   @ViewChild(SalesTargetComponent) salesTargetComponent!: SalesTargetComponent;
   constructor(
     private router: Router,
@@ -161,7 +163,14 @@ export class CreateCustomerComponent {
       alert('Please Enter Mobile No.');
       return;
     }
-    if(this.partyMasterService.userSettings.ENABLESALES_TAREGT == 1){
+    if(this.partyMasterService.userSettings.CREATE_CPROFILE_AS_MEMBER ==1){
+      const dateValidation = this.additionalInfoComponent.validateEndDate();
+      if(!dateValidation){
+        alert('End date cannot be earlier than start date');
+        return;
+      }
+    }
+    if(this.partyMasterService.userSettings.ENABLESALES_TARGET == 1){
     const isValid = this.salesTargetComponent.validateAndSubmit();
     if(!isValid){
       return;
