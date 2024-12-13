@@ -94,10 +94,10 @@ export class CreateCustomerComponent {
 
   submit() {
     if (this.customerForm.get('CustomerName')?.invalid) {
-      alert('Customer Name limit is upto 250 characters');
+      alert('Customer Name limit is upto 50 characters');
     }
     if (this.customerForm.get('Address')?.invalid) {
-      alert('Address limit is upto 100 characters');
+      alert('Address limit is upto 50 characters');
     }
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||

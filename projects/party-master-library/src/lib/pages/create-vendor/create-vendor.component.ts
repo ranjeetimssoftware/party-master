@@ -82,10 +82,10 @@ export class CreateVendorComponent {
 
   submit() {
     if (this.vendorForm.get('VendorName')?.invalid) {
-      alert('Customer Name limit is upto 250 characters');
+      alert('Customer Name limit is upto 50 characters');
     }
     if (this.vendorForm.get('Address')?.invalid) {
-      alert('Address limit is upto 100 characters');
+      alert('Address limit is upto 50 characters');
     }
     if (
       this.partyMasterService.customermasterObj.customerName == '' ||
