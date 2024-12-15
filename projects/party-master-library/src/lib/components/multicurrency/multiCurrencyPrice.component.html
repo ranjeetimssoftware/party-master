@@ -1,0 +1,40 @@
+<div class="row" style="width: 100%;">
+<div style="height: 58vh;width: 100%;overflow-x: hidden;overflow-y: scroll;">
+
+<table id="BlueHeaderResizableTable"  class="table table-striped" >  
+    <thead>
+        <tr class="stickHead" >
+            <th class="fontsize" style="width:1%;font-weight: bold;text-align: center;"></th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;"></th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;"></th>
+            <th colspan="2" class="fontsize" style="font-weight: bold;text-align: center;">Retail Rate</th>
+        </tr>
+        <tr class="stickHead">
+            <th class="fontsize" style="width:1%;font-weight: bold;text-align: center;">S.No</th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;">Country Name</th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;">Currency Code</th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;">VAT Exclusive</th>
+            <th class="fontsize" style="width:3%;font-weight: bold;text-align: center;">VAT Inclusive</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let curr of productObj.multiCurrencyList; let i = index"  style="border: 1px; max-height: 25px;">
+            <td  id="sn" style="line-height: 21px; text-align: center;border: 1px solid #e6e6e6;">
+              {{i+1}}
+            </td>
+            <td style="line-height: 21px;border: 1px solid #e6e6e6;text-align: center;">{{curr.CountryName}}</td>
+            <td style="line-height: 21px;border: 1px solid #e6e6e6;text-align: center;">{{curr.CurrencyCode}}</td>
+            <td style="line-height: 21px;border: 1px solid #e6e6e6;text-align: center;">
+                <input type="number" [(ngModel)]="productObj.multiCurrencyList[i].CurrencyRATE_A" (ngModelChange)="recalculateVATAmount($event,i)">
+            </td>
+            <td style="line-height: 21px;border: 1px solid #e6e6e6;text-align: center;">
+                <input type="number" [(ngModel)]="productObj.multiCurrencyList[i].CurrencyRATE_B"(ngModelChange)="recalculateNonVATAmount($event,i)">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+</div>
+

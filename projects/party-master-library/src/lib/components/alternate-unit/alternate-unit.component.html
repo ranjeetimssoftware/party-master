@@ -9,16 +9,16 @@
         <th rowspan="2" style="width:3rem;" >SN</th>
         <th rowspan="2" >Alternate Unit</th>
         <th rowspan="2" >Conversion Factor</th>
-        <th colspan="2" class="text-center" *ngIf="userSetting.EnableDiscountInAltUnit == 1">Sale Price Discount (%)</th>
-        <th colspan="2" class="text-center"  *ngIf="userSetting.EnableDiscountInAltUnit == 0">Sale Price</th>
+        <th colspan="2" class="text-center">Sale Price Discount (%)</th>
+        <th colspan="2" class="text-center" [hidden]="userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0">Sale Price</th>
         <th colspan="2" class="text-center">Is Default</th>
         <th rowspan="2" style="width:5rem;" >Status</th>
       </tr>
       <tr>
-        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 1">Retail Price</th>
-        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 1 && userSetting.EnableWSalesRate == 1">Wholesale Price</th>
-        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 0">Retail Price</th>
-        <th class="top-border"  *ngIf="userSetting.EnableDiscountInAltUnit == 0 && userSetting.EnableWSalesRate == 1">Wholesale Price</th>
+        <th class="top-border">Retail Price</th>
+        <th class="top-border" *ngIf="userSetting.EnableWSalesRate == 1">Wholesale Price</th>
+        <th class="top-border" [hidden]="userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0">Retail Price</th>
+        <th class="top-border"  [hidden]="userSetting.EnableWSalesRate == 0 || (userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0)">Wholesale Price</th>
         <th class="top-border">Purchase</th>
         <th class="top-border">Sales</th>
       </tr>
@@ -30,8 +30,10 @@
         <td>{{item.CONFACTOR}}</td>
         <td>{{item.SRATE_DISCOUNT}}</td>
         <td>{{item.WSRATE_DISCOUNT}}</td>
-        <td></td>
-        <td></td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || productObj.VAT == 1">{{item.RATE}}</td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 || productObj.VAT == 1">{{item.RATE_B}}</td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || productObj.VAT == 0">{{item.IN_RATE}}</td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 || productObj.VAT == 0">{{item.IN_RATE_B}}</td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULT"></td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULTPRATE"></td>
         <td>
@@ -48,12 +50,18 @@
       </tr>
       <tr>
         <td>{{AlternateUnits.length+1}}</td>
-        <td><input type="text" placeholder="Press Enter" [(ngModel)]="CurAltUnit.ALTUNIT" ></td>
+        <td>
+          <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="CurAltUnit.ALTUNIT">
+            <option *ngFor="let i of Units" [ngValue]="i.UNITS">{{i.UNITS}}</option>
+          </select>
+        </td>
         <td><input type="number" min="0" [(ngModel)]="CurAltUnit.CONFACTOR"></td>
-        <td><input type="text" [(ngModel)]="CurAltUnit.SRATE_DISCOUNT"></td>
-        <td><input type="text" [(ngModel)]="CurAltUnit.WSRATE_DISCOUNT"></td>
-        <td><input type="text"></td>
-        <td><input type="text"></td>
+        <td><input type="number" min="0" [(ngModel)]="CurAltUnit.SRATE_DISCOUNT"></td>
+        <td><input type="number" min="0" [(ngModel)]="CurAltUnit.WSRATE_DISCOUNT"></td>
+        <td [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 0"><input type="number" min="0" [(ngModel)]="CurAltUnit.RATE"  [disabled]="productObj.HASBATCH == 1" (change)="RecalculateNonVATAmount_EX_RATE()"></td>
+        <td [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 || userSetting.VatExcludingRate == 0"><input type="number" min="0" [(ngModel)]="CurAltUnit.RATE_B" [disabled]="productObj.HASBATCH == 1" (change)="RecalculateNonVATAmount_EX_RATE_B()"></td>
+        <td [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 1"><input type="number" min="0" [(ngModel)]="CurAltUnit.IN_RATE" [disabled]="productObj.HASBATCH == 1"  (change)="RecalculateVATAmount()"></td>
+        <td [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 ||userSetting.VatExcludingRate == 1"><input type="number" min="0" [(ngModel)]="CurAltUnit.IN_RATE_B" [disabled]="productObj.HASBATCH == 1"  (change)="RecalculateVATAmount()"></td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="CurAltUnit.ISDEFAULT"></td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="CurAltUnit.ISDEFAULTPRATE"></td>
         <td>

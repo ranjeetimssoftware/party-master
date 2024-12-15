@@ -888,5 +888,10 @@ export class ProductMasterService {
     return this.http.get(this.apiUrl + '/getKOTCategory');
   }
 
+  getCurrencyMaster(){
+    return this.http.get(this.apiUrl + '/getCurrencyMaster');
+  }
+
+
 
 }

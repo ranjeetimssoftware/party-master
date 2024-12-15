@@ -10,8 +10,8 @@ import { ItemWisePrice, Product } from '../../pages/ProductItem';
   styleUrls: ['./batchwise-price-log.component.css'],
 })
 export class BatchwisePriceLogComponent implements OnInit {
-  @Input() ItemWisePriceList: ItemWisePrice[] = [];
-  ItemWisePrice: ItemWisePrice = <ItemWisePrice>{};
+  @Input() productObj: Product = <Product>{};
+  ItemWisePriceList: ItemWisePrice = <ItemWisePrice>{};
   constructor() { 
   }
 
@@ -19,11 +19,11 @@ export class BatchwisePriceLogComponent implements OnInit {
   }
 
   addBatchWisePrice(){
-    this.ItemWisePriceList.push(this.ItemWisePrice);
-    this.ItemWisePrice = <ItemWisePrice>{};
+    this.productObj.ItemWisePrice.push(this.ItemWisePriceList);
+    this.ItemWisePriceList = <ItemWisePrice>{};
   }
   removeBatchWisePrice(i:number){
-    this.ItemWisePriceList.splice(i,1);
+    this.productObj.ItemWisePrice.splice(i,1);
   }
 
 

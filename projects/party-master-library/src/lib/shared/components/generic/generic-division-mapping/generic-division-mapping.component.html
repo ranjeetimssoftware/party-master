@@ -1,0 +1,47 @@
+<div class="custom-popup" [hidden]="!isOpen">
+  <div class="popup-content">
+    <div
+      class="d-flex justify-content-between align-items-center border-bottom px-4"
+    >
+      <p class="popup-header">{{DialogObj.Title}}</p>
+      <button class="close-button" (click)="close('close')">&times;</button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="px-3 pt-2">
+      <div class="input-group">
+        <span class="input-group-text">
+          <mat-icon>search</mat-icon>
+        </span>
+        <input
+          type="text"
+          class="form-control search"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-icon"
+          (keyup)="applyFilter($event)"
+        />
+      </div>
+    </div>
+
+    <div class="popup-body px-4 py-2 scrollable-content">
+      <div class="row mb-3 border-bottom pb-1">
+        <div class="col-md-12 d-flex flex-wrap">
+          <div class="col-md-6 my-2" *ngFor="let check of filteredDivisionList">
+            <label> <input class="mr-2" type="checkbox" [(ngModel)]="check.isChecked" [checked]="check.isChecked == 1"/> {{check.NAME}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup-footer px-4">
+      <button
+        mat-button
+        style="width: 85px; height: 30px"
+        id="save"
+        (click)="close('ok')"
+      >
+        OK
+      </button>
+    </div>
+  </div>
+</div>

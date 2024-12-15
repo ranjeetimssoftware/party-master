@@ -4,9 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenericDialogComponent } from '../../shared/components/generic/generic-dialog/generic-dialog.component';
 import { ProductMasterService } from '../Product-master.service';
-import { ItemExtraInfo, prodObj, Product, ProductGroup, ProductType, RateDiscount, TBarcode } from '../ProductItem';
+import { AlternateUnit, ItemExtraInfo, MultipleRetailPrice, prodObj, Product, ProductGroup, ProductType, RateDiscount, TBarcode } from '../ProductItem';
 import * as uuid from 'uuid'
 import { DetailInfoComponent } from '../../components/detail-info/detail-info.component';
+import { AlternateItemComponent } from '../../components/alternate-item/alternate-item.component';
+import { AlternateUnitComponent } from '../../components/alternate-unit/alternate-unit.component';
 
 @Component({
   selector: 'lib-create-product',
@@ -36,15 +38,20 @@ export class CreateProductComponent {
   groupSelectObj: ProductGroup = <ProductGroup>{};
   prodObj: prodObj = <prodObj>{};
   selectedGroupInfo:prodObj = <prodObj>{};
+  PMultipleRetailPrice: MultipleRetailPrice[] = [];
   mainGroupList: any = [];
   subGroupAList: any = [];
   subGroupBList: any = [];
   subGroupCList: any = [];
   Units: any[] = [];
+  DivisionList:any[]=[];
   PTypeList: ProductType[] = [];
   PBarCode: TBarcode = <TBarcode>{};
   PBarCodeCollection: TBarcode[] = [];
+  AlternateUnits: AlternateUnit[] = [];
+  public CurAltUnit: AlternateUnit = <AlternateUnit>{};
   @ViewChild(DetailInfoComponent) child!: DetailInfoComponent;
+  @ViewChild(AlternateUnitComponent) AlternateUnitCom!: AlternateUnitComponent;
 
   constructor(
     private router: Router,
@@ -74,7 +81,12 @@ export class CreateProductComponent {
       let self = this;
       this.productObj.ItemRateDiscount = <RateDiscount>{};
       this.productObj.MultiStockLevels = [];
-      this.productObj.ItemExtraInfo = <ItemExtraInfo>{};
+      if(this.userSetting.EnableItemExtraInfo == 1){
+        this.productObj.ItemExtraInfo = <ItemExtraInfo>{};
+      }
+      if(this.userSetting.EnableAlternateItem == 0){
+        this.productObj.AlternateProducts = [];
+      }
     }
     this.getAllMajorGroup();
     this.getAllUnits();
@@ -90,6 +102,7 @@ export class CreateProductComponent {
     this.productObj.MGROUP = this.selectedGroupInfo.MGROUP;
     this.productObj.PARENT = this.selectedGroupInfo.MCODE;
     this.productObj.MENUCODE = this.selectedGroupInfo?.MENUCODE;
+    this.productObj.Divisions = this.selectedGroupInfo?.DIVISIONS;
       if((this.userSetting.ITEMGROUPCODELEVEL>(this.selectedGroupInfo.LEVEL))){
         this.productObj.MENUCODE = "";
         this.productObj.DESCA = "";
@@ -197,6 +210,23 @@ close(status:string){
   this.isGroupSelectionVisible = !this.isGroupSelectionVisible;
 }
 
+changeHasBatchWisePricing(event:any){
+  this.productObj.HASBATCH = event;
+  if(this.productObj.HASBATCH == 1 && this.checkForAmountBaseDiscount()){
+    this.productMasterService.openSuccessDialog("Amount Base Rate is not supported for Alternate Unit when Batch Wise Price is enabled. Please, Change Its price to Discount Mode First to Proceed.");
+    this.productObj.HASBATCH = 0;
+  }
+}
+
+
+checkForAmountBaseDiscount():boolean{
+  let amountBasedValue = this.AlternateUnits.filter((x) => x.RATE || x.RATE_B || x.IN_RATE || x.IN_RATE_B);
+  if((amountBasedValue && amountBasedValue.length>0) || this.CurAltUnit.RATE || this.CurAltUnit.IN_RATE || this.CurAltUnit.RATE_B || this.CurAltUnit.IN_RATE_B){
+    return true;
+  }else{
+    return false;
+  } 
+}
 getAllMajorGroup(){
   this.productMasterService.getMainGroupList().subscribe((response) => {
     if (response.length > 0) {
@@ -413,6 +443,11 @@ onCheckVATOption(event: Event) {
   if (input) {
     this.productObj.VAT = input.checked ? 1 : 0;
     this.child.RecalculateVATAmount();
+    // if(this.productObj.VAT == 1)
+    //   this.AlternateUnitCom.RecalculateVATAmount();
+    // else
+    //   this.AlternateUnitCom.RecalculateNonVATAmount_EX_RATE();
+    //   this.AlternateUnitCom.RecalculateNonVATAmount_EX_RATE_B();
   } else {
     alert("Invalid input element");
   }
@@ -453,6 +488,10 @@ onSubmit(){
     this.productMasterService.openSuccessDialog("Please Enter ECS Rate.");
     return;
   }
+  if(this.productMasterService.pObj?.RecMarginOnPRate < this.productObj.MARGIN){
+    this.productMasterService.openSuccessDialog("Calculated Margin on cost price is less than recommended margin.");
+    return;    
+  }
   if(this.userSetting.EnableProductWiseAccMapping == 1){
     if(this.productObj.SAC_ACNAME == "" || this.productObj.SAC_ACNAME == null || this.productObj.SAC_ACNAME == undefined){  
       this.productMasterService.openSuccessDialog("Please Select Sales Account.");
@@ -474,15 +513,15 @@ onSubmit(){
   this.productObj.PCL = 'pc002';
   this.productObj.TYPE = 'A';
   this.productObj.LEVELS = 0;
-  this.productObj.Location = this.productObj.Location.toString();
+  this.productObj.Location = this.productObj.Location?this.productObj.Location.toString():'';
   if(this.mode != 'edit'){
     this.productMasterService.userSetting.MANUALCODE == 1 ? this.productObj.FCODE = 0 : this.productObj.FCODE = Number(this.productObj.MENUCODE);
   }
   if(this.mode === 'add'){
     this.AddBCode();
    }
-  console.log("Product Object", this.productObj);
-  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],[],[]).subscribe((data:any) => {
+  this.productObj.Divisions =  this.DivisionList.map((x) => x.div).join(',') || '';
+  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],this.PMultipleRetailPrice,[]).subscribe((data:any) => {
     if (data.status === 'ok') {
       this.productObj = <Product>{};
       this.productObj.MENUCODE = '';
@@ -520,6 +559,9 @@ onSubmit(){
       this.productObj.supplierName = '';
       this.productObj. SHELFLIFE = 0;
       this.productObj.guid =  uuid.v4();
+      this.AlternateUnits = [];
+      this.productObj.AlternateProducts = [];
+      this.DivisionList = [];
 
       this.PBarCodeCollection = [];
       this.selectedGroupInfo.MENUCODE = '';

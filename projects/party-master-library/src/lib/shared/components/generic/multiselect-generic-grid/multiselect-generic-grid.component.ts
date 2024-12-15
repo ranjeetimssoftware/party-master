@@ -91,7 +91,9 @@ export class MultiSelectGenericGridComponent {
     this.selectedRowIndex = 0;
     const apiEndpoints = this.popupsettings.apiEndpoints;
     let apiUrl = `${this.apiUrl}${apiEndpoints}?currentPage=${this.pageNumber}&maxResultCount=${this.pageSize}`;
-
+    if(this.popupsettings.userWiseWarehouseOnly===false) {
+      apiUrl = apiUrl + `&userWiseWarehouseOnly=${this.popupsettings.userWiseWarehouseOnly}`;
+    }
     this.requestUrl = this.getFilterOption(apiUrl);
 
     return this.http
@@ -195,6 +197,7 @@ export class MultiSelectGenericPopUpSettings {
   defaultFilterIndex?= 0;
   showActionButton?= false;
   showIsDefaultSelection?: boolean = false;
+  userWiseWarehouseOnly?:boolean=true;
 }
 
 export class ColumnSettings {

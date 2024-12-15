@@ -4,24 +4,24 @@
 <div class="default-parameter">Default Paramater</div>
 <div class="input-group">
   <label for="reorderLevel">Re-Order Level:</label>
-  <input type="text" id="reorderLevel" name="reorderLevel" [(ngModel)]="productObj.ROLEVEL">
+  <input type="number" id="reorderLevel" name="reorderLevel" [(ngModel)]="productObj.ROLEVEL">
   <label for="minStockLevel">Min Stock Level:</label>
-  <input type="text" id="minStockLevel" name="minStockLevel" [(ngModel)]="productObj.MINLEVEL">
+  <input type="number" id="minStockLevel" name="minStockLevel" [(ngModel)]="productObj.MINLEVEL">
   <label for="maxStockLevel">Max Stock Level:</label>
-  <input type="text" id="maxStockLevel" name="maxStockLevel" [(ngModel)]="productObj.MAXLEVEL">
+  <input type="number" id="maxStockLevel" name="maxStockLevel" [(ngModel)]="productObj.MAXLEVEL">
 </div>
 <div class="inventory-header">Inventory Control Action:</div>
   <div class="checkbox-group">
-  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.MINWARN">
+  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.MINWARN" (change)="onCheckOption($event,productObj,'MINWARN')">
   <label for="Checkbox">Do Not Issue Stock After Min Stock Level</label>
-  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.ROWARN">
+  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.ROWARN" (change)="onCheckOption($event,productObj,'ROWARN')">
   <label for="Checkbox">Warn When Stock Reached Re-Order Level</label>
-  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.ZEROROLEVEL">
+  <input type="checkbox" id="myCheckbox" name="option" value="1" [(ngModel)]="productObj.ZEROROLEVEL" (change)="onCheckOption($event,productObj,'ZEROROLEVEL')">
   <label for="Checkbox">Take Zero Stock As Re-Order Level</label>
   </div>
   <div class="inventory-header warehouse">Warehoue Inventory Control:</div>
   <div class="other-checkbox">
-    <input type="checkbox" id="myCheckbox" name="option" value="1"  [(ngModel)]="isTableVisible">
+    <input type="checkbox" id="myCheckbox" name="option" value="1"  [(ngModel)]="isTableVisible" [checked]="isTableVisible">
     <label for="Checkbox">Enable Warehouse Inventory Control Parameter</label>
   </div>
  
@@ -54,7 +54,7 @@
     </tr>
     <tr style="border: 2px solid #EDEDED;">
       <td>{{productObj.MultiStockLevels.length +1}}</td>
-      <td><input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MSLevel.WAREHOUSE"/></td>
+      <td><input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MSLevel.WAREHOUSE" (keydown)="preventInput($event)" (keydown.Enter)="WarehouseEnterCommand()" (keyup)="WarehouseEnterCommand()"/></td>
       <td><input type="number" placeholder="0" min="0" class="press-enter" [(ngModel)]="MSLevel.ROLEVEL"/></td>
       <td><input type="number" placeholder="0" min="0" class="press-enter" [(ngModel)]="MSLevel.MINLEVEL"/></td>
       <td><input type="number" placeholder="0" min="0" class="press-enter" [(ngModel)]="MSLevel.MAXLEVEL"/>
@@ -63,4 +63,6 @@
 </table>
 <mat-icon *ngIf="isTableVisible" class="mat-icon-small text-primary mt-2" style="cursor: pointer;" (click)="addMultiStockLevel()">add_circle_outline</mat-icon>
 </div>
+<multiselect-generic-grid #genericMultiSelectWarehouse [popupsettings]="gridPopupSettingsForWarehouse" (onPopUpClose)="onWarehouseSelected($event)"></multiselect-generic-grid>
+
 

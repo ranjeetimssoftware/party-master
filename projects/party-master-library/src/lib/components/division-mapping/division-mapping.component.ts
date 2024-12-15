@@ -22,7 +22,7 @@ export class DivisionMappingComponent {
   filteredDivisionList:any[]=[];
   @Input() DivisionList:Division[]=[];  
   activeRoute?:string;
-  @Input() divList!:any[];
+  @Input() divList:any[] = [];
   @Input() mode:string = 'add';
   constructor(private route: ActivatedRoute, private fb: FormBuilder,public partyMasterService:PartyMasterLibraryService) {
     this.displayedColumns = ['sn', 'branch', 'action'];
@@ -30,7 +30,7 @@ export class DivisionMappingComponent {
 
   ngOnInit(){
     this.activeRoute = this.route.snapshot.url[0].path;
-    if(this.activeRoute != 'product') this.getDivisionList();
+    this.getDivisionList();
   }
 
   openDialog() {
@@ -41,7 +41,8 @@ export class DivisionMappingComponent {
   close(res:string) {
     if(res == "ok"){
       this.divList = this.filteredDivisionList.filter(x => x.isChecked);
-    this.partyMasterService.customermasterObj.customerPartyAccount.divList = this.divList;
+      if(this.activeRoute != 'product')  this.partyMasterService.customermasterObj.customerPartyAccount.divList = this.divList;
+   
     }
     this.isOpen = false; // Method to close the pop-up
   }
@@ -63,7 +64,8 @@ export class DivisionMappingComponent {
 
   getDivisionList(){
     this.partyMasterService.getDivisionList().subscribe((res:any) =>  {
-      res.result.forEach((x:any) => {
+      let data = res?res:res.result;
+      data.forEach((x:any) => {
         this.DivisionList.push({div:x.INITIAL,
            divisionName:x.NAME,
         isChecked:false

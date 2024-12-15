@@ -43,6 +43,7 @@ export interface Product {
   WIDTH: number | null;
   BREADTH: number | null;
   AlternateUnits: AlternateUnit[];
+  AlternateProducts:any[],
   AltUnit: UnitAndQty;
   Par: Product;
   COLOR: string;
@@ -184,6 +185,7 @@ export interface Product {
   LabeledMRP: number;
   ItemWisePrice: ItemWisePrice[];
   MultipleRetailPrice: MultipleRetailPrice[];
+  multiCurrencyList: MultiCurrencyPrice [];
   guid:string,
   SubCatA: string,
   SubCatB: string,
@@ -197,6 +199,7 @@ export interface Product {
   REFMCODE: string;
   ISBARITEM:string;
   ItemExtraInfo:ItemExtraInfo;
+  Divisions : any;
 }
 
 export interface ItemExtraInfo {
@@ -348,6 +351,7 @@ export interface prodObj{
   DESCA: string;
   MGROUP: string;
   MARGIN: number;
+  DIVISIONS : string;
   MCAT:string;
   PARENT: string;
   MCODE:string;
@@ -441,12 +445,14 @@ export interface AlternateUnit {
   WSRATE_DISCOUNT: number;
   SRATE_DISCOUNT: number;
   StopDecimal: number;
+  IN_RATE:number;
+  IN_RATE_B:number;
 }
 
 export interface AlternateItem{
   DESCA:string;  
-  MENUCODE:string;  
-  UNIT:string;  
+  MCODE:string;  
+  BASEUNIT:string;  
 }
 
 export interface ProductType {
@@ -457,4 +463,15 @@ export interface ProductType {
 
 export interface natureType {
   nameType: number;
+}
+
+export interface MultiCurrencyPrice{
+  CountryName: string;
+  CurrencyName: string;
+  CurrencyCode: string;
+  CurrencySymbol: string;
+  CurrencyRate: number;
+  CurrencyRATE_A: number;
+  CurrencyRATE_B: number;
+  IsActive:number;
 }

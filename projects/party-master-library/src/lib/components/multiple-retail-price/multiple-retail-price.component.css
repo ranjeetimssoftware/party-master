@@ -27,7 +27,12 @@ tbody tr:nth-child(even) {
 
 .remove-Btn{
   position: relative;
-  left: 3rem;
+  left: 5rem;
+}
+.header{
+  color: rgba(64, 129, 191, 1);
+  font-size: 14px;
+  font-size: 800;
 }
   .switch {
     display: grid;

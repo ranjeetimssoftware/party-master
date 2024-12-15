@@ -78,11 +78,11 @@
       </div>
       <div class="col-4">
         <div class="row">
-          <div class="col-4 shadow rounded mr-4" style="height: 35%;" *ngIf="userSetting.ShowStockInProductMaster == 1">
+          <div class="col-4 mr-4" style="height: 35%;" *ngIf="userSetting.ShowStockInProductMaster == 1">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
-                <div class="col-3 p-0">
-                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <div class="col-3 p-2">
+                  <svg width="30" height="30" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <circle cx="18" cy="18" r="18" fill="#FFFFEA"/>
                     <rect x="6" y="7" width="23" height="23" fill="url(#pattern0_208_3078)"/>
                     <defs>
@@ -102,10 +102,10 @@
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="col-5 shadow rounded" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
+          <div class="col-5" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
-                <div class="col-3 p-0">
+                <div class="col-3 p-2">
                   <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect width="22.7336" height="22.7336" fill="url(#pattern0_208_3086)"/>
                     <defs>
@@ -131,34 +131,34 @@
   </div>
   <mat-tab-group>
     <mat-tab label="Detail Info"> 
-      <lib-detail-info [productObj]="productObj"></lib-detail-info>
+      <lib-detail-info [productObj]="productObj" (notify)="changeHasBatchWisePricing($event)"></lib-detail-info>
     </mat-tab>
     <mat-tab label="Item Attributes" *ngIf="userSetting.EnableItemAttributes == 1"> 
       <lib-item-attributes></lib-item-attributes>
     </mat-tab>
     <mat-tab label="Alternate Unit" *ngIf="userSetting.EnableAlternateUnit == 1"> 
-      <lib-alternate-unit></lib-alternate-unit>
+      <lib-alternate-unit [productObj]="productObj" [AlternateUnits]="AlternateUnits" [CurAltUnit]="CurAltUnit"></lib-alternate-unit>
     </mat-tab>
     <mat-tab label="Inventory Controls" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
-      <lib-inventory-controls></lib-inventory-controls>
+      <lib-inventory-controls [productObj]="productObj"></lib-inventory-controls>
     </mat-tab>
     <mat-tab label="Barcode Mapping" *ngIf="userSetting.BarcodeBaseBilling == 1"> 
       <lib-barcode-mapping [PBarCodeCollection]="PBarCodeCollection"></lib-barcode-mapping>
     </mat-tab>
     <mat-tab label="Branch Mapping" *ngIf="userSetting.divisionWiseItemFilter == 1">
-      <lib-division-mapping></lib-division-mapping>
+      <lib-division-mapping [divList]="DivisionList"></lib-division-mapping>
     </mat-tab>
-    <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 1"> 
-      <lib-multiple-retail-price></lib-multiple-retail-price>
+    <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 0"> 
+      <lib-multiple-retail-price [PMultipleRetailPrice]="PMultipleRetailPrice"></lib-multiple-retail-price>
     </mat-tab>
-    <mat-tab label="Alternate Item" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
-      <lib-alternate-item></lib-alternate-item>
+    <mat-tab label="Alternate Item" *ngIf="userSetting.EnableAlternateItem == 1"> 
+      <lib-alternate-item [AlternateProducts]="productObj.AlternateProducts"></lib-alternate-item>
     </mat-tab>
     <mat-tab label="Batchwise Price Log" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0"> 
       <lib-batchwise-price-log></lib-batchwise-price-log>
     </mat-tab>
-    <mat-tab label="Multi Currency Pricing" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
-      <lib-detail-info></lib-detail-info>
+    <mat-tab label="Multi Currency Pricing" *ngIf="userSetting.EnableForeignCurrency == 1"> 
+      <multi-currency-price [productObj]="productObj"></multi-currency-price>
     </mat-tab>
     <mat-tab label="Body Part List" *ngIf="userSetting.EnableItemBodyPartsInfo == 1">
       <lib-body-part-list></lib-body-part-list>

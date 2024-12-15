@@ -211,7 +211,7 @@
                   <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')">Has Batch Wise Pricing
+                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')" [checked]="productObj.HASBATCH == 1">Has Batch Wise Pricing
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.ENABLE_ECS != 0">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASECSCHARGE" (change)="onCheckOption($event,productObj,'HASECSCHARGE')">Is ECS Chargeable Item
@@ -242,8 +242,8 @@
         </mat-accordion>
       </div>
     </div>
-    <ng-container class="row mt-2" *ngIf="productObj.discontinueCheckbox">
-      <div class="col-6">
+    <ng-container class="row" *ngIf="productObj.discontinueCheckbox">
+      <div class="col-6 mt-2">
         <div class="row form-group">
           <div class="col-4">
             <label for="" class="form-label">Item Discontinued For</label>
@@ -259,10 +259,10 @@
         </div>
       </div>    
     </ng-container>
-    <ng-container class="row mt-2" *ngIf="productObj.HASECSCHARGE">
-      <div class="col-6">
+    <ng-container class="row" *ngIf="productObj.HASECSCHARGE">
+      <div class="col-6 mt-2">
         <div class="row form-group">
-          <div class="col-3">
+          <div class="col-4">
             <label for="" class="form-label">ECS Rate</label>
           </div>
           <div class="col-8">    
@@ -301,8 +301,8 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Item Location:</label>
                   </div>
                   <div class="col-7">
-                    <mat-select multiple [(ngModel)]="productObj.Location" class="form-control" >
-                      <mat-option *ngFor="let location of LocationList" [value]="location.NAME">{{location.NAME}}</mat-option>
+                    <mat-select multiple [(ngModel)]="productObj.Location" class="form-control" click="openStatusDropdown()">
+                      <mat-option #StatusDropdown *ngFor="let location of LocationList" [value]="location.NAME">{{location.NAME}}</mat-option>
                     </mat-select>
                   </div>
                 </div>

@@ -56,6 +56,12 @@
     font-size: 14px;
     font-weight: 400;
   }
+
+  .header{
+    color: rgba(64, 129, 191, 1);
+    font-size: 14px;
+    font-size: 800;
+  }
   
   .search-form {
     margin: 0px 5px;

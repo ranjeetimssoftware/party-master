@@ -3,6 +3,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { AlternateItem, Product, TBarcode } from '../../pages/ProductItem';
 import { MultiSelectGenericGridComponent, MultiSelectGenericPopUpSettings } from '../../shared/components/generic/multiselect-generic-grid/multiselect-generic-grid.component';
+import { ProductMasterService } from '../../pages/Product-master.service';
 
 
 @Component({
@@ -12,23 +13,27 @@ import { MultiSelectGenericGridComponent, MultiSelectGenericPopUpSettings } from
 })
 export class AlternateItemComponent implements OnInit {
   alternateItem: AlternateItem = <AlternateItem>{};
-  @Input() AlternateItemList: AlternateItem[] = [];
+  @Input() AlternateProducts: AlternateItem[] = [];
   @ViewChild("genericMultiSelectItem") genericMultiSelectItem!: MultiSelectGenericGridComponent;
   gridPopupSettingsForItem: MultiSelectGenericPopUpSettings = new MultiSelectGenericPopUpSettings();
-  constructor() { 
+  constructor(private productMasterService:ProductMasterService) { 
   }
 
   ngOnInit(): void {
   }
 
   addAlternateItem(){
-    this.AlternateItemList.push(this.alternateItem);          
+    if(this.AlternateProducts.some(item => this.alternateItem.MCODE == item.MCODE)){
+      this.productMasterService.openSuccessDialog("Selected Item already exist in the list.");
+      return;
+    }
+    this.AlternateProducts.push(this.alternateItem);          
     this.alternateItem =<AlternateItem>{};
   }
 
 
   removeAlternateItem(i:number){
-    this.AlternateItemList.splice(i,1);
+    this.AlternateProducts.splice(i,1);
   }
 
   onEnterMainLedgerList(){
@@ -62,8 +67,8 @@ export class AlternateItemComponent implements OnInit {
   }
   onSelectItem(event:any){
     this.alternateItem.DESCA = event.DESCA;
-    this.alternateItem.MENUCODE = event.MENUCODE;
-    this.alternateItem.UNIT = event.BASEUNIT;
+    this.alternateItem.MCODE = event.MENUCODE;
+    this.alternateItem.BASEUNIT = event.BASEUNIT;
     this.addAlternateItem();    
   }
 

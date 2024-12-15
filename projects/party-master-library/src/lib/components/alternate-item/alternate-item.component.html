@@ -20,14 +20,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let b of this.AlternateItemList;let i=index">
+      <tr *ngFor="let b of this.AlternateProducts;let i=index">
         <td>{{i+1}}</td>
         <td>{{b.DESCA}}</td>
-        <td>{{b.MENUCODE}}</td>
+        <td>{{b.MCODE}}</td>
         <td>
           <div class="d-flex align-items-center justify-content-between">
             <div>
-              {{b.UNIT}}              
+              {{b.BASEUNIT}}              
             </div>
             <div class="remove-Btn">
               <button type="button" class="btn p-0 ">

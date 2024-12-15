@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PartyMasterLibraryService } from '../../party-master-library.service';
 import { Product } from '../../pages/ProductItem';
 import { ProductMasterService } from '../../pages/Product-master.service';
 import { MultiSelectGenericGridComponent, MultiSelectGenericPopUpSettings } from '../../shared/components/generic/multiselect-generic-grid/multiselect-generic-grid.component';
+import { AlternateUnitComponent } from '../alternate-unit/alternate-unit.component';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class DetailInfoComponent implements OnInit {
 
   @ViewChild('DiscontinuedItem') DiscontinuedItem!: ElementRef;
   @Input() productObj: Product = <Product>{};
+  @Output() notify = new EventEmitter();
+  @ViewChild(AlternateUnitComponent) child!: AlternateUnitComponent;
+
 
   @ViewChild("genericGridSupplierPopup") genericGridSupplierPopup!: MultiSelectGenericGridComponent;
   gridPopupSettingsForSupplier: MultiSelectGenericPopUpSettings = new MultiSelectGenericPopUpSettings();
@@ -32,6 +36,8 @@ export class DetailInfoComponent implements OnInit {
   gridPopupSettingsForAccountLedgerList_PurchaseReturn: MultiSelectGenericPopUpSettings = new MultiSelectGenericPopUpSettings();
   @ViewChild("genericMultiSelectItem") genericMultiSelectItem!: MultiSelectGenericGridComponent;
   gridPopupSettingsForItem: MultiSelectGenericPopUpSettings = new MultiSelectGenericPopUpSettings();
+  @ViewChild('StatusDropdown') StatusDropdown!: ElementRef;
+
   MCatList: any[] = [];
   LocationList: any[] = [];
   MCat1List: any[] = [];
@@ -39,7 +45,7 @@ export class DetailInfoComponent implements OnInit {
   colorGroupList: any[] = [];
 
 
-  constructor(private cdr: ChangeDetectorRef, public productMasterService:ProductMasterService) { 
+  constructor(private cdr: ChangeDetectorRef, public productMasterService:ProductMasterService,private elementRef: ElementRef) { 
     this.userSetting = this.productMasterService.userSetting;
   }
 
@@ -61,6 +67,9 @@ export class DetailInfoComponent implements OnInit {
     this.getLocationList();
   }
 
+  openStatusDropdown() {
+    this.StatusDropdown.nativeElement.classList.add('show');
+  }
 
   onCheckOption(event: Event, targetObj: any, targetKey: string) {
     const input = event.target as HTMLInputElement;
@@ -70,6 +79,9 @@ export class DetailInfoComponent implements OnInit {
         this.productObj.ECSRATE = this.userSetting.ECSRATE;
       }else if(targetKey == "HASECSCHARGE" && !input.checked){
         this.productObj.ECSRATE = 0;
+      }
+      if(targetKey == "HASBATCH" && this.userSetting.EnableBatchWisePrice == 2 && this.userSetting.EnableBatch != 0){
+        this.notify.emit(input.checked?1:0);
       }
       this.cdr.detectChanges();
     } else {
@@ -85,6 +97,7 @@ export class DetailInfoComponent implements OnInit {
       this.productObj.DISMODE = 'Discountable';
     }
   }
+
 
   getCategoryList(){
     this.productMasterService.getMCatList().subscribe((res) => {

@@ -1,4 +1,7 @@
 <div class="row d-flex align-items-center my-4 col-md-8">
+  <div class="col-12" *ngIf="activeRoute == 'product'">
+    <p class="header">Select Branches for Item Visibility if Branch-Specific Availibility is Needed.</p>
+  </div>
     <div class="col-12 col-md-3">
       <label *ngIf="activeRoute != 'product'" for="branches" class="form-label mr-2">Division</label>
       <label *ngIf="activeRoute == 'product'" for="branches" class="form-label mr-2">Branch</label>
@@ -20,9 +23,11 @@
       <span *ngIf="activeRoute == 'product'">Is Applicable for all Branches</span>
     </div>
   </div>
+  <div class="col-12 border-bottom"></div>
   
   <!-- Branch Name Table -->
   <div class="table-container col-md-6 mt-3">
+    <p class="header">Branch Mapping Info :</p>
     <table>
       <thead>
         <th>SN</th>

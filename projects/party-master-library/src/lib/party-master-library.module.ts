@@ -62,6 +62,8 @@ import { BodyPartListComponent } from './components/body-part-list/body-part-lis
 import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { AlternateItemComponent } from './components/alternate-item/alternate-item.component';
+import { DivisionMappingModule } from './shared/components/generic/generic-division-mapping/generic-division-mapping.module';
+import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCurrencyPrice.component';
 
 
 @NgModule({
@@ -102,7 +104,8 @@ import { AlternateItemComponent } from './components/alternate-item/alternate-it
     ItemAttributesComponent,
    BodyPartListComponent,
     MultipleRetailPriceComponent,
-    AlternateItemComponent
+    AlternateItemComponent,
+    MulltiCurrencyPriceComponent
   ],
   imports: [
     CommonModule,
@@ -130,6 +133,7 @@ import { AlternateItemComponent } from './components/alternate-item/alternate-it
     HttpClientModule,
     MatTreeModule,
     MatExpansionModule,
+    DivisionMappingModule
   ],
   exports: [PartyMasterLibraryComponent, MatDialogModule],
   providers: [
