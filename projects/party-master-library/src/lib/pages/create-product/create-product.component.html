@@ -78,7 +78,7 @@
       </div>
       <div class="col-4">
         <div class="row">
-          <div class="col-4 mr-4" style="height: 35%;" *ngIf="userSetting.ShowStockInProductMaster == 1">
+          <div class="col-4 mr-4" style="height: 35%;" *ngIf="userSetting.ShowStockInProductMaster == 1 && mode != 'add'">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
                 <div class="col-3 p-2">
@@ -95,14 +95,14 @@
                 </div>
                 <div class="col-8">
                   <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Stock Qty</mat-card-title>
-                  <span style="white-space: nowrap;"><b>50 pc</b></span>
+                  <span style="white-space: nowrap;"><b>{{productObj.AVAILABLESTOCK}} pc</b></span>
                 </div>
               </div>
               <mat-card-content>
               </mat-card-content>
             </mat-card>
           </div>
-          <div class="col-5" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1">
+          <div class="col-5" style="height: 35%;" *ngIf="userSetting.EnableTransitWiseTransferIn == 1 && mode != 'add'">
             <mat-card class="example-card" appearance="outlined">
               <div class="row">
                 <div class="col-3 p-2">
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-8">
                   <mat-card-title class="m-0" style="white-space: nowrap; color: #838383;">Transit Stock</mat-card-title>
-                  <span style="white-space: nowrap;"><b>50 pc</b></span>
+                  <span style="white-space: nowrap;"><b>{{productObj.TRANSITSTOCK}} pc</b></span>
                 </div>
               </div>
               <mat-card-content>

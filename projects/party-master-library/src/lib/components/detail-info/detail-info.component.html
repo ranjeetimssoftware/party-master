@@ -105,11 +105,11 @@
                 <label for="" class="form-label">Sales Price:</label>
               </div>
               <div class="col-4">
-                <input *ngIf="userSetting.VatExcludingRate == 0" type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_A" (input)="RecalculateVATAmount()">
+                <input *ngIf="userSetting.VatExcludingRate == 0" type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_A" (input)="RecalculateVATAmount()" (focusout)="checkRecommendedVsActualMargin()">
                 <input *ngIf="userSetting.VatExcludingRate == 1" type="text" min="0" class="form-control" placeholder="0" [value]="productObj.IN_RATE_A | number : '1.0-2'"disabled>
               </div>
               <div class="col-4">
-                <input *ngIf="userSetting.VatExcludingRate == 1"  type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_A" (input)="RecalculateNonVATAmount_Ex_Rate_A()">
+                <input *ngIf="userSetting.VatExcludingRate == 1"  type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_A" (input)="RecalculateNonVATAmount_Ex_Rate_A()" (focusout)="checkRecommendedVsActualMargin()">
                 <input *ngIf="userSetting.VatExcludingRate == 0"  type="text" min="0" class="form-control" placeholder="0" [value]="productObj.RATE_A | number : '1.0-2'" disabled>
               </div>
             </div>

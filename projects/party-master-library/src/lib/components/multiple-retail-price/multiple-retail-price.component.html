@@ -23,8 +23,8 @@
     <tbody>
       <tr style="border: 2px solid #EDEDED;" *ngFor="let b of this.PMultipleRetailPrice;let i=index">
         <td>{{i+1}}</td>
-        <td>{{b.RATE }}</td>
         <td>{{b.INRATE }}</td>
+        <td>{{b.RATE }}</td>
         <td *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">{{b.DIVISION }}</td>
         <td>{{b.EXPDATE}}</td>
         <td>

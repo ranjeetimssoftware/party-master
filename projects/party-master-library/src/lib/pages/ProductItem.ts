@@ -180,6 +180,7 @@ export interface Product {
   HASCOMMISSIONCHARGE:number;
   HASBATCH: number;
   AVAILABLESTOCK:number;
+  TRANSITSTOCK:number;
   MainItemName: string;
   BillingDisplay: number;
   LabeledMRP: number;

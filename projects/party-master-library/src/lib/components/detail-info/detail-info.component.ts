@@ -485,6 +485,12 @@ export class DetailInfoComponent implements OnInit {
     }
   }
 
+  checkRecommendedVsActualMargin(){
+    if(this.productObj.MARGIN>this.productMasterService.pObj?.RecMarginOnPRate){
+      this.productMasterService.openSuccessDialog("Actual Margin of Sales Price is less than Recommended Margin.");
+    }
+  }
+
   onChangeEx_PRate_A() {
     this.productMasterService.pObj.PurchasePriceWithoutVAT = this.productObj.PRATE_A;
     this.CalculateMargin();

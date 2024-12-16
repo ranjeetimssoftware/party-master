@@ -39,8 +39,7 @@ export class MultipleRetailPriceComponent implements OnInit {
     }
 
     this.MultipeRetailObj.ISACTIVE = 1;
-    this.MultipeRetailObj.ISACTIVE = 1;
-    this.MultipeRetailObj.INRATE = this.MultipeRetailObj.RATE * this.userSetting.VatConRate;
+    // this.MultipeRetailObj.INRATE = this.MultipeRetailObj.RATE * this.userSetting.VatConRate;
     this.PMultipleRetailPrice.push(this.MultipeRetailObj);
     this.MultipeRetailObj = <MultipleRetailPrice>{};
 
