@@ -145,9 +145,7 @@ export class AdditionalInfoComponent {
     }
   }
 
-  validateEndDate():boolean{
-    const startDate = new Date(this.additinalInfo.membershipInfo.membershipStartDate);
-    const endDate = new Date(this.additinalInfo.membershipInfo.membsershipEndDate);
+
 
     if(startDate && endDate && startDate>endDate){
       this.isEndDateInvalid = true;

@@ -11,7 +11,7 @@ import { PartyMasterLibraryService, SalesTarget } from '../../party-master-libra
 export class SalesTargetComponent implements OnInit {
   salesTargetForm: FormGroup;
   salesTargetObj: SalesTarget = <SalesTarget>{};
-  @Input() salesTarget!: SalesTarget;
+  @Input() salesTarget: SalesTarget = <SalesTarget>{};
   @Input() mode!: string;
   @Output() formValidated: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -37,7 +37,6 @@ export class SalesTargetComponent implements OnInit {
       Chaitra_Target: [0, [Validators.min(0), Validators.max(100)]],
     });
 
-    this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
   }
 
   ngOnInit(): void {
