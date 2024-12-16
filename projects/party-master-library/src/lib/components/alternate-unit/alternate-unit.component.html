@@ -34,10 +34,10 @@
         <td *ngIf="userSetting.EnableWSalesRate == 0" colspan="2">{{item.SRATE_DISCOUNT}}</td>
         <td *ngIf="userSetting.EnableWSalesRate == 1">{{item.WSRATE_DISCOUNT}}</td>
         <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 1 || userSetting.EnableWSalesRate == 0">{{item.RATE}}</td>
-        <td  *ngIf="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) && userSetting.VatExcludingRate == 1 && userSetting.EnableWSalesRate == 0" colspan="2">{{item.RATE}}</td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 1 || userSetting.EnableWSalesRate == 1" colspan="2">{{item.RATE}}</td>
         <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 || userSetting.VatExcludingRate == 1">{{item.RATE_B}}</td>
         <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 0 || userSetting.EnableWSalesRate == 0">{{item.IN_RATE}}</td>
-        <td  *ngIf="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) && userSetting.VatExcludingRate == 0 && userSetting.EnableWSalesRate == 0" colspan="2">{{item.IN_RATE}}</td>
+        <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.VatExcludingRate == 0 || userSetting.EnableWSalesRate == 1" colspan="2">{{item.IN_RATE}}</td>
         <td  [hidden]="(userSetting.EnableBatchWisePrice == 1 && userSetting.EnableBatch != 0) || userSetting.EnableWSalesRate == 0 || userSetting.VatExcludingRate == 0">{{item.IN_RATE_B}}</td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULT"></td>
         <td style="text-align: center;"><input type="checkbox" [(ngModel)]="item.ISDEFAULTPRATE"></td>
