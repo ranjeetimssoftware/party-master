@@ -23,18 +23,18 @@ export class SalesTargetComponent implements OnInit {
     // Set default value for all fields to 0
     this.salesTargetForm = this.fb.group({
       Yearly_Target: [0, Validators.required],
-      Baisakh_Target: [0],
-      Jestha_Target: [0],
-      Ashar_Target: [0],
-      Shrawan_Target: [0],
-      Bhadra_Target: [0],
-      Ashwin_Target: [0],
-      Kartik_Target: [0],
-      Mangsir_Target: [0],
-      Poush_Target: [0],
-      Magh_Target: [0],
-      Falgun_Target: [0],
-      Chaitra_Target: [0],
+      Baisakh_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Jestha_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Ashar_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Shrawan_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Bhadra_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Ashwin_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Kartik_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Mangsir_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Poush_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Magh_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Falgun_Target: [0, [Validators.min(0), Validators.max(100)]],
+      Chaitra_Target: [0, [Validators.min(0), Validators.max(100)]],
     });
 
     this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
@@ -44,6 +44,19 @@ export class SalesTargetComponent implements OnInit {
     if (this.mode == 'view') {
       this.salesTargetForm.disable(); // Disable the form if the mode is 'view'
     }
+    this.setupImmediateValidation();
+  }
+
+  setupImmediateValidation():void{
+    Object.keys(this.salesTargetForm.controls).filter((controlName)=> controlName !=='Yearly_Target')
+    .forEach((controlName)=>{
+      this.salesTargetForm.controls[controlName].valueChanges.subscribe((value)=>{
+        if(value>100){
+          this.partyMasterService.openSuccessDialog('Monthly balance should be 100% !!');
+        }
+      });
+     
+    });
   }
 
   ngAfterViewInit() {}
@@ -53,7 +66,7 @@ export class SalesTargetComponent implements OnInit {
 
     // Step 1: Check if Yearly_Target is filled
     if (!yearlyTarget || yearlyTarget === 0) {
-      alert('Yearly Target must be filled!');
+      this.partyMasterService.openSuccessDialog('Yearly Target must be filled!');
       this.formValidated.emit(false); // Emit validation result
       return false;
     }
@@ -93,13 +106,15 @@ export class SalesTargetComponent implements OnInit {
       Magh_Target: monthlyTargets[9],
       Falgun_Target: monthlyTargets[10],
       Chaitra_Target: monthlyTargets[11]
-    });
+    },
+    {emitEvent: false}
+  );
 
     const totalMonthlyTarget = monthlyTargets.reduce((sum, value) => sum + value, 0);
 
     // Step 3: Check if total is 100
     if (totalMonthlyTarget !== 100) {
-      alert('Monthly balance should be 100% !!');
+      this.partyMasterService.openSuccessDialog('Monthly balance should be 100% !!');
       this.formValidated.emit(false); // Emit validation result
       return false;
     }
