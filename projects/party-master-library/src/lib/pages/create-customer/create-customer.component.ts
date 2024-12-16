@@ -135,6 +135,11 @@ export class CreateCustomerComponent {
       console.log("is being used 9 digits");
       return;
    }
+   if (this.userSettings.CompanyType == 'B2C' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+    alert('VAT no. must be of 9 digits.');
+    console.log("is being used 9 digits");
+    return;
+ }
     if (
       this.partyMasterService.customermasterObj.vatNo &&
       (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
