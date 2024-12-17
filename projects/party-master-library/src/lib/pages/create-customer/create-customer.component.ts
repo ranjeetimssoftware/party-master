@@ -208,7 +208,10 @@ export class CreateCustomerComponent {
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
         if (res.status == 'ok') {
-          this.partyMasterService.openSuccessDialog(res.result);
+        const dialogRef = this.partyMasterService.openSuccessDialog(res.result);
+        setTimeout(() => {
+          dialogRef.close();
+        }, 2000);
           this.partyMasterService.reset();
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
