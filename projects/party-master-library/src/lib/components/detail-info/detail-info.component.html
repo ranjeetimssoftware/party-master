@@ -74,7 +74,9 @@
         </div>
         <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
           <div class="col-3">
-            <label for="" class="form-label">Purchase A/C:</label>
+            <label for="" class="form-label">Purchase A/C:
+              <span *ngIf="userSetting.EnableProductWiseAccMapping === 1" style="color: red;">*</span>
+            </label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
@@ -84,7 +86,9 @@
         </div>
         <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
           <div class="col-3">
-            <label for="" class="form-label">P-Return A/C:</label>
+            <label for="" class="form-label">P-Return A/C:
+              <span *ngIf="userSetting.EnableProductWiseAccMapping === 1" style="color: red;">*</span>
+            </label>
           </div>
           <div class="col-8">
             <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
@@ -137,7 +141,9 @@
             </div>
             <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
               <div class="col-4">
-                <label for="" class="form-label">Sales A/C:</label>
+                <label for="" class="form-label">Sales A/C:
+                  <span *ngIf="userSetting.EnableProductWiseAccMapping === 1" style="color: red;">*</span>
+                </label>
               </div>
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
@@ -147,7 +153,9 @@
             </div>
             <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
               <div class="col-4">
-                <label for="" class="form-label">Sales Return A/C:</label>
+                <label for="" class="form-label">Sales Return A/C:
+                  <span *ngIf="userSetting.EnableProductWiseAccMapping === 1" style="color: red;">*</span>
+                </label>
               </div>
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
@@ -246,7 +254,9 @@
       <div class="col-6 mt-2">
         <div class="row form-group">
           <div class="col-4">
-            <label for="" class="form-label">Item Discontinued For</label>
+            <label for="" class="form-label">Item Discontinued For
+              <span *ngIf="productObj.discontinueCheckbox" style="color: red;">*</span>
+            </label>
           </div>
           <div class="col-8">
             <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.DISCONTINUE">
@@ -263,7 +273,9 @@
       <div class="col-6 mt-2">
         <div class="row form-group">
           <div class="col-4">
-            <label for="" class="form-label">ECS Rate</label>
+            <label for="" class="form-label">ECS Rate
+              <span *ngIf="productObj.HASECSCHARGE" style="color: red;">*</span>
+            </label>
           </div>
           <div class="col-8">    
             <input type="number" min="0" class="form-control" [(ngModel)]="productObj.ECSRATE">
