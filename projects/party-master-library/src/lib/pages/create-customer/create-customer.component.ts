@@ -135,6 +135,11 @@ export class CreateCustomerComponent {
       console.log("is being used 9 digits");
       return;
    }
+   if (this.userSettings.CompanyType == 'B2C' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+    alert('VAT no. must be of 9 digits.');
+    console.log("is being used 9 digits");
+    return;
+ }
     if (
       this.partyMasterService.customermasterObj.vatNo &&
       (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
@@ -203,7 +208,10 @@ export class CreateCustomerComponent {
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
         if (res.status == 'ok') {
-          this.partyMasterService.openSuccessDialog(res.result);
+        const dialogRef = this.partyMasterService.openSuccessDialog(res.result);
+        setTimeout(() => {
+          dialogRef.close();
+        }, 2000);
           this.partyMasterService.reset();
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {
