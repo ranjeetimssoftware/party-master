@@ -22,7 +22,7 @@ const ELEMENT_DATA: Branch[] = [];
   styleUrls: ['./create-ledger.component.css'],
 })
 export class CreateLedgerComponent {
-  mode: string = 'add';
+  mode: string = 'Add';
   userSettings: any;
   isOpen: boolean = false;
   displayedColumns: string[] = [];
@@ -71,7 +71,7 @@ export class CreateLedgerComponent {
     }
     if (!!this._activatedRoute.snapshot.params['mode']) {
       if (this._activatedRoute.snapshot.params['mode'] === 'view') {
-        this.mode = 'view';
+        this.mode = 'View';
         this.ledgerForm.disable();
       }
       if (this._activatedRoute.snapshot.params['mode'] === 'edit') {

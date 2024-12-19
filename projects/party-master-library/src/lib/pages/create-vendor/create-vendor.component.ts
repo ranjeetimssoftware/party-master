@@ -32,7 +32,7 @@ export class CreateVendorComponent {
       VendorName: ['', [Validators.required, Validators.maxLength(50)]],
       Address: ['', [Validators.required, Validators.maxLength(50)]],
       VATNo: ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.email]],
       Mobile: ['', Validators.required],
       Phone: ['', Validators.required],
     });
