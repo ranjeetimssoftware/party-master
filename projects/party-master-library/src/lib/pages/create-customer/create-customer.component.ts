@@ -83,6 +83,11 @@ export class CreateCustomerComponent {
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth.split('T')[0]:null;
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary.split('T')[0]:null;
             }
+            if(this.userSettings.EnableContractPrice == 1){
+              if(this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != null || this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != undefined){
+                this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 1;
+              }
+            }
             if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
               this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
             }

@@ -77,6 +77,7 @@ export class TermsAndConditionComponent implements OnInit {
   onRemove(index: number): void {
     if (confirm('Are you sure you want to remove this item?')) {
       this.termsAndConditions.splice(index, 1);
+      this.viewTerms = false;
     }
   }
 

@@ -31,6 +31,7 @@ export class AdditionalInfoComponent {
       IsOverseas:[0],
       Area: [''],
       Province: [''],
+      CustomerVendor: ['', Validators.required],
       district: [''],
       Salesman: [''],
       ContractPrice:[''],

@@ -24,6 +24,7 @@ export class VendorAdditionalInfoComponent {
       CustomerVendor: ['', Validators.required],
       CreditLimit: ['', [Validators.required, Validators.pattern('^\\d+(\\.\\d{1,2})?$')]],
       CreditDays: ['', Validators.required],
+      isOverSeasCustomer:['',Validators.required],
       ContractPrice: ['', Validators.required],
       SelectContractPrice: ['', Validators.required],
       customerStatus: ['', Validators.required],
