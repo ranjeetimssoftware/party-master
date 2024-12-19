@@ -15,7 +15,7 @@
         <td>{{contact.contact}}</td>
         <td>{{contact.designation}}</td>
         <td>{{contact.email}}</td>
-        <td *ngIf="contact.email != '' && mode != 'view'">
+        <td>
           <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
         </td>
       </tr>
