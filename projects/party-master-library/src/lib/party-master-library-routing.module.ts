@@ -12,6 +12,7 @@ import { CreateLedgerGroupComponent } from './pages/create-ledger-group/create-l
 import { CreateSubLedgerComponent } from './pages/create-sub-ledger/create-sub-ledger.component';
 import { ProductListComponent } from './pages/productList/productList.component';
 import { CreateProductComponent } from './pages/create-product/create-product.component';
+import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
 
 const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'general-ledger/new-ledger', component: CreateLedgerComponent },
   { path: 'ledger-group/new-ledger-group', component: CreateLedgerGroupComponent },
   { path: 'sub-ledger/new-sub-ledger', component: CreateSubLedgerComponent },
+  { path: 'product-item-group', component: ProductItemGroupComponent },
 ];
 
 @NgModule({
