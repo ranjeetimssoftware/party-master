@@ -65,6 +65,7 @@ import { AlternateItemComponent } from './components/alternate-item/alternate-it
 import { DivisionMappingModule } from './shared/components/generic/generic-division-mapping/generic-division-mapping.module';
 import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCurrencyPrice.component';
 import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
+import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
 
 
 @NgModule({
@@ -107,7 +108,9 @@ import { ProductItemGroupComponent } from './pages/product-item-group/product-it
     MultipleRetailPriceComponent,
     AlternateItemComponent,
     MulltiCurrencyPriceComponent,
-    ProductItemGroupComponent
+    ProductItemGroupComponent,
+    
+    NavTreeComponent
   ],
   imports: [
     CommonModule,
