@@ -1,0 +1,46 @@
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div 
+    [class.collapsed]="isCollapsed" 
+    class="bg-white text-black p-2 vh-100 sidebar d-flex flex-column align-items-center">
+    <div *ngIf="isCollapsed" class="nav-text">
+      <span>Main Group</span>
+    </div>
+    <button 
+      class="btn btn-outline-dark mb-3 toggle-btn" 
+      (click)="toggleNav()">
+      <span *ngIf="isCollapsed">&#x27A4;</span>
+      <span *ngIf="!isCollapsed">&#x27A5;</span>
+    </button>
+    <ul class="nav flex-column text-start w-100" *ngIf="!isCollapsed">
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('home')">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('about')">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('services')">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('contact')">Contact</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sub-navbar (appears to the right of the parent navbar) -->
+  <div class="sub-navbar-container" *ngIf="activeSubNav">
+    <div *ngIf="activeSubNav === 'home'" class="sub-navbar">
+      <p>Home Sub-navbar Content</p>
+    </div>
+    <div *ngIf="activeSubNav === 'about'" class="sub-navbar">
+      <p>About Sub-navbar Content</p>
+    </div>
+    <div *ngIf="activeSubNav === 'services'" class="sub-navbar">
+      <p>Services Sub-navbar Content</p>
+    </div>
+    <div *ngIf="activeSubNav === 'contact'" class="sub-navbar">
+      <p>Contact Sub-navbar Content</p>
+    </div>
+  </div>
+</div>

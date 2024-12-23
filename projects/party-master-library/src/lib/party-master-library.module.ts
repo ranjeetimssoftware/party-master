@@ -64,6 +64,8 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { AlternateItemComponent } from './components/alternate-item/alternate-item.component';
 import { DivisionMappingModule } from './shared/components/generic/generic-division-mapping/generic-division-mapping.module';
 import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCurrencyPrice.component';
+import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
+import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
 
 
 @NgModule({
@@ -105,7 +107,10 @@ import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCu
    BodyPartListComponent,
     MultipleRetailPriceComponent,
     AlternateItemComponent,
-    MulltiCurrencyPriceComponent
+    MulltiCurrencyPriceComponent,
+    ProductItemGroupComponent,
+    
+    NavTreeComponent
   ],
   imports: [
     CommonModule,

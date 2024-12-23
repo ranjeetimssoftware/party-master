@@ -12,6 +12,7 @@ export class GenericFilterComponent implements OnInit {
   isGeneralLedgerRoute: boolean = false;
   isLedgerGroupRoute: boolean = false;
   isSubLedgerRoute: boolean = false;
+  isProductGroup: boolean = false;
 
   constructor(private router: Router) {}
   ngOnInit(): void {
@@ -23,6 +24,8 @@ export class GenericFilterComponent implements OnInit {
     this.isGeneralLedgerRoute = lastSegment === 'general-ledger';
     this.isLedgerGroupRoute = lastSegment === 'ledger-group';
     this.isSubLedgerRoute = lastSegment === 'sub-ledger';
+    this.isProductGroup = lastSegment === 'product-item-group';
+
   }
 
   navigateToCreateCustomer() {
@@ -30,5 +33,9 @@ export class GenericFilterComponent implements OnInit {
   }
   navigateToCreateVendor() {
     this.router.navigate(['new-vendor']);
+  }
+
+  navigateToProductGroup() {
+    this.router.navigate(['new-product-group']);
   }
 }

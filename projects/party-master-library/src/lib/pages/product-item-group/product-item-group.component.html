@@ -1,0 +1,140 @@
+<div class="d-flex justify-content-between align-items-center">
+  <div class="col-md-6 px-0">
+    <h5 class="mb-0 heading">Product Item Group</h5>
+  </div>
+  <div class="pe-5 col-md-6 d-flex justify-content-end">
+    <button class="btn mr-2 px-4" id="save" (click)="submit()">SAVE</button>
+    <button class="btn px-4" id="back" (click)="goBack()">BACK</button>
+  </div>
+</div>
+<div class="border-bottom mb-3"></div>
+
+<div class="container scrollable-content">
+  <form [formGroup]="productItemForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-2">
+            <label for="groupName" class="form-label mr-2">Group Name :</label>
+          </div>
+          <div class="col-11 col-md-10 px-0">
+            <input
+              type="text"
+              id="groupName"
+              class="form-control px-2 py-1"
+              formControlName="GroupName"
+              placeholder="Enter Group Name"
+            />
+          </div>
+        </div>
+        <div class="row mt-3 mb-2">
+          <div class="col-11 col-md-10 offset-md-2">
+            <input
+              type="checkbox"
+              formControlName="IsMainGroup"
+              class="mr-2"
+            /> Is Main Group
+          </div>
+        </div>
+        
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-2">
+            <label for="groupCode" class="form-label mr-2">Group Code :</label>
+          </div>
+          <div class="col-11 col-md-3 px-0">
+            <input
+              id="groupCode"
+              class="form-control px-2 py-1"
+              formControlName="GroupCode"
+              type="text"
+              placeholder="Enter Group Code"
+            />
+          </div>
+        </div>
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-2">
+            <label for="parentGroup" class="form-label mr-2"
+              >Parent Group</label
+            >
+          </div>
+          <div class="col-11 col-md-6 px-0 d-flex align-items-center">
+            <input
+              type="text"
+              id="parentGroup"
+              class="form-control px-2 py-1"
+              formControlName="ParentGroup"
+              placeholder="Press Enter For Group Selection"
+            />
+            <div class="col-1 px-0 ml-2 ">
+              <button (click)="close()" style="border: none;">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.625 13.0625C9.48907 13.0624 9.35621 13.0221 9.24321 12.9465C9.13021 12.871 9.04214 12.7636 8.99013 12.6381C8.93812 12.5125 8.92451 12.3743 8.95101 12.241C8.97751 12.1076 9.04294 11.9852 9.13902 11.889L15.9255 5.10254C15.5743 4.91184 15.1809 4.81213 14.7812 4.8125H4.46875C3.83078 4.81318 3.21914 5.06692 2.76803 5.51803C2.31692 5.96914 2.06318 6.58078 2.0625 7.21875V17.5313C2.06318 18.1692 2.31692 18.7809 2.76803 19.232C3.21914 19.6831 3.83078 19.9368 4.46875 19.9375H14.7812C15.4192 19.9368 16.0309 19.6831 16.482 19.232C16.9331 18.7809 17.1868 18.1692 17.1875 17.5313V7.21875C17.1879 6.8191 17.0882 6.42571 16.8975 6.07449L10.111 12.861C10.0473 12.925 9.97155 12.9757 9.88814 13.0103C9.80473 13.0449 9.7153 13.0626 9.625 13.0625Z" fill="black"/>
+                  <path d="M19.25 2.0625H14.4375C14.2552 2.0625 14.0803 2.13493 13.9514 2.26386C13.8224 2.3928 13.75 2.56766 13.75 2.75C13.75 2.93234 13.8224 3.1072 13.9514 3.23614C14.0803 3.36507 14.2552 3.4375 14.4375 3.4375H17.5901L15.9255 5.10254C16.3366 5.32583 16.6742 5.66342 16.8975 6.07449L18.5625 4.40988V7.5625C18.5625 7.74484 18.6349 7.9197 18.7639 8.04864C18.8928 8.17757 19.0677 8.25 19.25 8.25C19.4323 8.25 19.6072 8.17757 19.7361 8.04864C19.8651 7.9197 19.9375 7.74484 19.9375 7.5625V2.75C19.9375 2.56766 19.8651 2.3928 19.7361 2.26386C19.6072 2.13493 19.4323 2.0625 19.25 2.0625Z" fill="black"/>
+                  </svg>           
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-2">
+            <label for="recommendedMargin" class="form-label mr-2"
+              >Recommended Margin(%):</label
+            >
+          </div>
+
+          <div class="col-11 col-md-3 px-0">
+            <input
+              type="text"
+              id="recommendedMargin"
+              class="form-control px-2 py-1"
+              formControlName="RecommendedMargin"
+              placeholder="Enter Group Code"
+            />
+          </div>
+        </div>
+
+        <div class="row d-flex align-items-center mb-2">
+          <div class="col-12 col-md-2">
+            <label for="category" class="form-label mr-2">Category</label>
+          </div>
+          <div class="col-11 col-md-3 px-0">
+            <select
+              id="category"
+              class="form-control px-2 py-1"
+              formControlName="Category"
+              type="text"
+              [(ngModel)]="productObj.MCAT"
+            >
+              <option *ngFor="let i of MCatList" [ngValue]="i.MENUCAT">{{i.MENUCAT}}</option>
+            </select>
+          </div>
+          <!-- Align Another Category next to Category -->
+          <div class="col-12 col-md-2 offset-md-2">
+            <label for="anotherCategory" class="anotherCategory">Extra Category</label>
+          </div>
+          <div class="col-11 col-md-3 px-0">
+            <select
+              id="anotherCategory"
+              class="form-control px-2 py-1"
+              formControlName="AnotherCategory"
+              type="text"
+              [(ngModel)]="productObj.MCAT1"
+            >
+            <option *ngFor="let i of MCat1List" [ngValue]="i.MENUCAT">{{i.MENUCAT}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-3 mb-2">                          
+          <div class="col-12 col-md-10 offset-md-2">
+            <input
+              type="checkbox"
+              formControlName="IsGroupHavingFeaturesItem"
+              class="mr-2"
+            />Is Group Having Features Item
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <mat-tab-group> </mat-tab-group>
+</div>

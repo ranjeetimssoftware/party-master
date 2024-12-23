@@ -37,6 +37,7 @@ export interface ChartOfAccount {
 }
 
 const ELEMENT_DATA: CustomerVendor[] = [];
+const PRODUCT_DATA: CustomerVendor[] = [];
 
 // Sample data for Chart of Accounts
 const Chart_Of_Account_Data: ChartOfAccount[] = [];
@@ -48,8 +49,10 @@ const Chart_Of_Account_Data: ChartOfAccount[] = [];
 })
 export class GenericTableComponent implements OnInit {
   displayedColumns: string[] = [];
+  displayedProducts: string[] =[];
   displayedChartofAccountColumns: string[] = [];
   customerVendorDataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+  productDataSource = new MatTableDataSource<any>(PRODUCT_DATA);
   chartofAccountDataSource = new MatTableDataSource<any>(Chart_Of_Account_Data);
   activeRoute?: string;
   loading: boolean = false;
@@ -89,13 +92,28 @@ export class GenericTableComponent implements OnInit {
     this.displayedColumns = [
       'filter',
       'sn',
-      ...(this.activeRoute == 'customer' ? ['CUSTNAME'] : []),
+      ...(this.activeRoute == 'customer'? ['CUSTNAME'] : []),
       ...(this.activeRoute == 'vendor' ? ['vendorname'] : []),
       'ADDRESS',
       'MOBILENO',
       'EMAIL',
       'PANNO',
       'status',
+      'action',
+      
+    ];
+
+    this.displayedProducts = [
+      'filter',
+      'sn',
+      'itemname',
+      'itemcode',
+      'unit',
+      'prate',
+      'srate',
+      'isvat',
+      'parent',
+      'supplier',
       'action',
     ];
 
@@ -282,6 +300,10 @@ export class GenericTableComponent implements OnInit {
   
   navigateToProductMaster(){
     this.router.navigate([this.router.url+'/new-product', { returnUrl: this.router.url }]);
+  }
+
+  navigateTOProductGroup(){
+    this.router.navigate([this.router.url+'/new-product-group', { returnUrl: this.router.url }]);
   }
 
   onViewClick($event: any) {

@@ -1,0 +1,54 @@
+.sidebar {
+  width: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.sub-navbar-container {
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: 250px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.sub-navbar {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar .toggle-btn {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar.collapsed .toggle-btn span {
+  transform: rotate(180deg);
+}
+
+.nav-text {
+  position: absolute;
+  margin-top: 200px;
+  transform: rotate(-90deg) translate(-50%, -50%);
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  white-space: nowrap;
+}
+
+.sub-navbar-container {
+  visibility: hidden; /* Hide sub-navbar initially */
+}
+
+.sub-navbar-container.visible {
+  visibility: visible; /* Make sub-navbar visible when active */
+}
