@@ -83,6 +83,11 @@ export class CreateCustomerComponent {
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth.split('T')[0]:null;
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary.split('T')[0]:null;
             }
+            if(this.userSettings.EnableContractPrice == 1){
+              if(this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != null || this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != undefined){
+                this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 1;
+              }
+            }
             if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
               this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
             }
@@ -135,6 +140,11 @@ export class CreateCustomerComponent {
       console.log("is being used 9 digits");
       return;
    }
+   if (this.userSettings.CompanyType == 'B2C' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+    alert('VAT no. must be of 9 digits.');
+    console.log("is being used 9 digits");
+    return;
+ }
     if (
       this.partyMasterService.customermasterObj.vatNo &&
       (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
@@ -203,7 +213,10 @@ export class CreateCustomerComponent {
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
         if (res.status == 'ok') {
-          this.partyMasterService.openSuccessDialog(res.result);
+        const dialogRef = this.partyMasterService.openSuccessDialog(res.result);
+        setTimeout(() => {
+          dialogRef.close();
+        }, 2000);
           this.partyMasterService.reset();
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {

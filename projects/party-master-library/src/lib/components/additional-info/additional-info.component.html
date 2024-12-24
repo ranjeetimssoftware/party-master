@@ -20,16 +20,16 @@
 
     <div class="row mt-3 mb-2">
       <div class="col-11 col-md-4 offset-md-2">
-        <input type="checkbox" [(ngModel)]="additinalInfo.isCommon" (change)="onCheckCustomerAsVendor($event)"
+        <input type="checkbox" formControlName="CustomerVendor" [(ngModel)]="additinalInfo.isCommon" (change)="onCheckCustomerAsVendor($event)"
          />Create As Both Customer And Vendor
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <label for="credit-terms" class="form-label-header">Credit Terms</label>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditLimit" class="form-label">Credit Limit</label>
       </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)  || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
       <div class="col-12 col-md-2">
         <label for="creditDays" class="form-label">Credit Days</label>
       </div>
@@ -70,7 +70,7 @@
 
     <div class="row mt-3 mb-2"  *ngIf="userSettings.EnableCustomerLocationInfo  == 1">
       <label for="credit-location" class="form-label-header">
-        Customer Location
+        Enable Customer Location
       </label>
     </div>
 
@@ -151,7 +151,7 @@
 
     <div class="d-flex row align-items-center mt-3 mb-2" *ngIf="userSettings.EnableContractPrice == 1">
       <div class="col-11 col-md-3 offset-md-2">
-        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice" (change)="onCheckContractPrice($event)"/>Enable
+        <input type="checkbox" formControlName="IsContractPrice" [(ngModel)]="additinalInfo.enbleContractPrice" (change)="onCheckContractPrice($event)" [checked]="additinalInfo.enbleContractPrice == 1"/>Enable
         Contract Price
       </div>
 
@@ -176,7 +176,7 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="additinalInfo.createMember ">
+    <div class="row mt-3 mb-2" *ngIf="additinalInfo.createMember">
       <label for="credit-location" class="form-label-header">
         Membership Info
       </label>

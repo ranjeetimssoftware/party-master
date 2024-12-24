@@ -29,7 +29,7 @@ export class ContactPersonComponent implements OnInit {
 
   @Input() contactPersonArray:ContactPersonObj[] = [];
   @Input() mode:string='add';
-  @ViewChildren('nameInput') nameInputs!: QueryList<ElementRef>;
+  @ViewChildren('nameInput,emailInput,contactInput,designationInput') nameInputs!: QueryList<ElementRef>;
   constructor(private partyMasterService:PartyMasterLibraryService) { 
     this.partyMasterService.customermasterObj.contactPerson = this.dataSource.data;        
   }
@@ -60,7 +60,14 @@ export class ContactPersonComponent implements OnInit {
     this.contactPersonArray.splice(i,1);
   }
 
-
+  focusNext( currentIndex: number): void {
+    // event.preventDefault(); 
+    const inputList = this.nameInputs.toArray();
+    const nextIndex = currentIndex + 1;
+    if (inputList[nextIndex]) {
+      inputList[nextIndex].nativeElement.focus();
+    }
+  }
 
   ngAfterViewInit() {
   }
