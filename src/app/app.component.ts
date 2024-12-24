@@ -42,7 +42,7 @@ export class AppComponent {
   login(){
     const username = this.loginForm.controls['username'].value;
     const password = this.loginForm.controls['password'].value;
-    return this.http.post<any>(`http://localhost:8033/api/jwt`, { username, password })
+    return this.http.post<any>(`http://localhost:804/api/jwt`, { username, password })
             .pipe(map((user:any) => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('USER_PROFILE', JSON.stringify(user.profile));

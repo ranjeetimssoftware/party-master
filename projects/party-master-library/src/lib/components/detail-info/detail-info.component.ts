@@ -57,7 +57,7 @@ export class DetailInfoComponent implements OnInit {
     this.productObj.PRATE_A = 0;
     this.productObj.IN_RATE_A = 0;
     this.productObj.discontinueCheckbox = false;
-    this.productObj.DISMODE = 'Discountable';
+    this.productObj.DISMODE = '';
     this.productObj.BillingDisplay = 0;
     }
     this.getCategoryList();
