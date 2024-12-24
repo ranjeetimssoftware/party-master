@@ -101,7 +101,8 @@ export class CreateProductComponent {
     this.productObj.MARGIN = this.selectedGroupInfo.MARGIN;
     this.productObj.MGROUP = this.selectedGroupInfo.MGROUP;
     this.productObj.PARENT = this.selectedGroupInfo.MCODE;
-    this.productObj.MENUCODE = this.selectedGroupInfo?.MENUCODE;
+    if(this.userSetting.MANUALCODE == 0)
+    this.productObj.MENUCODE = this.selectedGroupInfo?.MENUCODE ;
     this.productObj.Divisions = this.selectedGroupInfo?.DIVISIONS;
       if((this.userSetting.ITEMGROUPCODELEVEL>(this.selectedGroupInfo.LEVEL))){
         this.productObj.MENUCODE = "";
@@ -171,13 +172,15 @@ export class CreateProductComponent {
         }
       )
     }else{
-      this.productMasterService.getAutoGenerateMenuCode(groupID,PARENT).subscribe(
-        (res:any)=>{
-          if(res.status == 'ok'){
-            this.productObj.MENUCODE = res.result;
-          }
-        }
-      )
+      // this.productMasterService.getAutoGenerateMenuCode(groupID,PARENT).subscribe(
+      //   (res:any)=>{
+      //     if(res.status == 'ok'){
+      //       console.log("AUTOMODE0")
+      //       this.productObj.MENUCODE = res.result ;
+      //     }
+      //   }
+      // )
+    
     }
   // }
 }
@@ -204,6 +207,7 @@ export class CreateProductComponent {
 }
 
 close(status:string){
+  console.log("asdasd",status)
   if(status == "ok"){
     this.OnGroupChanges();
   }
@@ -520,8 +524,12 @@ onSubmit(){
   if(this.mode === 'add'){
     this.AddBCode();
    }
+   this.AlternateUnits.forEach(unit => {
+        unit.ISDEFAULT = unit.ISDEFAULT ? 1 : 0;
+        unit.ISDEFAULTPRATE = unit.ISDEFAULT ? 1 : 0;
+});
   this.productObj.Divisions =  this.DivisionList.map((x) => x.div).join(',') || '';
-  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],this.PMultipleRetailPrice,[]).subscribe((data:any) => {
+  this.productMasterService.saveProduct(this.mode, this.productObj,[],this.AlternateUnits,this.PBarCodeCollection,[],this.PMultipleRetailPrice,[]).subscribe((data:any) => {
     if (data.status === 'ok') {
       this.productObj = <Product>{};
       this.productObj.MENUCODE = '';
@@ -557,12 +565,14 @@ onSubmit(){
       this.productObj.HASECSCHARGE = 0;
       this.productObj.Description = '';
       this.productObj.supplierName = '';
-      this.productObj. SHELFLIFE = 0;
+      this.productObj.SHELFLIFE = 0;
+      this.productObj.MgroupName = '';
       this.productObj.guid =  uuid.v4();
       this.AlternateUnits = [];
+      this.CurAltUnit = <AlternateUnit>{};
       this.productObj.AlternateProducts = [];
       this.DivisionList = [];
-
+      this.groupSelectObj.MGROUP = '';
       this.PBarCodeCollection = [];
       this.selectedGroupInfo.MENUCODE = '';
       this.productObj.MultiStockLevels=[];

@@ -31,7 +31,7 @@
               <input type="text" class="form-control" placeholder="Enter Short Name" [(ngModel)]="productObj.Description">
             </div>
           </div>
-          <div class="row form-group" *ngIf="userSetting.EnableExtraCategory == 1">
+          <div class="row form-group" *ngIf="userSetting.ENABLEEXTRACATEGORY == 1">
             <div class="col-4">
               <label for="" class="form-label">Extra Category:</label>
             </div>
@@ -215,7 +215,7 @@
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Non-Discountable')" [checked]="productObj.DISMODE == 'Non-Discountable'">Is Non Discountable Item
                 </div>
-                <div class="form-check col-3 mb-1">
+                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableDiscountedOption == 1">
                   <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0">
