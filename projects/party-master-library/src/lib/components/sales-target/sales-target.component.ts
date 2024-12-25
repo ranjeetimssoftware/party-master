@@ -46,16 +46,24 @@ export class SalesTargetComponent implements OnInit {
     this.setupImmediateValidation();
   }
 
-  setupImmediateValidation():void{
-    Object.keys(this.salesTargetForm.controls).filter((controlName)=> controlName !=='Yearly_Target')
-    .forEach((controlName)=>{
-      this.salesTargetForm.controls[controlName].valueChanges.subscribe((value)=>{
-        if(value>100){
-          this.partyMasterService.openSuccessDialog('Monthly balance should be 100% !!');
-        }
+  setupImmediateValidation(): void {
+    Object.keys(this.salesTargetForm.controls)
+      .filter((controlName) => controlName !== 'Yearly_Target') 
+      .forEach((controlName) => {
+        this.salesTargetForm.controls[controlName].valueChanges.subscribe(() => {
+          
+          
+          const individualTargets = Object.keys(this.salesTargetForm.controls)
+            .map(control => this.salesTargetForm.controls[control].value);
+          
+          const totalTarget = individualTargets.reduce((sum, target) => sum + (target || 0), 0); 
+  
+          
+          if (individualTargets.some(value => value > 100) || totalTarget > 100) {
+            this.partyMasterService.openSuccessDialog('Monthly balance should be 100%!!');
+          }
+        });
       });
-     
-    });
   }
 
   ngAfterViewInit() {}
