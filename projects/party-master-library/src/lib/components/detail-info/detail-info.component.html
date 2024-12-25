@@ -218,7 +218,7 @@
                 <div class="form-check col-3 mb-1">
                   <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
-                <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0">
+                <div class="form-check col-3 mb-1" *ngIf="(userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0) || (userSetting.EnableItemWiseBatch == 1 && userSetting.EnableBatch != 0)">
                   <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')" [checked]="productObj.HASBATCH == 1">Has Batch Wise Pricing
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.ENABLE_ECS != 0">
