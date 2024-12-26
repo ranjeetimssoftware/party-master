@@ -22,7 +22,7 @@ const ELEMENT_DATA: Branch[] = [];
   styleUrls: ['./create-ledger.component.css'],
 })
 export class CreateLedgerComponent {
-  mode: string = 'Add';
+  mode: string = 'add';
   userSettings: any;
   isOpen: boolean = false;
   displayedColumns: string[] = [];
@@ -119,8 +119,8 @@ export class CreateLedgerComponent {
 
   onSelectParent(event: any) {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
-      event.accode;
-
+      event.acid;
+      this.partyMasterService.customermasterObj.customerPartyAccount.acType = event.acid;
   }
 
   getParentGroupTree(){
@@ -134,6 +134,9 @@ export class CreateLedgerComponent {
   onAccountTypeChange(event:Event){
     const input = event.target as HTMLInputElement;
     this.filterParentGroup(input.value);
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent = selectedValue;
+    this.partyMasterService.customermasterObj.parentGroup = selectedValue;
   }
 
   filterParentGroup(actype:string){

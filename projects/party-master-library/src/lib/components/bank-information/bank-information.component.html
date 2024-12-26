@@ -11,9 +11,15 @@
     <tbody>
       <tr *ngFor="let bank of bankInformation;let i = index;">
         <td>{{i+1}}</td>
-        <td>{{bank.bankName}}</td>
-        <td>{{bank.bankCode}}</td>
-        <td>{{bank.bankAccountNumber}}</td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ bank.bankName}}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankName" (keydown.Enter)="focusNext(0)"></td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ bank.bankCode}}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankCode" (keydown.Enter)="focusNext(1)"></td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ bank.bankAccountNumber}}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankAccountNumber" (keydown.Enter)="focusNext(2)"></td>
         <td><input type="checkbox" [(ngModel)]="bank.isDefault" (checked)="bank.isDefault == 1" disabled></td>
         <td *ngIf="bank.bankAccountNumber != '' && mode != 'view'">
           <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>

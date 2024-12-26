@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BankInformation, PartyMasterLibraryService } from '../../party-master-library.service';
@@ -14,6 +14,7 @@ export class BankInformationComponent implements OnInit {
   newRow: BankInformation = { acid: '', bankCode: '', bankName: '', bankAccountNumber: '', isDefault:0 };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  nameInputs!: QueryList<ElementRef>;
 
 
   @Input() bankInformation!:BankInformation[];
@@ -27,6 +28,7 @@ export class BankInformationComponent implements OnInit {
   
   }
 
+  
   addNewRow():BankInformation{
     let newRow: BankInformation = { acid: '', bankCode: '', bankName: '', bankAccountNumber: '', isDefault:0 };
     return newRow;
@@ -40,6 +42,14 @@ export class BankInformationComponent implements OnInit {
     this.dataSource.data.splice(i,1);
   }
 
+  focusNext( currentIndex: number): void {
+    // event.preventDefault(); 
+    const inputList = this.nameInputs.toArray();
+    const nextIndex = currentIndex + 1;
+    if (inputList[nextIndex]) {
+      inputList[nextIndex].nativeElement.focus();
+    }
+  }
   onCheckIsDefault(event:Event){
     const input = event.target as HTMLInputElement;
     if(input.checked){

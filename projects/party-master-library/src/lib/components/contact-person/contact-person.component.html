@@ -11,12 +11,20 @@
     <tbody>
       <tr *ngFor="let contact of contactPersonArray;let i = index;">
         <td>{{i+1}}</td>
-        <td>{{contact.name}}</td>
-        <td>{{contact.contact}}</td>
-        <td>{{contact.designation}}</td>
-        <td>{{contact.email}}</td>
         <td>
-          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
+          <span *ngIf="mode === 'view'">{{ contact.name }}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="contact.name" (keydown.Enter)="focusNext(0)"></td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ contact.contact }}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="contact.contact" (keydown.Enter)="focusNext(1)"></td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ contact.designation }}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1" [(ngModel)]="contact.designation"(keydown.Enter)="focusNext(2)"></td>
+        <td>
+          <span *ngIf="mode === 'view'">{{ contact.email }}</span>
+          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1" [(ngModel)]="contact.email"></td>
+        <td>
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" *ngIf="mode != 'view'"  (click)="onRemoveContact(i)">cancel</mat-icon>
         </td>
       </tr>
       <tr *ngIf="mode != 'view'">

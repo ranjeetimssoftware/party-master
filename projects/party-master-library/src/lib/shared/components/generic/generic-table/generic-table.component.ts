@@ -345,8 +345,13 @@ export class GenericTableComponent implements OnInit {
         ptype = 'C';
       }
       this.partyMasterService.onToggleStatus(acid,ptype).subscribe(
-        (response) => {
-          alert('Item toggled successfully.');
+        (response:any) => {
+          if(response.status === "ok"){
+            alert(response.result);
+          }
+          else{
+            alert('Item is inactive.');
+          }
           this.toggleRefresh(ptype);
          },
         (error) => {

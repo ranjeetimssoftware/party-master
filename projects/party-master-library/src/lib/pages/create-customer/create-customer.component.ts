@@ -11,6 +11,8 @@ import {
   MembershipObj,
   PartyMasterLibraryService,
 } from '.././../party-master-library.service';
+import { SalesTarget } from '../../party-master-library.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'lib-create-customer',
@@ -90,6 +92,9 @@ export class CreateCustomerComponent {
             }
             if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
               this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
+            }
+            if(this.partyMasterService.customermasterObj.salesTarget == null){
+              this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
             }
         });
     }
@@ -208,6 +213,21 @@ export class CreateCustomerComponent {
       'C';
     if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
       this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.stringify(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
+    }
+    if(Object.keys(this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo).length === 0){
+      this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = {
+        customerStatus: 1,
+        gender: '',
+        dateOfBirth: null,
+        weddingAniversary: null,
+        workingOrganization: null,
+        membershipStartDate: null,
+        membsershipEndDate: null,
+        designation:null,
+        membershipScheme: null,
+        membershipBarcode: null,
+      };
+      console.log("Customer Status");
     }
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)

@@ -240,7 +240,7 @@ export interface MembershipObj{
   weddingAniversary:string| null;
   workingOrganization:string| null;
   designation:string| null;
-  customerStatus:string| null,
+  customerStatus:number| null,
   membershipScheme:string| null,
   membershipStartDate:string | null,
   membsershipEndDate:string| null,
