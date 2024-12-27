@@ -293,28 +293,28 @@ export class GenericTableComponent implements OnInit {
   }
   
   onDeleteClick(event: any){
-      // this.onOtherClick.emit($event);
-      // const input =  event.target as HTMLInputElement;
-      let acid = event;
-      let ptype: 'C' | 'V' | 'A' = 'C';
-      if (this.activeRoute === 'vendor') {
-        ptype = 'V';
-      } else if (this.activeRoute === 'general-ledger') {
-        ptype = 'A';
-      }
-      else if(this.activeRoute === 'customer') {
-        ptype = 'C';
-      }
-      this.partyMasterService.onDeleteItem(acid,ptype).subscribe(
-        (response) => {
-          alert('Item deleted successfully.');
-          this.refreshData(ptype);
-         },
-        (error) => {
-          console.error('Error deleting item:', error);
-          alert('Failed to delete the item. Please try again.');
+      if(confirm("Are you sure you want to delete this item?")) {
+        let acid = event;
+        let ptype: 'C' | 'V' | 'A' = 'C';
+        if (this.activeRoute === 'vendor') {
+          ptype = 'V';
+        } else if (this.activeRoute === 'general-ledger') {
+          ptype = 'A';
         }
-      );
+        else if(this.activeRoute === 'customer') {
+          ptype = 'C';
+        }
+        this.partyMasterService.onDeleteItem(acid,ptype).subscribe(
+          (response) => {
+            alert('Item deleted successfully.');
+            this.refreshData(ptype);
+           },
+          (error) => {
+            console.error('Error deleting item:', error);
+            alert('Failed to delete the item. Please try again.');
+          }
+        );
+      }
       
     }
     refreshData(ptype: 'C' | 'V' | 'A') {

@@ -134,7 +134,8 @@ export class CreateLedgerComponent {
   onAccountTypeChange(event:Event){
     const input = event.target as HTMLInputElement;
     this.filterParentGroup(input.value);
-    const selectedValue = (event.target as HTMLSelectElement).value;
+    const selectedAccount = this.menuData.find((x:any) => x.acid == input.value);
+    let selectedValue = selectedAccount ? selectedAccount.acname : '';
     this.partyMasterService.customermasterObj.customerPartyAccount.parent = selectedValue;
     this.partyMasterService.customermasterObj.parentGroup = selectedValue;
   }
