@@ -46,25 +46,39 @@ export class SalesTargetComponent implements OnInit {
     this.setupImmediateValidation();
   }
 
-  setupImmediateValidation(): void {
-    Object.keys(this.salesTargetForm.controls)
-      .filter((controlName) => controlName !== 'Yearly_Target') 
-      .forEach((controlName) => {
-        this.salesTargetForm.controls[controlName].valueChanges.subscribe(() => {
-          
-          
-          const individualTargets = Object.keys(this.salesTargetForm.controls)
-            .map(control => this.salesTargetForm.controls[control].value);
-          
-          const totalTarget = individualTargets.reduce((sum, target) => sum + (target || 0), 0); 
-  
-          
-          if (individualTargets.some(value => value > 100) || totalTarget > 100) {
+setupImmediateValidation(): void {
+  // Exclude 'Yearly_Target' and iterate over other controls
+  Object.keys(this.salesTargetForm.controls)
+    .filter(controlName => controlName !== 'Yearly_Target')
+    .forEach(controlName => {
+      // Subscribe to valueChanges for each control
+      this.salesTargetForm.controls[controlName].valueChanges.subscribe(() => {
+        // Retrieve all relevant targets
+        const individualTargets = Object.keys(this.salesTargetForm.controls)
+          .filter(name => name !== 'Yearly_Target') // Ensure 'Yearly_Target' is excluded
+          .map(name => this.salesTargetForm.controls[name].value || 0);
+
+        // Calculate the total target
+        const totalTarget = individualTargets.reduce((sum, target) => sum + target, 0);
+
+        // Check validation conditions
+        if (individualTargets.some(value => value > 100) || totalTarget > 100) {
+          console.log('Total target exceeds limit:', totalTarget);
+
+          // Show the validation dialog only once
+          if (!this.salesTargetForm.controls[controlName].hasError('exceeded')) {
             this.partyMasterService.openSuccessDialog('Monthly balance should be 100%!!');
           }
-        });
+
+          // Add a custom error to the control
+          this.salesTargetForm.controls[controlName].setErrors({ exceeded: true });
+        } else {
+          // Clear custom errors if validation passes
+          this.salesTargetForm.controls[controlName].setErrors(null);
+        }
       });
-  }
+    });
+}
 
   ngAfterViewInit() {}
 

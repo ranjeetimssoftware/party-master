@@ -191,7 +191,74 @@ export class CreateCustomerComponent {
       return;
     }
   }
-     
+  if (this.partyMasterService.userSettings.AdditionalInfoCompulsoryInPartyMaster === 1) {
+    const contactPerson = this.partyMasterService.customermasterObj.contactPerson;
+  
+    if (Array.isArray(contactPerson)) {
+      this.partyMasterService.customermasterObj.contactPerson = contactPerson.filter(
+        (contact: any) => contact.name.trim() !== '' && contact.contact.trim() !== ''
+      );
+    } else {
+      this.partyMasterService.customermasterObj.contactPerson = [];
+    }
+  }
+  if (this.partyMasterService.userSettings.EnableOnlinePayment === 1) {
+  const bankInformation = this.partyMasterService.customermasterObj.bankInformation;
+
+  if (Array.isArray(bankInformation)) {
+    // Filter out invalid entries
+    this.partyMasterService.customermasterObj.bankInformation = bankInformation.filter((bank: any) => {
+      if (typeof bank === 'string') {
+        // For string entries, check if they are non-empty
+        return bank.trim() !== '';
+      }
+
+      if (typeof bank === 'object' && bank !== null) {
+        // For object entries, validate specific fields
+        return (
+          (bank.accountNumber?.trim() || '') !== '' || // Check if accountNumber is valid
+          (bank.bankName?.trim() || '') !== ''         // Check if bankName is valid
+        );
+      }
+
+      // Remove invalid data types (e.g., numbers, null, undefined)
+      return false;
+    });
+  } else {
+    // Initialize as an empty array if not a valid array
+    this.partyMasterService.customermasterObj.bankInformation = [];
+  }
+}
+
+
+  if (this.partyMasterService.userSettings.EnableShippingAddress === 1) {
+    const shippingAddress = this.partyMasterService.customermasterObj.shippingAdresses;
+  
+    if (Array.isArray(shippingAddress)) {
+      // Filter valid entries only
+      this.partyMasterService.customermasterObj.shippingAdresses = shippingAddress.filter((address: any) => {
+        if (typeof address === 'string') {
+          // For string addresses, check if they are non-empty
+          return address.trim() !== '';
+        }
+  
+        if (typeof address === 'object' && address !== null) {
+          // For object addresses, check specific fields (e.g., line1, city)
+          return (
+            (address.address?.trim() || '') !== '' || // Ensure line1 is non-empty
+            (address.name?.trim() || '') !== ''    // Ensure city is non-empty
+          );
+        }
+  
+        // Remove invalid types (e.g., numbers, null, undefined)
+        return false;
+      });
+    } else {
+      // Reset to an empty array if not an array
+      this.partyMasterService.customermasterObj.shippingAdresses = [];
+    }
+  }
+  
     if (
       this.userSettings.SalesmanCompulsoryInPartyMaster == 1 &&
       (this.partyMasterService.customermasterObj.AdditionalInfo
@@ -216,7 +283,7 @@ export class CreateCustomerComponent {
     }
     if(Object.keys(this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo).length === 0){
       this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = {
-        customerStatus: 1,
+        customerStatus: '1',
         gender: '',
         dateOfBirth: null,
         weddingAniversary: null,
