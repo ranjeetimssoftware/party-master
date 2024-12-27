@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Brand, Model, MultiStockLevel, Product, ProductGroup, TBarcode } from "./ProductItem";
-import { Observable, of, Subject } from "rxjs";
+import { BehaviorSubject, Observable, of, Subject } from "rxjs";
 import { first, map } from 'rxjs/operators';
 import { ConfigService } from "../config.service";
 import { MatDialog } from "@angular/material/dialog";
@@ -31,6 +31,8 @@ export class ProductMasterService {
   activepathurl: any;
   filterParameter:string ='';
   userSetting:any;
+  private selectedItems = new BehaviorSubject<any[]>([]);
+  selectedItem$ = this.selectedItems.asObservable();
 
   
   constructor(private http: HttpClient,
@@ -48,6 +50,9 @@ export class ProductMasterService {
    
        if (!!url && url.length > 0) { apiUrl = url };
        return apiUrl
+     }
+     updateSelectedItems(items:any[]):void{
+      this.selectedItems.next(items);
      }
 
      openSuccessDialog(Message:string) {
@@ -854,6 +859,12 @@ export class ProductMasterService {
     });
     return returnSubject;
   }
+
+  public getAcList() {
+    return this.http
+    .get(this.apiUrl + '/getAcList')
+   
+    }
 
 
   

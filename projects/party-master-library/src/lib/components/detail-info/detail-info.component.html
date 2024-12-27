@@ -8,7 +8,7 @@
               <label for="" class="form-label">Description:</label>
             </div>
             <div class="col-8">
-              <input type="text" class="form-control" placeholder="Enter Product Description"  [(ngModel)]="productObj.DESCB">
+              <input type="text" class="form-control" placeholder="Enter Product Description" [disabled]="isDisabled()" [(ngModel)]="productObj.DESCB">
             </div>
           </div>
           <div class="row form-group">
@@ -16,7 +16,7 @@
               <label for="Category" class="form-label">Category:</label>
             </div>
             <div class="col-7">
-              <select name="Category" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.MCAT">
+              <select name="Category" id="Category" class="form-control" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="productObj.MCAT">
                 <option *ngFor="let i of MCatList" [ngValue]="i.MENUCAT">{{i.MENUCAT}}</option>
               </select>
             </div>
@@ -28,7 +28,7 @@
               <label for="" class="form-label">Short Name:</label>
             </div>
             <div class="col-8">
-              <input type="text" class="form-control" placeholder="Enter Short Name" [(ngModel)]="productObj.Description">
+              <input type="text" class="form-control" placeholder="Enter Short Name" [disabled]="isDisabled()" [(ngModel)]="productObj.Description">
             </div>
           </div>
           <div class="row form-group" *ngIf="userSetting.EnableExtraCategory == 1">
@@ -54,7 +54,7 @@
             <label for="" class="form-label">Purchase Price:</label>
           </div>
           <div class="col-5">
-            <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [(ngModel)]="productObj.PRATE_A" (keyup)="RecalculateNonVATAmount_Ex_Prate_A()" >
+            <input type="number" min="0" class="form-control" placeholder="Enter Purchase Price" [disabled]="isDisabled()" [(ngModel)]="productObj.PRATE_A" (keyup)="RecalculateNonVATAmount_Ex_Prate_A()" >
           </div>
         </div>
         <div class="row form-group" *ngIf="mode != 'add'">
@@ -69,7 +69,7 @@
             <label for="" class="form-label">Supplier Name:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Press Enter to select" [(ngModel)]="productObj.supplierName" (keydown.Enter)="onEnterSupplierCommand()" (keydown)="preventInput($event)">
+            <input type="text" class="form-control" placeholder="Press Enter to select" [disabled]="isDisabled()" [(ngModel)]="productObj.supplierName" (keydown.Enter)="onEnterSupplierCommand()" (keydown)="preventInput($event)">
           </div>
         </div>
         <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -79,7 +79,7 @@
             </label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List" [disabled]="isDisabled()"
             (keydown.Tab)="PurchaseAccountEnterClicked()"
             (keydown.enter)="PurchaseAccountEnterClicked()" [(ngModel)]="productObj.PAC_ACNAME" (keydown)="preventInput($event)">
           </div>
@@ -91,7 +91,7 @@
             </label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
+            <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List" [disabled]="isDisabled()"
             (keydown.Tab)="PurchaseReturnAccountEnterClicked()"
             (keydown.enter)="PurchaseReturnAccountEnterClicked()" [(ngModel)]="productObj.PRAC_ACNAME" (keydown)="preventInput($event)">
           </div>
@@ -109,11 +109,11 @@
                 <label for="" class="form-label">Sales Price:</label>
               </div>
               <div class="col-4">
-                <input *ngIf="userSetting.VatExcludingRate == 0" type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_A" (input)="RecalculateVATAmount()" (focusout)="checkRecommendedVsActualMargin()">
+                <input *ngIf="userSetting.VatExcludingRate == 0" type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.IN_RATE_A"  (input)="RecalculateVATAmount()" (focusout)="checkRecommendedVsActualMargin()">
                 <input *ngIf="userSetting.VatExcludingRate == 1" type="text" min="0" class="form-control" placeholder="0" [value]="productObj.IN_RATE_A | number : '1.0-2'"disabled>
               </div>
               <div class="col-4">
-                <input *ngIf="userSetting.VatExcludingRate == 1"  type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_A" (input)="RecalculateNonVATAmount_Ex_Rate_A()" (focusout)="checkRecommendedVsActualMargin()">
+                <input *ngIf="userSetting.VatExcludingRate == 1"  type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_A" (input)="RecalculateNonVATAmount_Ex_Rate_A()" [disabled]="isDisabled()" (focusout)="checkRecommendedVsActualMargin()">
                 <input *ngIf="userSetting.VatExcludingRate == 0"  type="text" min="0" class="form-control" placeholder="0" [value]="productObj.RATE_A | number : '1.0-2'" disabled>
               </div>
             </div>
@@ -126,7 +126,7 @@
                 <input *ngIf="userSetting.VatExcludingRate == 1" type="text" min="0" class="form-control" placeholder="0" [value]="productObj.IN_RATE_B | number : '1.0-2'" disabled>
               </div>
               <div class="col-4">
-                <input *ngIf="userSetting.VatExcludingRate == 1" type="number" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.RATE_B" (change)="RecalculateNonVATAmount_Ex_Rate_B()"
+                <input *ngIf="userSetting.VatExcludingRate == 1" type="number" min="0" class="form-control" placeholder="0" [disabled]="isDisabled()" [(ngModel)]="productObj.RATE_B" (change)="RecalculateNonVATAmount_Ex_Rate_B()"
                 (input)="RecalculateNonVATAmount_Ex_Rate_B()">
                 <input *ngIf="userSetting.VatExcludingRate == 0" type="text" min="0" class="form-control" placeholder="0" [value]="productObj.RATE_B | number : '1.0-2'" disabled>
               </div>
@@ -136,7 +136,7 @@
                 <label for="" class="form-label">Label MRP:</label>
               </div>
               <div class="col-8">
-                <input type="text" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.LabeledMRP">
+                <input type="text" min="0" class="form-control" placeholder="0" [(ngModel)]="productObj.LabeledMRP" [disabled]="isDisabled()">
               </div>
             </div>
             <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -148,7 +148,7 @@
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
                 (keydown.Tab)="SalesAccountEnterClicked()"
-                (keydown.enter)="SalesAccountEnterClicked()" [(ngModel)]="productObj.SAC_ACNAME" (keydown)="preventInput($event)">
+                (keydown.enter)="SalesAccountEnterClicked()" [disabled]="isDisabled()" [(ngModel)]="productObj.SAC_ACNAME" (keydown)="preventInput($event)">
               </div>
             </div>
             <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -160,7 +160,7 @@
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
                 (keydown.Tab)="SalesReturnAccountEnterClicked()"
-                (keydown.enter)="SalesReturnAccountEnterClicked()" [(ngModel)]="productObj.SRAC_ACNAME" (keydown)="preventInput($event)">
+                (keydown.enter)="SalesReturnAccountEnterClicked()" [disabled]="isDisabled()" [(ngModel)]="productObj.SRAC_ACNAME" (keydown)="preventInput($event)">
               </div>
             </div>
           </div>
@@ -204,44 +204,44 @@
             <div class="mt-2 px-2" style="width: auto;overflow-x: scroll;">
               <div class="d-flex flex-column flex-wrap" style="height: 12vh;">
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableOpenItem==1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISUNKNOWN" (change)="onCheckOption($event,productObj,'ISUNKNOWN')">Is Open Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.ISUNKNOWN" (change)="onCheckOption($event,productObj,'ISUNKNOWN')">Is Open Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.REQEXPDATE" (change)="onCheckOption($event,productObj,'REQEXPDATE')">Is Expiry Tracked Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.REQEXPDATE" (change)="onCheckOption($event,productObj,'REQEXPDATE')">Is Expiry Tracked Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2"  [(ngModel)]="productObj.discontinueCheckbox"  (change)="onCheckOption($event,productObj,'discontinueCheckbox')">Set As Discontinued Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()"  [(ngModel)]="productObj.discontinueCheckbox"  (change)="onCheckOption($event,productObj,'discontinueCheckbox')">Set As Discontinued Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Non-Discountable')" [checked]="productObj.DISMODE == 'Non-Discountable'">Is Non Discountable Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" (change)="onCheckDiscountItemOption($event,'Non-Discountable')" [checked]="productObj.DISMODE == 'Non-Discountable'">Is Non Discountable Item
                 </div>
                 <div class="form-check col-3 mb-1">
-                  <input type="checkbox" class="form-check-input mr-2" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" (change)="onCheckDiscountItemOption($event,'Discountable')" [checked]="productObj.DISMODE == 'Discountable'">Is Discounted Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="(userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0)">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')" [checked]="productObj.HASBATCH == 1">Has Batch Wise Pricing
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.HASBATCH" (change)="onCheckOption($event,productObj,'HASBATCH')" [checked]="productObj.HASBATCH == 1">Has Batch Wise Pricing
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.ENABLE_ECS != 0">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASECSCHARGE" (change)="onCheckOption($event,productObj,'HASECSCHARGE')">Is ECS Chargeable Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.HASECSCHARGE" (change)="onCheckOption($event,productObj,'HASECSCHARGE')">Is ECS Chargeable Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableVariantCategory == 1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASVARIANT" (change)="onCheckOption($event,productObj,'HASVARIANT')">Has Variant Details
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.HASVARIANT" (change)="onCheckOption($event,productObj,'HASVARIANT')">Has Variant Details
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableRecurringItem == 1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISRECURRING" (change)="onCheckOption($event,productObj,'ISRECURRING')">Is Recurring Billing Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.ISRECURRING" (change)="onCheckOption($event,productObj,'ISRECURRING')">Is Recurring Billing Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableVariableWightItem == 1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.IsQtyUnknown" (change)="onCheckOption($event,productObj,'IsQtyUnknown')">Is Variable Weight Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.IsQtyUnknown" (change)="onCheckOption($event,productObj,'IsQtyUnknown')">Is Variable Weight Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.ItemWiseDisplaySettingInBilling == 1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.BillingDisplay" (change)="onCheckOption($event,productObj,'BillingDisplay')">Is Featured Item
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.BillingDisplay" (change)="onCheckOption($event,productObj,'BillingDisplay')">Is Featured Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableCommissionCalculation != 0">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.HASCOMMISSIONCHARGE" (change)="onCheckOption($event,productObj,'HASCOMMISSIONCHARGE')"
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.HASCOMMISSIONCHARGE" (change)="onCheckOption($event,productObj,'HASCOMMISSIONCHARGE')"
                   [checked]="productObj.HASCOMMISSIONCHARGE==1">Is Comission Applicable Item
                 </div>
                 <div class="form-check col-3 mb-1" *ngIf="userSetting.EnableAmountWiseBill == 1">
-                  <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.ISAMOUNTWISEBILL" (change)="onCheckOption($event,productObj,'ISAMOUNTWISEBILL')"
+                  <input type="checkbox" class="form-check-input mr-2" [disabled]="isDisabled()" [(ngModel)]="productObj.ISAMOUNTWISEBILL" (change)="onCheckOption($event,productObj,'ISAMOUNTWISEBILL')"
                   [checked]="productObj.ISAMOUNTWISEBILL==1">Allow Billing By Amount
                 </div>                
               </div>
@@ -259,7 +259,7 @@
             </label>
           </div>
           <div class="col-8">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.DISCONTINUE">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="productObj.DISCONTINUE">
               <option selected disabled>--Select--</option>
               <option value=2>DISCONTINUE SALES </option>
               <option value=3>DISCONTINUE PURCHASE </option>
@@ -278,7 +278,7 @@
             </label>
           </div>
           <div class="col-8">    
-            <input type="number" min="0" class="form-control" [(ngModel)]="productObj.ECSRATE">
+            <input type="number" min="0" class="form-control" [disabled]="isDisabled()" [(ngModel)]="productObj.ECSRATE">
           </div>
         </div>
       </div>    
@@ -297,7 +297,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Item Shelf Life:</label>
                   </div>
                   <div class="col-7">
-                    <input type="number" min="0" class="form-control" [(ngModel)]="productObj.SHELFLIFE">
+                    <input type="number" min="0" class="form-control" [disabled]="isDisabled()" [(ngModel)]="productObj.SHELFLIFE">
                   </div>
                 </div>
                 <!-- <div class="form-group row col-4">
@@ -313,8 +313,8 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Item Location:</label>
                   </div>
                   <div class="col-7">
-                    <mat-select multiple [(ngModel)]="productObj.Location" class="form-control" click="openStatusDropdown()">
-                      <mat-option #StatusDropdown *ngFor="let location of LocationList" [value]="location.NAME">{{location.NAME}}</mat-option>
+                    <mat-select multiple [disabled]="isDisabled()"  [(ngModel)]="productObj.Location" class="form-control" click="openStatusDropdown()">
+                      <mat-option #StatusDropdown *ngFor="let location of LocationList"  [value]="location.NAME">{{location.NAME}}</mat-option>
                     </mat-select>
                   </div>
                 </div>
@@ -323,7 +323,7 @@
                     <label for="kotCat" class="form-label w-100 m-0">KOT Category:</label>
                   </div>
                   <div class="col-7">
-                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.ISBARITEM">
+                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="productObj.ISBARITEM">
                       <option *ngFor="let i of KOTcatList" [ngValue]="i.ID">{{i.NAME}}</option>
                     </select>
                   </div>
@@ -333,7 +333,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Menu Category:</label>
                   </div>
                   <div class="col-7">
-                    <select name="menuCat" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.MCAT1">
+                    <select name="menuCat" id="Category" class="form-control" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="productObj.MCAT1">
                       <option selected disabled>--Select--</option>
                       <option value="BEVERAGE">BEVERAGE</option>
                       <option value="FOOD">FOOD</option>
@@ -345,7 +345,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Color Group:</label>
                   </div>
                   <div class="col-7">
-                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.COLOR">
+                    <select name="barItem" id="Category" class="form-control" aria-label="Default select example" [disabled]="isDisabled()" [(ngModel)]="productObj.COLOR">
                       <option *ngFor="let color of colorGroupList" [ngValue]="color.Id">{{color.GroupName}}</option>
                     </select>
                   </div>
@@ -355,7 +355,7 @@
                     <label for="shelfLife" class="form-label w-100 m-0">Warranty Period:</label>
                   </div>
                   <div class="col-7">
-                    <input type="number" class="form-control" min="0" [(ngModel)]="productObj.WARRANTY">
+                    <input type="number" class="form-control" min="0" [disabled]="isDisabled()" [(ngModel)]="productObj.WARRANTY">
                   </div>
                   <div class="col-1 pl-0">(Month)</div>
                 </div>
@@ -379,7 +379,7 @@
                     <label for="" class="form-label">Master Item:</label>
                   </div>
                   <div class="col-5">
-                    <input type="text" class="form-control" placeholder="--Press Enter to select item--" [(ngModel)]="productObj.SUPITEMNAME" (keydown.Enter)="onEnterMasterItemList()">
+                    <input type="text" class="form-control" placeholder="--Press Enter to select item--" [disabled]="isDisabled()" [(ngModel)]="productObj.SUPITEMNAME" (keydown.Enter)="onEnterMasterItemList()">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -387,7 +387,7 @@
                     <label for="" class="form-label">Factor:</label>
                   </div>
                   <div class="col-5">
-                    <input type="number" min="0" class="form-control" [(ngModel)]="productObj.CONFACTOR">
+                    <input type="number" min="0" class="form-control" [disabled]="isDisabled()" [(ngModel)]="productObj.CONFACTOR">
                   </div>
                 </div>                          
 

@@ -60,6 +60,7 @@ export class CreateCustomerComponent {
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
+
     if (!!this._activatedRoute.snapshot.params['mode']) {
       if (this._activatedRoute.snapshot.params['mode'] === 'view') {
         this.mode = 'view';
@@ -88,6 +89,8 @@ export class CreateCustomerComponent {
             }
         });
     }
+
+    
     
   }
 

@@ -17,11 +17,14 @@ export class DetailInfoComponent implements OnInit {
   userSetting:any;
   applyPipeInRate: boolean = true;
   mode:string = 'add';
-
+  @Input() modee: string = '';
   @ViewChild('DiscontinuedItem') DiscontinuedItem!: ElementRef;
   @Input() productObj: Product = <Product>{};
   @Output() notify = new EventEmitter();
   @ViewChild(AlternateUnitComponent) child!: AlternateUnitComponent;
+  isDisabled(): boolean {
+    return this.modee === 'view';
+  }
 
 
   @ViewChild("genericGridSupplierPopup") genericGridSupplierPopup!: MultiSelectGenericGridComponent;
@@ -65,6 +68,9 @@ export class DetailInfoComponent implements OnInit {
     this.getKOTCategoryList();
     this.getColorGroupList();
     this.getLocationList();
+
+    
+    
   }
 
   openStatusDropdown() {
@@ -221,6 +227,8 @@ export class DetailInfoComponent implements OnInit {
   dblClickSalesAccountSelect(account:any) {
     this.productObj.SAC = account.ACID;
     this.productObj.SAC_ACNAME = account.ACNAME;
+    console.log('PAC',this.productObj.PAC);
+    console.log('PAC',this.productObj.PAC_ACNAME);
   }
 
   
@@ -249,6 +257,8 @@ export class DetailInfoComponent implements OnInit {
   dblClickSalesReturnAccountSelect(account:any) {
     this.productObj.SRAC = account.ACID;
     this.productObj.SRAC_ACNAME = account.ACNAME;
+    console.log('SRAC',this.productObj.SRAC);
+    console.log('SRAC',this.productObj.SRAC_ACNAME);
   }
 
   
@@ -274,10 +284,12 @@ export class DetailInfoComponent implements OnInit {
     }
     this.genericGridAccountLedger_Purchase.show();
   }
-
+  
   dblClickPurchaseAccountSelect(account:any) {
     this.productObj.PAC = account.ACID;
     this.productObj.PAC_ACNAME = account.ACNAME;
+    console.log('PAC',this.productObj.PAC);
+    console.log('PAC',this.productObj.PAC_ACNAME);
   }
 
   
@@ -307,6 +319,8 @@ export class DetailInfoComponent implements OnInit {
   dblClickPurchaseReturnAccountSelect(account:any) {
     this.productObj.PRAC = account.ACID;
     this.productObj.PRAC_ACNAME = account.ACNAME;
+    console.log('PRAC',this.productObj.PRAC);
+    console.log('PRAC',this.productObj.PRAC_ACNAME);
   }
 
   onEnterMasterItemList(){

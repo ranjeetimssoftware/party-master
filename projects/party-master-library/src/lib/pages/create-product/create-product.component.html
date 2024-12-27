@@ -18,7 +18,7 @@
             <label for="" class="form-label">Item Name:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="productObj.DESCA">
+            <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="productObj.DESCA" [disabled]="mode ==='view'">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -26,7 +26,7 @@
             <label for="" class="form-label">Item Code:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]="productObj.MENUCODE" [readonly]="userSetting.MANUALCODE == 0">
+            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]="productObj.MENUCODE" [disabled]="mode ==='view'"[readonly]="userSetting.MANUALCODE == 0">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -36,10 +36,10 @@
             </label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode">
+            <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode" [disabled]="mode ==='view'">
           </div>
           <div class="col-2 form-check ml-4">
-            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)" [disabled]="userSetting.EnableNonTaxableSales == 0">
+            <input type="checkbox" class="form-check-input mr-2" [disabled]="mode ==='view'" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)" [disabled]="userSetting.EnableNonTaxableSales == 0">
             <label for="" class="form-check-label">Is Vatable Item</label>
           </div>
         </div>
@@ -48,7 +48,7 @@
             <label for="" class="form-label">Item Group:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close('cancel')" [(ngModel)]=" productObj.MgroupName" (keydown)="preventInput($event)">
+            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close('cancel')" [(ngModel)]=" productObj.MgroupName" (keydown)="preventInput($event)" [disabled]="mode ==='view'">
           </div>
           <div class="col-1">
             <button (click)="close('cancel')" style="border: none;">
@@ -64,7 +64,7 @@
             <label for="" class="form-label">Stock Unit:</label>
           </div>
           <div class="col-5">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.BASEUNIT">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.BASEUNIT" [disabled]="mode ==='view'">
               <option *ngFor="let i of Units" [ngValue]="i.UNITS">{{i.UNITS}}</option>
             </select>
           </div>
@@ -72,7 +72,7 @@
             <label for="" class="form-label">Item Type:</label>
           </div>
           <div class="col-3">
-            <select name="ptype" id="ptype" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.PTYPE">
+            <select name="ptype" id="ptype" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.PTYPE" [disabled]="mode ==='view'">
               <option *ngFor="let i of PTypeList" [ngValue]="i.PTYPEID">{{i.PTYPENAME}}</option>
             </select>
           </div>
@@ -133,13 +133,13 @@
   </div>
   <mat-tab-group>
     <mat-tab label="Detail Info"> 
-      <lib-detail-info [productObj]="productObj" (notify)="changeHasBatchWisePricing($event)"></lib-detail-info>
+      <lib-detail-info [productObj]="productObj" [modee]="mode" (notify)="changeHasBatchWisePricing($event)"></lib-detail-info>
     </mat-tab>
     <mat-tab label="Item Attributes" *ngIf="userSetting.EnableItemAttributes == 1"> 
       <lib-item-attributes></lib-item-attributes>
     </mat-tab>
     <mat-tab label="Alternate Unit" *ngIf="userSetting.EnableAlternateUnit == 1"> 
-      <lib-alternate-unit [productObj]="productObj" [AlternateUnits]="AlternateUnits" [CurAltUnit]="CurAltUnit"></lib-alternate-unit>
+      <lib-alternate-unit [productObj]="productObj" [modee]="mode" [AlternateUnits]="AlternateUnits" [CurAltUnit]="CurAltUnit"></lib-alternate-unit>
     </mat-tab>
     <mat-tab label="Inventory Controls" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
       <lib-inventory-controls [productObj]="productObj"></lib-inventory-controls>
@@ -151,10 +151,10 @@
       <lib-division-mapping [divList]="DivisionList"></lib-division-mapping>
     </mat-tab>
     <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 0"> 
-      <lib-multiple-retail-price [PMultipleRetailPrice]="PMultipleRetailPrice"></lib-multiple-retail-price>
+      <lib-multiple-retail-price [PMultipleRetailPrice]="PMultipleRetailPrice" [modee]="mode"></lib-multiple-retail-price>
     </mat-tab>
     <mat-tab label="Alternate Item" *ngIf="userSetting.EnableAlternateItem == 1"> 
-      <lib-alternate-item [AlternateProducts]="productObj.AlternateProducts"></lib-alternate-item>
+      <lib-alternate-item [AlternateProducts]="productObj.AlternateProducts" [modee]="mode"></lib-alternate-item>
     </mat-tab>
     <mat-tab label="Batchwise Price Log" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0"> 
       <lib-batchwise-price-log></lib-batchwise-price-log>

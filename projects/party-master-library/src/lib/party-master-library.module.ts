@@ -66,6 +66,7 @@ import { DivisionMappingModule } from './shared/components/generic/generic-divis
 import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCurrencyPrice.component';
 import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
 import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
+import { NavTreeHeadingComponent } from './components/nav-tree-heading/nav-tree-heading.component';
 
 
 @NgModule({
@@ -110,7 +111,8 @@ import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
     MulltiCurrencyPriceComponent,
     ProductItemGroupComponent,
     
-    NavTreeComponent
+    NavTreeComponent,
+          NavTreeHeadingComponent
   ],
   imports: [
     CommonModule,

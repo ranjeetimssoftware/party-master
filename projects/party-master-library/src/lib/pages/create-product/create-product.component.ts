@@ -70,6 +70,29 @@ export class CreateProductComponent {
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
+
+    if (!!this._activatedRoute.snapshot.params['mode']) {
+      if (this._activatedRoute.snapshot.params['mode'] === 'view') {
+        this.mode = 'view';
+        this.ProductForm.disable();
+      }
+      if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
+        this.mode = 'edit';
+      }
+      let mcode = this._activatedRoute.snapshot.params['MCODE'];
+      this.productMasterService
+        .getProductForEdit(mcode)
+        .subscribe((res: any) => {
+          this.productObj = res.result;
+          this.productObj.supplierName= res.result.SupplierName;
+        this.mapItemAccountName();
+        console.log('productObj:', this.productObj);
+
+        });
+    }
+
+
+
     if(this.mode == 'add'){
       this.productObj.guid = uuid.v4();
       this.productObj.Weighable = 'kg';
@@ -91,6 +114,29 @@ export class CreateProductComponent {
     this.getAllMajorGroup();
     this.getAllUnits();
   }
+
+
+mapItemAccountName(){
+  let accountList:any[];
+  this.productMasterService.getAcList().subscribe((res:any)  => {
+    accountList =res;
+    
+    let a_list =accountList.filter(x=>(x.ACID == this.productObj.SAC || x.ACID == this.productObj.SRAC || x.ACID == this.productObj.PAC || x.ACID == this.productObj.PRAC ));
+    
+    if(a_list.length > 0){
+    this.productObj.SAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.SAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.SAC)[0].ACNAME : '';
+    
+    this.productObj.SRAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.SRAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.SRAC)[0].ACNAME : '';
+    this.productObj.PAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.PAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.PAC)[0].ACNAME : '';
+    this.productObj.PRAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.PRAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.PRAC)[0].ACNAME : '';
+    }
+   
+    
+    
+    });
+    
+}
+
 
   OnGroupChanges(){
     if(this.selectedGroupInfo != undefined){
@@ -622,7 +668,7 @@ onSubmit(){
           }else{
             this.productMasterService.getProductInfo('PRG99999999').subscribe(result=>{
               this.selectedGroupInfo = result.result[0];
-
+              this.router.navigate([this.returnUrl]);
             })
   
 

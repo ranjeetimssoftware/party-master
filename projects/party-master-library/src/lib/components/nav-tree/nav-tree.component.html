@@ -16,6 +16,7 @@
         class="nav-item"
         *ngFor="let item of filteredMainItems"
         (click)="toggleSecondSidebar(item)"
+        (dblclick)="navigateToHeading()"
         [ngClass]="{'active': selectedMainItem === item}"
       >
         <div class="nav-content"><a>{{ item }}</a></div>
@@ -34,7 +35,7 @@
     </div>
   
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupAItems" class="nav-item" (click)="toggleThirdSidebar(item)" [ngClass]="{'active': selectedSecondItem === item}">
+      <li *ngFor="let item of filteredGroupAItems" class="nav-item" (click)="toggleThirdSidebar(item)" (dblclick)="navigateToHeading()" [ngClass]="{'active': selectedSecondItem === item}">
         <div class="nav-content"><a>{{item}}</a></div>
       </li>
     </ul>
@@ -50,7 +51,7 @@
     </div>
   
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupBItems" class="nav-item" (click)="toggleFourthSidebar(item)" [ngClass]="{'active': selectedThirdItem === item}">
+      <li *ngFor="let item of filteredGroupBItems" class="nav-item" (click)="toggleFourthSidebar(item)" (dblclick)="navigateToHeading()" [ngClass]="{'active': selectedThirdItem === item}">
         <div class="nav-content"><a>{{item}}</a></div>
       </li>
     </ul>
@@ -65,7 +66,7 @@
       <input type="text" placeholder="Search..." [(ngModel)]="searchTermFourth" (input)="filterItems('GroupC')">
     </div>
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupCItems" class="nav-item">
+      <li *ngFor="let item of filteredGroupCItems" class="nav-item" (click)="subGroupCitem(item)" (dblclick)="navigateToHeading()">
         <div class="nav-content"><a>{{item}}</a></div>
       </li>
     </ul>

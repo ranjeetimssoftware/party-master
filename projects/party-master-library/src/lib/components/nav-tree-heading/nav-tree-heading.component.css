@@ -1,0 +1,34 @@
+.nav-path {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;   
+  height: 50px;  
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-top-right-radius: 25px; 
+  border-bottom-right-radius: 25px;
+  margin-left: -20px;     
+  text-align: center;
+  z-index: 1;
+}
+
+.nav-item.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.nav-separator {
+  font-size: 18px;
+  margin: 0 5px;
+  color: #888;
+}

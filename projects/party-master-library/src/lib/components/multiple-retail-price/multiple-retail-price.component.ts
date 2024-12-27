@@ -13,6 +13,7 @@ import { GenericDivisionMappingComponent } from '../../shared/components/generic
 })
 export class MultipleRetailPriceComponent implements OnInit {
   @Input() PMultipleRetailPrice: MultipleRetailPrice[] = [];
+  @Input() modee!:string;
   MultipeRetailObj: MultipleRetailPrice = <MultipleRetailPrice>{};
   DivisionList:any[]=[];
   userSetting:any; 

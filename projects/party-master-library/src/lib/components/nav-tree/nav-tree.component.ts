@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductMasterService } from '../../pages/Product-master.service';
+import { Router } from '@angular/router';
+import { pathToFileURL } from 'url';
 
 @Component({
   selector: 'lib-nav-tree',
@@ -26,7 +29,10 @@ export class NavTreeComponent {
   searchTermSecond: string = '';
   searchTermThird: string = '';
   searchTermFourth: string = '';
+  
+  selectedPath: string[] =[];
 
+  constructor(private router:Router, private ProductMasterService: ProductMasterService){}
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
 
@@ -43,6 +49,7 @@ export class NavTreeComponent {
 
     // Update selected state for the main sidebar
     this.selectedMainItem = item;
+    this.selectedPath= [item];
 
     // Reset lower-level selections
     this.selectedSecondItem = null;
@@ -55,6 +62,7 @@ export class NavTreeComponent {
 
     // Update selected state for the second sidebar
     this.selectedSecondItem = item;
+    this.selectedPath[1] = item;
 
     // Reset lower-level selections
     this.selectedThirdItem = null;
@@ -65,6 +73,17 @@ export class NavTreeComponent {
 
     // Update selected state for the third sidebar
     this.selectedThirdItem = item;
+    this.selectedPath[2] = item;
+  }
+
+  subGroupCitem(item: string){
+    this.selectedPath[3] = item;
+  }
+
+  navigateToHeading(){
+    this.router.navigate(['/navtreeheading'],{
+      queryParams:{path:JSON.stringify(this.selectedPath)}
+    });
   }
 
   resetActiveStates() {

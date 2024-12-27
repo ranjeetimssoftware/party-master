@@ -4,7 +4,7 @@
     <label for="Barcode" class="form-label">Alternate Item:</label>
   </div>
   <div class="col-3 px-1 ">
-    <input type="text" class="form-control" placeholder="Press Enter to select item" (keydown.Enter)="onEnterMainLedgerList()">
+    <input type="text" class="form-control" [disabled]="isDisabled()" placeholder="Press Enter to select item" (keydown.Enter)="onEnterMainLedgerList()">
   </div>
 
 </div>
