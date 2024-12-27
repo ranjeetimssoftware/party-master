@@ -9,35 +9,19 @@
       <th *ngIf="mode != 'view'">Action</th>
     </thead>
     <tbody>
-      <tr *ngFor="let bank of bankInformation;let i = index;">
+      <tr *ngFor="let bank of bankInformation;let i = index;" (click)="activateIndex(i)">
+
         <td>{{i+1}}</td>
         <td>
-          <span *ngIf="mode === 'view'">{{ bank.bankName}}</span>
-          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankName" (keydown.Enter)="focusNext(0)"></td>
+          <input #inputField  type="text" [disabled]="mode === 'view'" class="form-control px-2 py-1"  [(ngModel)]="bank.bankName" (keydown.Enter)="focusNext(0)"></td>
         <td>
-          <span *ngIf="mode === 'view'">{{ bank.bankCode}}</span>
-          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankCode" (keydown.Enter)="focusNext(1)"></td>
+          <input #inputField type="text" [disabled]="mode === 'view'" class="form-control px-2 py-1"  [(ngModel)]="bank.bankCode" (keydown.Enter)="focusNext(1)"></td>
         <td>
-          <span *ngIf="mode === 'view'">{{ bank.bankAccountNumber}}</span>
-          <input *ngIf="mode != 'view'" type="text" class="form-control px-2 py-1"  [(ngModel)]="bank.bankAccountNumber" (keydown.Enter)="focusNext(2)"></td>
-        <td><input type="checkbox" [(ngModel)]="bank.isDefault" (checked)="bank.isDefault == 1" disabled></td>
+          <input #inputField type="text" [disabled]="mode === 'view'" class="form-control px-2 py-1"  [(ngModel)]="bank.bankAccountNumber" (keydown.Enter)="onAddContact()" (keydown.Tab)="onAddContact()"></td>
+        <td>
+          <input type="checkbox"  [(ngModel)]="bank.isDefault" (checked)="bank.isDefault == 1" [disabled]="mode == 'view'"></td>
         <td *ngIf="bank.bankAccountNumber != '' && mode != 'view'">
           <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
-        </td>
-      </tr>
-      <tr *ngIf="mode != 'view'">
-        <td>{{this.dataSource.data.length+1}}</td>
-        <td>      
-          <input type="text" class="form-control px-2 py-1" placeholder="Name" [(ngModel)]="newRow.bankName">
-        </td>
-        <td>
-          <input type="text" class="form-control px-2 py-1" placeholder="Bank Code" [(ngModel)]="newRow.bankCode">
-        </td>
-        <td>
-      <input type="text" class="form-control px-2 py-1" placeholder="Account Number" [(ngModel)]="newRow.bankAccountNumber">
-        </td>
-        <td>
-          <input type="checkbox" [(ngModel)]="newRow.isDefault" (change)="onCheckIsDefault($event)">
         </td>
       </tr>
     </tbody>
