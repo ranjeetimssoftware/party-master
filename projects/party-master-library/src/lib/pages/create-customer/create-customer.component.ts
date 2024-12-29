@@ -11,6 +11,8 @@ import {
   MembershipObj,
   PartyMasterLibraryService,
 } from '.././../party-master-library.service';
+import { SalesTarget } from '../../party-master-library.service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'lib-create-customer',
@@ -84,8 +86,16 @@ export class CreateCustomerComponent {
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.dateOfBirth.split('T')[0]:null;
               this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary = this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary?this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.weddingAniversary.split('T')[0]:null;
             }
+            if(this.userSettings.EnableContractPrice == 1){
+              if(this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != null || this.partyMasterService.customermasterObj.AdditionalInfo.contractPrice != undefined){
+                this.partyMasterService.customermasterObj.AdditionalInfo.enbleContractPrice = 1;
+              }
+            }
             if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
               this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.parse(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
+            }
+            if(this.partyMasterService.customermasterObj.salesTarget == null){
+              this.partyMasterService.customermasterObj.salesTarget = <SalesTarget>{};
             }
         });
     }
@@ -138,6 +148,11 @@ export class CreateCustomerComponent {
       console.log("is being used 9 digits");
       return;
    }
+   if (this.userSettings.CompanyType == 'B2C' && this.partyMasterService.customermasterObj.vatNo.length != 9) {
+    alert('VAT no. must be of 9 digits.');
+    console.log("is being used 9 digits");
+    return;
+ }
     if (
       this.partyMasterService.customermasterObj.vatNo &&
       (isNaN(Number(this.partyMasterService.customermasterObj.vatNo)) || 
@@ -179,7 +194,74 @@ export class CreateCustomerComponent {
       return;
     }
   }
-     
+  if (this.partyMasterService.userSettings.AdditionalInfoCompulsoryInPartyMaster === 1) {
+    const contactPerson = this.partyMasterService.customermasterObj.contactPerson;
+  
+    if (Array.isArray(contactPerson)) {
+      this.partyMasterService.customermasterObj.contactPerson = contactPerson.filter(
+        (contact: any) => contact.name.trim() !== '' && contact.contact.trim() !== ''
+      );
+    } else {
+      this.partyMasterService.customermasterObj.contactPerson = [];
+    }
+  }
+  if (this.partyMasterService.userSettings.EnableOnlinePayment === 1) {
+  const bankInformation = this.partyMasterService.customermasterObj.bankInformation;
+
+  if (Array.isArray(bankInformation)) {
+    // Filter out invalid entries
+    this.partyMasterService.customermasterObj.bankInformation = bankInformation.filter((bank: any) => {
+      if (typeof bank === 'string') {
+        // For string entries, check if they are non-empty
+        return bank.trim() !== '';
+      }
+
+      if (typeof bank === 'object' && bank !== null) {
+        // For object entries, validate specific fields
+        return (
+          (bank.accountNumber?.trim() || '') !== '' || // Check if accountNumber is valid
+          (bank.bankName?.trim() || '') !== ''         // Check if bankName is valid
+        );
+      }
+
+      // Remove invalid data types (e.g., numbers, null, undefined)
+      return false;
+    });
+  } else {
+    // Initialize as an empty array if not a valid array
+    this.partyMasterService.customermasterObj.bankInformation = [];
+  }
+}
+
+
+  if (this.partyMasterService.userSettings.EnableShippingAddress === 1) {
+    const shippingAddress = this.partyMasterService.customermasterObj.shippingAdresses;
+  
+    if (Array.isArray(shippingAddress)) {
+      // Filter valid entries only
+      this.partyMasterService.customermasterObj.shippingAdresses = shippingAddress.filter((address: any) => {
+        if (typeof address === 'string') {
+          // For string addresses, check if they are non-empty
+          return address.trim() !== '';
+        }
+  
+        if (typeof address === 'object' && address !== null) {
+          // For object addresses, check specific fields (e.g., line1, city)
+          return (
+            (address.address?.trim() || '') !== '' || // Ensure line1 is non-empty
+            (address.name?.trim() || '') !== ''    // Ensure city is non-empty
+          );
+        }
+  
+        // Remove invalid types (e.g., numbers, null, undefined)
+        return false;
+      });
+    } else {
+      // Reset to an empty array if not an array
+      this.partyMasterService.customermasterObj.shippingAdresses = [];
+    }
+  }
+  
     if (
       this.userSettings.SalesmanCompulsoryInPartyMaster == 1 &&
       (this.partyMasterService.customermasterObj.AdditionalInfo
@@ -202,11 +284,29 @@ export class CreateCustomerComponent {
     if(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions){
       this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions = JSON.stringify(this.partyMasterService.customermasterObj.customerPartyAccount.termsAndConditions);
     }
+    if(Object.keys(this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo).length === 0){
+      this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = {
+        customerStatus: '1',
+        gender: '',
+        dateOfBirth: null,
+        weddingAniversary: null,
+        workingOrganization: null,
+        membershipStartDate: null,
+        membsershipEndDate: null,
+        designation:null,
+        membershipScheme: null,
+        membershipBarcode: null,
+      };
+      console.log("Customer Status");
+    }
     this.partyMasterService
       .saveCustomer(this.mode, this.partyMasterService.customermasterObj)
       .subscribe((res: any) => {
         if (res.status == 'ok') {
-          this.partyMasterService.openSuccessDialog(res.result);
+        const dialogRef = this.partyMasterService.openSuccessDialog(res.result);
+        setTimeout(() => {
+          dialogRef.close();
+        }, 2000);
           this.partyMasterService.reset();
         this.router.navigate([this.returnUrl]); // Navigate to the previous route
         } else if (res.status == 'error') {

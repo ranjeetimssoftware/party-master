@@ -31,6 +31,7 @@ export class AdditionalInfoComponent {
       IsOverseas:[0],
       Area: [''],
       Province: [''],
+      CustomerVendor: ['', Validators.required],
       district: [''],
       Salesman: [''],
       ContractPrice:[''],
@@ -147,9 +148,8 @@ export class AdditionalInfoComponent {
 
 
   validateEndDate():boolean{
-    const startDate = new Date(this.additinalInfo.membershipInfo.membershipStartDate || '');
-    const endDate = new Date(this.additinalInfo.membershipInfo.membsershipEndDate || '');
-
+    const startDate = new Date(this.additinalInfo.membershipInfo.membershipStartDate|| '');
+    const endDate = new Date(this.additinalInfo.membershipInfo.membsershipEndDate|| '');
     if(startDate && endDate && startDate>endDate){
       this.isEndDateInvalid = true;
       this.additionalInfoForm.controls['Membership_EndDate'].setErrors({'invalidDate':true});
@@ -158,8 +158,8 @@ export class AdditionalInfoComponent {
     }else{
       this.isEndDateInvalid = false;
       this.additionalInfoForm.controls['Membership_EndDate'].setErrors(null);
-      return true;
-    }
+      return true;
+    }
   }
 
   clearEndDateError(){

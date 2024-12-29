@@ -5,6 +5,7 @@ import {
   AdditionalInfo,
   CustomerMasterObj,
   CustomerPartyAccountObj,
+  MembershipObj,
   PartyMasterLibraryService,
 } from '../../party-master-library.service';
 
@@ -32,7 +33,7 @@ export class CreateVendorComponent {
       VendorName: ['', [Validators.required, Validators.maxLength(50)]],
       Address: ['', [Validators.required, Validators.maxLength(50)]],
       VATNo: ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email]],
+      Email: ['', [Validators.email]],
       Mobile: ['', Validators.required],
       Phone: ['', Validators.required],
     });
@@ -55,7 +56,6 @@ export class CreateVendorComponent {
     if (!!this._activatedRoute.snapshot.params['mode']) {
       if (this._activatedRoute.snapshot.params['mode'] === 'view') {
         this.mode = 'view';
-        console.log("edit being hit",this.partyMasterService.customermasterObj.AdditionalInfo.customerStatus);
         this.vendorForm.disable();
       }
       if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
@@ -68,6 +68,9 @@ export class CreateVendorComponent {
           this.partyMasterService.customermasterObj = res.result;
           this.partyMasterService.customermasterObj.AdditionalInfo =
             res.result.additionalInfo;
+            if(this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo == null){
+              this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
+            }
             delete(this.partyMasterService.customermasterObj.additionalInfo);
         });
     } else {
@@ -151,6 +154,10 @@ export class CreateVendorComponent {
       alert('Please enter a valid email address');
       return;
     }
+    if(this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo == null){
+      this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo = <MembershipObj>{};
+      this.partyMasterService.customermasterObj.AdditionalInfo.membershipInfo.customerStatus = '1';
+    }
     // if (this.partyMasterService.customermasterObj.isCustomerLedger == 1) {
     // }
     this.partyMasterService.customermasterObj.customerPartyAccount.type = 'A';
@@ -164,7 +171,10 @@ export class CreateVendorComponent {
       .subscribe(
         (res: any) => {
           if (res.status == 'ok') {
-            this.partyMasterService.openSuccessDialog(res.result);
+            const dialogRef = this.partyMasterService.openSuccessDialog(res.result);
+            setTimeout(() => {
+              dialogRef.close();
+            }, 2000);
             this.partyMasterService.reset();
             this.router.navigate([this.returnUrl]); // Navigate to the previous route
           } else if (res.status == 'error') {
