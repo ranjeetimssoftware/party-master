@@ -14,7 +14,7 @@ import { ProductListComponent } from './pages/productList/productList.component'
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
 import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
-import { NavTreeHeadingComponent } from './components/nav-tree-heading/nav-tree-heading.component';
+
 
 const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'sub-ledger/new-sub-ledger', component: CreateSubLedgerComponent },
   { path: 'product/new-product-group', component: ProductItemGroupComponent },
   { path: 'navtree', component: NavTreeComponent },
-  { path: 'navtreeheading', component: NavTreeHeadingComponent },
+  
 
 
 ];

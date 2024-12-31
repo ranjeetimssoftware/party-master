@@ -8,3 +8,14 @@
   font: 400 1.75rem / 2rem Roboto, sans-serif;
   letter-spacing: 0;
 }
+
+.side-navbar {
+  width: 50px; 
+  background-color: #f8f9fa; 
+  min-height: 100vh; 
+  border-right: 1px solid #ddd; 
+}
+
+lib-breadcrumb {
+  margin-top: 8px;
+}

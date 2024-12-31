@@ -16,11 +16,14 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CreateCustomerComponent } from './pages/create-customer/create-customer.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatSlideToggle, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {
+  MatSlideToggle,
+  MatSlideToggleModule,
+} from '@angular/material/slide-toggle';
 import { AdditionalInfoComponent } from './components/additional-info/additional-info.component';
 import { ContactPersonComponent } from './components/contact-person/contact-person.component';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import {MatCardModule} from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
 import { TermsAndConditionComponent } from './components/terms-condition/terms-condition.component';
@@ -43,13 +46,13 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DivisionMappingComponent } from './components/division-mapping/division-mapping.component';
 import { GenericDialogComponent } from './shared/components/generic/generic-dialog/generic-dialog.component';
-import {MatTreeModule} from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
 import { GenericMenuComponent } from './shared/components/generic/generic-menu/generic-menu.component';
 import { GenericNestedDropdownComponent } from './shared/components/generic/generic-nested-dropdown/generic-nested-dropdown.component';
 import { ProductListComponent } from './pages/productList/productList.component';
 import { CreateProductComponent } from './pages/create-product/create-product.component';
 import { DetailInfoComponent } from './components/detail-info/detail-info.component';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AlternateUnitComponent } from './components/alternate-unit/alternate-unit.component';
 import { BarcodeMappingComponent } from './components/barcode-mapping/barcode-mapping.component';
@@ -58,7 +61,6 @@ import { InventoryControlsComponent } from './components/inventory-controls/inve
 import { ItemAttributesComponent } from './components/item-attributes/item-attributes.component';
 import { BodyPartListComponent } from './components/body-part-list/body-part-list.component';
 
-
 import { MultipleRetailPriceComponent } from './components/multiple-retail-price/multiple-retail-price.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { AlternateItemComponent } from './components/alternate-item/alternate-item.component';
@@ -66,8 +68,7 @@ import { DivisionMappingModule } from './shared/components/generic/generic-divis
 import { MulltiCurrencyPriceComponent } from './components/multicurrency/multiCurrencyPrice.component';
 import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
 import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
-import { NavTreeHeadingComponent } from './components/nav-tree-heading/nav-tree-heading.component';
-
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -105,14 +106,14 @@ import { NavTreeHeadingComponent } from './components/nav-tree-heading/nav-tree-
     BatchwisePriceLogComponent,
     InventoryControlsComponent,
     ItemAttributesComponent,
-   BodyPartListComponent,
+    BodyPartListComponent,
     MultipleRetailPriceComponent,
     AlternateItemComponent,
     MulltiCurrencyPriceComponent,
     ProductItemGroupComponent,
-    
+
     NavTreeComponent,
-          NavTreeHeadingComponent
+    BreadcrumbComponent,
   ],
   imports: [
     CommonModule,
@@ -140,12 +141,12 @@ import { NavTreeHeadingComponent } from './components/nav-tree-heading/nav-tree-
     HttpClientModule,
     MatTreeModule,
     MatExpansionModule,
-    DivisionMappingModule
+    DivisionMappingModule,
   ],
   exports: [PartyMasterLibraryComponent, MatDialogModule],
   providers: [
     SpinnerService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-  ]
+  ],
 })
 export class PartyMasterLibraryModule {}

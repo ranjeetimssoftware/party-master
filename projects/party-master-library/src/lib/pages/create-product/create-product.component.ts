@@ -16,6 +16,8 @@ import { AlternateUnitComponent } from '../../components/alternate-unit/alternat
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
+  
+  mainGroup:any=[]
   ProductForm: FormGroup;
   mode: string = 'add';
   userSetting: any;
@@ -52,7 +54,7 @@ export class CreateProductComponent {
   public CurAltUnit: AlternateUnit = <AlternateUnit>{};
   @ViewChild(DetailInfoComponent) child!: DetailInfoComponent;
   @ViewChild(AlternateUnitComponent) AlternateUnitCom!: AlternateUnitComponent;
-
+  
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -85,9 +87,13 @@ export class CreateProductComponent {
         .subscribe((res: any) => {
           this.productObj = res.result;
           this.productObj.supplierName= res.result.SupplierName;
-        this.mapItemAccountName();
+          this.mapItemAccountName();
+          if(this.productObj.DISCONTINUE!==0){
+            this.productObj.discontinueCheckbox =true;
+          }else{
+            this.productObj.discontinueCheckbox = false;
+          }
         console.log('productObj:', this.productObj);
-
         });
     }
 
@@ -567,7 +573,7 @@ onSubmit(){
     this.AddBCode();
    }
   this.productObj.Divisions =  this.DivisionList.map((x) => x.div).join(',') || '';
-  this.productMasterService.saveProduct(this.mode, this.productObj,[],[],this.PBarCodeCollection,[],this.PMultipleRetailPrice,[]).subscribe((data:any) => {
+  this.productMasterService.saveProduct(this.mode, this.productObj,[],this.PBarCodeCollection,[],this.PMultipleRetailPrice,[],this.AlternateUnits ).subscribe((data:any) => {
     if (data.status === 'ok') {
       this.productObj = <Product>{};
       this.productObj.MENUCODE = '';
@@ -598,6 +604,7 @@ onSubmit(){
       this.productObj.ISUNKNOWN = 0;
       this.productObj.ISAMOUNTWISEBILL = 0;
       this.productObj.REQEXPDATE = 0;
+      this.productObj.discontinueCheckbox = false;
       this.productObj.IsQtyUnknown = 0;
       this.productObj.HASSERVICECHARGE = 0;
       this.productObj.HASECSCHARGE = 0;
@@ -677,6 +684,10 @@ onSubmit(){
       
     }
   })
+}
+
+ngDestroy(){
+  this.dialog.closeAll();
 }
 
 preventInput($event:any) {

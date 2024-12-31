@@ -9,15 +9,21 @@ import { ProductMasterService } from '../Product-master.service';
   templateUrl: './productList.component.html',
   styleUrls: ['./productList.component.css'],
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   constructor(public partyMasterService:PartyMasterLibraryService,
   private router: Router,
   public productMasterService: ProductMasterService
   ){
   }
+  productgrouptree:any =[];
   showPopup = false;
   showCustomizeColumnsPopup = false;
   customerData:CustomerVendor[]=[];
+
+  ngOnInit(){
+    this.productMasterService.getMainGroupList();
+    
+  }
   
   togglePopup() {
     this.showPopup = !this.showPopup;

@@ -6,10 +6,11 @@ import { PartyMasterLibraryModule } from 'projects/party-master-library/src/publ
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    NgxPaginationModule,
     BrowserModule,
     AppRoutingModule,
     PartyMasterLibraryModule,

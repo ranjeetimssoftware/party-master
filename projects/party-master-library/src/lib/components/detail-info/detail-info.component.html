@@ -69,7 +69,7 @@
             <label for="" class="form-label">Supplier Name:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Press Enter to select" [disabled]="isDisabled()" [(ngModel)]="productObj.supplierName" (keydown.Enter)="onEnterSupplierCommand()" (keydown)="preventInput($event)">
+            <input type="text" class="form-control" placeholder="Press Enter to select" [disabled]="isDisabled()" [(ngModel)]="productObj.supplierName" (keydown.Enter)="onEnterSupplierCommand()" (focus)="onEnterSupplierCommand()" (keydown)="preventInput($event)">
           </div>
         </div>
         <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -81,7 +81,8 @@
           <div class="col-8">
             <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List" [disabled]="isDisabled()"
             (keydown.Tab)="PurchaseAccountEnterClicked()"
-            (keydown.enter)="PurchaseAccountEnterClicked()" [(ngModel)]="productObj.PAC_ACNAME" (keydown)="preventInput($event)">
+            (keydown.enter)="PurchaseAccountEnterClicked()" 
+            (focus)="PurchaseAccountEnterClicked()" [(ngModel)]="productObj.PAC_ACNAME" (keydown)="preventInput($event)">
           </div>
         </div>
         <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -93,17 +94,17 @@
           <div class="col-8">
             <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List" [disabled]="isDisabled()"
             (keydown.Tab)="PurchaseReturnAccountEnterClicked()"
-            (keydown.enter)="PurchaseReturnAccountEnterClicked()" [(ngModel)]="productObj.PRAC_ACNAME" (keydown)="preventInput($event)">
+            (keydown.enter)="PurchaseReturnAccountEnterClicked()" 
+            (focus)="PurchaseReturnAccountEnterClicked()" [(ngModel)]="productObj.PRAC_ACNAME" (keydown)="preventInput($event)">
           </div>
         </div>
         </div>
         <div class="col-6">
           <label for="sales-infor" class="form-label-header">Sales Info</label>
+          <label for="including-VAT" class="form-label-header col-4 text-center ms-2">Including VAT</label>
+          <label for="Excluding-VAT" class="form-label-header col-3 text-center ps-3">Excluding VAT</label>
           <div class="row">
-            <div class="col-4"></div>
-              <label for="including-VAT" class="form-label-header col-4 text-center">Including VAT</label>
-              <label for="Excluding-VAT" class="form-label-header col-3 text-center p-0">Excluding VAT</label>
-            </div>
+          </div>
             <div class="row form-group">
               <div class="col-4">
                 <label for="" class="form-label">Sales Price:</label>
@@ -148,7 +149,8 @@
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
                 (keydown.Tab)="SalesAccountEnterClicked()"
-                (keydown.enter)="SalesAccountEnterClicked()" [disabled]="isDisabled()" [(ngModel)]="productObj.SAC_ACNAME" (keydown)="preventInput($event)">
+                (keydown.enter)="SalesAccountEnterClicked()" [disabled]="isDisabled()" 
+                (focus)="SalesAccountEnterClicked()" [(ngModel)]="productObj.SAC_ACNAME" (keydown)="preventInput($event)">
               </div>
             </div>
             <div class="row form-group" *ngIf="userSetting.EnableProductWiseAccMapping == 1">
@@ -160,7 +162,8 @@
               <div class="col-8">
                 <input type="text" class="form-control" placeholder="Press Enter or Tab for Account List"
                 (keydown.Tab)="SalesReturnAccountEnterClicked()"
-                (keydown.enter)="SalesReturnAccountEnterClicked()" [disabled]="isDisabled()" [(ngModel)]="productObj.SRAC_ACNAME" (keydown)="preventInput($event)">
+                (keydown.enter)="SalesReturnAccountEnterClicked()" [disabled]="isDisabled()" 
+                (focus)="SalesReturnAccountEnterClicked()" [(ngModel)]="productObj.SRAC_ACNAME" (keydown)="preventInput($event)">
               </div>
             </div>
           </div>

@@ -2,24 +2,33 @@
   <div class="sidebar-container">
   <div class="toggle-button" (click)="toggleNavbar()" [ngClass]="{'right-position': isNavbarOpen}">
     <span class="arrow">{{ isNavbarOpen ? '←' : '→' }}</span>
+    <div *ngIf="!isNavbarOpen" class="landscaped-label">
+      <h3>Main Group</h3>
+    </div>
   </div>
   <!-- Main Sidebar -->
   <div class="sidebar" *ngIf="isNavbarOpen" style="transition: left 0.3s;">
-    <div class="navbar-title">
-      <h2>Main Group</h2>
+    <div class="heading">
+      <div class="navbar-title">
+        <h2>Main Group</h2>
+      </div>
+      <div class="navbar-search">
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterItems('main')" />
+      </div>
     </div>
-    <div class="navbar-search">
-      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterItems('main')" />
-    </div>
-    <ul class="nav flex-column">
+    <ul class="nav flex-column" style="overflow-y: auto;">
       <li
         class="nav-item"
-        *ngFor="let item of filteredMainItems"
-        (click)="toggleSecondSidebar(item)"
-        (dblclick)="navigateToHeading()"
-        [ngClass]="{'active': selectedMainItem === item}"
+        *ngFor="let main of mainGroupList; let i=index"
+        
+        [value]="main.MCODE"
+        (click)="getSubGroupA($event)"
+        (click)="toggleSecondSidebar(main)"
+        
+        
+        [ngClass]="{'active': selectedSecondItem === main}"
       >
-        <div class="nav-content"><a>{{ item }}</a></div>
+        <div class="nav-content"><a>{{ main?.DESCA}}</a></div>
       </li>
     </ul>
   </div>
@@ -35,8 +44,8 @@
     </div>
   
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupAItems" class="nav-item" (click)="toggleThirdSidebar(item)" (dblclick)="navigateToHeading()" [ngClass]="{'active': selectedSecondItem === item}">
-        <div class="nav-content"><a>{{item}}</a></div>
+      <li *ngFor="let sub of subGroupAList; let i=index" [value]="sub.MCODE" class="nav-item" (click)="toggleThirdSidebar(sub)"  [ngClass]="{'active': selectedSecondItem === sub}">
+        <div class="nav-content"><a>{{sub?.DESCA}}</a></div>
       </li>
     </ul>
   </div>
@@ -51,7 +60,7 @@
     </div>
   
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupBItems" class="nav-item" (click)="toggleFourthSidebar(item)" (dblclick)="navigateToHeading()" [ngClass]="{'active': selectedThirdItem === item}">
+      <li *ngFor="let item of filteredGroupBItems" class="nav-item" (click)="toggleFourthSidebar(item)"  [ngClass]="{'active': selectedThirdItem === item}">
         <div class="nav-content"><a>{{item}}</a></div>
       </li>
     </ul>
@@ -66,7 +75,7 @@
       <input type="text" placeholder="Search..." [(ngModel)]="searchTermFourth" (input)="filterItems('GroupC')">
     </div>
     <ul class="nav flex-column">
-      <li *ngFor="let item of filteredGroupCItems" class="nav-item" (click)="subGroupCitem(item)" (dblclick)="navigateToHeading()">
+      <li *ngFor="let item of filteredGroupCItems" class="nav-item" (click)="subGroupCitem(item)" >
         <div class="nav-content"><a>{{item}}</a></div>
       </li>
     </ul>

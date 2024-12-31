@@ -17,6 +17,8 @@ export class DetailInfoComponent implements OnInit {
   userSetting:any;
   applyPipeInRate: boolean = true;
   mode:string = 'add';
+  test:number = 0;
+  
   @Input() modee: string = '';
   @ViewChild('DiscontinuedItem') DiscontinuedItem!: ElementRef;
   @Input() productObj: Product = <Product>{};
@@ -68,8 +70,6 @@ export class DetailInfoComponent implements OnInit {
     this.getKOTCategoryList();
     this.getColorGroupList();
     this.getLocationList();
-
-    
     
   }
 

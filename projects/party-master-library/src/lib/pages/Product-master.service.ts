@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Brand, Model, MultiStockLevel, Product, ProductGroup, TBarcode } from "./ProductItem";
+import { AlternateUnit, Brand, Model, MultiStockLevel, Product, ProductGroup, TBarcode } from "./ProductItem";
 import { BehaviorSubject, Observable, of, Subject } from "rxjs";
 import { first, map } from 'rxjs/operators';
 import { ConfigService } from "../config.service";
@@ -33,6 +33,9 @@ export class ProductMasterService {
   userSetting:any;
   private selectedItems = new BehaviorSubject<any[]>([]);
   selectedItem$ = this.selectedItems.asObservable();
+  breadcrumbs: string[] =[];
+  private breadcrumbsSource =new BehaviorSubject<{label: string; url: string}[]>([]);
+  breadcrumb$ = this.breadcrumbsSource.asObservable();
 
   
   constructor(private http: HttpClient,
@@ -51,9 +54,7 @@ export class ProductMasterService {
        if (!!url && url.length > 0) { apiUrl = url };
        return apiUrl
      }
-     updateSelectedItems(items:any[]):void{
-      this.selectedItems.next(items);
-     }
+    
 
      openSuccessDialog(Message:string) {
       this.dialog.open(GenericDialogComponent, {
@@ -161,15 +162,7 @@ export class ProductMasterService {
   }
 
   public saveProduct(
-    mode: string,
-    prodObj: any,
-    RGLIST?: any[],
-    AlternateUnits?: any[],
-    PBarCodeCollection?: any[],
-    BrandModelList?: any[],
-    PMultipleRetailPrice?: any[],
-    menuItemYields?: any[]
-  ) {
+mode: string, prodObj: any, RGLIST?: any[], PBarCodeCollection?: any[], BrandModelList?: any[], PMultipleRetailPrice?: any[], menuItemYields?: any[], AlternateUnits?: AlternateUnit[], p0?: never[]  ) {
     let res = { status: 'error', result: '' };
     let returnSubject: Subject<any> = new Subject();
     let hd: Headers = new Headers({ 'Content-Type': 'application/json' });

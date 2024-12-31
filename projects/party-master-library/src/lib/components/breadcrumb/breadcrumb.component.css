@@ -1,0 +1,8 @@
+.breadcrumb {
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+  }
+  .breadcrumb-item a {
+    text-decoration: none;
+  }
+  
