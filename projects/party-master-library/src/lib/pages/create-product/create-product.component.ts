@@ -511,7 +511,6 @@ onCheckVATOption(event: Event) {
 
 
 onSubmit(){
-
   if(this.productObj.DESCA == '' || this.productObj.DESCA == null || this.productObj.DESCA == undefined){
     this.productMasterService.openSuccessDialog("Please Enter Item Name.");
     return;
@@ -629,6 +628,7 @@ onSubmit(){
       this.PBarCodeCollection = [];
       this.selectedGroupInfo.MENUCODE = '';
       this.productObj.MultiStockLevels=[];
+      this.productObj.ItemExtraInfo = <ItemExtraInfo>{};
       
 
       if(this.userSetting.EnableProductWiseAccMapping == 0){
@@ -649,6 +649,7 @@ onSubmit(){
           this.productObj.PRAC_ACNAME = purchaseReturnAc[0].ACNAME;
         })
       }
+
       this.productMasterService.openSuccessDialog("Data Saved Successfully!");
 
         setTimeout(() => {
