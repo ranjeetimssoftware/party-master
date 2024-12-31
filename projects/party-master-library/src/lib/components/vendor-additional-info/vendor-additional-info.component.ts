@@ -38,6 +38,7 @@ export class VendorAdditionalInfoComponent {
     this.additionalInfo= this.partyMasterService.customermasterObj.AdditionalInfo;
     if(this.mode == 'add'){
       this.additinalInfo.customerStatus = '1';
+      this.additinalInfo.membershipInfo.customerStatus = '1';
     }
     if(this.mode == 'view'){
       this.vendorAdditionalInfoForm.disable();
