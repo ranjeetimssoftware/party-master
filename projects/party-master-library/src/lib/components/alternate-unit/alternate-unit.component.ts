@@ -16,13 +16,15 @@ export class AlternateUnitComponent implements OnInit {
   @Input() productObj: Product = <Product>{};
   @Input() CurAltUnit: AlternateUnit = <AlternateUnit>{};
   @Input() AlternateUnits: AlternateUnit[] = [];
+  @Input() modee!: string;
+  
   constructor(public productMasterService:ProductMasterService) { 
     this.userSetting = this.productMasterService.userSetting;
     this.getAllUnits();
   }
 
   ngOnInit(): void {
-
+    
   }
 
   getAllUnits(){

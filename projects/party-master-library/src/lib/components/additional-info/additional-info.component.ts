@@ -146,10 +146,10 @@ export class AdditionalInfoComponent {
     }
   }
 
+
   validateEndDate():boolean{
     const startDate = new Date(this.additinalInfo.membershipInfo.membershipStartDate|| '');
     const endDate = new Date(this.additinalInfo.membershipInfo.membsershipEndDate|| '');
-
     if(startDate && endDate && startDate>endDate){
       this.isEndDateInvalid = true;
       this.additionalInfoForm.controls['Membership_EndDate'].setErrors({'invalidDate':true});
@@ -159,7 +159,7 @@ export class AdditionalInfoComponent {
       this.isEndDateInvalid = false;
       this.additionalInfoForm.controls['Membership_EndDate'].setErrors(null);
       return true;
-    } 
+    }
   }
 
   clearEndDateError(){

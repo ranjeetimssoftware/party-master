@@ -18,7 +18,7 @@
             <label for="" class="form-label">Item Name:</label>
           </div>
           <div class="col-8">
-            <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="productObj.DESCA">
+            <input type="text" class="form-control" placeholder="Enter Item Name" [(ngModel)]="productObj.DESCA" [disabled]="mode ==='view'">
           </div>
         </div>
         <div class="row col-12 form-group">
@@ -26,20 +26,20 @@
             <label for="" class="form-label">Item Code:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]="productObj.MENUCODE" [readonly]="userSetting.MANUALCODE == 0">
+            <input type="text" class="form-control" placeholder="Enter Item Code" [(ngModel)]="productObj.MENUCODE" [disabled]="mode ==='view'"[readonly]="userSetting.MANUALCODE == 0">
           </div>
         </div>
         <div class="row col-12 form-group">
-          <div class="col-2">
+          <div class="col-2" >
             <label for="" class="form-label">HS Code:
               <span *ngIf="userSetting.CompulsoryHSCodeInput" style="color: red;">*</span>
             </label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode">
+            <input type="text" class="form-control" placeholder="Enter HS Code" [(ngModel)]=" productObj.HSNCode" [disabled]="mode ==='view'">
           </div>
-          <div class="col-2 form-check ml-4">
-            <input type="checkbox" class="form-check-input mr-2" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)" [disabled]="userSetting.EnableNonTaxableSales == 0">
+          <div class="col-2 form-check ml-4" style="margin-left: -15px;padding: 0;">
+            <input type="checkbox" class="form-check-input mr-2" [disabled]="mode ==='view'" [(ngModel)]="productObj.VAT" (change)="onCheckVATOption($event)" [disabled]="userSetting.EnableNonTaxableSales == 0">
             <label for="" class="form-check-label">Is Vatable Item</label>
           </div>
         </div>
@@ -48,10 +48,10 @@
             <label for="" class="form-label">Item Group:</label>
           </div>
           <div class="col-5">
-            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close('cancel')" [(ngModel)]=" productObj.MgroupName" (keydown)="preventInput($event)">
+            <input type="text" class="form-control" placeholder="-- Press Enter For Item Group --" (keydown.Enter)="close('cancel')" [(ngModel)]=" productObj.MgroupName" (keydown)="preventInput($event)" [disabled]="mode ==='view'">
           </div>
-          <div class="col-1">
-            <button (click)="close('cancel')" style="border: none;">
+          <div class="col-1" style="padding: 0;">
+            <button (click)="close('cancel')" style="border: none;padding: 0;margin-left: -10px;">
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.625 13.0625C9.48907 13.0624 9.35621 13.0221 9.24321 12.9465C9.13021 12.871 9.04214 12.7636 8.99013 12.6381C8.93812 12.5125 8.92451 12.3743 8.95101 12.241C8.97751 12.1076 9.04294 11.9852 9.13902 11.889L15.9255 5.10254C15.5743 4.91184 15.1809 4.81213 14.7812 4.8125H4.46875C3.83078 4.81318 3.21914 5.06692 2.76803 5.51803C2.31692 5.96914 2.06318 6.58078 2.0625 7.21875V17.5313C2.06318 18.1692 2.31692 18.7809 2.76803 19.232C3.21914 19.6831 3.83078 19.9368 4.46875 19.9375H14.7812C15.4192 19.9368 16.0309 19.6831 16.482 19.232C16.9331 18.7809 17.1868 18.1692 17.1875 17.5313V7.21875C17.1879 6.8191 17.0882 6.42571 16.8975 6.07449L10.111 12.861C10.0473 12.925 9.97155 12.9757 9.88814 13.0103C9.80473 13.0449 9.7153 13.0626 9.625 13.0625Z" fill="black"/>
                 <path d="M19.25 2.0625H14.4375C14.2552 2.0625 14.0803 2.13493 13.9514 2.26386C13.8224 2.3928 13.75 2.56766 13.75 2.75C13.75 2.93234 13.8224 3.1072 13.9514 3.23614C14.0803 3.36507 14.2552 3.4375 14.4375 3.4375H17.5901L15.9255 5.10254C16.3366 5.32583 16.6742 5.66342 16.8975 6.07449L18.5625 4.40988V7.5625C18.5625 7.74484 18.6349 7.9197 18.7639 8.04864C18.8928 8.17757 19.0677 8.25 19.25 8.25C19.4323 8.25 19.6072 8.17757 19.7361 8.04864C19.8651 7.9197 19.9375 7.74484 19.9375 7.5625V2.75C19.9375 2.56766 19.8651 2.3928 19.7361 2.26386C19.6072 2.13493 19.4323 2.0625 19.25 2.0625Z" fill="black"/>
@@ -64,7 +64,7 @@
             <label for="" class="form-label">Stock Unit:</label>
           </div>
           <div class="col-5">
-            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.BASEUNIT">
+            <select name="unit" id="unit" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.BASEUNIT" [disabled]="mode ==='view'">
               <option *ngFor="let i of Units" [ngValue]="i.UNITS">{{i.UNITS}}</option>
             </select>
           </div>
@@ -72,7 +72,7 @@
             <label for="" class="form-label">Item Type:</label>
           </div>
           <div class="col-3">
-            <select name="ptype" id="ptype" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.PTYPE">
+            <select name="ptype" id="ptype" class="form-control" aria-label="Default select example" [(ngModel)]="productObj.PTYPE" [disabled]="mode ==='view'">
               <option *ngFor="let i of PTypeList" [ngValue]="i.PTYPEID">{{i.PTYPENAME}}</option>
             </select>
           </div>
@@ -133,28 +133,28 @@
   </div>
   <mat-tab-group>
     <mat-tab label="Detail Info"> 
-      <lib-detail-info [productObj]="productObj" (notify)="changeHasBatchWisePricing($event)"></lib-detail-info>
+      <lib-detail-info [productObj]="productObj" [modee]="mode" (notify)="changeHasBatchWisePricing($event)"></lib-detail-info>
     </mat-tab>
     <mat-tab label="Item Attributes" *ngIf="userSetting.EnableItemAttributes == 1"> 
       <lib-item-attributes></lib-item-attributes>
     </mat-tab>
     <mat-tab label="Alternate Unit" *ngIf="userSetting.EnableAlternateUnit == 1"> 
-      <lib-alternate-unit [productObj]="productObj" [AlternateUnits]="AlternateUnits" [CurAltUnit]="CurAltUnit"></lib-alternate-unit>
+      <lib-alternate-unit [productObj]="productObj" [modee]="mode" [AlternateUnits]="AlternateUnits" [CurAltUnit]="CurAltUnit"></lib-alternate-unit>
     </mat-tab>
     <mat-tab label="Inventory Controls" *ngIf="userSetting.EnableInvControlInfo  == 1"> 
       <lib-inventory-controls [productObj]="productObj"></lib-inventory-controls>
     </mat-tab>
-    <mat-tab label="Barcode Mapping" *ngIf="userSetting.BarcodeBaseBilling == 1"> 
+    <mat-tab label="Barcode Mapping" *ngIf="userSetting.NBarcodeBaseBilling == 1"> 
       <lib-barcode-mapping [PBarCodeCollection]="PBarCodeCollection"></lib-barcode-mapping>
     </mat-tab>
     <mat-tab label="Branch Mapping" *ngIf="userSetting.divisionWiseItemFilter == 1">
       <lib-division-mapping [divList]="DivisionList"></lib-division-mapping>
     </mat-tab>
-    <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 0"> 
-      <lib-multiple-retail-price [PMultipleRetailPrice]="PMultipleRetailPrice"></lib-multiple-retail-price>
+    <mat-tab label="Multiple Retail Pricing" *ngIf="userSetting.EnableMultipleSalesPrice == 1"> 
+      <lib-multiple-retail-price [PMultipleRetailPrice]="PMultipleRetailPrice" [modee]="mode"></lib-multiple-retail-price>
     </mat-tab>
     <mat-tab label="Alternate Item" *ngIf="userSetting.EnableAlternateItem == 1"> 
-      <lib-alternate-item [AlternateProducts]="productObj.AlternateProducts"></lib-alternate-item>
+      <lib-alternate-item [AlternateProducts]="productObj.AlternateProducts" [modee]="mode"></lib-alternate-item>
     </mat-tab>
     <mat-tab label="Batchwise Price Log" *ngIf="userSetting.EnableBatchWisePrice == 2 && userSetting.EnableBatch != 0"> 
       <lib-batchwise-price-log></lib-batchwise-price-log>

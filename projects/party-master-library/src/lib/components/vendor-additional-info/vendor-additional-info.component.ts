@@ -36,7 +36,7 @@ export class VendorAdditionalInfoComponent {
 
   ngOnInit(){
     this.additionalInfo= this.partyMasterService.customermasterObj.AdditionalInfo;
-    if(this.additionalInfo.customerStatus === undefined){
+    if(this.mode == 'add'){
       this.additinalInfo.customerStatus = '1';
     }
     if(this.mode == 'view'){

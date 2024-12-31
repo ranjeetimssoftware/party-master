@@ -71,7 +71,7 @@ export class CreateLedgerComponent {
     }
     if (!!this._activatedRoute.snapshot.params['mode']) {
       if (this._activatedRoute.snapshot.params['mode'] === 'view') {
-        this.mode = 'view';
+        this.mode = 'View';
         this.ledgerForm.disable();
       }
       if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
@@ -119,8 +119,8 @@ export class CreateLedgerComponent {
 
   onSelectParent(event: any) {
     this.partyMasterService.customermasterObj.customerPartyAccount.parent =
-      event.accode;
-
+      event.acid;
+      this.partyMasterService.customermasterObj.customerPartyAccount.acType = event.acid;
   }
 
   getParentGroupTree(){
@@ -134,6 +134,10 @@ export class CreateLedgerComponent {
   onAccountTypeChange(event:Event){
     const input = event.target as HTMLInputElement;
     this.filterParentGroup(input.value);
+    const selectedAccount = this.menuData.find((x:any) => x.acid == input.value);
+    let selectedValue = selectedAccount ? selectedAccount.acname : '';
+    this.partyMasterService.customermasterObj.customerPartyAccount.parent = selectedValue;
+    this.partyMasterService.customermasterObj.parentGroup = selectedValue;
   }
 
   filterParentGroup(actype:string){

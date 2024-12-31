@@ -14,11 +14,14 @@ import { ProductMasterService } from '../../pages/Product-master.service';
 export class AlternateItemComponent implements OnInit {
   alternateItem: AlternateItem = <AlternateItem>{};
   @Input() AlternateProducts: AlternateItem[] = [];
+  @Input() modee: string='';
   @ViewChild("genericMultiSelectItem") genericMultiSelectItem!: MultiSelectGenericGridComponent;
   gridPopupSettingsForItem: MultiSelectGenericPopUpSettings = new MultiSelectGenericPopUpSettings();
   constructor(private productMasterService:ProductMasterService) { 
   }
-
+  isDisabled(): boolean {
+    return this.modee === 'view';
+  }
   ngOnInit(): void {
   }
 

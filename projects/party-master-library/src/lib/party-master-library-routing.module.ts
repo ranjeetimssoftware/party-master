@@ -15,6 +15,7 @@ import { CreateProductComponent } from './pages/create-product/create-product.co
 import { ProductItemGroupComponent } from './pages/product-item-group/product-item-group.component';
 import { NavTreeComponent } from './components/nav-tree/nav-tree.component';
 
+
 const routes: Routes = [
   { path: 'customer', component: CustomerComponent },
   { path: 'product', component: ProductListComponent },
@@ -30,6 +31,8 @@ const routes: Routes = [
   { path: 'sub-ledger/new-sub-ledger', component: CreateSubLedgerComponent },
   { path: 'product/new-product-group', component: ProductItemGroupComponent },
   { path: 'navtree', component: NavTreeComponent },
+  
+
 
 ];
 @NgModule({

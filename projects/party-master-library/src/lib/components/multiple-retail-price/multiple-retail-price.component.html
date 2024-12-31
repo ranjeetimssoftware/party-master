@@ -23,11 +23,11 @@
     <tbody>
       <tr style="border: 2px solid #EDEDED;" *ngFor="let b of this.PMultipleRetailPrice;let i=index">
         <td>{{i+1}}</td>
-        <td>{{b.INRATE }}</td>
-        <td>{{b.RATE }}</td>
-        <td *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">{{b.DIVISION }}</td>
-        <td>{{b.EXPDATE}}</td>
-        <td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">{{b.INRATE }}</td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">{{b.RATE }}</td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }" *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">{{b.DIVISION }}</td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">{{b.EXPDATE}}</td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">
           <div class="d-flex">
             <mat-slide-toggle [(ngModel)]="b.ISACTIVE"
             class="custom-toggle text-center" style="line-height: 10px;"
@@ -40,13 +40,13 @@
         </td>
       </tr>
        <tr style="border: 2px solid #EDEDED;">
-        <td>{{PMultipleRetailPrice.length+1}}</td>
-        <td><input type="number" min="0" placeholder="0" class="press-enter"  [(ngModel)]="MultipeRetailObj.INRATE" (keyup)="onChangeExculsiveRate()"></td>
-        <td><input type="number" min="0" placeholder="0" class="press-enter" [(ngModel)]="MultipeRetailObj.RATE" (keyup)="onChangeINculsiveRate()"></td>
-        <td *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">{{PMultipleRetailPrice.length+1}}</td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="number" min="0" placeholder="0" class="press-enter"  [(ngModel)]="MultipeRetailObj.INRATE" (keyup)="onChangeExculsiveRate()"></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="number" min="0" placeholder="0" class="press-enter" [(ngModel)]="MultipeRetailObj.RATE" (keyup)="onChangeINculsiveRate()"></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }" *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">
           <input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MultipeRetailObj.DIVISION" (keydown.Enter)="onSelectDivisionList()"></td>
-        <td><input type="date" placeholder="dd/mm/yyyy" class="press-enter" [(ngModel)]="MultipeRetailObj.EXPDATE"></td>
-        <td></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="date" placeholder="dd/mm/yyyy" class="press-enter" [(ngModel)]="MultipeRetailObj.EXPDATE"></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"></td>
       </tr>
     </tbody>
   </table>

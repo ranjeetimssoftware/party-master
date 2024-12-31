@@ -9,29 +9,18 @@
       <th *ngIf="mode != 'view'">Action</th>
     </thead>
     <tbody>
-      <tr *ngFor="let contact of contactPersonArray;let i = index;">
+      <tr *ngFor="let contact of contactPersonArray;let i = index;" (click)="activateIndex(i)">
         <td>{{i+1}}</td>
-        <td>{{contact.name}}</td>
-        <td>{{contact.contact}}</td>
-        <td>{{contact.designation}}</td>
-        <td>{{contact.email}}</td>
         <td>
-          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" (click)="onRemoveContact(i)">cancel</mat-icon>
-        </td>
-      </tr>
-      <tr *ngIf="mode != 'view'">
-        <td>{{this.contactPersonArray.length+1}}</td>
-        <td>      
-          <input type="text" #nameInput class="form-control px-2 py-1" placeholder="Name" [(ngModel)]="newRow.name" (keydown.Enter)="focusNext(0)">
-        </td>
+          <input #inputField type="text" class="form-control px-2 py-1" [disabled]="mode === 'view'" [(ngModel)]="contact.name" (keydown.Enter)="focusNext(0)"></td>
         <td>
-          <input type="text" #contactInput  class="form-control px-2 py-1" placeholder="Contact" [(ngModel)]="newRow.contact"(keydown.Enter)="focusNext(1)">
-        </td>
+          <input #inputField type="text" class="form-control px-2 py-1" [disabled]="mode === 'view'"  [(ngModel)]="contact.contact" (keydown.Enter)="focusNext(1)"></td>
         <td>
-      <input type="text" #designationInput  class="form-control px-2 py-1" placeholder="Designation" [(ngModel)]="newRow.designation" (keydown.Enter)="focusNext(2)">
-        </td>
+          <input #inputField type="text" class="form-control px-2 py-1" [disabled]="mode === 'view'" [(ngModel)]="contact.designation"(keydown.Enter)="focusNext(2)"></td>
         <td>
-      <input type="text" #emailInput  class="form-control px-2 py-1" placeholder="Email" [(ngModel)]="newRow.email" (keydown.Tab)="focusOn(this.contactPersonArray.length+1)" (keydown.Enter)="focusOn(this.contactPersonArray.length+1)">
+          <input #inputField type="text" class="form-control px-2 py-1" [disabled]="mode === 'view'" [(ngModel)]="contact.email" (keydown.Enter)="onAddContact()" (keydown.Tab)="onAddContact()"></td>
+        <td>
+          <mat-icon class="mat-icon-small text-danger" style="cursor: pointer;" *ngIf="mode != 'view' && contactPersonArray.length != (i+1)"  (click)="onRemoveContact(i)">cancel</mat-icon>
         </td>
       </tr>
     </tbody>

@@ -11,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PartyMasterLibraryService } from '../../../../party-master-library.service';
+import { ProductMasterService } from 'projects/party-master-library/src/lib/pages/Product-master.service';
 
 export interface CustomerVendor {
   CUSTNAME?: string;
@@ -35,9 +36,19 @@ export interface ChartOfAccount {
   mainledger: string;
   STATUS: number;
 }
+export interface Product {
+  ITEM_NAME: string;
+  ITEM_CODE: string;
+  UNIT: string;
+  PRATE: number;
+  SRATE: number;
+  VAT: string;
+  PARENT: string;
+  SUPPLIER: string;
+}
 
 const ELEMENT_DATA: CustomerVendor[] = [];
-const PRODUCT_DATA: CustomerVendor[] = [];
+const PRODUCT_DATA: Product[] = [];
 
 // Sample data for Chart of Accounts
 const Chart_Of_Account_Data: ChartOfAccount[] = [];
@@ -81,7 +92,8 @@ export class GenericTableComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public partyMasterService: PartyMasterLibraryService
+    public partyMasterService: PartyMasterLibraryService,
+    public productMasterService: ProductMasterService
   ) {
     const currentRoute = this.router.url;
     this.activeRoute = currentRoute.split('/').pop();
@@ -106,14 +118,14 @@ export class GenericTableComponent implements OnInit {
     this.displayedProducts = [
       'filter',
       'sn',
-      'itemname',
-      'itemcode',
-      'unit',
-      'prate',
-      'srate',
-      'isvat',
-      'parent',
-      'supplier',
+      'ITEM_NAME',
+      'ITEM_CODE',
+      'UNIT',
+      'PRATE',
+      'SRATE',
+      'VAT',
+      'PARENT',
+      'SUPPLIER',
       'action',
     ];
 
@@ -146,9 +158,13 @@ export class GenericTableComponent implements OnInit {
         ? ['action']
         : []),
     ];
-    if (this.activeRoute == 'customer' || this.activeRoute == 'product') this.getAllCustomers('C');
+    if (this.activeRoute == 'customer') this.getAllCustomers('C');
     if (this.activeRoute == 'vendor') this.getAllCustomers('V');
     if (this.activeRoute == 'general-ledger') this.getAllCustomers('A');
+    if(this.activeRoute == 'product'){ 
+      this.SearchOption='ITEM_NAME';  
+      this.getProducttree();
+    }
     if(this.activeRoute == 'ledger-group'){
       this.SearchOption = "acname";
       this.getAllLedgerGroup();
@@ -161,11 +177,14 @@ export class GenericTableComponent implements OnInit {
   ngAfterViewInit() {
     if (this.activeRoute == 'general-ledger' || this.activeRoute == 'ledger-group' || this.activeRoute == 'sub-ledger') {
       this.chartofAccountDataSource.paginator = this.paginator;
+    }else if(this.activeRoute == 'product'){
+      this.productDataSource.paginator=this.paginator;
     } else {
       this.customerVendorDataSource.paginator = this.paginator;
     }
   }
 
+  
 
   openDropdown() {
     this.dropdownMenu.nativeElement.classList.add('show');
@@ -223,6 +242,29 @@ export class GenericTableComponent implements OnInit {
       }
     });
   }
+  getProducttree(){
+    // this.productMasterService.getProductGroupTree().subscribe((res:any)=>{
+    //   if(res.status == 'ok'){
+    //     this.productDataSource.data =res.result;
+    //   }else if(res.status == 'error') {
+    //     this.partyMasterService.openErrorDialog(res.result);
+    //   }
+      this.productMasterService.getProductListByID('PRG99999999','MI',463,1,10000,'', '').subscribe((res: any) => {
+        
+        console.log('res',res);
+        //if (res.status == 'ok') {
+            this.productDataSource.data = res.result;
+
+            console.log(this.productDataSource);
+        //  } 
+      });
+    // });
+  }
+ 
+    
+    
+  
+  
 
   getAllLedgerGroup(){
     this.partyMasterService.getLedgerGroupList().subscribe((res:any) => {
@@ -240,7 +282,9 @@ export class GenericTableComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
     if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group' || this.activeRoute === 'sub-ledger') {
       this.applyFilter(this.chartofAccountDataSource, filterValue, this.SearchOption);
-    } else {
+    }else if(this.activeRoute ==='product'){
+      this.applyFilter(this.productDataSource, filterValue, this.SearchOption);
+    }else {
       this.applyFilter(this.customerVendorDataSource, filterValue,this.SearchOption);
     }
   }
@@ -254,7 +298,9 @@ export class GenericTableComponent implements OnInit {
   updateSearchOption() {
     if (this.activeRoute === 'general-ledger' || this.activeRoute === 'ledger-group') {
       this.chartofAccountDataSource.filter = ''; // Reset and reapply the filter
-    } else {
+    }else if(this.activeRoute==='product'){
+      this.productDataSource.filter='';
+    }else {
       this.customerVendorDataSource.filter = '';
     }
   }
@@ -315,28 +361,28 @@ export class GenericTableComponent implements OnInit {
   }
   
   onDeleteClick(event: any){
-      // this.onOtherClick.emit($event);
-      // const input =  event.target as HTMLInputElement;
-      let acid = event;
-      let ptype: 'C' | 'V' | 'A' = 'C';
-      if (this.activeRoute === 'vendor') {
-        ptype = 'V';
-      } else if (this.activeRoute === 'general-ledger') {
-        ptype = 'A';
-      }
-      else if(this.activeRoute === 'customer') {
-        ptype = 'C';
-      }
-      this.partyMasterService.onDeleteItem(acid,ptype).subscribe(
-        (response) => {
-          alert('Item deleted successfully.');
-          this.refreshData(ptype);
-         },
-        (error) => {
-          console.error('Error deleting item:', error);
-          alert('Failed to delete the item. Please try again.');
+      if(confirm("Are you sure you want to delete this item?")) {
+        let acid = event;
+        let ptype: 'C' | 'V' | 'A' = 'C';
+        if (this.activeRoute === 'vendor') {
+          ptype = 'V';
+        } else if (this.activeRoute === 'general-ledger') {
+          ptype = 'A';
         }
-      );
+        else if(this.activeRoute === 'customer') {
+          ptype = 'C';
+        }
+        this.partyMasterService.onDeleteItem(acid,ptype).subscribe(
+          (response) => {
+            alert('Item deleted successfully.');
+            this.refreshData(ptype);
+           },
+          (error) => {
+            console.error('Error deleting item:', error);
+            alert('Failed to delete the item. Please try again.');
+          }
+        );
+      }
       
     }
     refreshData(ptype: 'C' | 'V' | 'A') {
@@ -367,8 +413,13 @@ export class GenericTableComponent implements OnInit {
         ptype = 'C';
       }
       this.partyMasterService.onToggleStatus(acid,ptype).subscribe(
-        (response) => {
-          alert('Item toggled successfully.');
+        (response:any) => {
+          if(response.status === "ok"){
+            alert(response.result);
+          }
+          else{
+            alert('Item is inactive.');
+          }
           this.toggleRefresh(ptype);
          },
         (error) => {

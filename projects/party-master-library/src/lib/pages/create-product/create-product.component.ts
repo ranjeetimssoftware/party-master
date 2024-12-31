@@ -16,6 +16,8 @@ import { AlternateUnitComponent } from '../../components/alternate-unit/alternat
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent {
+  
+  mainGroup:any=[]
   ProductForm: FormGroup;
   mode: string = 'add';
   userSetting: any;
@@ -52,7 +54,7 @@ export class CreateProductComponent {
   public CurAltUnit: AlternateUnit = <AlternateUnit>{};
   @ViewChild(DetailInfoComponent) child!: DetailInfoComponent;
   @ViewChild(AlternateUnitComponent) AlternateUnitCom!: AlternateUnitComponent;
-
+  
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -70,6 +72,33 @@ export class CreateProductComponent {
     if (!!this._activatedRoute.snapshot.params['returnUrl']) {
       this.returnUrl = this._activatedRoute.snapshot.params['returnUrl'];
     }
+
+    if (!!this._activatedRoute.snapshot.params['mode']) {
+      if (this._activatedRoute.snapshot.params['mode'] === 'view') {
+        this.mode = 'view';
+        this.ProductForm.disable();
+      }
+      if (this._activatedRoute.snapshot.params['mode'] === 'edit') {
+        this.mode = 'edit';
+      }
+      let mcode = this._activatedRoute.snapshot.params['MCODE'];
+      this.productMasterService
+        .getProductForEdit(mcode)
+        .subscribe((res: any) => {
+          this.productObj = res.result;
+          this.productObj.supplierName= res.result.SupplierName;
+          this.mapItemAccountName();
+          if(this.productObj.DISCONTINUE!==0){
+            this.productObj.discontinueCheckbox =true;
+          }else{
+            this.productObj.discontinueCheckbox = false;
+          }
+        console.log('productObj:', this.productObj);
+        });
+    }
+
+
+
     if(this.mode == 'add'){
       this.productObj.guid = uuid.v4();
       this.productObj.Weighable = 'kg';
@@ -91,6 +120,29 @@ export class CreateProductComponent {
     this.getAllMajorGroup();
     this.getAllUnits();
   }
+
+
+mapItemAccountName(){
+  let accountList:any[];
+  this.productMasterService.getAcList().subscribe((res:any)  => {
+    accountList =res;
+    
+    let a_list =accountList.filter(x=>(x.ACID == this.productObj.SAC || x.ACID == this.productObj.SRAC || x.ACID == this.productObj.PAC || x.ACID == this.productObj.PRAC ));
+    
+    if(a_list.length > 0){
+    this.productObj.SAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.SAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.SAC)[0].ACNAME : '';
+    
+    this.productObj.SRAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.SRAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.SRAC)[0].ACNAME : '';
+    this.productObj.PAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.PAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.PAC)[0].ACNAME : '';
+    this.productObj.PRAC_ACNAME = (a_list.filter(x=>x.ACID == this.productObj.PRAC)).length > 0 ? a_list.filter(x=>x.ACID == this.productObj.PRAC)[0].ACNAME : '';
+    }
+   
+    
+    
+    });
+    
+}
+
 
   OnGroupChanges(){
     if(this.selectedGroupInfo != undefined){
@@ -529,7 +581,7 @@ onSubmit(){
         unit.ISDEFAULTPRATE = unit.ISDEFAULT ? 1 : 0;
 });
   this.productObj.Divisions =  this.DivisionList.map((x) => x.div).join(',') || '';
-  this.productMasterService.saveProduct(this.mode, this.productObj,[],this.AlternateUnits,this.PBarCodeCollection,[],this.PMultipleRetailPrice,[]).subscribe((data:any) => {
+  this.productMasterService.saveProduct(this.mode, this.productObj,[],this.PBarCodeCollection,[],this.PMultipleRetailPrice,[],this.AlternateUnits ).subscribe((data:any) => {
     if (data.status === 'ok') {
       this.productObj = <Product>{};
       this.productObj.MENUCODE = '';
@@ -560,6 +612,7 @@ onSubmit(){
       this.productObj.ISUNKNOWN = 0;
       this.productObj.ISAMOUNTWISEBILL = 0;
       this.productObj.REQEXPDATE = 0;
+      this.productObj.discontinueCheckbox = false;
       this.productObj.IsQtyUnknown = 0;
       this.productObj.HASSERVICECHARGE = 0;
       this.productObj.HASECSCHARGE = 0;
@@ -632,7 +685,7 @@ onSubmit(){
           }else{
             this.productMasterService.getProductInfo('PRG99999999').subscribe(result=>{
               this.selectedGroupInfo = result.result[0];
-
+              this.router.navigate([this.returnUrl]);
             })
   
 
@@ -641,6 +694,10 @@ onSubmit(){
       
     }
   })
+}
+
+ngDestroy(){
+  this.dialog.closeAll();
 }
 
 preventInput($event:any) {

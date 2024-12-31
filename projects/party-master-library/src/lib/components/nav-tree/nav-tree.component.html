@@ -1,46 +1,83 @@
 <div class="d-flex">
-  <!-- Sidebar -->
-  <div 
-    [class.collapsed]="isCollapsed" 
-    class="bg-white text-black p-2 vh-100 sidebar d-flex flex-column align-items-center">
-    <div *ngIf="isCollapsed" class="nav-text">
-      <span>Main Group</span>
+  <div class="sidebar-container">
+  <div class="toggle-button" (click)="toggleNavbar()" [ngClass]="{'right-position': isNavbarOpen}">
+    <span class="arrow">{{ isNavbarOpen ? '←' : '→' }}</span>
+    <div *ngIf="!isNavbarOpen" class="landscaped-label">
+      <h3>Main Group</h3>
     </div>
-    <button 
-      class="btn btn-outline-dark mb-3 toggle-btn" 
-      (click)="toggleNav()">
-      <span *ngIf="isCollapsed">&#x27A4;</span>
-      <span *ngIf="!isCollapsed">&#x27A5;</span>
-    </button>
-    <ul class="nav flex-column text-start w-100" *ngIf="!isCollapsed">
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('home')">Home</a>
+  </div>
+  <!-- Main Sidebar -->
+  <div class="sidebar" *ngIf="isNavbarOpen" style="transition: left 0.3s;">
+    <div class="heading">
+      <div class="navbar-title">
+        <h2>Main Group</h2>
+      </div>
+      <div class="navbar-search">
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterItems('main')" />
+      </div>
+    </div>
+    <ul class="nav flex-column" style="overflow-y: auto;">
+      <li
+        class="nav-item"
+        *ngFor="let main of mainGroupList; let i=index"
+        
+        [value]="main.MCODE"
+        (click)="getSubGroupA($event)"
+        (click)="toggleSecondSidebar(main)"
+        
+        
+        [ngClass]="{'active': selectedSecondItem === main}"
+      >
+        <div class="nav-content"><a>{{ main?.DESCA}}</a></div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('about')">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('services')">Services</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="#" (click)="toggleSubNav('contact')">Contact</a>
+    </ul>
+  </div>
+</div>
+
+  <!-- SubGroup A -->
+  <div *ngIf="secondSidebarVisible" class="sidebar bg-second vh-100">
+    <div class="navbar-title">
+      <h3>Sub Group (A)</h3>
+    </div>
+    <div class="navbar-search">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTermSecond" (input)="filterItems('GroupA')">
+    </div>
+  
+    <ul class="nav flex-column">
+      <li *ngFor="let sub of subGroupAList; let i=index" [value]="sub.MCODE" class="nav-item" (click)="toggleThirdSidebar(sub)"  [ngClass]="{'active': selectedSecondItem === sub}">
+        <div class="nav-content"><a>{{sub?.DESCA}}</a></div>
       </li>
     </ul>
   </div>
 
-  <!-- Sub-navbar (appears to the right of the parent navbar) -->
-  <div class="sub-navbar-container" *ngIf="activeSubNav">
-    <div *ngIf="activeSubNav === 'home'" class="sub-navbar">
-      <p>Home Sub-navbar Content</p>
+  <!-- SubGroup B -->
+  <div *ngIf="thirdSidebarVisible" class="sidebar bg-third vh-100">
+    <div class="navbar-title">
+      <h3>Sub Group (B)</h3>
     </div>
-    <div *ngIf="activeSubNav === 'about'" class="sub-navbar">
-      <p>About Sub-navbar Content</p>
+    <div class="navbar-search">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTermThird" (input)="filterItems('GroupB')">
     </div>
-    <div *ngIf="activeSubNav === 'services'" class="sub-navbar">
-      <p>Services Sub-navbar Content</p>
+  
+    <ul class="nav flex-column">
+      <li *ngFor="let item of filteredGroupBItems" class="nav-item" (click)="toggleFourthSidebar(item)"  [ngClass]="{'active': selectedThirdItem === item}">
+        <div class="nav-content"><a>{{item}}</a></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SubGroup C -->
+  <div *ngIf="fourthSidebarVisible" class="sidebar bg-fourth vh-100">
+    <div class="navbar-title">
+      <h3>Sub Group (C)</h3>
     </div>
-    <div *ngIf="activeSubNav === 'contact'" class="sub-navbar">
-      <p>Contact Sub-navbar Content</p>
+    <div class="navbar-search">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTermFourth" (input)="filterItems('GroupC')">
     </div>
+    <ul class="nav flex-column">
+      <li *ngFor="let item of filteredGroupCItems" class="nav-item" (click)="subGroupCitem(item)" >
+        <div class="nav-content"><a>{{item}}</a></div>
+      </li>
+    </ul>
   </div>
 </div>
