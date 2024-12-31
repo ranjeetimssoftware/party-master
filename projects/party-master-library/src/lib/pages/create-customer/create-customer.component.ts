@@ -173,6 +173,18 @@ export class CreateCustomerComponent {
         return;
       }
     }
+    if (this.partyMasterService.customermasterObj.mobile.length != 10) {
+      alert('Mobile no. must be of 10 digits.');
+      return;
+    }
+    if (
+      this.partyMasterService.customermasterObj.mobile &&
+      (isNaN(Number(this.partyMasterService.customermasterObj.mobile)) || 
+        /[a-zA-Z]/.test(this.partyMasterService.customermasterObj.mobile))
+    ) {
+      alert('Mobile No. must be numeric and contain no alphabets.');
+      return;
+    }
     if (
       this.partyMasterService.customermasterObj.mobile == '' ||
       this.partyMasterService.customermasterObj.mobile == undefined ||

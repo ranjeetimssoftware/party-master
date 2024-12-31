@@ -25,11 +25,13 @@
       </div>
     </div>
 
-    <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <!-- <div class="row mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || userSettings.CompanyType == > -->
+      <div class="row mt-3 mb-2">
       <label for="credit-terms" class="form-label-header">Credit Terms</label>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <!-- <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1) || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)"> -->
+      <div class="row d-flex align-items-center mt-3 mb-2">
       <div class="col-12 col-md-2">
         <label for="creditLimit" class="form-label">Credit Limit</label>
       </div>
@@ -45,7 +47,8 @@
       </div>
     </div>
 
-    <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)  || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)">
+    <!-- <div class="row d-flex align-items-center mt-3 mb-2" *ngIf="userSettings.CompanyType == 'B2B' || (userSettings.CompanyType == 'B2B' && partyMasterService.customermasterObj.isCustomerLedger == 1)  || (userSettings.CompanyType == 'B2C' && partyMasterService.customermasterObj.isCustomerLedger == 1)"> -->
+      <div class="row d-flex align-items-center mt-3 mb-2">
       <div class="col-12 col-md-2">
         <label for="creditDays" class="form-label">Credit Days</label>
       </div>
