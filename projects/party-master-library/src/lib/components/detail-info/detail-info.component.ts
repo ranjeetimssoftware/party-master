@@ -543,6 +543,26 @@ export class DetailInfoComponent implements OnInit {
     return false;
   }
 
+  checkNonNegativeNumber() {
+     const weight = parseFloat(this.productObj.GWEIGHT);
+     const L = this.productObj.LENGTH;
+     const B = this.productObj.BREADTH;
+     const W = this.productObj.WIDTH;
+
+  if (isNaN(weight) || weight < 0) {
+    this.productObj.GWEIGHT = "0"; 
+  }
+  if((L ?? 0) < 0){
+    this.productObj.LENGTH = 0 ;
+  }
+  if((B ?? 0) < 0){
+    this.productObj.BREADTH = 0 ;
+  }
+  if((W ?? 0) < 0){
+    this.productObj.WIDTH = 0 ;
+  }
+  }
+
   
 
 

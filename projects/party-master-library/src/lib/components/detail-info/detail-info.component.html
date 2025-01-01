@@ -414,7 +414,7 @@
                     <label for="" class="form-label">Item Weight:</label>
                   </div>
                   <div class="col-5">
-                    <input type="number" min="0" class="form-control" placeholder="Enter Weight" [(ngModel)]="productObj.GWEIGHT">
+                    <input type="number" min="0" class="form-control" placeholder="Enter Weight" [(ngModel)]="productObj.GWEIGHT" (blur)="checkNonNegativeNumber()">
                   </div>
                 </div>
                 <div class="row form-group">
@@ -422,9 +422,9 @@
                     <label for="" class="form-label">Dimension:</label>
                   </div>
                   <div class="col-5 d-flex flex-row">
-                    <input type="number" min="0" class="form-control mr-1" placeholder="L" [(ngModel)]="productObj.LENGTH">
-                    <input type="number" min="0" class="form-control mr-1" placeholder="W" [(ngModel)]="productObj.WIDTH">
-                    <input type="number" min="0" class="form-control" placeholder="B" [(ngModel)]="productObj.BREADTH">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="L" [(ngModel)]="productObj.LENGTH" (blur)="checkNonNegativeNumber()">
+                    <input type="number" min="0" class="form-control mr-1" placeholder="W" [(ngModel)]="productObj.WIDTH" (blur)="checkNonNegativeNumber()">
+                    <input type="number" min="0" class="form-control" placeholder="B" [(ngModel)]="productObj.BREADTH" (blur)="checkNonNegativeNumber()">
                   </div>
                   <div class="col-4" style="white-space: nowrap;">
                     (Length X Width X Breadth)

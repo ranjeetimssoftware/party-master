@@ -12,9 +12,6 @@ import { prodObj, ProductGroup } from '../../pages/ProductItem';
 export class NavTreeComponent implements OnInit{
   mainGroupList: any =[];
   isNavbarOpen = false;
-  secondSidebarVisible = false;
-  thirdSidebarVisible = false;
-  fourthSidebarVisible = false;
   productgrouptree:any =[];
   groupSelectObj: ProductGroup = <ProductGroup>{};
   subGroupAList: any = [];
@@ -24,48 +21,31 @@ export class NavTreeComponent implements OnInit{
   selectedMainItem: string | null = null;
   selectedSecondItem: string | null = null;
   selectedThirdItem: string | null = null;
-  MainItems:[]= [];
-  GroupAItems:[]= [];
-  GroupBItems:[] = [];
-  GroupCItems = ['A111', 'A112', 'A113', 'A114', 'A115'];
-  filteredMainItems: string[] = [];
-  filteredGroupAItems = [...this.GroupAItems];
-  filteredGroupBItems = [...this.GroupBItems];
-  filteredGroupCItems = [...this.GroupCItems];
+  
   searchQuery: string = '';
   searchTermSecond: string = '';
   searchTermThird: string = '';
   searchTermFourth: string = '';
   
   selectedPath: string[] =[];
+  showSubgroupA: boolean = false;
+  showSubgroupB: boolean = false;
+  showSubgroupC: boolean = false;
+  subGroupBList: any=[];
+  subGroupCList: any;
 
   constructor(private router:Router, private ProductMasterService: ProductMasterService){}
 
   ngOnInit(): void {
-    
-    this.ProductMasterService.getProductGroupTree().subscribe((res)=>{
-      this.productgrouptree =res;
-      console.log('productGroupTree:', this.productgrouptree[0].children);
-
-      if(this.productgrouptree.length>0 && this.productgrouptree[0].children){
-        this.MainItems = this.productgrouptree[0].children.map((item:any)=> item.name);
-        this.filteredMainItems =[...this.MainItems];
-        console.log('Main Items',this.MainItems);
-      }else{
-        this.MainItems =[];
-        this.filteredMainItems =[];
-      }
-    });
-
     this.getAllMajorGroup();
   }
 
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
-
-    // Reset active states when the dashboard is closed
     if (!this.isNavbarOpen) {
-      this.resetActiveStates();
+      this.showSubgroupA= false;
+      this.showSubgroupB= false;
+      this.showSubgroupC= false;
     }
   }
 
@@ -79,9 +59,9 @@ export class NavTreeComponent implements OnInit{
     });
   }
 
-  getSubGroupA(e:Event) {
-    const input = e.target as HTMLInputElement;
-    let mainGroupID = input.value;
+  getSubGroupA(e:any) {
+    
+    let mainGroupID = e;
     if(this.ProductMasterService.userSetting.AUTOCODEMODE == 1){
       this.ProductMasterService.getAutoGenerateMenuCode(mainGroupID,mainGroupID).subscribe(
         res=>{
@@ -98,6 +78,11 @@ export class NavTreeComponent implements OnInit{
     this.ProductMasterService.getSubGroupList(mainGroupID).subscribe((res) => {
       if (res.length > 0) {
         this.subGroupAList = res;
+        this.subGroupAList = res;
+        console.log('subGroupAList', this.subGroupAList);
+        this.showSubgroupA = true;
+        this.showSubgroupB = false;
+        this.showSubgroupC = false;
         this.groupSelectObj.SUBGROUP_A = "";
         this.groupSelectObj.SUBGROUP_B = "";
         this.groupSelectObj.SUBGROUP_C = "";
@@ -107,10 +92,14 @@ export class NavTreeComponent implements OnInit{
       } else {
   
         this.subGroupAList = [];
-        
+        this.subGroupAList = [];
         this.groupSelectObj.SUBGROUP_A = "";
         this.groupSelectObj.SUBGROUP_B = "";
-        this.groupSelectObj.SUBGROUP_C = ""
+        this.groupSelectObj.SUBGROUP_C = "";
+        this.showSubgroupA = false;
+        this.showSubgroupB = false;
+        this.showSubgroupC = false;
+  
   
       }
     })
@@ -135,88 +124,89 @@ export class NavTreeComponent implements OnInit{
   
   }
 
-  toggleSecondSidebar(itemName: string) {
-    
-    this.thirdSidebarVisible = false;
-    this.fourthSidebarVisible = false;
-
-    // Update selected state for the main sidebar
-    const selectedItem = this.productgrouptree[0].children.find(
-      (item:any) => item.name ===itemName
-    );
-
-    if(selectedItem && selectedItem.children && selectedItem.children.length >0 ){
-      this.GroupAItems = selectedItem.children.map((item:any)=> item.name);
-      this.filteredGroupAItems=[...this.GroupAItems];
-      this.secondSidebarVisible = true;
+  getSubGroupB(e:any) {
+   
+    let subGroupAID = e;
+   
+    if(this.ProductMasterService.userSetting.AUTOCODEMODE == 1){
+      this.ProductMasterService.getAutoGenerateMenuCode(subGroupAID,subGroupAID).subscribe(
+        res=>{
+          if(res.status == 'ok'){
+            this.prodObj.MENUCODE = res.result;
+            this.selectedGroupInfo = this.prodObj;
+          }
+        }
+      )
     }else{
-      this.secondSidebarVisible = false;
+    this.uniqueKey(subGroupAID);
     }
-    this.selectedMainItem = selectedItem;
-    // Reset lower-level selections
-    this.selectedSecondItem = null;
-    this.selectedThirdItem = null;
+  
+    this.ProductMasterService.getSubGroupList(subGroupAID).subscribe((res) => {
+      if (res.length > 0) {
+        this.subGroupBList = res;
+        this.subGroupBList = res;
+        this.showSubgroupB = true;
+        this.showSubgroupC = false;
+  
+  
+      } else {
+        this.subGroupBList = [];
+        this.groupSelectObj.SUBGROUP_B = "";
+        this.showSubgroupB = false;
+        this.showSubgroupC = false;
+  
+  
+      }
+    })
   }
 
-  toggleThirdSidebar(itemName: string) {
+  getSubGroupC(e:any) {
     
-    this.fourthSidebarVisible = false;
-
-    const selectedItem =this.productgrouptree[0].children.find((item:any)=> item.name ===this.selectedMainItem)?.children.find((item:any)=> item.name ===itemName);
-    console.log('hehe', selectedItem);
-    if(selectedItem && selectedItem.children && selectedItem.children.length >0){
-      this.GroupBItems = selectedItem.children.map((item:any)=> item.name);
-      console.log('GroupBITEMS', this.GroupBItems);
-      this.filteredGroupBItems = [...this.GroupBItems];
-      this.thirdSidebarVisible = true;
+    let subGroupBID = e;
+    // this.PARENT = e.target.value;
+    if(this.ProductMasterService.userSetting.AUTOCODEMODE == 1){
+      this.ProductMasterService.getAutoGenerateMenuCode(subGroupBID,subGroupBID).subscribe(
+        res=>{
+          if(res.status == 'ok'){
+            this.prodObj.MENUCODE = res.result;
+            this.selectedGroupInfo = this.prodObj;
+          }
+        }
+      )
     }else{
-      this.thirdSidebarVisible = false;
+    this.uniqueKey(subGroupBID);
     }
-    
-    // Update selected state for the second sidebar
-   this.selectedSecondItem = selectedItem;
-
-    // Reset lower-level selections
-    this.selectedThirdItem = null;
-  }
-
-  toggleFourthSidebar(item: string) {
-    this.fourthSidebarVisible = true;
-
-    // Update selected state for the third sidebar
-    this.selectedThirdItem = item;
-    this.selectedPath[2] = item;
-  }
-
-  subGroupCitem(item: string){
-    this.selectedPath[3] = item;
-  }
-
-  // navigateToHeading(){
-  //   this.router.navigate(['/navtreeheading'],{
-  //     queryParams:{path:JSON.stringify(this.selectedPath)}
-  //   });
-  // }
-
-  resetActiveStates() {
-    
-    this.selectedMainItem = null;
-    this.selectedSecondItem = null;
-    this.selectedThirdItem = null;
-    this.secondSidebarVisible = false;
-    this.thirdSidebarVisible = false;
-    this.fourthSidebarVisible = false;
+  
+    this.ProductMasterService.getSubGroupList(subGroupBID).subscribe((res) => {
+  
+      if (res.length > 0) {
+        this.subGroupCList = res;
+        this.subGroupCList = res;
+        this.showSubgroupC = true;
+  
+      } else {
+        if(this.ProductMasterService.userSetting.AUTOCODEMODE != 1){
+        this.uniqueKey(subGroupBID);
+        }
+  
+        this.subGroupCList = [];
+        this.subGroupCList = [];
+        this.groupSelectObj.SUBGROUP_C = "";
+        this.showSubgroupC = false;
+  
+      }
+    })
   }
 
   filterItems(sidebar: string) {
     if (sidebar === 'main') {
-      this.filteredMainItems = this.MainItems.filter((item: string) => item.toLowerCase().includes(this.searchQuery.toLowerCase()));
+      this.mainGroupList = this.mainGroupList.filter((item: string) => item.toLowerCase().includes(this.searchQuery.toLowerCase()));
     } else if (sidebar === 'GroupA') {
-      this.filteredGroupAItems = this.GroupAItems.filter((item:string) => item.toLowerCase().includes(this.searchTermSecond.toLowerCase()));
+      this.subGroupAList = this.subGroupAList.filter((item:string) => item.toLowerCase().includes(this.searchTermSecond.toLowerCase()));
     } else if (sidebar === 'GroupB') {
-      this.filteredGroupBItems = this.GroupBItems.filter((item:string)=> item.toLowerCase().includes(this.searchTermThird.toLowerCase()));
+      this.subGroupBList = this.subGroupBList.filter((item:string)=> item.toLowerCase().includes(this.searchTermThird.toLowerCase()));
     } else if (sidebar === 'GroupC') {
-      this.filteredGroupCItems = this.GroupCItems.filter(item => item.toLowerCase().includes(this.searchTermFourth.toLowerCase()));
+      this.subGroupCList = this.subGroupCList.filter((item:string) => item.toLowerCase().includes(this.searchTermFourth.toLowerCase()));
     }
   }
 }
