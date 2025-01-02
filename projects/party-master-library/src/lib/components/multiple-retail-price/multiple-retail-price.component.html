@@ -44,9 +44,18 @@
         <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="number" min="0" placeholder="0" class="press-enter"  [(ngModel)]="MultipeRetailObj.INRATE" (keyup)="onChangeExculsiveRate()"></td>
         <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="number" min="0" placeholder="0" class="press-enter" [(ngModel)]="MultipeRetailObj.RATE" (keyup)="onChangeINculsiveRate()"></td>
         <td [ngClass]="{ 'disabled-cell': modee === 'view' }" *ngIf="userSetting.EnableDivisionWiseMulitpleSPrice == 0">
-          <input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MultipeRetailObj.DIVISION" (keydown.Enter)="onSelectDivisionList()"></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="text" placeholder="Press Enter" class="press-enter" [(ngModel)]="MultipeRetailObj.DIVISION" (keydown.Enter)="onSelectDivisionList()"></td>
         <td [ngClass]="{ 'disabled-cell': modee === 'view' }"><input type="date" placeholder="dd/mm/yyyy" class="press-enter" [(ngModel)]="MultipeRetailObj.EXPDATE"></td>
-        <td [ngClass]="{ 'disabled-cell': modee === 'view' }"></td>
+        <td [ngClass]="{ 'disabled-cell': modee === 'view' }">
+          <div class="d-flex">
+            <mat-slide-toggle [(ngModel)]="MultipeRetailObj.ISACTIVE"
+            class="custom-toggle text-center" style="line-height: 10px;"
+            color="primary"
+          ></mat-slide-toggle>
+            <button type="button" class="btn p-0  remove-Btn">
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

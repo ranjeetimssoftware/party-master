@@ -34,6 +34,12 @@ export class NavTreeComponent implements OnInit{
   subGroupBList: any=[];
   subGroupCList: any;
 
+  loadedSubGroups = {
+    A: false,
+    B: false,
+    C: false
+  };
+
   constructor(private router:Router, private ProductMasterService: ProductMasterService){}
 
   ngOnInit(): void {
@@ -62,6 +68,11 @@ export class NavTreeComponent implements OnInit{
   getSubGroupA(e:any) {
     
     let mainGroupID = e;
+    if (this.showSubgroupA && this.selectedGroupInfo?.MGROUP === mainGroupID) {
+      console.log('SubGroupA data already loaded, skipping API call');
+      return; // Skip the API call if already loaded
+    }
+
     if(this.ProductMasterService.userSetting.AUTOCODEMODE == 1){
       this.ProductMasterService.getAutoGenerateMenuCode(mainGroupID,mainGroupID).subscribe(
         res=>{
@@ -79,18 +90,20 @@ export class NavTreeComponent implements OnInit{
       if (res.length > 0) {
         this.subGroupAList = res;
         this.subGroupAList = res;
-        console.log('subGroupAList', this.subGroupAList);
+        this.loadedSubGroups.A = true;
         this.showSubgroupA = true;
         this.showSubgroupB = false;
         this.showSubgroupC = false;
         this.groupSelectObj.SUBGROUP_A = "";
         this.groupSelectObj.SUBGROUP_B = "";
         this.groupSelectObj.SUBGROUP_C = "";
+        this.selectedGroupInfo.MGROUP=mainGroupID;
+        
   
   
   
       } else {
-  
+        this.loadedSubGroups.A = false;
         this.subGroupAList = [];
         this.subGroupAList = [];
         this.groupSelectObj.SUBGROUP_A = "";
@@ -99,6 +112,7 @@ export class NavTreeComponent implements OnInit{
         this.showSubgroupA = false;
         this.showSubgroupB = false;
         this.showSubgroupC = false;
+        return;
   
   
       }
@@ -127,6 +141,10 @@ export class NavTreeComponent implements OnInit{
   getSubGroupB(e:any) {
    
     let subGroupAID = e;
+    if (this.showSubgroupB && this.selectedGroupInfo?.MGROUP === subGroupAID) {
+      console.log('SubGroupA data already loaded, skipping API call');
+      return; // Skip the API call if already loaded
+    }
    
     if(this.ProductMasterService.userSetting.AUTOCODEMODE == 1){
       this.ProductMasterService.getAutoGenerateMenuCode(subGroupAID,subGroupAID).subscribe(
@@ -134,6 +152,7 @@ export class NavTreeComponent implements OnInit{
           if(res.status == 'ok'){
             this.prodObj.MENUCODE = res.result;
             this.selectedGroupInfo = this.prodObj;
+            
           }
         }
       )
@@ -147,6 +166,7 @@ export class NavTreeComponent implements OnInit{
         this.subGroupBList = res;
         this.showSubgroupB = true;
         this.showSubgroupC = false;
+        this.selectedGroupInfo.MGROUP=subGroupAID;
   
   
       } else {
